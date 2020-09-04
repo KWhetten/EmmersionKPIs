@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="601339d0-2f75-4cf7-8c9f-ab735d79f8c9" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor.UnitTests/DevOpsApiWrapperTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0E721F56-4FFA-49E6-B1D9-7AD7B9FDA1F2/6f/0f4425c7/ConfigurationManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor.UnitTests/Objects/JsonWorkItemCard.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/D32DB49E-5E34-4072-9DA3-1845C03DDC3A/ee/c3e2e4fa/JArray.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/DB9CEB1E-F6C3-448D-8D4A-C9F8963779FB/1E0/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/515042C0-B3E1-414A-875D-5BCB103C1DCD/9/Uri.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/657B2BF7-95E5-4570-A29C-F9556A5277CB/8B/UpdateDelegates.Generated.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/DevOpsApi/DevOpsApiWrapper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/Database/DataAccess.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/Database/Helper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/Objects/WorkItemCard.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/Objects/WorkItemCardType.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/Objects/Release.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/Objects/ReleaseEnvironment.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/Deserialize/Deserializer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3830E338-FB85-4AC5-85A8-928949C5BA47/f7/54bd7982/ConnectionStringSettings.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/D32DB49E-5E34-4072-9DA3-1845C03DDC3A/39/74ac0824/JToken.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/DB9CEB1E-F6C3-448D-8D4A-C9F8963779FB/3DC/List.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor.UnitTests/Objects/WorkItemCardUpdate.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/0FD994BB-96F4-411F-A53F-418501DCE500/E/SqlMapper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor.UnitTests/DataAccessTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2845C3BC-527A-40C9-B3DC-CA0CA1296D20/84/84d8b0de/WorkItemTrackingHttpClientBase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/BCF8430F-35F5-4573-9E5E-D4FC6C9A130D/F/RestClient.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor.UnitTests/App.config" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0E721F56-4FFA-49E6-B1D9-7AD7B9FDA1F2/03/5dbd7072/ConfigurationElementCollection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/DB9CEB1E-F6C3-448D-8D4A-C9F8963779FB/38/String.Manipulation.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/D32DB49E-5E34-4072-9DA3-1845C03DDC3A/5d/af121a22/JObject.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0E721F56-4FFA-49E6-B1D9-7AD7B9FDA1F2/fb/eb9d033a/ConnectionStringSettingsCollection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/D32DB49E-5E34-4072-9DA3-1845C03DDC3A/ed/2f7f674f/JObject.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor.UnitTests/DeserializerTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/D32DB49E-5E34-4072-9DA3-1845C03DDC3A/d9/4b0a1cd6/JsonConvert.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/DB9CEB1E-F6C3-448D-8D4A-C9F8963779FB/14E/ExecutionContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/App.config" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/DB9CEB1E-F6C3-448D-8D4A-C9F8963779FB/168/Future.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/nunit/nunit/c933a883ea25263ec575a654dae69fa38000edd9/src/NUnitFramework/framework/Internal/Execution/WorkItem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/nunit/nunit/c933a883ea25263ec575a654dae69fa38000edd9/src/NUnitFramework/framework/Internal/Execution/SimpleWorkItemDispatcher.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/924AFB0E-B01E-4C89-885F-41457BE122CA/5/Component.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/nunit/nunit/c933a883ea25263ec575a654dae69fa38000edd9/src/NUnitFramework/framework/Internal/Execution/CompositeWorkItem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp/Pages/_ViewImports.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2845C3BC-527A-40C9-B3DC-CA0CA1296D20/5a/cda2db13/WorkItem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/BBA84251-74F5-4959-8295-226979A5A5D7/31/JsonSerializer.Read.String.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/nunit/nunit/c933a883ea25263ec575a654dae69fa38000edd9/src/NUnitFramework/framework/Internal/Reflect.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp/Controllers/WeatherForecastController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor.UnitTests/Objects/JsonRelease.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Release.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/README.txt" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Deploy.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Docker.yml" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/DatabaseWrapper.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Objects/Build.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Objects/Environment.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Objects/BoardColumn.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/DevOpsApi/ApiWrapper.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Objects/DevTeam.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Objects/ReleaseEnvironment.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Objects/WorkItemCardType.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Database/DatabaseWrapper.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/docker-compose.yml" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/App.config" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Objects/Team.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Objects/Release.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Tests/DatabaseTests/HelperTests.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Tests/DevOpsApiTests/DevOpsApiWrapperTests.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Tests/ObjectsTests/DeserializeTests.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Tests/ProgramTests.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Tests/IntegrationTest.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Tests/DatabaseTests/DataAccessTests.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Objects/Deserialize.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Objects/WorkItemCard.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/KPIDataExtractor.csproj" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Program2.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor2/Program.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor2/Objects/Deserialize.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor2/Database/DataAccess.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor.UnitTests/UnitTest1.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor.UnitTests/Deserialize/UnitTest1.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Deserialize/Deserialize.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor.UnitTests/Deserialize/DeserializeTests.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor.UnitTests/Objects/JsonRelease.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor.UnitTests/Objects/JsonWorkItemCard.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Database/Helper.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Program.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor.UnitTests/Deserialize/DeserializerTests.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor.UnitTests/DataAccesstests.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor.UnitTests/DevOpsApiWrapperTests.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor.UnitTests/DataAccessTests.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor.UnitTests/Objects/WorkItemCardUpdate.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor.UnitTests/DeserializerTests.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Deserialize/Deserializer.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/DevOpsApi/DevOpsApiWrapper.cs" />
+        <option value="$PROJECT_DIR$/KPIDataExtractor/Database/DataAccess.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1epPuRfLMXOUuZg7SJ5TCRc3pLr" />
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Rider.SolutionExplorerActivator" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RunManager" selected=".NET Project.KPIDataExtractor">
+    <configuration name="KPIDataExtractor" type="DotNetProject" factoryName=".NET Project">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/KPIDataExtractor.dll" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="PROJECT_PATH" value="$PROJECT_DIR$/KPIDataExtractor/KPIDataExtractor.csproj" />
+      <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
+      <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
+      <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
+      <option name="PROJECT_KIND" value="DotNetCore" />
+      <option name="PROJECT_TFM" value=".NETCoreApp,Version=v3.1" />
+      <method v="2">
+        <option name="Build" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="601339d0-2f75-4cf7-8c9f-ab735d79f8c9" name="Default Changelist" comment="" />
+      <created>1595015783479</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1595015783479</updated>
+      <workItem from="1595015784880" duration="605000" />
+      <workItem from="1595261367119" duration="207000" />
+      <workItem from="1595261936642" duration="1592000" />
+      <workItem from="1595265274648" duration="6701000" />
+      <workItem from="1595295686526" duration="2687000" />
+      <workItem from="1595445260486" duration="1563000" />
+      <workItem from="1595467895060" duration="5187000" />
+      <workItem from="1595699743978" duration="9803000" />
+      <workItem from="1595871062866" duration="131000" />
+      <workItem from="1595955750981" duration="599000" />
+      <workItem from="1596049670851" duration="5259000" />
+      <workItem from="1596065591599" duration="4872000" />
+      <workItem from="1596224211759" duration="21585000" />
+      <workItem from="1596306205074" duration="12428000" />
+      <workItem from="1596498860455" duration="3239000" />
+      <workItem from="1596593610926" duration="3120000" />
+      <workItem from="1596654143914" duration="5105000" />
+      <workItem from="1596665250452" duration="13699000" />
+      <workItem from="1596727104087" duration="2657000" />
+      <workItem from="1596734549398" duration="14750000" />
+      <workItem from="1596814967994" duration="304000" />
+      <workItem from="1596817882895" duration="1957000" />
+      <workItem from="1596828471355" duration="4498000" />
+      <workItem from="1596921178823" duration="405000" />
+      <workItem from="1597850748202" duration="15770000" />
+      <workItem from="1597889567422" duration="5656000" />
+      <workItem from="1597934860165" duration="3256000" />
+      <workItem from="1597938147395" duration="1935000" />
+      <workItem from="1597940117941" duration="1419000" />
+      <workItem from="1597941567301" duration="440000" />
+      <workItem from="1597942033687" duration="464000" />
+      <workItem from="1597942574539" duration="2655000" />
+      <workItem from="1597945829036" duration="79000" />
+      <workItem from="1597956337974" duration="2879000" />
+      <workItem from="1597972687067" duration="5759000" />
+      <workItem from="1598136589067" duration="2553000" />
+      <workItem from="1598139169704" duration="2938000" />
+      <workItem from="1598296728314" duration="823000" />
+      <workItem from="1598301311357" duration="8472000" />
+      <workItem from="1598385673247" duration="4056000" />
+      <workItem from="1598407936890" duration="6494000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="UnitTestsCoverage.Settings">
+    <option name="coveragePercentColumnWidth" value="74" />
+    <option name="sortOrder" value="DESCENDING" />
+    <option name="sortedColumn" value="1" />
+    <option name="symbolColumnWidth" value="266" />
+    <coverage-tree-state>
+      <expand>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="1" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="1" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="288" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="1" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="288" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="280" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="1" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="287" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="1" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="287" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="282" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="1" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="287" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="282" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="285" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="1" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="287" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="282" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="285" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="256" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+      </expand>
+      <select />
+    </coverage-tree-state>
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="WindowStateProjectService">
+    <state x="1203" y="178" key="#KPIDataExtractor" timestamp="1597939897951">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1203" y="178" key="#KPIDataExtractor/0.0.1920.1040@0.0.1920.1040" timestamp="1597939897951" />
+    <state x="1124" y="180" key="#KPIDataExtractor2" timestamp="1597945391943">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1124" y="180" key="#KPIDataExtractor2/0.0.1920.1040@0.0.1920.1040" timestamp="1597945391943" />
+    <state x="1032" y="183" key="#SQL_Dialects" timestamp="1596596619634">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1032" y="183" key="#SQL_Dialects/0.0.1920.1040@0.0.1920.1040" timestamp="1596596619634" />
+    <state x="941" y="106" width="898" height="690" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597940414485">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="941" y="106" width="898" height="690" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597940414485" />
+    <state x="1198" y="385" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1" timestamp="1597938802317">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1198" y="385" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1/0.0.1920.1040@0.0.1920.1040" timestamp="1597938802317" />
+    <state width="513" height="466" key="DebuggerActiveHint" timestamp="1597971998647">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="513" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1597971998647" />
+    <state width="1877" height="320" key="GridCell.Tab.0.bottom" timestamp="1598414437765">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437765" />
+    <state width="1877" height="320" key="GridCell.Tab.0.center" timestamp="1598414437765">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437765" />
+    <state width="1877" height="320" key="GridCell.Tab.0.left" timestamp="1598414437765">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437765" />
+    <state width="1877" height="320" key="GridCell.Tab.0.right" timestamp="1598414437765">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437765" />
+    <state width="1877" height="320" key="GridCell.Tab.1.bottom" timestamp="1598414437765">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437765" />
+    <state width="1877" height="320" key="GridCell.Tab.1.center" timestamp="1598414437765">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437765" />
+    <state width="1877" height="320" key="GridCell.Tab.1.left" timestamp="1598414437765">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437765" />
+    <state width="1877" height="320" key="GridCell.Tab.1.right" timestamp="1598414437765">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437765" />
+    <state width="1877" height="320" key="GridCell.Tab.2.bottom" timestamp="1598414437765">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437765" />
+    <state width="1877" height="320" key="GridCell.Tab.2.center" timestamp="1598414437765">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437765" />
+    <state width="1877" height="320" key="GridCell.Tab.2.left" timestamp="1598414437765">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437765" />
+    <state width="1877" height="320" key="GridCell.Tab.2.right" timestamp="1598414437765">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437765" />
+    <state width="1877" height="320" key="GridCell.Tab.3.bottom" timestamp="1598414437766">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437766" />
+    <state width="1877" height="320" key="GridCell.Tab.3.center" timestamp="1598414437766">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437766" />
+    <state width="1877" height="320" key="GridCell.Tab.3.left" timestamp="1598414437765">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437765" />
+    <state width="1877" height="320" key="GridCell.Tab.3.right" timestamp="1598414437766">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437766" />
+    <state width="1877" height="320" key="GridCell.Tab.4.bottom" timestamp="1598414437766">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.4.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437766" />
+    <state width="1877" height="320" key="GridCell.Tab.4.center" timestamp="1598414437766">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.4.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437766" />
+    <state width="1877" height="320" key="GridCell.Tab.4.left" timestamp="1598414437766">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.4.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437766" />
+    <state width="1877" height="320" key="GridCell.Tab.4.right" timestamp="1598414437766">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="320" key="GridCell.Tab.4.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598414437766" />
+    <state x="770" y="241" key="Rider.ProjectTemplateDialog.Size" timestamp="1598389072496">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="770" y="241" key="Rider.ProjectTemplateDialog.Size/0.0.1920.1040@0.0.1920.1040" timestamp="1598389072496" />
+    <state x="670" y="200" key="RiderGenerateDialog" timestamp="1598140016350">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="670" y="200" key="RiderGenerateDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1598140016350" />
+    <state width="487" height="523" key="XDebugger.FullValuePopup" timestamp="1597978360830">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="487" height="523" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1597978360830" />
+    <state x="1118" y="255" width="644" height="536" key="find.popup" timestamp="1597945608546">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1118" y="255" width="644" height="536" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1597945608546" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1598303992524">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1598303992524" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/KPIDataExtractor/Tests/DatabaseTests/DataAccessTests.cs</url>
+          <line>14</line>
+          <properties documentPath="$PROJECT_DIR$/KPIDataExtractor/Tests/DatabaseTests/DataAccessTests.cs" initialLine="14" />
+          <option name="timeStamp" value="83" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/KPIDataExtractor/Tests/DatabaseTests/DataAccessTests.cs</url>
+          <line>28</line>
+          <properties documentPath="$PROJECT_DIR$/KPIDataExtractor/Tests/DatabaseTests/DataAccessTests.cs" initialLine="28" />
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/KPIDataExtractor/Tests/DatabaseTests/DataAccessTests.cs</url>
+          <line>42</line>
+          <properties documentPath="$PROJECT_DIR$/KPIDataExtractor/Tests/DatabaseTests/DataAccessTests.cs" initialLine="42" />
+          <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/KPIDataExtractor/Tests/DatabaseTests/DataAccessTests.cs</url>
+          <line>48</line>
+          <properties documentPath="$PROJECT_DIR$/KPIDataExtractor/Tests/DatabaseTests/DataAccessTests.cs" initialLine="48" />
+          <option name="timeStamp" value="90" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/KPIDataExtractor/Tests/DatabaseTests/DataAccessTests.cs</url>
+          <line>50</line>
+          <properties documentPath="$PROJECT_DIR$/KPIDataExtractor/Tests/DatabaseTests/DataAccessTests.cs" initialLine="50" />
+          <option name="timeStamp" value="91" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/KPIDataExtractor/Tests/DatabaseTests/DataAccessTests.cs</url>
+          <line>51</line>
+          <properties documentPath="$PROJECT_DIR$/KPIDataExtractor/Tests/DatabaseTests/DataAccessTests.cs" initialLine="51" />
+          <option name="timeStamp" value="92" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

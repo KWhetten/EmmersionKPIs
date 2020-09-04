@@ -1,0 +1,89 @@
+﻿h2 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+h3 {
+  font-size: 20px;
+  padding: 0;
+  margin: 8px 0 4px 0;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+p {
+  margin: 0;
+}
+form {
+   padding: 0;
+   margin-bottom: 32px;
+ }
+.date-range {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin: 0;
+}
+.date-range label {
+  margin-right: 8px;
+}
+.from-date {
+  width: 250px;
+}
+.to-date {
+  width: 250px;
+}
+.card-type-checkboxes {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 16px;
+}
+.card-type-checkboxes label {
+  margin-left: 8px;
+}
+.product {
+  flex-direction: column;
+  width: 250px;
+}
+.engineering {
+  flex-direction: column;
+  margin-left: 20px;
+  width: 250px;
+}
+.lead-time {
+  display: flex;
+  flex-direction: row;
+  width: 632px;
+}
+.lead-time-results {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 150px;
+  padding: 16px 0 16px 8px;
+}
+.scatter-plot {
+  border: 1px black solid;
+  width: 300px;
+  height: 300px;
+  margin-right: 32px;
+}
+.lead-time-box-graph {
+  border: 1px black solid;
+  width: 300px;
+  height: 150px;
+}
+.deployment-frequency {
+  display: flex;
+  flex-direction: row;
+  width: 632px;
+}
+.deployment-frequency-results {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  justify-content: space-between;
+  padding: 0 0 32px 8px;
+}

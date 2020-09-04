@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KPIDataExtractor", "KPIDataExtractor\KPIDataExtractor.csproj", "{E7523C36-C2A0-455B-A349-0A2BCBDF3722}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KPIDataExtractor.UnitTests", "KPIDataExtractor.UnitTests\KPIDataExtractor.UnitTests.csproj", "{052EA7EC-9978-4345-9254-F2A3A7E7411C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KPIWebApp", "KPIWebApp\KPIWebApp.csproj", "{5ED588D5-55A3-43D6-B3B0-DE26CE8095FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E7523C36-C2A0-455B-A349-0A2BCBDF3722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7523C36-C2A0-455B-A349-0A2BCBDF3722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7523C36-C2A0-455B-A349-0A2BCBDF3722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7523C36-C2A0-455B-A349-0A2BCBDF3722}.Release|Any CPU.Build.0 = Release|Any CPU
+		{052EA7EC-9978-4345-9254-F2A3A7E7411C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{052EA7EC-9978-4345-9254-F2A3A7E7411C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{052EA7EC-9978-4345-9254-F2A3A7E7411C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{052EA7EC-9978-4345-9254-F2A3A7E7411C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ED588D5-55A3-43D6-B3B0-DE26CE8095FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ED588D5-55A3-43D6-B3B0-DE26CE8095FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ED588D5-55A3-43D6-B3B0-DE26CE8095FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ED588D5-55A3-43D6-B3B0-DE26CE8095FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
