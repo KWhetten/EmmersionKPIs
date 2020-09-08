@@ -8,8 +8,7 @@
     ".NETCoreApp,Version=v3.1": {
       "KPIDataExtractor/1.0.0": {
         "dependencies": {
-          "Dapper": "2.0.35",
-          "Microsoft.TeamFoundationServer.Client": "16.153.0",
+          "DataWrapper": "1.0.0",
           "RestSharp": "106.11.4"
         },
         "runtime": {
@@ -960,6 +959,22 @@
             "fileVersion": "4.6.24705.1"
           }
         }
+      },
+      "DataObjects/1.0.0": {
+        "runtime": {
+          "DataObjects.dll": {}
+        }
+      },
+      "DataWrapper/1.0.0": {
+        "dependencies": {
+          "Dapper": "2.0.35",
+          "DataObjects": "1.0.0",
+          "Microsoft.TeamFoundationServer.Client": "16.153.0",
+          "RestSharp": "106.11.4"
+        },
+        "runtime": {
+          "DataWrapper.dll": {}
+        }
       }
     }
   },
@@ -1640,6 +1655,16 @@
       "sha512": "sha512-A/uxsWi/Ifzkmd4ArTLISMbfFs6XpRPsXZonrIqyTY70xi8t+mDtvSM5Os0RqyRDobjMBwIDHDL4NOIbkDwf7A==",
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
+    },
+    "DataObjects/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DataWrapper/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

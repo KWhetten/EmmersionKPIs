@@ -1,0 +1,11 @@
+C:\Source\KPIWebApp\DataWrapper\bin\Debug\netcoreapp3.1\DataWrapper.deps.json
+C:\Source\KPIWebApp\DataWrapper\bin\Debug\netcoreapp3.1\DataWrapper.dll
+C:\Source\KPIWebApp\DataWrapper\bin\Debug\netcoreapp3.1\DataWrapper.pdb
+C:\Source\KPIWebApp\DataWrapper\bin\Debug\netcoreapp3.1\DataObjects.dll
+C:\Source\KPIWebApp\DataWrapper\bin\Debug\netcoreapp3.1\DataObjects.pdb
+C:\Source\KPIWebApp\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.csprojAssemblyReference.cache
+C:\Source\KPIWebApp\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.AssemblyInfoInputs.cache
+C:\Source\KPIWebApp\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.AssemblyInfo.cs
+C:\Source\KPIWebApp\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.csproj.CopyComplete
+C:\Source\KPIWebApp\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.dll
+C:\Source\KPIWebApp\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.pdb

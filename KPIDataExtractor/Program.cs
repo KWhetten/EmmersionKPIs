@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using KPIDataExtractor.ApiWrapper;
-using KPIDataExtractor.DatabaseAccess;
-using KPIDataExtractor.Deserialize;
+using DataWrapper.ApiWrapper;
+using DataWrapper.DatabaseAccess;
+using DataWrapper.Deserialize;
 using RestSharp;
 
 namespace KPIDataExtractor
@@ -13,7 +12,7 @@ namespace KPIDataExtractor
     {
         private static readonly IDevOpsApiWrapper DevOpsApiWrapper = new DevOpsApiWrapper(new RestClient());
         private static readonly IKanbanizeApiWrapper KanbanizeApiWrapper = new KanbanizeApiWrapper(new RestClient());
-        private static readonly IDataAccess DataAccess = new DataAccess();
+        private static readonly IDataAccess DataAccess = new DataWrapper.DatabaseAccess.DataAccess();
         private static readonly IDevOpsDeserializer DevOpsDeserializer = new DevOpsDeserializer(DevOpsApiWrapper, DataAccess);
         private static readonly IKanbanizeDeserializer KanbanizeDeserializer = new KanbanizeDeserializer(KanbanizeApiWrapper, DataAccess);
 

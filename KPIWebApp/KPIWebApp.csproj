@@ -14,23 +14,8 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.2" />
-        <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.1.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.2" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.2" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.2" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2" />
     </ItemGroup>
 
-    <ItemGroup>
-        <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
-        <None Include="ClientApp\src\app\overview\overview.component.ts" />
-        <None Include="ClientApp\src\app\_helpers\auth.guard.ts" />
-        <None Include="ClientApp\src\app\_helpers\basic-auth.interceptor.ts" />
-        <None Include="ClientApp\src\app\_helpers\error.interceptor.ts" />
-        <None Include="ClientApp\src\app\_models\user.ts" />
-    </ItemGroup>
     <ItemGroup>
         <!-- Don't publish the SPA source files, but do show them in the project files list -->
         <Content Remove="$(SpaRoot)**" />
@@ -38,6 +23,12 @@
         <Content Include="ClientApp\src\app\overview\overview.component.html" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+        <None Include="ClientApp\src\app\overview\overview.component.ts" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DataObjects\DataObjects.csproj" />
+      <ProjectReference Include="..\DataWrapper\DataWrapper.csproj" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

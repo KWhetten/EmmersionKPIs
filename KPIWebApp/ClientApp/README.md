@@ -1,28 +1,27 @@
-# Introduction 
-This project is an attempt to capture, analyze, and visualize the [Accelerate](https://www.amazon.com/Accelerate-Software-Performing-Technology-Organizations/dp/1942788339) team productivity metrics.
-* Lead time
-* Deployment frequency
-* Meantime to restore
-* Change fail percentage
+# KPIWebApp
 
-## Lead time
-This is the time from when we commit to make a change and the change it delivered to users. Lead time is only known once a feature is complete, so it is a lagging indicator of team health.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0.
 
-We want to analyze lead time by card type along these two axes: Product/Engineer and Strategic/Tactical/Unanticipated.
+## Development server
 
-We also want to be able to see the effect of changes to our process. This will require us to do cohort analysis by commit cohort and delivery cohort.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Deployment frequency
-We want to analyze the total deploys, the successful deploys, and the rolled back deploys. At this time we are not going to attempt to track roll-forward corrections automatically.
+## Code scaffolding
 
-## Meantime to restore
-The amount of time elapsed between the start of a failed deploy and the completion of a rollback.
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-Ideally, we would also track failure time with other metrics from Azure, but we are not going to include that in this initial pass.
+## Build
 
-## Change fail percentage
-This the ratio of rolled back deploys to total deploys.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-# Visualizations
-Include a Cummulative Flow Diagram of filter results.
+## Running unit tests
 
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
