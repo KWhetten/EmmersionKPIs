@@ -9,9 +9,9 @@ namespace KPIWebApp.Controllers
     [Route("[controller]")]
     public class OverviewController : ControllerBase
     {
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<OverviewController> _logger;
 
-        public OverviewController(ILogger<WeatherForecastController> logger)
+        public OverviewController(ILogger<OverviewController> logger)
         {
             _logger = logger;
         }

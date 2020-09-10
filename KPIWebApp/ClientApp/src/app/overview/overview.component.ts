@@ -1,5 +1,6 @@
 ﻿import {Component, Inject} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: "app-overview-component",
@@ -8,30 +9,27 @@ import {HttpClient} from "@angular/common/http";
 })
 export class OverviewComponent {
   public overviewData: OverviewData;
-  public startDate;
-  public endDate;
 
   constructor(http: HttpClient, @Inject("BASE_URL") baseUrl: string) {
-    http.get<OverviewData>(baseUrl + '').subscribe(x => this.overviewData = x);
-    this.startDate = document.getElementById("start-date");
-    this.endDate = document.getElementById("end-date");
+    http.get<OverviewData>(baseUrl + "overview").subscribe(x => {
+      this.overviewData = x;
+    });
 
+    console.log(this.overviewData);
   }
 
   submit() {
-    this.startDate = document.getElementById("start-date");
-    this.endDate = document.getElementById("end-date");
   }
 }
 
 interface OverviewData {
-  AverageLeadTime: number;
-  LongestLeadTime: number;
-  ShortestLeadTime: number;
-  TotalDeploys: number;
-  SuccessfulDeploys: number;
-  RolledBackDeploys: number;
-  DeployFrequency: number;
-  MeanTimeToRestore: number;
-  ChangeFailPercentage: number;
+  averageLeadTime: number;
+  longestLeadTime: number;
+  shortestLeadTime: number;
+  totalDeploys: number;
+  successfulDeploys: number;
+  rolledBackDeploys: number;
+  deployFrequency: number;
+  meanTimeToRestore: number;
+  changeFailPercentage: number;
 }

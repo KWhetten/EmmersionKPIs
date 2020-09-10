@@ -1,22 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { NavMenuComponent } from '../components/nav-menu/nav-menu.component';
 import {OverviewComponent} from "./overview/overview.component";
+import {WorkItemCardsComponent} from "./work-item-cards/work-item-cards.component";
+import {FilterOptionsComponent} from "../components/filter-options/filter-options.component";
+import {ReleasesComponent} from "./releases/releases.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
+    FilterOptionsComponent,
     OverviewComponent,
-    CounterComponent,
-    FetchDataComponent
+    WorkItemCardsComponent,
+    ReleasesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -24,11 +26,12 @@ import {OverviewComponent} from "./overview/overview.component";
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: OverviewComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'work-item-cards', component: WorkItemCardsComponent },
+      { path: "releases", component: ReleasesComponent }
     ])
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

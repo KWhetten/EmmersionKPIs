@@ -1,0 +1,65 @@
+﻿<h2>Filter Options</h2>
+<form>
+  <div class="filter">
+
+    <div class="card-type">
+      <h3>Card Type(s):</h3>
+      <div class="card-type-checkboxes">
+        <div class="product">
+          <div>
+            <input type="checkbox" name="strategic-product" id="strategic-product">
+            <label for="strategic-product">Strategic Product</label>
+          </div>
+          <div>
+            <input type="checkbox" name="tactical-product" id="tactical-product">
+            <label for="tactical-product">Tactical Product</label>
+          </div>
+          <div>
+            <input type="checkbox" name="unanticipated-product" id="unanticipated-product">
+            <label for="unanticipated-product">Unanticipated Product</label>
+          </div>
+          <div>
+            <input type="checkbox" name="unanticipated" id="unanticipated">
+            <label for="unanticipated">Unanticipated</label>
+          </div>
+        </div>
+        <div class="engineering">
+          <div>
+            <input type="checkbox" name="strategic-engineering" id="strategic-engineering">
+            <label for="strategic-engineering">Strategic Engineering</label>
+          </div>
+          <div>
+            <input type="checkbox" name="tactical-engineering" id="tactical-engineering">
+            <label for="tactical-engineering">Tactical Engineering</label>
+          </div>
+          <div>
+            <input type="checkbox" name="unanticipated-engineering" id="unanticipated-engineering">
+            <label for="unanticipated-engineering">Unanticipated Engineering</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="date-range">
+      <h3>Date Range:</h3>
+      <div>
+        <div class="from-date">
+          <label for="start-date">From:</label>
+          <input id="start-date" name="start-date" type="date" dataformatas="yyyy/MM/dd"/>
+        </div>
+        <div class="to-date">
+          <label for="end-date">To:</label>
+          <input id="end-date" name="end-date" type="date" dataformatas="yyyy/MM/dd"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit">
+      <button class="btn btn-primary" (click)="submit()">Submit</button>
+    </div>
+  </div>
+  <hr>
+</form>
+
+<h2>Results:</h2>
+<h3><strong>From:</strong> {{startDate}} <strong>to</strong> {{endDate}}</h3>

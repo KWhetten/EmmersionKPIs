@@ -9,3 +9,4 @@ C:\Source\KPIWebApp\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.AssemblyInfo
 C:\Source\KPIWebApp\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.csproj.CopyComplete
 C:\Source\KPIWebApp\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.dll
 C:\Source\KPIWebApp\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.pdb
+C:\Source\KPIWebApp\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.csproj.CoreCompileInputs.cache

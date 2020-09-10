@@ -17,6 +17,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\KPIDataExtractor\KPIDataExtractor.csproj" />
+      <ProjectReference Include="..\KPIWebApp\KPIWebApp.csproj" />
     </ItemGroup>
 
 </Project>

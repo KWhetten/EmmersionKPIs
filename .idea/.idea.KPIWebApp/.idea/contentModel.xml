@@ -99,17 +99,19 @@
             <e p="node" t="IncludeRecursive" />
             <e p="source-list-map" t="IncludeRecursive" />
           </e>
+          <e p="node_modules\acorn" t="IncludeRecursive" />
           <e p="node_modules\ajv" t="IncludeRecursive" />
+          <e p="node_modules\ansi-colors" t="IncludeRecursive" />
           <e p="node_modules\arg" t="IncludeRecursive" />
           <e p="node_modules\aspnet-prerendering" t="IncludeRecursive" />
           <e p="node_modules\blocking-proxy" t="IncludeRecursive" />
           <e p="node_modules\bootstrap" t="IncludeRecursive" />
           <e p="node_modules\canonical-path" t="IncludeRecursive" />
-          <e p="node_modules\chokidar" t="IncludeRecursive" />
           <e p="node_modules\codelyzer" t="IncludeRecursive" />
           <e p="node_modules\commander" t="IncludeRecursive" />
           <e p="node_modules\core-js" t="IncludeRecursive" />
           <e p="node_modules\dependency-graph" t="IncludeRecursive" />
+          <e p="node_modules\domain-task" t="IncludeRecursive" />
           <e p="node_modules\domino" t="IncludeRecursive" />
           <e p="node_modules\es6-promise" t="IncludeRecursive" />
           <e p="node_modules\fast-deep-equal" t="IncludeRecursive" />
@@ -124,14 +126,19 @@
           <e p="node_modules\karma-jasmine-html-reporter" t="IncludeRecursive" />
           <e p="node_modules\license-webpack-plugin" t="IncludeRecursive" />
           <e p="node_modules\magic-string" t="IncludeRecursive" />
+          <e p="node_modules\make-error" t="IncludeRecursive" />
           <e p="node_modules\node-sass" t="IncludeRecursive" />
           <e p="node_modules\oidc-client" t="IncludeRecursive" />
+          <e p="node_modules\open" t="IncludeRecursive" />
+          <e p="node_modules\parse5" t="IncludeRecursive" />
           <e p="node_modules\popper.js" t="IncludeRecursive" />
           <e p="node_modules\portfinder" t="IncludeRecursive" />
           <e p="node_modules\postcss" t="IncludeRecursive" />
+          <e p="node_modules\promise" t="IncludeRecursive" />
           <e p="node_modules\protractor" t="IncludeRecursive" />
           <e p="node_modules\reflect-metadata" t="IncludeRecursive" />
           <e p="node_modules\rxjs" t="IncludeRecursive" />
+          <e p="node_modules\semver-dsl" t="IncludeRecursive" />
           <e p="node_modules\source-map" t="IncludeRecursive" />
           <e p="node_modules\sourcemap-codec" t="IncludeRecursive" />
           <e p="node_modules\symbol-observable" t="IncludeRecursive" />
@@ -140,6 +147,7 @@
           <e p="node_modules\ts-node" t="IncludeRecursive" />
           <e p="node_modules\tslib" t="IncludeRecursive" />
           <e p="node_modules\tslint" t="IncludeRecursive" />
+          <e p="node_modules\tsutils" t="IncludeRecursive" />
           <e p="node_modules\typescript\lib\lib.d.ts" t="IncludeRecursive" />
           <e p="node_modules\typescript\lib\lib.dom.d.ts" t="IncludeRecursive" />
           <e p="node_modules\typescript\lib\lib.dom.iterable.d.ts" t="IncludeRecursive" />
@@ -191,10 +199,9 @@
           <e p="node_modules\typescript\lib\lib.scripthost.d.ts" t="IncludeRecursive" />
           <e p="node_modules\typescript\lib\lib.webworker.d.ts" t="IncludeRecursive" />
           <e p="node_modules\typescript\lib\lib.webworker.importscripts.d.ts" t="IncludeRecursive" />
-          <e p="node_modules\upath" t="IncludeRecursive" />
           <e p="node_modules\uri-js" t="IncludeRecursive" />
           <e p="node_modules\webdriver-js-extender" t="IncludeRecursive" />
-          <e p="node_modules\worker-farm" t="IncludeRecursive" />
+          <e p="node_modules\yn" t="IncludeRecursive" />
           <e p="node_modules\zone.js" t="IncludeRecursive" />
           <e p="package-lock.json" t="Include" />
           <e p="package.json" t="Include" />
@@ -205,28 +212,36 @@
               <e p="app.component.ts" t="Include" />
               <e p="app.module.ts" t="Include" />
               <e p="app.server.module.ts" t="Include" />
-              <e p="counter" t="Include">
-                <e p="counter.component.html" t="Include" />
-                <e p="counter.component.spec.ts" t="Include" />
-                <e p="counter.component.ts" t="Include" />
+              <e p="overview" t="Include">
+                <e p="overview.component.css" t="Include" />
+                <e p="overview.component.html" t="Include" />
+                <e p="overview.component.ts" t="Include" />
               </e>
-              <e p="fetch-data" t="Include">
-                <e p="fetch-data.component.html" t="Include" />
-                <e p="fetch-data.component.ts" t="Include" />
+              <e p="releases" t="Include">
+                <e p="releases.component.css" t="Include" />
+                <e p="releases.component.html" t="Include" />
+                <e p="releases.component.ts" t="Include" />
+              </e>
+              <e p="work-item-cards" t="Include">
+                <e p="work-item-cards.component.css" t="Include" />
+                <e p="work-item-cards.component.html" t="Include" />
+                <e p="work-item-cards.component.ts" t="Include" />
+              </e>
+            </e>
+            <e p="assets" t="Include">
+              <e p=".gitkeep" t="Include" />
+            </e>
+            <e p="components" t="Include">
+              <e p="filter-options" t="Include">
+                <e p="filter-options.component.css" t="Include" />
+                <e p="filter-options.component.html" t="Include" />
+                <e p="filter-options.component.ts" t="Include" />
               </e>
               <e p="nav-menu" t="Include">
                 <e p="nav-menu.component.css" t="Include" />
                 <e p="nav-menu.component.html" t="Include" />
                 <e p="nav-menu.component.ts" t="Include" />
               </e>
-              <e p="overview" t="Include">
-                <e p="overview.component.css" t="Include" />
-                <e p="overview.component.html" t="Include" />
-                <e p="overview.component.ts" t="Include" />
-              </e>
-            </e>
-            <e p="assets" t="Include">
-              <e p=".gitkeep" t="Include" />
             </e>
             <e p="environments" t="Include">
               <e p="environment.prod.ts" t="Include" />
@@ -248,12 +263,10 @@
         </e>
         <e p="Controllers" t="Include">
           <e p="OverviewController.cs" t="Include" />
-          <e p="WeatherForecastController.cs" t="Include" />
         </e>
         <e p="KPIWebApp.csproj" t="IncludeRecursive" />
         <e p="Models" t="Include">
           <e p="OverviewData.cs" t="Include" />
-          <e p="WeatherForecast.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -311,6 +324,9 @@
             <e p="JsonWorkItemCardHistoryEvent.cs" t="Include" />
           </e>
         </e>
+        <e p="WebApp" t="Include">
+          <e p="OverviewControllerTests.cs" t="Include" />
+        </e>
       </e>
       <e p="packages" t="ExcludeRecursive" />
     </e>
@@ -323,7 +339,7 @@
     <e p="C:\Users\krwhe\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\nunit.engine.dll" t="Include" />
     <e p="C:\Users\krwhe\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.dll" t="Include" />
     <e p="C:\Users\krwhe\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.pdb" t="Include" />
-    <e p="C:\Users\krwhe\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\krwhe\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_KPIWebApp.1682045150.00" t="ExcludeRecursive" />
+    <e p="C:\Users\krwhe\AppData\local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\krwhe\AppData\local\JetBrains\Rider2020.2\resharper-host\local\Transient\Rider\v202\SolutionCaches\_KPIWebApp.1682045150.00" t="ExcludeRecursive" />
   </component>
 </project>

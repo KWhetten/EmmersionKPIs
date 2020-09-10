@@ -263,7 +263,7 @@ namespace KPIDataExtractor.UnitTests.Deserializer
             Assert.That(result.ElementAt(1).LastChangedBy, Is.EqualTo("ChangedBy2"));
             Assert.That(result.ElementAt(1).LastChangedOn, Is.EqualTo(changedDate2));
 
-            Assert.That(result.Count, Is.EqualTo(2));
+            Assert.That(result.Count, Is.EqualTo(3));
         }
 
         [Test]

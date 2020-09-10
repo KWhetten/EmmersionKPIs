@@ -21,6 +21,8 @@
         <Content Remove="$(SpaRoot)**" />
         <Content Include="ClientApp\src\app\overview\overview.component.css" />
         <Content Include="ClientApp\src\app\overview\overview.component.html" />
+        <Content Include="ClientApp\src\app\releases\releases.component.css" />
+        <Content Include="ClientApp\src\app\work-item-cards\work-item-cards.component.css" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
         <None Include="ClientApp\src\app\overview\overview.component.ts" />

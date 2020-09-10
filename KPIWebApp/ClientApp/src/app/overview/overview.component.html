@@ -1,65 +1,15 @@
-﻿﻿<h1>Overview</h1>
+﻿<h1>Overview</h1>
+
+<app-filter-options></app-filter-options>
+
 <p *ngIf="!overviewData"><em>Loading...</em></p>
-<div *ngIf="!overviewData">
+<div *ngIf="overviewData">
 
-  <h2>Filter Options</h2>
-  <form>
-    <h3>Date Range:</h3>
-    <div class="date-range">
-      <div class="from-date">
-        <label for="start-date">From:</label>
-        <input type="date" name="start-date" id="start-date"><br><br>
-      </div>
-      <div class="to-date">
-        <label for="end-date">To:</label>
-        <input type="date" name="end-date" id="end-date"><br><br>
-      </div>
-    </div>
-
-    <h3>Card Type(s):</h3>
-    <div class="card-type-checkboxes">
-      <div class="product">
-        <div>
-          <input type="checkbox" name="strategic-product" id="strategic-product">
-          <label for="strategic-product">Strategic Product</label>
-        </div>
-        <div>
-          <input type="checkbox" name="tactical-product" id="tactical-product">
-          <label for="tactical-product">Tactical Product</label>
-        </div>
-        <div>
-          <input type="checkbox" name="unanticipated-product" id="unanticipated-product">
-          <label for="unanticipated-product">Unanticipated Product</label>
-        </div>
-        <div>
-          <input type="checkbox" name="unanticipated" id="unanticipated">
-          <label for="unanticipated">Unanticipated</label>
-        </div>
-      </div>
-      <div class="engineering">
-        <div>
-          <input type="checkbox" name="strategic-engineering" id="strategic-engineering">
-          <label for="strategic-engineering">Strategic Engineering</label>
-        </div>
-        <div>
-          <input type="checkbox" name="tactical-engineering" id="tactical-engineering">
-          <label for="tactical-engineering">Tactical Engineering</label>
-        </div>
-        <div>
-          <input type="checkbox" name="unanticipated-engineering" id="unanticipated-engineering">
-          <label for="unanticipated-engineering">Unanticipated Engineering</label>
-        </div>
-      </div>
-    </div>
-    <button class="btn btn-primary" (click)="submit()">Submit</button>
-  </form>
-
-  <h2>Results:</h2>
   <div class="cumulative-flow-diagram">
     <div>Cumulative Flow Diragram goes here...</div>
   </div>
 
-  <h3>Lead Time</h3>
+  <h4>Lead Time</h4>
   <div class="lead-time">
     <div class="scatter-plot">Scatter Plot goes here...</div>
     <div class="right-column">
@@ -67,24 +17,23 @@
         <div>Box Graph goes here...</div>
       </div>
       <div class="lead-time-results">
-        <p>Average: {{overviewData.AverageLeadTime}}</p>
-        <p>Longest: {{overviewData.LongestLeadTime}}</p>
-        <p>Shortest: {{overviewData.ShortestLeadTime}}</p>
+        <p><strong>Longest:</strong> {{overviewData.longestLeadTime}} hours</p>
+        <p><strong>Shortest:</strong> {{overviewData.shortestLeadTime}} hours</p>
+        <p><strong>Average:</strong> {{overviewData.averageLeadTime}} hours</p>
       </div>
     </div>
   </div>
 
-  <h3>Deployment Frequency</h3>
+  <h4>Deployment Frequency</h4>
   <div class="deployment-frequency">
     <div class="scatter-plot">Scatter Plot goes here...</div>
     <div class="deployment-frequency-results">
-      <h4>From {{startDate}} to {{endDate}}:</h4>
-      <p>Total Deploys: {{overviewData.TotalDeploys}}</p>
-      <p>Successful Deploys: {{overviewData.SuccessfulDeploys}}</p>
-      <p>Rolled-Back Deploys: {{overviewData.RolledBackDeploys}}</p>
-      <p>Frequency: {{overviewData.DeployFrequency}}</p>
-      <h5>Mean Time to Restore: {{overviewData.MeanTimeToRestore}}</h5>
-      <h5>Change Fail Percentage: {{overviewData.ChangeFailPercentage}}</h5>
+      <p><strong>Total Deploys:</strong> {{overviewData.totalDeploys}}</p>
+      <p><strong>Successful Deploys:</strong> {{overviewData.successfulDeploys}}</p>
+      <p><strong>Rolled-Back Deploys:</strong> {{overviewData.rolledBackDeploys}}</p>
+      <p><strong>Frequency:</strong> {{overviewData.deployFrequency}} deploys per week</p>
+      <p><strong>Time to Restore:</strong> {{overviewData.meanTimeToRestore}} hours</p>
+      <p><strong>Change Fail Percentage:</strong> {{overviewData.changeFailPercentage}}%</p>
     </div>
   </div>
 </div>

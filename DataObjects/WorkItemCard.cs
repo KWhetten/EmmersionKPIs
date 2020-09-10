@@ -21,6 +21,16 @@ namespace DataObjects
         public int NumRevisions { get; set; }
         public Release Release { get; set; }
 
-        public double LeadTimeHours => (FinishTime - StartTime).TotalHours;
+        public decimal LeadTimeHours
+        {
+            get
+            {
+                if (StartTime != DateTime.MinValue && FinishTime != DateTime.MinValue)
+                {
+                    return (decimal)(FinishTime - StartTime).TotalHours;
+                }
+                return 0m;
+            }
+        }
     }
 }

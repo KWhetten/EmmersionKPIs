@@ -90,3 +90,5 @@ C:\Source\KPIWebApp\KPIDataExtractor\bin\Debug\netcoreapp3.1\DataObjects.dll
 C:\Source\KPIWebApp\KPIDataExtractor\bin\Debug\netcoreapp3.1\DataObjects.pdb
 C:\Source\KPIWebApp\KPIDataExtractor\bin\Debug\netcoreapp3.1\DataWrapper.dll
 C:\Source\KPIWebApp\KPIDataExtractor\bin\Debug\netcoreapp3.1\DataWrapper.pdb
+C:\Source\KPIWebApp\KPIDataExtractor\obj\Debug\netcoreapp3.1\KPIDataExtractor.csproj.CoreCompileInputs.cache
+C:\Source\KPIWebApp\KPIDataExtractor\obj\Debug\netcoreapp3.1\KPIDataExtractor.genruntimeconfig.cache
