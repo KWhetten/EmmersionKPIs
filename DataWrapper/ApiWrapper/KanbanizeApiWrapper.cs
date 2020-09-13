@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
-namespace DataWrapper.ApiWrapper
+namespace DataAccess.ApiWrapper
 {
     public interface IKanbanizeApiWrapper
     {

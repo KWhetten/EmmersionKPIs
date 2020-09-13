@@ -1,6 +1,6 @@
 ﻿h2 {
   font-size: 24px;
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
 
 h3 {
@@ -27,6 +27,10 @@ p {
 form {
   padding: 0;
   margin-bottom: 32px;
+}
+
+.small {
+  margin-bottom: 16px;
 }
 
 .filter {
@@ -136,9 +140,103 @@ form {
   justify-content: space-between;
 }
 
+/* This is all for the Filter-Options component */
+form h2 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+form h3 {
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+form h4 {
+  font-size: 20px;
+  padding: 0;
+  margin-bottom: 16px;
+  font-weight: bolder;
+}
+
+form h5 {
+  font-size: 16px;
+}
+
+form p {
+  margin: 0;
+}
+
+form {
+  padding: 0;
+  margin-bottom: 32px;
+}
+
+form .filter {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+form .card-type-checkboxes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+form .card-type-checkboxes label {
+  margin-left: 8px;
+}
+
+form .product {
+  flex-direction: column;
+}
+
+form .engineering {
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+form .date-range {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+form .date-range label {
+  margin-right: 8px;
+}
+
+form .from-date {
+  display: flex;
+  justify-content: space-between;
+}
+
+form .to-date {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+form .submit {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
 
 
+form .cumulative-flow-diagram {
+  border: 1px black solid;
+  width: 100%;
+  height: 500px;
+  margin-bottom: 64px;
+}
 
-
-
-
+form .lead-time {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 64px;
+}

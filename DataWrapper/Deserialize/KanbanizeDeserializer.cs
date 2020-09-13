@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataAccess.ApiWrapper;
+using DataAccess.DatabaseAccess;
 using DataObjects;
-using DataWrapper.ApiWrapper;
-using DataWrapper.DatabaseAccess;
 using Newtonsoft.Json.Linq;
 
-namespace DataWrapper.Deserialize
+namespace DataAccess.Deserialize
 {
     public interface IKanbanizeDeserializer
     {

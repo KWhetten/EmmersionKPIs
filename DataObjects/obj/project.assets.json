@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Source\\KPIWebApp\\DataObjects\\DataObjects.csproj",
+      "projectUniqueName": "C:\\Code\\KPIWebApp\\DataObjects\\DataObjects.csproj",
       "projectName": "DataObjects",
-      "projectPath": "C:\\Source\\KPIWebApp\\DataObjects\\DataObjects.csproj",
+      "projectPath": "C:\\Code\\KPIWebApp\\DataObjects\\DataObjects.csproj",
       "packagesPath": "C:\\Users\\krwhe\\.nuget\\packages\\",
-      "outputPath": "C:\\Source\\KPIWebApp\\DataObjects\\obj\\",
+      "outputPath": "C:\\Code\\KPIWebApp\\DataObjects\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\krwhe\\AppData\\Roaming\\NuGet\\NuGet.Config"

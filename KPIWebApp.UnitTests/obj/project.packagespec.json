@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "C:\\Source\\KPIWebApp\\KPIWebApp.UnitTests\\KPIWebApp.UnitTests.csproj",
+    "projectUniqueName": "C:\\Code\\KPIWebApp\\KPIWebApp.UnitTests\\KPIWebApp.UnitTests.csproj",
     "projectName": "KPIWebApp.UnitTests",
-    "projectPath": "C:\\Source\\KPIWebApp\\KPIWebApp.UnitTests\\KPIWebApp.UnitTests.csproj",
-    "outputPath": "C:\\Source\\KPIWebApp\\KPIWebApp.UnitTests\\obj\\",
+    "projectPath": "C:\\Code\\KPIWebApp\\KPIWebApp.UnitTests\\KPIWebApp.UnitTests.csproj",
+    "outputPath": "C:\\Code\\KPIWebApp\\KPIWebApp.UnitTests\\obj\\",
     "projectStyle": "PackageReference",
     "originalTargetFrameworks": [
       "netcoreapp3.1"
@@ -15,11 +15,11 @@
     "frameworks": {
       "netcoreapp3.1": {
         "projectReferences": {
-          "C:\\Source\\KPIWebApp\\KPIDataExtractor\\KPIDataExtractor.csproj": {
-            "projectPath": "C:\\Source\\KPIWebApp\\KPIDataExtractor\\KPIDataExtractor.csproj"
+          "C:\\Code\\KPIWebApp\\KPIDataExtractor\\KPIDataExtractor.csproj": {
+            "projectPath": "C:\\Code\\KPIWebApp\\KPIDataExtractor\\KPIDataExtractor.csproj"
           },
-          "C:\\Source\\KPIWebApp\\KPIWebApp\\KPIWebApp.csproj": {
-            "projectPath": "C:\\Source\\KPIWebApp\\KPIWebApp\\KPIWebApp.csproj"
+          "C:\\Code\\KPIWebApp\\KPIWebApp\\KPIWebApp.csproj": {
+            "projectPath": "C:\\Code\\KPIWebApp\\KPIWebApp\\KPIWebApp.csproj"
           }
         }
       }

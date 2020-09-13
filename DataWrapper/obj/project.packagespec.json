@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "C:\\Source\\KPIWebApp\\DataWrapper\\DataWrapper.csproj",
+    "projectUniqueName": "C:\\Code\\KPIWebApp\\DataWrapper\\DataWrapper.csproj",
     "projectName": "DataWrapper",
-    "projectPath": "C:\\Source\\KPIWebApp\\DataWrapper\\DataWrapper.csproj",
-    "outputPath": "C:\\Source\\KPIWebApp\\DataWrapper\\obj\\",
+    "projectPath": "C:\\Code\\KPIWebApp\\DataWrapper\\DataWrapper.csproj",
+    "outputPath": "C:\\Code\\KPIWebApp\\DataWrapper\\obj\\",
     "projectStyle": "PackageReference",
     "originalTargetFrameworks": [
       "netcoreapp3.1"
@@ -15,8 +15,8 @@
     "frameworks": {
       "netcoreapp3.1": {
         "projectReferences": {
-          "C:\\Source\\KPIWebApp\\DataObjects\\DataObjects.csproj": {
-            "projectPath": "C:\\Source\\KPIWebApp\\DataObjects\\DataObjects.csproj"
+          "C:\\Code\\KPIWebApp\\DataObjects\\DataObjects.csproj": {
+            "projectPath": "C:\\Code\\KPIWebApp\\DataObjects\\DataObjects.csproj"
           }
         }
       }

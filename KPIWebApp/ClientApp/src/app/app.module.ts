@@ -10,6 +10,7 @@ import {OverviewComponent} from "./overview/overview.component";
 import {WorkItemCardsComponent} from "./work-item-cards/work-item-cards.component";
 import {FilterOptionsComponent} from "../components/filter-options/filter-options.component";
 import {ReleasesComponent} from "./releases/releases.component";
+import {LoginComponent} from "./login/login.component";
 
 @NgModule({
   declarations: [
@@ -18,16 +19,18 @@ import {ReleasesComponent} from "./releases/releases.component";
     FilterOptionsComponent,
     OverviewComponent,
     WorkItemCardsComponent,
-    ReleasesComponent
+    ReleasesComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: OverviewComponent, pathMatch: 'full' },
+      { path: 'home', component: OverviewComponent, pathMatch: 'full' },
       { path: 'work-item-cards', component: WorkItemCardsComponent },
-      { path: "releases", component: ReleasesComponent }
+      { path: "releases", component: ReleasesComponent },
+      { path: "login", component: LoginComponent }
     ])
   ],
   providers: [],

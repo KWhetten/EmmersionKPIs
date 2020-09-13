@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using DataWrapper.ApiWrapper;
+using DataAccess.ApiWrapper;
 using KPIDataExtractor.UnitTests.Objects.Kanbanize;
 using Moq;
 using Newtonsoft.Json;
@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using RestSharp;
 
-namespace KPIDataExtractor.UnitTests.ApiWrapper
+namespace KPIDataExtractor.UnitTests.DataWrapper.ApiWrapper
 {
     [TestFixture]
     public class KanbanizeApiWrapperTests

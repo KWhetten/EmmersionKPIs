@@ -5701,11 +5701,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Source\\KPIWebApp\\DataWrapper\\DataWrapper.csproj",
+      "projectUniqueName": "C:\\Code\\KPIWebApp\\DataWrapper\\DataWrapper.csproj",
       "projectName": "DataWrapper",
-      "projectPath": "C:\\Source\\KPIWebApp\\DataWrapper\\DataWrapper.csproj",
+      "projectPath": "C:\\Code\\KPIWebApp\\DataWrapper\\DataWrapper.csproj",
       "packagesPath": "C:\\Users\\krwhe\\.nuget\\packages\\",
-      "outputPath": "C:\\Source\\KPIWebApp\\DataWrapper\\obj\\",
+      "outputPath": "C:\\Code\\KPIWebApp\\DataWrapper\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\krwhe\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -5719,8 +5719,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Source\\KPIWebApp\\DataObjects\\DataObjects.csproj": {
-              "projectPath": "C:\\Source\\KPIWebApp\\DataObjects\\DataObjects.csproj"
+            "C:\\Code\\KPIWebApp\\DataObjects\\DataObjects.csproj": {
+              "projectPath": "C:\\Code\\KPIWebApp\\DataObjects\\DataObjects.csproj"
             }
           }
         }

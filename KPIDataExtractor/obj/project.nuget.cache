@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Yk5v58LZZ7NnHKiTourqCYKOJ542D9i8eQYDEhWoqJPYDk+y8FZjZrt5Z8TosDsq2YBXjmv0UCKs74HWzMZsow==",
+  "dgSpecHash": "sgKxLh7R8+VFosPTV3boCYtdigV1DLNv3mWXTA5TbFS8DxxDBI4o4FvPmmD8EUgLwPiJ9dpHN8sbadIEKHJEyw==",
   "success": true,
-  "projectFilePath": "C:\\Source\\KPIWebApp\\KPIDataExtractor\\KPIDataExtractor.csproj",
+  "projectFilePath": "C:\\Code\\KPIWebApp\\KPIDataExtractor\\KPIDataExtractor.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\krwhe\\.nuget\\packages\\dapper\\2.0.35\\dapper.2.0.35.nupkg.sha512",
     "C:\\Users\\krwhe\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.4\\microsoft.aspnet.webapi.client.5.2.4.nupkg.sha512",

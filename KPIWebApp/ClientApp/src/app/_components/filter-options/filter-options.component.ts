@@ -1,5 +1,7 @@
-﻿import { Component } from '@angular/core';
+﻿import {Component, Inject, ViewChild} from "@angular/core";
 import {DatePipe} from "@angular/common";
+import {OverviewComponent} from "../../overview/overview.component";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-filter-options',
@@ -12,8 +14,9 @@ export class FilterOptionsComponent {
   startDate: string = "The Beginning of Time";
   endDate: string = "The Present Day";
   private datePipe: DatePipe;
+  @ViewChild(OverviewComponent, {static: false}) overview: OverviewComponent;
 
-  constructor(datepipe: DatePipe) {
+  constructor(datepipe: DatePipe, http: HttpClient, @Inject("BASE_URL") baseUrl: string) {
     this.startDate = "The Beginning of Time";
     this.endDate = "The Present Day";
     this.datePipe = datepipe;
@@ -24,10 +27,7 @@ export class FilterOptionsComponent {
     this.startDate = this.datePipe.transform(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1) , 'MMMM d, yyyy');
     date = new Date((document.getElementById("end-date") as HTMLInputElement).value);
     this.endDate = this.datePipe.transform(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1) , 'MMMM d, yyyy');
-  }
-}
 
-export class DateRange {
-  startDate: string = "The Beginning of Time";
-  endDate: string = "The Present Day";
+    //this.overview.reloadData(this.startDate, this.endDate);
+  }
 }

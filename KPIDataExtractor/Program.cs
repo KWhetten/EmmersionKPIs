@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
-using DataWrapper.ApiWrapper;
-using DataWrapper.DatabaseAccess;
-using DataWrapper.Deserialize;
+using DataAccess.ApiWrapper;
+using DataAccess.DatabaseAccess;
+using DataAccess.Deserialize;
 using RestSharp;
 
 namespace KPIDataExtractor
@@ -12,15 +11,15 @@ namespace KPIDataExtractor
     {
         private static readonly IDevOpsApiWrapper DevOpsApiWrapper = new DevOpsApiWrapper(new RestClient());
         private static readonly IKanbanizeApiWrapper KanbanizeApiWrapper = new KanbanizeApiWrapper(new RestClient());
-        private static readonly IDataAccess DataAccess = new DataWrapper.DatabaseAccess.DataAccess();
-        private static readonly IDevOpsDeserializer DevOpsDeserializer = new DevOpsDeserializer(DevOpsApiWrapper, DataAccess);
+        private static readonly IDataAccess DataAccess = new DatabaseWrapper();
+        private static readonly IDevOpsDeserializer DevOpsDeserializer = new DevOpsDeserializer();
         private static readonly IKanbanizeDeserializer KanbanizeDeserializer = new KanbanizeDeserializer(KanbanizeApiWrapper, DataAccess);
 
-        public static async Task Main()
+        public static void Main()
         {
             InsertReleasesIntoDatabaseFromApi();
 
-            await InsertWorkItemsIntoDatabaseFromApi();
+            InsertWorkItemsIntoDatabaseFromApi();
         }
 
         private static void InsertReleasesIntoDatabaseFromApi()
@@ -30,25 +29,13 @@ namespace KPIDataExtractor
             DataAccess.InsertReleaseList(DevOpsDeserializer.Releases(releases));
         }
 
-        private static async Task InsertWorkItemsIntoDatabaseFromApi()
+        private static void InsertWorkItemsIntoDatabaseFromApi()
         {
             const int enterpriseTeamBoardId = 4;
             const int assessmentsTeamBoardId = 5;
 
-            await InsertDevOpsCards();
             InsertKanbanizeCards(enterpriseTeamBoardId);
             InsertKanbanizeCards(assessmentsTeamBoardId);
-        }
-
-        private static async Task InsertDevOpsCards()
-        {
-            var workItemCardList = await DevOpsApiWrapper.GetWorkItemCardList();
-            if (workItemCardList.Any())
-            {
-                DataAccess.InsertWorkItemCardList(DevOpsDeserializer.WorkItemCardList(workItemCardList));
-            }
-            else
-                Console.WriteLine("No new cards.");
         }
 
         private static void InsertKanbanizeCards(int boardId)

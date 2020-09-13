@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataAccess.DatabaseAccess;
 using DataObjects;
-using DataWrapper.DatabaseAccess;
 using NUnit.Framework;
 
-namespace KPIDataExtractor.UnitTests.DatabaseAccess
+namespace KPIDataExtractor.UnitTests.DataWrapper.DatabaseAccess
 {
     [TestFixture]
     public class DataAccessTests
@@ -15,7 +15,7 @@ namespace KPIDataExtractor.UnitTests.DatabaseAccess
         {
             var date = new DateTime(2020, 9, 1, 5, 30, 0);
 
-            var dataAccess = new DataWrapper.DatabaseAccess.DataAccess();
+            var dataAccess = new DatabaseWrapper();
             var result = dataAccess.GetReleasesBeforeDate(date);
 
             Assert.That(result.Count(), Is.EqualTo(9));
@@ -85,7 +85,7 @@ namespace KPIDataExtractor.UnitTests.DatabaseAccess
                 release3
             };
 
-            var dataAccess = new DataWrapper.DatabaseAccess.DataAccess();
+            var dataAccess = new DatabaseWrapper();
             dataAccess.InsertReleaseList(releaseList);
 
             var result1 = dataAccess.GetReleaseById(release1.Id);
@@ -121,7 +121,7 @@ namespace KPIDataExtractor.UnitTests.DatabaseAccess
         [Test]
         public void When_inserting_release_list_null()
         {
-            var dataAccess = new DataWrapper.DatabaseAccess.DataAccess();
+            var dataAccess = new DatabaseWrapper();
             dataAccess.InsertReleaseList(null);
         }
 
@@ -171,7 +171,7 @@ namespace KPIDataExtractor.UnitTests.DatabaseAccess
                 card2
             };
 
-            var dataAccess = new DataWrapper.DatabaseAccess.DataAccess();
+            var dataAccess = new DatabaseWrapper();
             dataAccess.InsertWorkItemCardList(workItemCardList);
 
             var result1 = dataAccess.GetCardById(card1.Id);
@@ -209,23 +209,23 @@ namespace KPIDataExtractor.UnitTests.DatabaseAccess
         }
 
         [Test]
-        public void When_getting_all_work_item_cards()
+        public void When_getting_work_item_cards_in_date_range()
         {
-            var dataAccess = new DataAccess();
+            var dataAccess = new DatabaseWrapper();
 
-            var result = dataAccess.GetWorkItemCardList();
+            var result = dataAccess.GetWorkItemCardList(DateTime.Now.AddDays(-7), DateTime.Now);
 
-            Assert.That(result.Count(), Is.GreaterThan(400));
+            Assert.That(result.Count(), Is.GreaterThan(0));
         }
 
         [Test]
-        public void When_getting_all_releases()
+        public void When_getting_releases_in_date_range()
         {
-            var dataAccess = new DataAccess();
+            var dataAccess = new DatabaseWrapper();
 
-            var result = dataAccess.GetReleaseList();
+            var result = dataAccess.GetReleaseList(DateTime.Now.AddDays(-7), DateTime.Now);
 
-            Assert.That(result.Count(), Is.GreaterThan(20));
+            Assert.That(result.Count(), Is.GreaterThan(0));
         }
     }
 }

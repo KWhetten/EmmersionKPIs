@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Source\KPIWebApp" t="IncludeFlat">
+    <e p="C:\Code\KPIWebApp" t="IncludeFlat">
       <e p="DataObjects" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="DataObjects.csproj" t="IncludeRecursive" />
@@ -24,7 +24,7 @@
         </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="DatabaseAccess" t="Include">
-          <e p="DataAccess.cs" t="Include" />
+          <e p="DatabaseWrapper.cs" t="Include" />
           <e p="Helper.cs" t="Include" />
         </e>
         <e p="DataWrapper.csproj" t="IncludeRecursive" />
@@ -208,19 +208,74 @@
           <e p="README.md" t="Include" />
           <e p="src" t="Include">
             <e p="app" t="Include">
+              <e p="_components" t="Include">
+                <e p="alert" t="Include">
+                  <e p="alert.component.html" t="Include" />
+                  <e p="alert.component.ts" t="Include" />
+                </e>
+                <e p="filter-options" t="Include">
+                  <e p="filter-options.component.css" t="Include" />
+                  <e p="filter-options.component.html" t="Include" />
+                  <e p="filter-options.component.spec.ts" t="Include" />
+                  <e p="filter-options.component.ts" t="Include" />
+                </e>
+                <e p="nav-menu" t="Include">
+                  <e p="nav-menu.component.css" t="Include" />
+                  <e p="nav-menu.component.html" t="Include" />
+                  <e p="nav-menu.component.ts" t="Include" />
+                </e>
+              </e>
+              <e p="_helpers" t="Include">
+                <e p="auth.guard.ts" t="Include" />
+                <e p="error.interceptor.ts" t="Include" />
+                <e p="fake-backent.temp.ts" t="Include" />
+                <e p="jwt.interceptor.ts" t="Include" />
+              </e>
+              <e p="_models" t="Include">
+                <e p="alert.ts" t="Include" />
+                <e p="user.ts" t="Include" />
+              </e>
+              <e p="_services" t="Include">
+                <e p="account.service.ts" t="Include" />
+                <e p="alert.service.ts" t="Include" />
+              </e>
+              <e p="account" t="Include">
+                <e p="account-routing.module.ts" t="Include" />
+                <e p="account.module.ts" t="Include" />
+                <e p="layout.component.html" t="Include" />
+                <e p="layout.component.ts" t="Include" />
+              </e>
               <e p="app.component.html" t="Include" />
               <e p="app.component.ts" t="Include" />
               <e p="app.module.ts" t="Include" />
               <e p="app.server.module.ts" t="Include" />
+              <e p="login" t="Include">
+                <e p="login.component.css" t="Include" />
+                <e p="login.component.html" t="Include" />
+                <e p="login.component.ts" t="Include" />
+              </e>
               <e p="overview" t="Include">
                 <e p="overview.component.css" t="Include" />
                 <e p="overview.component.html" t="Include" />
                 <e p="overview.component.ts" t="Include" />
               </e>
+              <e p="register" t="Include">
+                <e p="register.component.html" t="Include" />
+                <e p="register.component.ts" t="Include" />
+              </e>
               <e p="releases" t="Include">
                 <e p="releases.component.css" t="Include" />
                 <e p="releases.component.html" t="Include" />
                 <e p="releases.component.ts" t="Include" />
+              </e>
+              <e p="Users" t="Include">
+                <e p="add-edit.component.html" t="Include" />
+                <e p="add-edit.component.ts" t="Include" />
+                <e p="layout.component.ts" t="Include" />
+                <e p="layout.html" t="Include" />
+                <e p="list.component.html" t="Include" />
+                <e p="list.component.ts" t="Include" />
+                <e p="users-routing.module.ts" t="Include" />
               </e>
               <e p="work-item-cards" t="Include">
                 <e p="work-item-cards.component.css" t="Include" />
@@ -230,18 +285,6 @@
             </e>
             <e p="assets" t="Include">
               <e p=".gitkeep" t="Include" />
-            </e>
-            <e p="components" t="Include">
-              <e p="filter-options" t="Include">
-                <e p="filter-options.component.css" t="Include" />
-                <e p="filter-options.component.html" t="Include" />
-                <e p="filter-options.component.ts" t="Include" />
-              </e>
-              <e p="nav-menu" t="Include">
-                <e p="nav-menu.component.css" t="Include" />
-                <e p="nav-menu.component.html" t="Include" />
-                <e p="nav-menu.component.ts" t="Include" />
-              </e>
             </e>
             <e p="environments" t="Include">
               <e p="environment.prod.ts" t="Include" />
@@ -292,18 +335,20 @@
       </e>
       <e p="KPIWebApp.sln" t="IncludeFlat" />
       <e p="KPIWebApp.UnitTests" t="IncludeRecursive">
-        <e p="ApiWrapper" t="Include">
-          <e p="DevOpsApiWrapperTests.cs" t="Include" />
-          <e p="KanbanizeApiWrapperTests.cs" t="Include" />
-        </e>
         <e p="App.config" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
-        <e p="DatabaseAccess" t="Include">
-          <e p="DataAccessTests.cs" t="Include" />
-        </e>
-        <e p="Deserializer" t="Include">
-          <e p="DevOpsDeserializerTests.cs" t="Include" />
-          <e p="KanbanizeDeserializerTests.cs" t="Include" />
+        <e p="DataWrapper" t="Include">
+          <e p="ApiWrapper" t="Include">
+            <e p="DevOpsApiWrapperTests.cs" t="Include" />
+            <e p="KanbanizeApiWrapperTests.cs" t="Include" />
+          </e>
+          <e p="DatabaseAccess" t="Include">
+            <e p="DataAccessTests.cs" t="Include" />
+          </e>
+          <e p="Deserializer" t="Include">
+            <e p="DevOpsDeserializerTests.cs" t="Include" />
+            <e p="KanbanizeDeserializerTests.cs" t="Include" />
+          </e>
         </e>
         <e p="KPIWebApp.UnitTests.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
@@ -313,11 +358,9 @@
             </e>
           </e>
         </e>
-        <e p="Objects" t="Include">
+        <e p="TestObjects" t="Include">
           <e p="DevOps" t="Include">
             <e p="JsonRelease.cs" t="Include" />
-            <e p="JsonWorkItemCard.cs" t="Include" />
-            <e p="JsonWorkItemCardUpdate.cs" t="Include" />
           </e>
           <e p="Kanbanize" t="Include">
             <e p="JsonWorkItemCard.cs" t="Include" />
@@ -340,6 +383,6 @@
     <e p="C:\Users\krwhe\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.dll" t="Include" />
     <e p="C:\Users\krwhe\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.pdb" t="Include" />
     <e p="C:\Users\krwhe\AppData\local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\krwhe\AppData\local\JetBrains\Rider2020.2\resharper-host\local\Transient\Rider\v202\SolutionCaches\_KPIWebApp.1682045150.00" t="ExcludeRecursive" />
+    <e p="C:\Users\krwhe\AppData\local\JetBrains\Rider2020.2\resharper-host\local\Transient\Rider\v202\SolutionCaches\_KPIWebApp.860874032.00" t="ExcludeRecursive" />
   </component>
 </project>

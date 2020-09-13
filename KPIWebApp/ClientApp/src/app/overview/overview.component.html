@@ -1,9 +1,76 @@
 ﻿<h1>Overview</h1>
 
-<app-filter-options></app-filter-options>
+<form id="form">
+  <h2>Filter Options</h2>
+  <div class="filter">
+
+    <div class="card-type">
+      <h3>Card Type(s):</h3>
+      <div class="card-type-checkboxes">
+        <div class="product">
+          <div>
+            <input type="checkbox" name="strategic-product" id="strategic-product" checked>
+            <label for="strategic-product">Strategic Product</label>
+          </div>
+          <div>
+            <input type="checkbox" name="tactical-product" id="tactical-product" checked>
+            <label for="tactical-product">Tactical Product</label>
+          </div>
+          <div>
+            <input type="checkbox" name="unanticipated-product" id="unanticipated-product" checked>
+            <label for="unanticipated-product">Unanticipated Product</label>
+          </div>
+          <div>
+            <input type="checkbox" name="unanticipated" id="unanticipated" checked>
+            <label for="unanticipated">Unanticipated</label>
+          </div>
+        </div>
+        <div class="engineering">
+          <div>
+            <input type="checkbox" name="strategic-engineering" id="strategic-engineering" checked>
+            <label for="strategic-engineering">Strategic Engineering</label>
+          </div>
+          <div>
+            <input type="checkbox" name="tactical-engineering" id="tactical-engineering" checked>
+            <label for="tactical-engineering">Tactical Engineering</label>
+          </div>
+          <div>
+            <input type="checkbox" name="unanticipated-engineering" id="unanticipated-engineering" checked>
+            <label for="unanticipated-engineering">Unanticipated Engineering</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="date-range">
+      <h3>Date Range:</h3>
+      <div>
+        <div class="from-date">
+          <label for="start-date">From:</label>
+          <input id="start-date" name="start-date" type="date" dataformatas="yyyy/MM/dd"/>
+        </div>
+        <div class="to-date">
+          <label for="end-date">To:</label>
+          <input id="end-date" name="end-date" type="date" dataformatas="yyyy/MM/dd"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit">
+      <button class="btn btn-primary" (click)="submit()">Submit</button>
+    </div>
+  </div>
+  <hr>
+</form>
+
+<!-- <app-filter-options></app-filter-options> -->
 
 <p *ngIf="!overviewData"><em>Loading...</em></p>
 <div *ngIf="overviewData">
+
+  <h2>Results:</h2>
+  <p class="small">Search took {{stopTime()}}</p>
+  <h3><strong>From:</strong> {{startDate}} <strong>to</strong> {{endDate}}</h3>
 
   <div class="cumulative-flow-diagram">
     <div>Cumulative Flow Diragram goes here...</div>
@@ -17,9 +84,9 @@
         <div>Box Graph goes here...</div>
       </div>
       <div class="lead-time-results">
-        <p><strong>Longest:</strong> {{overviewData.longestLeadTime}} hours</p>
+        <p><strong>Longest:</strong> {{overviewData.longestLeadTime}} days</p>
         <p><strong>Shortest:</strong> {{overviewData.shortestLeadTime}} hours</p>
-        <p><strong>Average:</strong> {{overviewData.averageLeadTime}} hours</p>
+        <p><strong>Average:</strong> {{overviewData.averageLeadTime}} days</p>
       </div>
     </div>
   </div>

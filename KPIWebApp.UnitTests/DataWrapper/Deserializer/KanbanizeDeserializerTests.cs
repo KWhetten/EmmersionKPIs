@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DataWrapper.ApiWrapper;
-using DataWrapper.DatabaseAccess;
-using DataWrapper.Deserialize;
+using DataAccess.ApiWrapper;
+using DataAccess.DatabaseAccess;
+using DataAccess.Deserialize;
 using DataObjects;
 using KPIDataExtractor.UnitTests.Objects.Kanbanize;
 using Moq;
@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
-namespace KPIDataExtractor.UnitTests.Deserializer
+namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
 {
     [TestFixture]
     public class KanbanizeDeserializerTests

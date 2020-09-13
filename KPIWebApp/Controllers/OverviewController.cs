@@ -1,7 +1,7 @@
-﻿using DataWrapper.DatabaseAccess;
+﻿using System;
+using DataAccess.DatabaseAccess;
 using KPIWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace KPIWebApp.Controllers
 {
@@ -9,21 +9,38 @@ namespace KPIWebApp.Controllers
     [Route("[controller]")]
     public class OverviewController : ControllerBase
     {
-        private readonly ILogger<OverviewController> _logger;
-
-        public OverviewController(ILogger<OverviewController> logger)
-        {
-            _logger = logger;
-        }
-
         [HttpGet]
-        public OverviewData Get()
+        public OverviewData Get(string startDateString, string endDateString)
         {
-            var dataAccess = new DataAccess();
-            var workItemCardList = dataAccess.GetWorkItemCardList();
-            var releaseList = dataAccess.GetReleaseList();
-            var data = new OverviewData(workItemCardList, releaseList);
-            return data;
+            var startDate = new DateTime(2015, 01, 01);
+            var endDate = DateTime.Today;
+            try
+            {
+                startDate = Convert.ToDateTime(startDateString);
+                endDate = Convert.ToDateTime(endDateString);
+            }
+            catch (Exception ex)
+            {
+                // ignored
+            }
+
+            endDate = endDate.AddDays(1);
+
+            if (startDate == DateTime.MinValue)
+            {
+                startDate = new DateTime(2015, 01, 01);
+            }
+            if (endDate == DateTime.MinValue.AddDays(1))
+            {
+                endDate = DateTime.Now;
+            }
+
+            var dataAccess = new DatabaseWrapper();
+
+            var workItemCardList = dataAccess.GetWorkItemCardList(startDate, endDate);
+            var releaseList = dataAccess.GetReleaseList(startDate, endDate);
+
+            return new OverviewData(workItemCardList, releaseList);
         }
     }
 }

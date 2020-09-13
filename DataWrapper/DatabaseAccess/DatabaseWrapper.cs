@@ -8,23 +8,20 @@ using Dapper;
 using DataObjects;
 using Microsoft.TeamFoundation.Common;
 
-namespace DataWrapper.DatabaseAccess
+namespace DataAccess.DatabaseAccess
 {
     public interface IDataAccess
     {
         void InsertReleaseList(IEnumerable<Release> releases);
-        void InsertRelease(Release release);
         void InsertWorkItemCardList(IEnumerable<WorkItemCard> getWorkItemCardList);
-        void InsertWorkItemCard(WorkItemCard workItemCard);
         List<Release> GetReleasesBeforeDate(DateTime finishTime);
-        ReleaseEnvironment GetReleaseEnvironmentById(int releaseEnvironmentId);
     }
 
-    public class DataAccess : IDataAccess
+    public class DatabaseWrapper : IDataAccess
     {
         private IDbConnection dbConnection;
 
-        public DataAccess()
+        public DatabaseWrapper()
         {
             dbConnection =
                 new SqlConnection(
@@ -242,21 +239,32 @@ namespace DataWrapper.DatabaseAccess
                     "Server=localhost,14330;Database=EmmersionMetrics;User Id=sa;Password=truenorth123!;;");
         }
 
-        public List<WorkItemCard> GetWorkItemCardList()
+        public List<WorkItemCard> GetWorkItemCardList(DateTime startDate, DateTime endDate)
         {
             GetNewConnection();
             using (dbConnection)
             {
-                var workItemCardList = dbConnection.Query<WorkItemCard>($"SELECT * FROM WorkItemCard").ToList();
+                var startDateString = ($"{startDate:s}").Replace("T", " ");
+                var endDateString = ($"{endDate:s}").Replace("T", " ");
+                var workItemCardList = dbConnection
+                    .Query<WorkItemCard>($"SELECT * FROM WorkItemCard " +
+                                         $"WHERE FinishTime > '{startDateString}' " +
+                                         $"AND FinishTime < '{endDateString}'").ToList();
 
                 foreach (var workItemCard in workItemCardList)
                 {
                     try
                     {
                         var releaseId = dbConnection
-                            .Query<int>($"SELECT ReleaseId FROM WorkItemCard WHERE Id = {workItemCard.Id}").ToList();
+                            .Query<int>(
+                                $"SELECT ReleaseId " +
+                                $"FROM WorkItemCard " +
+                                $"WHERE Id = {workItemCard.Id}")
+                            .ToList();
                         workItemCard.Release = dbConnection
-                            .Query<Release>($"SELECT * FROM Release WHERE Id = {releaseId.First()}")
+                            .Query<Release>($"SELECT * " +
+                                            $"FROM Release " +
+                                            $"WHERE Id = {releaseId.First()}")
                             .First();
                     }
                     catch (Exception ex)
@@ -269,12 +277,17 @@ namespace DataWrapper.DatabaseAccess
             }
         }
 
-        public List<Release> GetReleaseList()
+        public IEnumerable<Release> GetReleaseList(DateTime startDate, DateTime endDate)
         {
             GetNewConnection();
             using (dbConnection)
             {
-                var releaseList = dbConnection.Query<Release>($"SELECT * FROM Release").ToList();
+                var startDateString = ($"{startDate:s}").Replace("T", " ");
+                var endDateString = ($"{endDate:s}").Replace("T", " ");
+                var releaseList = dbConnection
+                    .Query<Release>($"SELECT * FROM Release " +
+                                    $"WHERE FinishTime > '{startDateString}' " +
+                                    $"AND FinishTime < '{endDateString}'").ToList();
 
                 foreach (var release in releaseList)
                 {
