@@ -20,135 +20,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d529bac-8a91-4cec-a847-4545868e1a59" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/ApiWrapper/DevOpsApiWrapperTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/Deserializer/DevOpsDeserializerTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/alert/alert.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/alert/alert.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/filter-options/filter-options.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_helpers/auth.guard.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_helpers/error.interceptor.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_helpers/fake-backent.temp.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_helpers/jwt.interceptor.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_models/alert.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_models/user.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_services/account.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_services/alert.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/account/account-routing.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/account/account.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/account/layout.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/account/layout.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/login/login.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/login/login.component.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/login/login.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/register/register.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/register/register.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/add-edit.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/add-edit.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/layout.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/layout.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/list.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/list.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/assets/Success Icon_blue.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.KPIWebApp/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.KPIWebApp/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.KPIWebApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.KPIWebApp/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataObjects/bin/Debug/netcoreapp3.1/DataObjects.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/bin/Debug/netcoreapp3.1/DataObjects.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataObjects/bin/Debug/netcoreapp3.1/DataObjects.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/bin/Debug/netcoreapp3.1/DataObjects.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataObjects/obj/DataObjects.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/DataObjects.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/DataObjects.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/DataObjects.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/DataObjects.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/DataObjects.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/DataObjects.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/DataObjects.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/DataObjects.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/DataObjects.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/DataObjects.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/DataObjects.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataObjects/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataObjects/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataObjects/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataObjects/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataWrapper/ApiWrapper/DevOpsApiWrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/ApiWrapper/DevOpsApiWrapper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataWrapper/ApiWrapper/KanbanizeApiWrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/ApiWrapper/KanbanizeApiWrapper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataWrapper/DatabaseAccess/DataAccess.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/DatabaseAccess/DatabaseWrapper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataWrapper/Deserialize/DevOpsDeserializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/Deserialize/DevOpsDeserializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataWrapper/Deserialize/KanbanizeDeserializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/Deserialize/KanbanizeDeserializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataWrapper/bin/Debug/netcoreapp3.1/DataObjects.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/bin/Debug/netcoreapp3.1/DataObjects.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataWrapper/bin/Debug/netcoreapp3.1/DataObjects.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/bin/Debug/netcoreapp3.1/DataObjects.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataWrapper/bin/Debug/netcoreapp3.1/DataWrapper.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/bin/Debug/netcoreapp3.1/DataWrapper.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataWrapper/bin/Debug/netcoreapp3.1/DataWrapper.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/bin/Debug/netcoreapp3.1/DataWrapper.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataWrapper/obj/DataWrapper.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/DataWrapper.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.csprojAssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataWrapper/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataWrapper/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataWrapper/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataWrapper/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/DataObjects.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/DataObjects.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/DataObjects.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/DataObjects.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/DataWrapper.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/DataWrapper.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/DataWrapper.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/DataWrapper.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/KPIDataExtractor.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/KPIDataExtractor.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/KPIDataExtractor.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/KPIDataExtractor.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/KPIDataExtractor.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/KPIDataExtractor.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/ApiWrapper/DevOpsApiWrapperTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/ApiWrapper/KanbanizeApiWrapperTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/ApiWrapper/KanbanizeApiWrapperTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/DatabaseAccess/DataAccessTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/DatabaseAccess/DataAccessTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/Deserializer/DevOpsDeserializerTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/Deserializer/KanbanizeDeserializerTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/Deserializer/KanbanizeDeserializerTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/KPIWebApp.UnitTests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/KPIWebApp.UnitTests.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/Objects/DevOps/JsonRelease.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/TestObjects/DevOps/JsonRelease.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/Objects/DevOps/JsonWorkItemCard.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/Objects/DevOps/JsonWorkItemCardUpdate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/Objects/Kanbanize/JsonWorkItemCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/TestObjects/Kanbanize/JsonWorkItemCard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/Objects/Kanbanize/JsonWorkItemCardHistoryEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/TestObjects/Kanbanize/JsonWorkItemCardHistoryEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/WebApp/OverviewControllerTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/WebApp/OverviewControllerTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataObjects.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataObjects.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataObjects.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataObjects.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataWrapper.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataWrapper.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataWrapper.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataWrapper.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIDataExtractor.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIDataExtractor.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIDataExtractor.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIDataExtractor.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.UnitTests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.UnitTests.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.UnitTests.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.UnitTests.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.Views.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.Views.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.csprojAssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/KPIWebApp.UnitTests.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/KPIWebApp.UnitTests.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/overview/overview.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/overview/overview.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/overview/overview.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/overview/overview.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/overview/overview.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/overview/overview.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/filter-options/filter-options.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/filter-options/filter-options.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/filter-options/filter-options.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/nav-menu/nav-menu.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/nav-menu/nav-menu.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/nav-menu/nav-menu.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/nav-menu/nav-menu.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/nav-menu/nav-menu.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/nav-menu/nav-menu.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/Controllers/OverviewController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/Controllers/OverviewController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/KPIWebApp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/KPIWebApp.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/Models/OverviewData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/Models/OverviewData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/filter-options/filter-options.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/filter-options/filter-options.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/filter-options/filter-options.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/filter-options/filter-options.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/nav-menu/nav-menu.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/nav-menu/nav-menu.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/nav-menu/nav-menu.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/nav-menu/nav-menu.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/nav-menu/nav-menu.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/nav-menu/nav-menu.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,8 +89,10 @@
     <setting file="file://$PROJECT_DIR$/DataWrapper/DatabaseAccess/DatabaseWrapper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7AD3B931-A214-4DE8-ABE3-D039F06C7A53/194/ObjectMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/C2F82446-E914-423F-8A90-FAC6B878B61C/3/IdentityUser.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Code/KPIWebApp/DataWrapper/ApiWrapper/DevOpsApiWrapper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/A53D43D3-9A50-4418-9A85-272E4DE86C9C/24/BaseView.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/DB9CEB1E-F6C3-448D-8D4A-C9F8963779FB/1E0/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Code/KPIWebApp/KPIWebApp.UnitTests/WebApp/OverviewControllerTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/BBA84251-74F5-4959-8295-226979A5A5D7/36/JsonSerializer.Write.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/Deserializer/DevOpsDeserializerTests.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/BBA84251-74F5-4959-8295-226979A5A5D7/28/JsonPropertyInfoNotNullable.cs" root0="SKIP_HIGHLIGHTING" />
@@ -197,18 +100,22 @@
     <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/ApiWrapper/DevOpsApiWrapperTests.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/KPIWebApp/Models/OverviewData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/DatabaseAccess/DataAccessTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Code/KPIWebApp/KPIWebApp/Models/OverviewData.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/BCF8430F-35F5-4573-9E5E-D4FC6C9A130D/F/RestClient.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/98BE20B3-EDF1-4E9F-8B03-D9262DB7C91C/4/DeveloperExceptionPageMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/KPIWebApp/Controllers/OverviewController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DataWrapper/DatabaseAccess/Helper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DataWrapper/Deserialize/DevOpsDeserializer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DataWrapper/Deserialize/KanbanizeDeserializer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Code/KPIWebApp/KPIDataExtractor/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DataWrapper/ApiWrapper/KanbanizeApiWrapper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3830E338-FB85-4AC5-85A8-928949C5BA47/3d/507161e2/ConfigurationManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/A3637BAD-11F4-439B-8B7C-3529F8239F0A/5A/HttpProtocol.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/D32DB49E-5E34-4072-9DA3-1845C03DDC3A/ed/2f7f674f/JObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/Deserializer/KanbanizeDeserializerTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Code/KPIWebApp/KPIWebApp/Controllers/OverviewController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/F2ACE85F-6C10-49DB-8CAC-F03079CCDA72/FE/ControllerActionInvoker.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Code/KPIWebApp/DataWrapper/Deserialize/KanbanizeDeserializer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/ApiWrapper/KanbanizeApiWrapperTests.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/F2ACE85F-6C10-49DB-8CAC-F03079CCDA72/F3/ActionMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/nunit/nunit/c933a883ea25263ec575a654dae69fa38000edd9/src/NUnitFramework/framework/Internal/Execution/SimpleWorkItemDispatcher.cs" root0="SKIP_HIGHLIGHTING" />
@@ -230,6 +137,7 @@
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/nunit/nunit/c933a883ea25263ec575a654dae69fa38000edd9/src/NUnitFramework/framework/Internal/Reflect.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/KPIWebApp/appsettings.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/0FD994BB-96F4-411F-A53F-418501DCE500/E/SqlMapper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Code/KPIWebApp/DataWrapper/Deserialize/DevOpsDeserializer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/A53D43D3-9A50-4418-9A85-272E4DE86C9C/4/DeveloperExceptionPageMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/KPIDataExtractor/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/KPIWebApp/ClientApp/package-lock.json" root0="SKIP_HIGHLIGHTING" />
@@ -237,22 +145,17 @@
     <setting file="file://$PROJECT_DIR$/DataObjects/ReleaseEnvironment.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2845C3BC-527A-40C9-B3DC-CA0CA1296D20/84/84d8b0de/WorkItemTrackingHttpClientBase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/TestObjects/DevOps/JsonRelease.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Code/KPIWebApp/DataWrapper/ApiWrapper/KanbanizeApiWrapper.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/DatabaseAccess/DataAccessTests.cs" />
-        <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/Deserializer/DevOpsDeserializerTests.cs" />
-        <option value="$PROJECT_DIR$/DataWrapper/ApiWrapper/DevOpsApiWrapper.cs" />
-        <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/Objects/DevOps/JsonWorkItemCard.cs" />
-        <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/Objects/DevOps/JsonWorkItemCardUpdate.cs" />
         <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/Deserializer/KanbanizeDeserializerTests.cs" />
         <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/Deserializer/DevOpsDeserializerTests.cs" />
         <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/ApiWrapper/KanbanizeApiWrapperTests.cs" />
         <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/ApiWrapper/DevOpsApiWrapperTests.cs" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/event-emitter.service.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/event-emitter.service.ts" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/Models/OverviewData.cs" />
         <option value="$PROJECT_DIR$/DataWrapper/DatabaseAccess/DatabaseWrapper.cs" />
         <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/WebApp/OverviewControllerTests.cs" />
@@ -263,7 +166,6 @@
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/overview/overview.component.html" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/overview/overview.component.css" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/nav-menu/nav-menu.component.html" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/app.module.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/nav-menu/nav-menu.component.css" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/components/filter-options/filter-options.component.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/filter-options/filter-options.component.ts" />
@@ -283,15 +185,22 @@
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/account/layout.component.html" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/account/layout.component.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/login/login.component.html" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/login/login.component.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/register/register.component.html" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/register/register.component.ts" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/add-edit.component.html" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/add-edit.component.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/layout.html" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/layout.component.ts" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/list.component.html" />
+        <option value="$PROJECT_DIR$/KPIWebApp/KPIWebApp.csproj" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/users.module.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/users-routing.module.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/list.component.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/list.component.html" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/add-edit.component.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/users/add-edit.component.html" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.spec.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/index.html" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/app.module.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/login/login.component.ts" />
       </list>
     </option>
   </component>
@@ -562,106 +471,106 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="410" height="464" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1599934317065" />
-    <state width="1877" height="273" key="GridCell.Tab.0.bottom" timestamp="1599953196307">
+    <state width="1877" height="233" key="GridCell.Tab.0.bottom" timestamp="1599956439814">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719737" />
-    <state width="1877" height="273" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599953196307" />
-    <state width="1877" height="273" key="GridCell.Tab.0.center" timestamp="1599953196307">
+    <state width="1877" height="233" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599956439814" />
+    <state width="1877" height="233" key="GridCell.Tab.0.center" timestamp="1599956439814">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719737" />
-    <state width="1877" height="273" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599953196307" />
-    <state width="1877" height="273" key="GridCell.Tab.0.left" timestamp="1599953196307">
+    <state width="1877" height="233" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599956439814" />
+    <state width="1877" height="233" key="GridCell.Tab.0.left" timestamp="1599956439814">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719737" />
-    <state width="1877" height="273" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599953196307" />
-    <state width="1877" height="273" key="GridCell.Tab.0.right" timestamp="1599953196307">
+    <state width="1877" height="233" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599956439814" />
+    <state width="1877" height="233" key="GridCell.Tab.0.right" timestamp="1599956439814">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719737" />
-    <state width="1877" height="273" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599953196307" />
-    <state width="1877" height="273" key="GridCell.Tab.1.bottom" timestamp="1599953218375">
+    <state width="1877" height="233" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599956439814" />
+    <state width="1877" height="273" key="GridCell.Tab.1.bottom" timestamp="1599956096957">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719737" />
-    <state width="1877" height="273" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599953218375" />
-    <state width="1877" height="273" key="GridCell.Tab.1.center" timestamp="1599953218375">
+    <state width="1877" height="273" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599956096957" />
+    <state width="1877" height="273" key="GridCell.Tab.1.center" timestamp="1599956096957">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719737" />
-    <state width="1877" height="273" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599953218375" />
-    <state width="1877" height="273" key="GridCell.Tab.1.left" timestamp="1599953218375">
+    <state width="1877" height="273" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599956096957" />
+    <state width="1877" height="273" key="GridCell.Tab.1.left" timestamp="1599956096957">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719737" />
-    <state width="1877" height="273" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599953218375" />
-    <state width="1877" height="273" key="GridCell.Tab.1.right" timestamp="1599953218375">
+    <state width="1877" height="273" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599956096957" />
+    <state width="1877" height="273" key="GridCell.Tab.1.right" timestamp="1599956096957">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719737" />
-    <state width="1877" height="273" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599953218375" />
-    <state width="1877" height="273" key="GridCell.Tab.2.bottom" timestamp="1599953196199">
+    <state width="1877" height="273" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599956096957" />
+    <state width="1877" height="273" key="GridCell.Tab.2.bottom" timestamp="1599956096958">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.2.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719738" />
-    <state width="1877" height="273" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599953196199" />
-    <state width="1877" height="273" key="GridCell.Tab.2.center" timestamp="1599953196198">
+    <state width="1877" height="273" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599956096958" />
+    <state width="1877" height="273" key="GridCell.Tab.2.center" timestamp="1599956096957">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.2.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719738" />
-    <state width="1877" height="273" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599953196198" />
-    <state width="1877" height="273" key="GridCell.Tab.2.left" timestamp="1599953196198">
+    <state width="1877" height="273" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599956096957" />
+    <state width="1877" height="273" key="GridCell.Tab.2.left" timestamp="1599956096957">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.2.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719737" />
-    <state width="1877" height="273" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599953196198" />
-    <state width="1877" height="273" key="GridCell.Tab.2.right" timestamp="1599953196199">
+    <state width="1877" height="273" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599956096957" />
+    <state width="1877" height="273" key="GridCell.Tab.2.right" timestamp="1599956096958">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.2.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719738" />
-    <state width="1877" height="273" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599953196199" />
-    <state width="1877" height="273" key="GridCell.Tab.3.bottom" timestamp="1599953196199">
+    <state width="1877" height="273" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599956096958" />
+    <state width="1877" height="273" key="GridCell.Tab.3.bottom" timestamp="1599956096958">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.3.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719738" />
-    <state width="1877" height="273" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599953196199" />
-    <state width="1877" height="273" key="GridCell.Tab.3.center" timestamp="1599953196199">
+    <state width="1877" height="273" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599956096958" />
+    <state width="1877" height="273" key="GridCell.Tab.3.center" timestamp="1599956096958">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.3.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719738" />
-    <state width="1877" height="273" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599953196199" />
-    <state width="1877" height="273" key="GridCell.Tab.3.left" timestamp="1599953196199">
+    <state width="1877" height="273" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599956096958" />
+    <state width="1877" height="273" key="GridCell.Tab.3.left" timestamp="1599956096958">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.3.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719738" />
-    <state width="1877" height="273" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599953196199" />
-    <state width="1877" height="273" key="GridCell.Tab.3.right" timestamp="1599953196199">
+    <state width="1877" height="273" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599956096958" />
+    <state width="1877" height="273" key="GridCell.Tab.3.right" timestamp="1599956096958">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.3.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719738" />
-    <state width="1877" height="273" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599953196199" />
-    <state width="1877" height="273" key="GridCell.Tab.4.bottom" timestamp="1599953196199">
+    <state width="1877" height="273" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599956096958" />
+    <state width="1877" height="273" key="GridCell.Tab.4.bottom" timestamp="1599956096958">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.4.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719738" />
-    <state width="1877" height="273" key="GridCell.Tab.4.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599953196199" />
-    <state width="1877" height="273" key="GridCell.Tab.4.center" timestamp="1599953196199">
+    <state width="1877" height="273" key="GridCell.Tab.4.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599956096958" />
+    <state width="1877" height="273" key="GridCell.Tab.4.center" timestamp="1599956096958">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.4.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719738" />
-    <state width="1877" height="273" key="GridCell.Tab.4.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599953196199" />
-    <state width="1877" height="273" key="GridCell.Tab.4.left" timestamp="1599953196199">
+    <state width="1877" height="273" key="GridCell.Tab.4.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599956096958" />
+    <state width="1877" height="273" key="GridCell.Tab.4.left" timestamp="1599956096958">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.4.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719738" />
-    <state width="1877" height="273" key="GridCell.Tab.4.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599953196199" />
-    <state width="1877" height="273" key="GridCell.Tab.4.right" timestamp="1599953196199">
+    <state width="1877" height="273" key="GridCell.Tab.4.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599956096958" />
+    <state width="1877" height="273" key="GridCell.Tab.4.right" timestamp="1599956096958">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="270" key="GridCell.Tab.4.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598732719738" />
-    <state width="1877" height="273" key="GridCell.Tab.4.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599953196199" />
+    <state width="1877" height="273" key="GridCell.Tab.4.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599956096958" />
     <state x="552" y="252" key="Rider.ProjectTemplateDialog.Size" timestamp="1599338779445">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -691,10 +600,10 @@
     </state>
     <state width="477" height="523" key="XDebugger.FullValuePopup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598730851285" />
     <state width="487" height="523" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1599940712269" />
-    <state x="999" y="184" width="723" height="536" key="find.popup" timestamp="1599954286919">
+    <state x="999" y="184" width="723" height="536" key="find.popup" timestamp="1599956715179">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="999" y="184" width="723" height="536" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1599954286919" />
+    <state x="999" y="184" width="723" height="536" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1599956715179" />
     <state x="1303" y="450" width="348" height="298" key="org.angular.cli.generate" timestamp="1599155320574">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -737,6 +646,19 @@
           </properties>
           <option name="timeStamp" value="131" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/KPIWebApp/Controllers/OverviewController.cs</url>
+          <line>14</line>
+          <properties documentPath="C:\Code\KPIWebApp\KPIWebApp\Controllers\OverviewController.cs" initialLine="14">
+            <startOffsets>
+              <option value="363" />
+            </startOffsets>
+            <endOffsets>
+              <option value="406" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="146" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/overview/overview.component.html</url>
           <line>85</line>
@@ -750,7 +672,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/overview/overview.component.ts</url>
           <line>77</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="144" />
         </line-breakpoint>
       </breakpoints>

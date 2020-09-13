@@ -1,6 +1,6 @@
 ﻿import {Component, Inject, ViewChild} from "@angular/core";
 import {DatePipe} from "@angular/common";
-import {OverviewComponent} from "../../overview/overview.component";
+import {OverviewComponent} from "../../app/overview/overview.component";
 import {HttpClient} from "@angular/common/http";
 
 @Component({
