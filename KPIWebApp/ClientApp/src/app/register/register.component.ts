@@ -3,11 +3,13 @@ import {HttpClient} from "@angular/common/http";
 import * as bcrypt from "bcryptjs";
 
 @Component({
-  selector: "app-register-user-component",
-  templateUrl: "./register-user.component.html",
-  styleUrls: ["./register-user.component.css"]
+  selector: "app-register-component",
+  templateUrl: "./register.component.html",
+  styleUrls: ["./register.component.css"]
 })
 export class RegisterComponent {
+  baseUrl: string;
+
   firstName: string;
   lastName: string;
   email: string;
@@ -20,9 +22,11 @@ export class RegisterComponent {
   passwordError: string = "";
   confirmPasswordError: string = "";
   private regexp: RegExp;
+  private http: HttpClient;
 
   constructor(http: HttpClient, @Inject("BASE_URL") baseUrl: string) {
-
+    this.baseUrl = baseUrl;
+    this.http = http;
   }
 
   async submit() {
@@ -31,9 +35,13 @@ export class RegisterComponent {
     this.lastName = (document.getElementById("last-name") as HTMLInputElement).value;
     this.email = (document.getElementById("email") as HTMLInputElement).value;
     this.password = await bcrypt.hash((document.getElementById("password") as HTMLInputElement).value, 10);
+    let data = { firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password};
 
     if (this.NoFieldsAreBlank() && this.PasswordValid() && await this.PasswordsMatch() && this.EmailValid()) {
-      // submit stuff
+      this.http.post<any>(this.baseUrl + "register", data).subscribe(
+        (res) => console.log(res),
+        (err) => console.log(err)
+      );
     }
   }
 
@@ -128,17 +136,16 @@ export class RegisterComponent {
   }
 
   PasswordValid() {
-    this.regexp = new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$");
+    this.regexp = new RegExp("^(?=.*[0-9])(?=.*[A-Z]).{8,32}$");
 
     if (this.regexp.test((document.getElementById("password") as HTMLInputElement).value)) {
       (document.getElementById("password-error") as HTMLInputElement).hidden = true;
+      return true;
     } else {
       (document.getElementById("password-error") as HTMLInputElement).hidden = false;
       this.passwordError = "Password must be at least 8 characters long and contain the following:\n" +
-        "At least one digit, at least one lowercase and one uppercase character, and at least one special character";
+        "At least one digit and at least one uppercase character";
       return false;
     }
-
-    return false;
   }
 }

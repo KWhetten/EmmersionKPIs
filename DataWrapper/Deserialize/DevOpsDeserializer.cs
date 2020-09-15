@@ -15,23 +15,18 @@ namespace DataAccess.Deserialize
     {
         public List<Release> Releases(JToken jsonObjects)
         {
-            return jsonObjects.Select(jsonObject => new Release
+            return (from item in jsonObjects
+                where (DateTime) item["completedOn"] >= DateTime.Now.AddDays(-30)
+                select new Release
                 {
-                    Id = (int) jsonObject["id"],
-                    Name = (string) jsonObject["release"]["name"],
-                    Status = (string) jsonObject["deploymentStatus"],
-                    ReleaseEnvironment = new ReleaseEnvironment
-                    {
-                        Id = (int) jsonObject["definitionEnvironmentId"],
-                        Name = (string) jsonObject["releaseEnvironment"]["name"]
-                    },
-                    Attempts = (int) jsonObject["attempt"],
-                    StartTime = (DateTime) jsonObject["startedOn"],
-                    FinishTime = (DateTime) jsonObject["completedOn"]
-                })
-                .ToList();
+                    Id = (int) item["id"],
+                    Name = (string) item["release"]["name"],
+                    Status = (string) item["deploymentStatus"],
+                    ReleaseEnvironment = new ReleaseEnvironment {Id = (int) item["definitionEnvironmentId"], Name = (string) item["releaseEnvironment"]["name"]},
+                    Attempts = (int) item["attempt"],
+                    StartTime = (DateTime) item["startedOn"],
+                    FinishTime = (DateTime) item["completedOn"]
+                }).ToList();
         }
-
-
     }
 }

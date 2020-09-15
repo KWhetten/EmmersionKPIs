@@ -308,5 +308,10 @@ namespace DataAccess.DatabaseAccess
                 return releaseList;
             }
         }
+
+        public bool InsertUserInfo(string firstName, string lastName, string email, string password)
+        {
+            return true;
+        }
     }
 }

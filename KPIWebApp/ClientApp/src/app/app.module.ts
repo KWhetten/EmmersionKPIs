@@ -10,7 +10,7 @@ import {OverviewComponent} from "./overview/overview.component";
 import {WorkItemCardsComponent} from "./work-item-cards/work-item-cards.component";
 import {FilterOptionsComponent} from "../components/filter-options/filter-options.component";
 import {LoginComponent} from "./login/login.component";
-import {RegisterComponent} from "./register-user/register-user.component";
+import {RegisterComponent} from "./register/register.component";
 
 @NgModule({
   declarations: [

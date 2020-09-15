@@ -224,10 +224,10 @@
                 <e p="overview.component.html" t="Include" />
                 <e p="overview.component.ts" t="Include" />
               </e>
-              <e p="register-user" t="Include">
-                <e p="register-user.component.css" t="Include" />
-                <e p="register-user.component.html" t="Include" />
-                <e p="register-user.component.ts" t="Include" />
+              <e p="register" t="Include">
+                <e p="register.component.css" t="Include" />
+                <e p="register.component.html" t="Include" />
+                <e p="register.component.ts" t="Include" />
               </e>
               <e p="work-item-cards" t="Include">
                 <e p="work-item-cards.component.css" t="Include" />
@@ -272,6 +272,7 @@
         </e>
         <e p="Controllers" t="Include">
           <e p="OverviewController.cs" t="Include" />
+          <e p="RegisterController.cs" t="Include" />
         </e>
         <e p="KPIWebApp.csproj" t="IncludeRecursive" />
         <e p="Models" t="Include">

@@ -33,7 +33,7 @@ namespace DataAccess.Deserialize
             var i = 0;
             foreach (var item in jsonWorkItemCards)
             {
-                if (item["columnid"].ToString().Contains("archive")) continue;
+                if (item["columnid"].ToString().Contains("archive") && (DateTime) item["updatedat"] >= DateTime.Now.AddDays(-30)) continue;
                 workItemCardList.Add(WorkItemCard(item, boardId));
                 Console.WriteLine($"Card Number: {++i}");
             }
@@ -104,29 +104,36 @@ namespace DataAccess.Deserialize
 
             foreach (var item in history)
             {
-                if (item["historyevent"].ToString() == "Task moved")
+                try
                 {
-                    if ((item["details"].ToString().Contains("to 'Top Priority'")
-                         || item["details"].ToString().Contains("to 'Working'"))
-                        && (workItemCard.StartTime > (DateTime) item["entrydate"]
-                            || workItemCard.StartTime == DateTime.MinValue))
+                    if (item["historyevent"].ToString() == "Task moved")
                     {
-                        workItemCard.StartTime = (DateTime) item["entrydate"];
+                        if ((item["details"].ToString().Contains("to 'Top Priority'")
+                             || item["details"].ToString().Contains("to 'Working'"))
+                            && (workItemCard.StartTime > (DateTime) item["entrydate"]
+                                || workItemCard.StartTime == DateTime.MinValue))
+                        {
+                            workItemCard.StartTime = (DateTime) item["entrydate"];
+                        }
+                        else if ((item["details"].ToString().Contains("to 'Ready for Prod Deploy'")
+                                  || item["details"].ToString().Contains("to 'Released to Prod this week'")
+                                  || item["details"].ToString().Contains("to 'Ready to Archive'"))
+                                 && (workItemCard.FinishTime < (DateTime) item["entrydate"]
+                                     || workItemCard.FinishTime == DateTime.MaxValue))
+                        {
+                            workItemCard.FinishTime = (DateTime) item["entrydate"];
+                        }
                     }
-                    else if ((item["details"].ToString().Contains("to 'Ready for Prod Deploy'")
-                              || item["details"].ToString().Contains("to 'Released to Prod this week'")
-                              || item["details"].ToString().Contains("to 'Ready to Archive'"))
-                             && (workItemCard.FinishTime < (DateTime) item["entrydate"]
-                             || workItemCard.FinishTime == DateTime.MaxValue))
+
+                    if (workItemCard.LastChangedOn == (DateTime) item["entrydate"]
+                        || workItemCard.LastChangedBy == "")
                     {
-                        workItemCard.FinishTime = (DateTime) item["entrydate"];
+                        workItemCard.LastChangedBy = item["author"].ToString();
                     }
                 }
-
-                if (workItemCard.LastChangedOn == (DateTime) item["entrydate"]
-                    || workItemCard.LastChangedBy == "")
+                catch (Exception ex)
                 {
-                    workItemCard.LastChangedBy = item["author"].ToString();
+                    // ignored
                 }
             }
 
