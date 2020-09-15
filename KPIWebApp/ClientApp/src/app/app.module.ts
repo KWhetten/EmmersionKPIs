@@ -11,6 +11,7 @@ import {WorkItemCardsComponent} from "./work-item-cards/work-item-cards.componen
 import {FilterOptionsComponent} from "../components/filter-options/filter-options.component";
 import {ReleasesComponent} from "./releases/releases.component";
 import {LoginComponent} from "./login/login.component";
+import {RegisterComponent} from "./register-user/register-user.component";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {LoginComponent} from "./login/login.component";
     OverviewComponent,
     WorkItemCardsComponent,
     ReleasesComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -30,7 +32,8 @@ import {LoginComponent} from "./login/login.component";
       { path: 'home', component: OverviewComponent, pathMatch: 'full' },
       { path: 'work-item-cards', component: WorkItemCardsComponent },
       { path: "releases", component: ReleasesComponent },
-      { path: "login", component: LoginComponent }
+      { path: "login", component: LoginComponent },
+      { path: "register", component: RegisterComponent }
     ])
   ],
   providers: [],

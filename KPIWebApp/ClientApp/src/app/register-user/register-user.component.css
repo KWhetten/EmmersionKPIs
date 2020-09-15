@@ -1,52 +1,30 @@
-﻿.login-container {
+﻿.register-container {
   width: 100%;
   display: flex;
   flex-direction: row;
-  position:absolute;
-  left:50%;
-  top:50%;
-  margin:-120px 0 0 -13%;
+  justify-content: center;
 }
 
 h1 {
   display: flex;
-  justify-content: center;
 }
 
 .login-block {
   width: 26%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
-.email-block {
+.first-name-block, .last-name-block, .email-block, .username-block, .password-block, .confirm-password-block {
   display: flex;
   flex-direction: row;
-  justify-content: center;
   margin-top: 16px;
 }
 
-.email, .password {
+.first-name, .last-name, .email, .username, .password, .confirm-password {
   height: 48px;
   width: 100%;
   border-radius: 15px;
-  vertical-align: center;
-  padding-left: 16px;
-}
-
-.password-block {
-  display: flex;
-  flex-direction: row;
-  margin-top: 8px;
-  justify-content: center;
-}
-
-.password {
-  height: 48px;
-  width: 100%;
-  border-radius: 15px;
-  vertical-align: center;
   padding-left: 16px;
 }
 
@@ -60,14 +38,18 @@ h1 {
 .submit-block {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
   margin-top: 16px;
 }
 
-.submit {
+.submit, .cancel {
   height: 48px;
-  width: 80%;
+  width: 45%;
   border-radius: 15px;
+}
+
+.cancel {
+  margin-right: 10%;
 }
 
 .forgot-password {
