@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "C:\\Code\\KPIWebApp\\DataObjects\\DataObjects.csproj",
+    "projectUniqueName": "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj",
     "projectName": "DataObjects",
-    "projectPath": "C:\\Code\\KPIWebApp\\DataObjects\\DataObjects.csproj",
-    "outputPath": "C:\\Code\\KPIWebApp\\DataObjects\\obj\\",
+    "projectPath": "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj",
+    "outputPath": "C:\\Code\\EmmersionKPIs\\DataObjects\\obj\\",
     "projectStyle": "PackageReference",
     "originalTargetFrameworks": [
       "netcoreapp3.1"

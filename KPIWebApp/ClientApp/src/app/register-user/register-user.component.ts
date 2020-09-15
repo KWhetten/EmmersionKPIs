@@ -1,6 +1,6 @@
 ﻿import {Component, Inject} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import * as bcrypt from 'bcryptjs';
+import * as bcrypt from "bcryptjs";
 
 @Component({
   selector: "app-register-user-component",
@@ -31,17 +31,16 @@ export class RegisterComponent {
     this.lastName = (document.getElementById("last-name") as HTMLInputElement).value;
     this.email = (document.getElementById("email") as HTMLInputElement).value;
     this.password = await bcrypt.hash((document.getElementById("password") as HTMLInputElement).value, 10);
-    this.confirmPassword = await bcrypt.hash((document.getElementById("confirm-password") as HTMLInputElement).value, 10);
 
-    if (this.NoFieldsAreBlank() && this.PasswordsMatch() && this.EmailValid()) {
+    if (this.NoFieldsAreBlank() && this.PasswordValid() && await this.PasswordsMatch() && this.EmailValid()) {
       // submit stuff
     }
   }
 
-  private EmailValid() {
+  EmailValid() {
     this.regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
-    if(this.regexp.test((document.getElementById("email") as HTMLInputElement).value)) {
+    if (this.regexp.test((document.getElementById("email") as HTMLInputElement).value)) {
       (document.getElementById("email-error") as HTMLInputElement).hidden = true;
     } else {
       (document.getElementById("email-error") as HTMLInputElement).hidden = false;
@@ -58,20 +57,20 @@ export class RegisterComponent {
     return true;
   }
 
-  private PasswordsMatch() {
-    if (this.password != this.confirmPassword) {
-      (document.getElementById("confirm-password-error") as HTMLInputElement).hidden = false;
-      this.confirmPasswordError = "Passwords don't match!";
-      return false;
-    } else {
+  async PasswordsMatch() {
+    if (await bcrypt.compare((document.getElementById("confirm-password") as HTMLInputElement).value, this.password)) {
       if (this.confirmPasswordError == "" || this.confirmPasswordError == "Passwords don't match!") {
         (document.getElementById("confirm-password-error") as HTMLInputElement).hidden = true;
       }
       return true;
+    } else {
+      (document.getElementById("confirm-password-error") as HTMLInputElement).hidden = false;
+      this.confirmPasswordError = "Passwords don't match!";
+      return false;
     }
   }
 
-  private NoFieldsAreBlank() {
+  NoFieldsAreBlank() {
     let flag = true;
     if (this.firstName == "") {
       (document.getElementById("first-name-error") as HTMLInputElement).hidden = false;
@@ -126,5 +125,20 @@ export class RegisterComponent {
     (document.getElementById("last-name") as HTMLInputElement).value = "";
     (document.getElementById("password") as HTMLInputElement).value = "";
     (document.getElementById("confirm-password") as HTMLInputElement).value = "";
+  }
+
+  PasswordValid() {
+    this.regexp = new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$");
+
+    if (this.regexp.test((document.getElementById("password") as HTMLInputElement).value)) {
+      (document.getElementById("password-error") as HTMLInputElement).hidden = true;
+    } else {
+      (document.getElementById("password-error") as HTMLInputElement).hidden = false;
+      this.passwordError = "Password must be at least 8 characters long and contain the following:\n" +
+        "At least one digit, at least one lowercase and one uppercase character, and at least one special character";
+      return false;
+    }
+
+    return false;
   }
 }

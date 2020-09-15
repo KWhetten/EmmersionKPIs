@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Code\\KPIWebApp\\DataWrapper\\DataWrapper.csproj": {}
+    "C:\\Code\\EmmersionKPIs\\DataWrapper\\DataWrapper.csproj": {}
   },
   "projects": {
-    "C:\\Code\\KPIWebApp\\DataObjects\\DataObjects.csproj": {
+    "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Code\\KPIWebApp\\DataObjects\\DataObjects.csproj",
+        "projectUniqueName": "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj",
         "projectName": "DataObjects",
-        "projectPath": "C:\\Code\\KPIWebApp\\DataObjects\\DataObjects.csproj",
+        "projectPath": "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj",
         "packagesPath": "C:\\Users\\krwhe\\.nuget\\packages\\",
-        "outputPath": "C:\\Code\\KPIWebApp\\DataObjects\\obj\\",
+        "outputPath": "C:\\Code\\EmmersionKPIs\\DataObjects\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\krwhe\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -54,14 +54,14 @@
         }
       }
     },
-    "C:\\Code\\KPIWebApp\\DataWrapper\\DataWrapper.csproj": {
+    "C:\\Code\\EmmersionKPIs\\DataWrapper\\DataWrapper.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Code\\KPIWebApp\\DataWrapper\\DataWrapper.csproj",
+        "projectUniqueName": "C:\\Code\\EmmersionKPIs\\DataWrapper\\DataWrapper.csproj",
         "projectName": "DataWrapper",
-        "projectPath": "C:\\Code\\KPIWebApp\\DataWrapper\\DataWrapper.csproj",
+        "projectPath": "C:\\Code\\EmmersionKPIs\\DataWrapper\\DataWrapper.csproj",
         "packagesPath": "C:\\Users\\krwhe\\.nuget\\packages\\",
-        "outputPath": "C:\\Code\\KPIWebApp\\DataWrapper\\obj\\",
+        "outputPath": "C:\\Code\\EmmersionKPIs\\DataWrapper\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\krwhe\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -75,8 +75,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Code\\KPIWebApp\\DataObjects\\DataObjects.csproj": {
-                "projectPath": "C:\\Code\\KPIWebApp\\DataObjects\\DataObjects.csproj"
+              "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj": {
+                "projectPath": "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj"
               }
             }
           }

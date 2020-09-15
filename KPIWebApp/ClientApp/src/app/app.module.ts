@@ -9,7 +9,6 @@ import { NavMenuComponent } from '../components/nav-menu/nav-menu.component';
 import {OverviewComponent} from "./overview/overview.component";
 import {WorkItemCardsComponent} from "./work-item-cards/work-item-cards.component";
 import {FilterOptionsComponent} from "../components/filter-options/filter-options.component";
-import {ReleasesComponent} from "./releases/releases.component";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register-user/register-user.component";
 
@@ -20,7 +19,6 @@ import {RegisterComponent} from "./register-user/register-user.component";
     FilterOptionsComponent,
     OverviewComponent,
     WorkItemCardsComponent,
-    ReleasesComponent,
     LoginComponent,
     RegisterComponent
   ],
@@ -31,7 +29,6 @@ import {RegisterComponent} from "./register-user/register-user.component";
     RouterModule.forRoot([
       { path: 'home', component: OverviewComponent, pathMatch: 'full' },
       { path: 'work-item-cards', component: WorkItemCardsComponent },
-      { path: "releases", component: ReleasesComponent },
       { path: "login", component: LoginComponent },
       { path: "register", component: RegisterComponent }
     ])

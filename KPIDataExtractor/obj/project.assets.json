@@ -5720,11 +5720,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Code\\KPIWebApp\\KPIDataExtractor\\KPIDataExtractor.csproj",
+      "projectUniqueName": "C:\\Code\\EmmersionKPIs\\KPIDataExtractor\\KPIDataExtractor.csproj",
       "projectName": "KPIDataExtractor",
-      "projectPath": "C:\\Code\\KPIWebApp\\KPIDataExtractor\\KPIDataExtractor.csproj",
+      "projectPath": "C:\\Code\\EmmersionKPIs\\KPIDataExtractor\\KPIDataExtractor.csproj",
       "packagesPath": "C:\\Users\\krwhe\\.nuget\\packages\\",
-      "outputPath": "C:\\Code\\KPIWebApp\\KPIDataExtractor\\obj\\",
+      "outputPath": "C:\\Code\\EmmersionKPIs\\KPIDataExtractor\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\krwhe\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -5738,8 +5738,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Code\\KPIWebApp\\DataWrapper\\DataWrapper.csproj": {
-              "projectPath": "C:\\Code\\KPIWebApp\\DataWrapper\\DataWrapper.csproj"
+            "C:\\Code\\EmmersionKPIs\\DataWrapper\\DataWrapper.csproj": {
+              "projectPath": "C:\\Code\\EmmersionKPIs\\DataWrapper\\DataWrapper.csproj"
             }
           }
         }

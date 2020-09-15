@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Code\KPIWebApp" t="IncludeFlat">
+    <e p="C:\Code\EmmersionKPIs" t="IncludeFlat">
       <e p="DataObjects" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="DataObjects.csproj" t="IncludeRecursive" />
@@ -104,6 +104,8 @@
           <e p="node_modules\ansi-colors" t="IncludeRecursive" />
           <e p="node_modules\arg" t="IncludeRecursive" />
           <e p="node_modules\aspnet-prerendering" t="IncludeRecursive" />
+          <e p="node_modules\bcrypt" t="IncludeRecursive" />
+          <e p="node_modules\bcryptjs" t="IncludeRecursive" />
           <e p="node_modules\blocking-proxy" t="IncludeRecursive" />
           <e p="node_modules\bootstrap" t="IncludeRecursive" />
           <e p="node_modules\canonical-path" t="IncludeRecursive" />
@@ -222,10 +224,10 @@
                 <e p="overview.component.html" t="Include" />
                 <e p="overview.component.ts" t="Include" />
               </e>
-              <e p="releases" t="Include">
-                <e p="releases.component.css" t="Include" />
-                <e p="releases.component.html" t="Include" />
-                <e p="releases.component.ts" t="Include" />
+              <e p="register-user" t="Include">
+                <e p="register-user.component.css" t="Include" />
+                <e p="register-user.component.html" t="Include" />
+                <e p="register-user.component.ts" t="Include" />
               </e>
               <e p="work-item-cards" t="Include">
                 <e p="work-item-cards.component.css" t="Include" />
@@ -347,6 +349,6 @@
     <e p="C:\Users\krwhe\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.dll" t="Include" />
     <e p="C:\Users\krwhe\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.pdb" t="Include" />
     <e p="C:\Users\krwhe\AppData\local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\krwhe\AppData\local\JetBrains\Rider2020.2\resharper-host\local\Transient\Rider\v202\SolutionCaches\_KPIWebApp.860874032.00" t="ExcludeRecursive" />
+    <e p="C:\Users\krwhe\AppData\local\JetBrains\Rider2020.2\resharper-host\local\Transient\Rider\v202\SolutionCaches\_KPIWebApp.545620917.00" t="ExcludeRecursive" />
   </component>
 </project>

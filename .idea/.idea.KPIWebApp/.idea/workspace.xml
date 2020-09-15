@@ -20,36 +20,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d529bac-8a91-4cec-a847-4545868e1a59" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/login/login.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/assets/Success Icon_blue.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.KPIWebApp/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.KPIWebApp/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.KPIWebApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.KPIWebApp/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataObjects/obj/DataObjects.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/DataObjects.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/DataObjects.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/DataObjects.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/DataObjects.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/DataObjects.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/DataObjects.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/DataObjects.csprojAssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataObjects/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataObjects/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataObjects/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataObjects/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/DataObjects/obj/rider.project.restore.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataWrapper/bin/Debug/netcoreapp3.1/DataWrapper.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/bin/Debug/netcoreapp3.1/DataWrapper.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataWrapper/bin/Debug/netcoreapp3.1/DataWrapper.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/bin/Debug/netcoreapp3.1/DataWrapper.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataWrapper/obj/DataWrapper.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/DataWrapper.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.csprojAssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/DataWrapper.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/DataWrapper.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/DataWrapper.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/DataWrapper.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/bin/Debug/netcoreapp3.1/DataWrapper.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataWrapper/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataWrapper/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataWrapper/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataWrapper/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/DataWrapper/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataWrapper.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataWrapper.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataWrapper.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataWrapper.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.UnitTests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.UnitTests.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.UnitTests.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.UnitTests.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/KPIDataExtractor.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/KPIDataExtractor.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIDataExtractor/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/KPIDataExtractor/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/filter-options/filter-options.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/filter-options/filter-options.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/filter-options/filter-options.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/filter-options/filter-options.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/nav-menu/nav-menu.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/nav-menu/nav-menu.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/nav-menu/nav-menu.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/nav-menu/nav-menu.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_components/nav-menu/nav-menu.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/nav-menu/nav-menu.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/KPIWebApp.UnitTests.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/KPIWebApp.UnitTests.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/register-user/register-user.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/register-user/register-user.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/KPIWebApp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/KPIWebApp.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,74 +95,65 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/DataObjects/WorkItemCard.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DataObjects/WorkItemCardType.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/App.config" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DataWrapper/DatabaseAccess/DatabaseWrapper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/DatabaseAccess/DataAccessTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/Deserializer/DevOpsDeserializerTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/Deserializer/KanbanizeDeserializerTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/ApiWrapper/DevOpsApiWrapperTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/ApiWrapper/KanbanizeApiWrapperTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp/appsettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/TestObjects/Kanbanize/JsonWorkItemCard.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/TestObjects/Kanbanize/JsonWorkItemCardHistoryEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/.NETCoreApp,Version=v3.1.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/TestObjects/DevOps/JsonRelease.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7AD3B931-A214-4DE8-ABE3-D039F06C7A53/194/ObjectMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/C2F82446-E914-423F-8A90-FAC6B878B61C/3/IdentityUser.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Code/KPIWebApp/DataWrapper/ApiWrapper/DevOpsApiWrapper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/A53D43D3-9A50-4418-9A85-272E4DE86C9C/24/BaseView.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/DB9CEB1E-F6C3-448D-8D4A-C9F8963779FB/1E0/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Code/KPIWebApp/KPIWebApp.UnitTests/WebApp/OverviewControllerTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/.NETCoreApp,Version=v3.1.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DataObjects/WorkItemCardType.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/BBA84251-74F5-4959-8295-226979A5A5D7/36/JsonSerializer.Write.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/Deserializer/DevOpsDeserializerTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DataObjects/ReleaseEnvironment.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/obj/KPIWebApp.UnitTests.csproj.nuget.dgspec.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DataObjects/Release.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DataObjects/WorkItemCard.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/BBA84251-74F5-4959-8295-226979A5A5D7/28/JsonPropertyInfoNotNullable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/98BE20B3-EDF1-4E9F-8B03-D9262DB7C91C/5/DiagnosticsLoggerExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/ApiWrapper/DevOpsApiWrapperTests.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIWebApp/Models/OverviewData.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/DatabaseAccess/DataAccessTests.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Code/KPIWebApp/KPIWebApp/Models/OverviewData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/.NETCoreApp,Version=v3.1.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIDataExtractor.UnitTests.AssemblyInfo.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/BCF8430F-35F5-4573-9E5E-D4FC6C9A130D/F/RestClient.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/98BE20B3-EDF1-4E9F-8B03-D9262DB7C91C/4/DeveloperExceptionPageMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/KPIWebApp/Controllers/OverviewController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DataWrapper/DatabaseAccess/Helper.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DataWrapper/Deserialize/DevOpsDeserializer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DataWrapper/Deserialize/KanbanizeDeserializer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Code/KPIWebApp/KPIDataExtractor/Program.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DataWrapper/ApiWrapper/KanbanizeApiWrapper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3830E338-FB85-4AC5-85A8-928949C5BA47/3d/507161e2/ConfigurationManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/A3637BAD-11F4-439B-8B7C-3529F8239F0A/5A/HttpProtocol.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/D32DB49E-5E34-4072-9DA3-1845C03DDC3A/ed/2f7f674f/JObject.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/Deserializer/KanbanizeDeserializerTests.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Code/KPIWebApp/KPIWebApp/Controllers/OverviewController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/App.config" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DataWrapper/DatabaseAccess/DatabaseWrapper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DataWrapper/DatabaseAccess/Helper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DataWrapper/Deserialize/DevOpsDeserializer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/F2ACE85F-6C10-49DB-8CAC-F03079CCDA72/FE/ControllerActionInvoker.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Code/KPIWebApp/DataWrapper/Deserialize/KanbanizeDeserializer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/ApiWrapper/KanbanizeApiWrapperTests.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/F2ACE85F-6C10-49DB-8CAC-F03079CCDA72/F3/ActionMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/nunit/nunit/c933a883ea25263ec575a654dae69fa38000edd9/src/NUnitFramework/framework/Internal/Execution/SimpleWorkItemDispatcher.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DataObjects/obj/Debug/netcoreapp3.1/.NETCoreApp,Version=v3.1.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.AssemblyInfo.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/nunit/nunit/c933a883ea25263ec575a654dae69fa38000edd9/src/NUnitFramework/framework/Internal/Execution/CompositeWorkItem.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/.NETCoreApp,Version=v3.1.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/obj/KPIWebApp.UnitTests.csproj.nuget.dgspec.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/TestObjects/Kanbanize/JsonWorkItemCardHistoryEvent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/nunit/nunit/c933a883ea25263ec575a654dae69fa38000edd9/src/NUnitFramework/framework/Internal/Execution/WorkItem.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/TestObjects/Kanbanize/JsonWorkItemCard.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/F2ACE85F-6C10-49DB-8CAC-F03079CCDA72/11C/ResourceInvoker.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/.NETCoreApp,Version=v3.1.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2845C3BC-527A-40C9-B3DC-CA0CA1296D20/8f/ddbf765b/WorkItemTrackingHttpClient.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/.NETCoreApp,Version=v3.1.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIDataExtractor.UnitTests.AssemblyInfo.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/13433213-3FB3-4707-9E46-5CA0D1C598D2/13/EndpointMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/App.config" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/nunit/nunit/c933a883ea25263ec575a654dae69fa38000edd9/src/NUnitFramework/framework/Internal/Reflect.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIWebApp/appsettings.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/0FD994BB-96F4-411F-A53F-418501DCE500/E/SqlMapper.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Code/KPIWebApp/DataWrapper/Deserialize/DevOpsDeserializer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/A53D43D3-9A50-4418-9A85-272E4DE86C9C/4/DeveloperExceptionPageMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/KPIWebApp/ClientApp/package-lock.json" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DataObjects/Release.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DataObjects/ReleaseEnvironment.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DataWrapper/obj/Debug/netcoreapp3.1/.NETCoreApp,Version=v3.1.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/nunit/nunit/c933a883ea25263ec575a654dae69fa38000edd9/src/NUnitFramework/framework/Internal/Execution/WorkItem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/F2ACE85F-6C10-49DB-8CAC-F03079CCDA72/11C/ResourceInvoker.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DataWrapper/Deserialize/KanbanizeDeserializer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DataWrapper/ApiWrapper/KanbanizeApiWrapper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2845C3BC-527A-40C9-B3DC-CA0CA1296D20/8f/ddbf765b/WorkItemTrackingHttpClient.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/13433213-3FB3-4707-9E46-5CA0D1C598D2/13/EndpointMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/nunit/nunit/c933a883ea25263ec575a654dae69fa38000edd9/src/NUnitFramework/framework/Internal/Reflect.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/0FD994BB-96F4-411F-A53F-418501DCE500/E/SqlMapper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/A53D43D3-9A50-4418-9A85-272E4DE86C9C/4/DeveloperExceptionPageMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/App.config" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2845C3BC-527A-40C9-B3DC-CA0CA1296D20/84/84d8b0de/WorkItemTrackingHttpClientBase.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIWebApp.UnitTests/TestObjects/DevOps/JsonRelease.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Code/KPIWebApp/DataWrapper/ApiWrapper/KanbanizeApiWrapper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp/Models/OverviewData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIDataExtractor/obj/Debug/netcoreapp3.1/KPIDataExtractor.AssemblyInfo.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/Deserializer/KanbanizeDeserializerTests.cs" />
         <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/Deserializer/DevOpsDeserializerTests.cs" />
         <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/ApiWrapper/KanbanizeApiWrapperTests.cs" />
         <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/DataWrapper/ApiWrapper/DevOpsApiWrapperTests.cs" />
@@ -199,8 +202,9 @@
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.spec.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/index.html" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/app.module.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/login/login.component.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/app.module.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/register-user/register-user.component.ts" />
       </list>
     </option>
   </component>
@@ -209,7 +213,6 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
-    <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
@@ -227,7 +230,7 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="RiderDotCoverPageId" />
-    <property name="ts.external.directory.path" value="C:\Code\KPIWebApp\KPIWebApp\ClientApp\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="C:\Code\EmmersionKPIs\KPIWebApp\ClientApp\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected=".NET Launch Settings Profile.KPIWebApp">
@@ -379,6 +382,7 @@
       <workItem from="1599764617214" duration="1806000" />
       <workItem from="1599932733505" duration="15538000" />
       <workItem from="1599949565207" duration="5995000" />
+      <workItem from="1600134294436" duration="1970000" />
     </task>
     <task id="LOCAL-00001" summary="Yay!">
       <created>1599602510590</created>
@@ -600,6 +604,14 @@
     </state>
     <state width="477" height="523" key="XDebugger.FullValuePopup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1598730851285" />
     <state width="487" height="523" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1599940712269" />
+    <state x="100" y="100" width="1235" height="840" key="dock-window-1" timestamp="1600135631604">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="100" y="100" width="1235" height="840" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1600135631604" />
+    <state x="100" y="100" width="1235" height="840" key="dock-window-2" timestamp="1600135631604">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="100" y="100" width="1235" height="840" key="dock-window-2/0.0.1920.1040@0.0.1920.1040" timestamp="1600135631604" />
     <state x="999" y="184" width="723" height="536" key="find.popup" timestamp="1599956715179">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -636,27 +648,13 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/DataWrapper/DatabaseAccess/DatabaseWrapper.cs</url>
           <line>45</line>
-          <properties documentPath="C:\Code\KPIWebApp\DataWrapper\DatabaseAccess\DatabaseWrapper.cs" initialLine="45">
-            <startOffsets>
-              <option value="1386" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1538" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="C:\Code\KPIWebApp\DataWrapper\DatabaseAccess\DatabaseWrapper.cs" initialLine="45" />
           <option name="timeStamp" value="131" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/KPIWebApp/Controllers/OverviewController.cs</url>
           <line>14</line>
-          <properties documentPath="C:\Code\KPIWebApp\KPIWebApp\Controllers\OverviewController.cs" initialLine="14">
-            <startOffsets>
-              <option value="363" />
-            </startOffsets>
-            <endOffsets>
-              <option value="406" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="C:\Code\KPIWebApp\KPIWebApp\Controllers\OverviewController.cs" initialLine="14" />
           <option name="timeStamp" value="146" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">

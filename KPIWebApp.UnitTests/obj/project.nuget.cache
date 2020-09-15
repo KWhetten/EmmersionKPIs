@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+naS1oEHexdtpDV3Oag0fLINRgl0s8p1fb72+5hNj7yuHuOOXBxmugGNTBpL5o8mZ5q3PhivX9zCmFdIP0mHsQ==",
+  "dgSpecHash": "by9x6fo3n6A7Y/s0jyfYo5eOASObqDZA6mus5cofmaF2gskHcD+ChksuzIbZ3hOehwjxlypJmjhOY/HCSd1iqA==",
   "success": true,
-  "projectFilePath": "C:\\Code\\KPIWebApp\\KPIWebApp.UnitTests\\KPIWebApp.UnitTests.csproj",
+  "projectFilePath": "C:\\Code\\EmmersionKPIs\\KPIWebApp.UnitTests\\KPIWebApp.UnitTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\krwhe\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",
     "C:\\Users\\krwhe\\.nuget\\packages\\dapper\\2.0.35\\dapper.2.0.35.nupkg.sha512",

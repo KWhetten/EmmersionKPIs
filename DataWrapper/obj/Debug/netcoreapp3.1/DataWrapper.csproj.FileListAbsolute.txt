@@ -22,3 +22,15 @@ C:\Code\KPIWebApp\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.csproj.CoreCom
 C:\Code\KPIWebApp\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.csproj.CopyComplete
 C:\Code\KPIWebApp\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.dll
 C:\Code\KPIWebApp\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.pdb
+C:\Code\EmmersionKPIs\DataWrapper\bin\Debug\netcoreapp3.1\DataWrapper.deps.json
+C:\Code\EmmersionKPIs\DataWrapper\bin\Debug\netcoreapp3.1\DataWrapper.dll
+C:\Code\EmmersionKPIs\DataWrapper\bin\Debug\netcoreapp3.1\DataWrapper.pdb
+C:\Code\EmmersionKPIs\DataWrapper\bin\Debug\netcoreapp3.1\DataObjects.dll
+C:\Code\EmmersionKPIs\DataWrapper\bin\Debug\netcoreapp3.1\DataObjects.pdb
+C:\Code\EmmersionKPIs\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.csprojAssemblyReference.cache
+C:\Code\EmmersionKPIs\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.AssemblyInfoInputs.cache
+C:\Code\EmmersionKPIs\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.AssemblyInfo.cs
+C:\Code\EmmersionKPIs\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.csproj.CoreCompileInputs.cache
+C:\Code\EmmersionKPIs\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.csproj.CopyComplete
+C:\Code\EmmersionKPIs\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.dll
+C:\Code\EmmersionKPIs\DataWrapper\obj\Debug\netcoreapp3.1\DataWrapper.pdb

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lVV3HOJqtNY6XmVAJDagJwAt+cJb5xvvgSa+oa6X2lJXe+3KtzUYWuDeoFHYSKTG6tHOlChPiW2N+4p9tYZuMw==",
+  "dgSpecHash": "XXktjXziiLPLS6om1k+TT8Fl3tGtwNoGYyeTNfib7j590KtZttmaeDnk9JRah8IGJC+eZznVMlVZlf6gEertcw==",
   "success": true,
-  "projectFilePath": "C:\\Code\\KPIWebApp\\DataObjects\\DataObjects.csproj",
+  "projectFilePath": "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

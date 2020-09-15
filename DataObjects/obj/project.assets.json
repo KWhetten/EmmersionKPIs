@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Code\\KPIWebApp\\DataObjects\\DataObjects.csproj",
+      "projectUniqueName": "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj",
       "projectName": "DataObjects",
-      "projectPath": "C:\\Code\\KPIWebApp\\DataObjects\\DataObjects.csproj",
+      "projectPath": "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj",
       "packagesPath": "C:\\Users\\krwhe\\.nuget\\packages\\",
-      "outputPath": "C:\\Code\\KPIWebApp\\DataObjects\\obj\\",
+      "outputPath": "C:\\Code\\EmmersionKPIs\\DataObjects\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\krwhe\\AppData\\Roaming\\NuGet\\NuGet.Config"
