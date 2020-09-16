@@ -16,12 +16,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\KPIDataExtractor\KPIDataExtractor.csproj" />
+      <ProjectReference Include="..\DataExtractor\DataExtractor.csproj" />
       <ProjectReference Include="..\KPIWebApp\KPIWebApp.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="DataWrapper" />
+      <Folder Include="Tests\DataExtractor" />
+      <Folder Include="Tests\DataObjects" />
+      <Folder Include="Tests\DevOpsWorkItemCardDataExtractor" />
     </ItemGroup>
 
 </Project>

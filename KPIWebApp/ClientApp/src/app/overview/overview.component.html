@@ -76,7 +76,7 @@
     <div>Cumulative Flow Diragram goes here...</div>
   </div>
 
-  <h4>Lead Time</h4>
+  <h4>{{overviewData.totalCards}} Work Item Cards</h4>
   <div class="lead-time">
     <div class="scatter-plot">Scatter Plot goes here...</div>
     <div class="right-column">
@@ -84,18 +84,17 @@
         <div>Box Graph goes here...</div>
       </div>
       <div class="lead-time-results">
-        <p><strong>Longest:</strong> {{overviewData.longestLeadTime}} days</p>
-        <p><strong>Shortest:</strong> {{overviewData.shortestLeadTime}} hours</p>
-        <p><strong>Average:</strong> {{overviewData.averageLeadTime}} days</p>
+        <p><strong>Longest Lead Time:</strong> {{overviewData.longestLeadTime}} days</p>
+        <p><strong>Shortest Lead Time:</strong> {{overviewData.shortestLeadTime}} hours</p>
+        <p><strong>Average Lead Time:</strong> {{overviewData.averageLeadTime}} days</p>
       </div>
     </div>
   </div>
 
-  <h4>Deployment Frequency</h4>
+  <h4>{{overviewData.totalDeploys}} Deploys</h4>
   <div class="deployment-frequency">
     <div class="scatter-plot">Scatter Plot goes here...</div>
     <div class="deployment-frequency-results">
-      <p><strong>Total Deploys:</strong> {{overviewData.totalDeploys}}</p>
       <p><strong>Successful Deploys:</strong> {{overviewData.successfulDeploys}}</p>
       <p><strong>Rolled-Back Deploys:</strong> {{overviewData.rolledBackDeploys}}</p>
       <p><strong>Frequency:</strong> {{overviewData.deployFrequency}} deploys per week</p>

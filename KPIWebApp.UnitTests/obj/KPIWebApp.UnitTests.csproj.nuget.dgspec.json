@@ -4,14 +4,14 @@
     "C:\\Code\\EmmersionKPIs\\KPIWebApp.UnitTests\\KPIWebApp.UnitTests.csproj": {}
   },
   "projects": {
-    "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj": {
+    "C:\\Code\\EmmersionKPIs\\DataExtractor\\DataExtractor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj",
-        "projectName": "DataObjects",
-        "projectPath": "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj",
+        "projectUniqueName": "C:\\Code\\EmmersionKPIs\\DataExtractor\\DataExtractor.csproj",
+        "projectName": "DataExtractor",
+        "projectPath": "C:\\Code\\EmmersionKPIs\\DataExtractor\\DataExtractor.csproj",
         "packagesPath": "C:\\Users\\krwhe\\.nuget\\packages\\",
-        "outputPath": "C:\\Code\\EmmersionKPIs\\DataObjects\\obj\\",
+        "outputPath": "C:\\Code\\EmmersionKPIs\\DataExtractor\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\krwhe\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -24,7 +24,11 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Code\\EmmersionKPIs\\DataManipulation\\DataManipulation.csproj": {
+                "projectPath": "C:\\Code\\EmmersionKPIs\\DataManipulation\\DataManipulation.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -35,6 +39,12 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "RestSharp": {
+              "target": "Package",
+              "version": "[106.11.4, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -54,14 +64,14 @@
         }
       }
     },
-    "C:\\Code\\EmmersionKPIs\\DataWrapper\\DataWrapper.csproj": {
+    "C:\\Code\\EmmersionKPIs\\DataManipulation\\DataManipulation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Code\\EmmersionKPIs\\DataWrapper\\DataWrapper.csproj",
-        "projectName": "DataWrapper",
-        "projectPath": "C:\\Code\\EmmersionKPIs\\DataWrapper\\DataWrapper.csproj",
+        "projectUniqueName": "C:\\Code\\EmmersionKPIs\\DataManipulation\\DataManipulation.csproj",
+        "projectName": "DataManipulation",
+        "projectPath": "C:\\Code\\EmmersionKPIs\\DataManipulation\\DataManipulation.csproj",
         "packagesPath": "C:\\Users\\krwhe\\.nuget\\packages\\",
-        "outputPath": "C:\\Code\\EmmersionKPIs\\DataWrapper\\obj\\",
+        "outputPath": "C:\\Code\\EmmersionKPIs\\DataManipulation\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\krwhe\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -75,8 +85,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj": {
-                "projectPath": "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj"
+              "C:\\Code\\EmmersionKPIs\\Deserializer\\Deserializer.csproj": {
+                "projectPath": "C:\\Code\\EmmersionKPIs\\Deserializer\\Deserializer.csproj"
               }
             }
           }
@@ -122,14 +132,14 @@
         }
       }
     },
-    "C:\\Code\\EmmersionKPIs\\KPIDataExtractor\\KPIDataExtractor.csproj": {
+    "C:\\Code\\EmmersionKPIs\\Deserializer\\Deserializer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Code\\EmmersionKPIs\\KPIDataExtractor\\KPIDataExtractor.csproj",
-        "projectName": "KPIDataExtractor",
-        "projectPath": "C:\\Code\\EmmersionKPIs\\KPIDataExtractor\\KPIDataExtractor.csproj",
+        "projectUniqueName": "C:\\Code\\EmmersionKPIs\\Deserializer\\Deserializer.csproj",
+        "projectName": "Deserializer",
+        "projectPath": "C:\\Code\\EmmersionKPIs\\Deserializer\\Deserializer.csproj",
         "packagesPath": "C:\\Users\\krwhe\\.nuget\\packages\\",
-        "outputPath": "C:\\Code\\EmmersionKPIs\\KPIDataExtractor\\obj\\",
+        "outputPath": "C:\\Code\\EmmersionKPIs\\Deserializer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\krwhe\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -142,11 +152,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "projectReferences": {
-              "C:\\Code\\EmmersionKPIs\\DataWrapper\\DataWrapper.csproj": {
-                "projectPath": "C:\\Code\\EmmersionKPIs\\DataWrapper\\DataWrapper.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -158,9 +164,9 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
-            "RestSharp": {
+            "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[106.11.4, )"
+              "version": "[12.0.2, )"
             }
           },
           "imports": [
@@ -203,8 +209,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Code\\EmmersionKPIs\\KPIDataExtractor\\KPIDataExtractor.csproj": {
-                "projectPath": "C:\\Code\\EmmersionKPIs\\KPIDataExtractor\\KPIDataExtractor.csproj"
+              "C:\\Code\\EmmersionKPIs\\DataExtractor\\DataExtractor.csproj": {
+                "projectPath": "C:\\Code\\EmmersionKPIs\\DataExtractor\\DataExtractor.csproj"
               },
               "C:\\Code\\EmmersionKPIs\\KPIWebApp\\KPIWebApp.csproj": {
                 "projectPath": "C:\\Code\\EmmersionKPIs\\KPIWebApp\\KPIWebApp.csproj"
@@ -281,11 +287,11 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj": {
-                "projectPath": "C:\\Code\\EmmersionKPIs\\DataObjects\\DataObjects.csproj"
+              "C:\\Code\\EmmersionKPIs\\DataManipulation\\DataManipulation.csproj": {
+                "projectPath": "C:\\Code\\EmmersionKPIs\\DataManipulation\\DataManipulation.csproj"
               },
-              "C:\\Code\\EmmersionKPIs\\DataWrapper\\DataWrapper.csproj": {
-                "projectPath": "C:\\Code\\EmmersionKPIs\\DataWrapper\\DataWrapper.csproj"
+              "C:\\Code\\EmmersionKPIs\\Deserializer\\Deserializer.csproj": {
+                "projectPath": "C:\\Code\\EmmersionKPIs\\Deserializer\\Deserializer.csproj"
               }
             }
           }

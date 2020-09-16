@@ -15,8 +15,8 @@
     "frameworks": {
       "netcoreapp3.1": {
         "projectReferences": {
-          "C:\\Code\\EmmersionKPIs\\KPIDataExtractor\\KPIDataExtractor.csproj": {
-            "projectPath": "C:\\Code\\EmmersionKPIs\\KPIDataExtractor\\KPIDataExtractor.csproj"
+          "C:\\Code\\EmmersionKPIs\\DataExtractor\\DataExtractor.csproj": {
+            "projectPath": "C:\\Code\\EmmersionKPIs\\DataExtractor\\DataExtractor.csproj"
           },
           "C:\\Code\\EmmersionKPIs\\KPIWebApp\\KPIWebApp.csproj": {
             "projectPath": "C:\\Code\\EmmersionKPIs\\KPIWebApp\\KPIWebApp.csproj"

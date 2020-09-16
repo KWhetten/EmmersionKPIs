@@ -1,0 +1,9 @@
+C:\Code\EmmersionKPIs\DataManipulation\obj\Debug\netcoreapp3.1\DataManipulation.csprojAssemblyReference.cache
+C:\Code\EmmersionKPIs\DataManipulation\obj\Debug\netcoreapp3.1\DataManipulation.AssemblyInfoInputs.cache
+C:\Code\EmmersionKPIs\DataManipulation\obj\Debug\netcoreapp3.1\DataManipulation.AssemblyInfo.cs
+C:\Code\EmmersionKPIs\DataManipulation\obj\Debug\netcoreapp3.1\DataManipulation.csproj.CoreCompileInputs.cache
+C:\Code\EmmersionKPIs\DataManipulation\bin\Debug\netcoreapp3.1\DataManipulation.deps.json
+C:\Code\EmmersionKPIs\DataManipulation\bin\Debug\netcoreapp3.1\DataManipulation.dll
+C:\Code\EmmersionKPIs\DataManipulation\bin\Debug\netcoreapp3.1\DataManipulation.pdb
+C:\Code\EmmersionKPIs\DataManipulation\obj\Debug\netcoreapp3.1\DataManipulation.dll
+C:\Code\EmmersionKPIs\DataManipulation\obj\Debug\netcoreapp3.1\DataManipulation.pdb

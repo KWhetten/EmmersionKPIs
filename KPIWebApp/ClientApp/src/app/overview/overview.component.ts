@@ -89,4 +89,5 @@ interface OverviewData {
   deployFrequency: number;
   meanTimeToRestore: number;
   changeFailPercentage: number;
+  totalCards: number;
 }

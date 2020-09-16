@@ -2,22 +2,21 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Code\EmmersionKPIs" t="IncludeFlat">
-      <e p="DataObjects" t="IncludeRecursive">
+      <e p="DataExtractor" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
-        <e p="DataObjects.csproj" t="IncludeRecursive" />
+        <e p="DataExtractor.csproj" t="IncludeRecursive" />
+        <e p="docker-compose.yml" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
-              <e p="DataObjects.AssemblyInfo.cs" t="Include" />
+              <e p="DataExtractor.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
-        <e p="Release.cs" t="Include" />
-        <e p="ReleaseEnvironment.cs" t="Include" />
-        <e p="WorkItemCard.cs" t="Include" />
-        <e p="WorkItemCardType.cs" t="Include" />
+        <e p="Program.cs" t="Include" />
       </e>
-      <e p="DataWrapper" t="IncludeRecursive">
+      <e p="DataManipulation" t="IncludeRecursive">
         <e p="ApiWrapper" t="Include">
           <e p="DevOpsApiWrapper.cs" t="Include" />
           <e p="KanbanizeApiWrapper.cs" t="Include" />
@@ -27,7 +26,7 @@
           <e p="DatabaseWrapper.cs" t="Include" />
           <e p="Helper.cs" t="Include" />
         </e>
-        <e p="DataWrapper.csproj" t="IncludeRecursive" />
+        <e p="DataManipulation.csproj" t="IncludeRecursive" />
         <e p="Deserialize" t="Include">
           <e p="DevOpsDeserializer.cs" t="Include" />
           <e p="KanbanizeDeserializer.cs" t="Include" />
@@ -35,20 +34,30 @@
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
-              <e p="DataWrapper.AssemblyInfo.cs" t="Include" />
+              <e p="DataManipulation.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
+        <e p="Objects" t="Include">
+          <e p="Release.cs" t="Include" />
+          <e p="ReleaseEnvironment.cs" t="Include" />
+          <e p="WorkItemCard.cs" t="Include" />
+          <e p="WorkItemCardType.cs" t="Include" />
+        </e>
       </e>
-      <e p="KPIDataExtractor" t="IncludeRecursive">
-        <e p="App.config" t="Include" />
+      <e p="DevOpsWorkItemCardDataExtractor-DEPRECATED" t="IncludeRecursive">
+        <e p="ApiWrapper" t="Include">
+          <e p="DevOpsApiWrapper.cs" t="Include" />
+        </e>
         <e p="bin" t="ExcludeRecursive" />
-        <e p="docker-compose.yml" t="Include" />
-        <e p="KPIDataExtractor.csproj" t="IncludeRecursive" />
+        <e p="Deserializer" t="Include">
+          <e p="DevOpsDeserializer.cs" t="Include" />
+        </e>
+        <e p="DevOpsWorkItemCardDataExtractor-DEPRECATED.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
-              <e p="KPIDataExtractor.AssemblyInfo.cs" t="Include" />
+              <e p="DevOpsWorkItemCardDataExtractor-DEPRECATED.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
@@ -304,19 +313,6 @@
       <e p="KPIWebApp.UnitTests" t="IncludeRecursive">
         <e p="App.config" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
-        <e p="DataWrapper" t="Include">
-          <e p="ApiWrapper" t="Include">
-            <e p="DevOpsApiWrapperTests.cs" t="Include" />
-            <e p="KanbanizeApiWrapperTests.cs" t="Include" />
-          </e>
-          <e p="DatabaseAccess" t="Include">
-            <e p="DataAccessTests.cs" t="Include" />
-          </e>
-          <e p="Deserializer" t="Include">
-            <e p="DevOpsDeserializerTests.cs" t="Include" />
-            <e p="KanbanizeDeserializerTests.cs" t="Include" />
-          </e>
-        </e>
         <e p="KPIWebApp.UnitTests.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -334,8 +330,26 @@
             <e p="JsonWorkItemCardHistoryEvent.cs" t="Include" />
           </e>
         </e>
-        <e p="WebApp" t="Include">
-          <e p="OverviewControllerTests.cs" t="Include" />
+        <e p="Tests" t="Include">
+          <e p="DataExtractor" t="Include" />
+          <e p="DataObjects" t="Include" />
+          <e p="DataWrapper" t="Include">
+            <e p="ApiWrapper" t="Include">
+              <e p="DevOpsApiWrapperTests.cs" t="Include" />
+              <e p="KanbanizeApiWrapperTests.cs" t="Include" />
+            </e>
+            <e p="DatabaseAccess" t="Include">
+              <e p="DataAccessTests.cs" t="Include" />
+            </e>
+            <e p="Deserializer" t="Include">
+              <e p="DevOpsDeserializerTests.cs" t="Include" />
+              <e p="KanbanizeDeserializerTests.cs" t="Include" />
+            </e>
+          </e>
+          <e p="DevOpsWorkItemCardDataExtractor" t="Include" />
+          <e p="KPIWebApp" t="Include">
+            <e p="OverviewControllerTests.cs" t="Include" />
+          </e>
         </e>
       </e>
       <e p="packages" t="ExcludeRecursive" />
