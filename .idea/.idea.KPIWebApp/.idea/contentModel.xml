@@ -23,15 +23,8 @@
         </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="DatabaseAccess" t="Include">
-          <e p="App.config" t="Include" />
           <e p="DatabaseWrapper.cs" t="Include" />
           <e p="Helper.cs" t="Include" />
-          <e p="ReleaseDataAccess.cs" t="Include" />
-          <e p="UserDataAccess.cs" t="Include" />
-          <e p="WorkItemCardDataAccess.cs" t="Include" />
-        </e>
-        <e p="DatabaseScema" t="Include">
-          <e p="EmmersionMetrics.sql" t="Include" />
         </e>
         <e p="DataManipulation.csproj" t="IncludeRecursive" />
         <e p="Deserialize" t="Include">
@@ -48,7 +41,6 @@
         <e p="Objects" t="Include">
           <e p="Release.cs" t="Include" />
           <e p="ReleaseEnvironment.cs" t="Include" />
-          <e p="UserInfo.cs" t="Include" />
           <e p="WorkItemCard.cs" t="Include" />
           <e p="WorkItemCardType.cs" t="Include" />
         </e>
@@ -118,7 +110,6 @@
           </e>
           <e p="node_modules\acorn" t="IncludeRecursive" />
           <e p="node_modules\ajv" t="IncludeRecursive" />
-          <e p="node_modules\angular-google-charts" t="IncludeRecursive" />
           <e p="node_modules\ansi-colors" t="IncludeRecursive" />
           <e p="node_modules\arg" t="IncludeRecursive" />
           <e p="node_modules\aspnet-prerendering" t="IncludeRecursive" />
@@ -130,13 +121,11 @@
           <e p="node_modules\codelyzer" t="IncludeRecursive" />
           <e p="node_modules\commander" t="IncludeRecursive" />
           <e p="node_modules\core-js" t="IncludeRecursive" />
-          <e p="node_modules\d3" t="IncludeRecursive" />
           <e p="node_modules\dependency-graph" t="IncludeRecursive" />
           <e p="node_modules\domain-task" t="IncludeRecursive" />
           <e p="node_modules\domino" t="IncludeRecursive" />
           <e p="node_modules\es6-promise" t="IncludeRecursive" />
           <e p="node_modules\fast-deep-equal" t="IncludeRecursive" />
-          <e p="node_modules\highcharts" t="IncludeRecursive" />
           <e p="node_modules\jasmine-core" t="IncludeRecursive" />
           <e p="node_modules\jasmine-spec-reporter" t="IncludeRecursive" />
           <e p="node_modules\jest-worker" t="IncludeRecursive" />
@@ -234,35 +223,20 @@
               <e p="app.component.ts" t="Include" />
               <e p="app.module.ts" t="Include" />
               <e p="app.server.module.ts" t="Include" />
-              <e p="change-password" t="Include">
-                <e p="change-password.component.css" t="Include" />
-                <e p="change-password.component.html" t="Include" />
-                <e p="change-password.component.ts" t="Include" />
-              </e>
-              <e p="create-password" t="Include">
-                <e p="create-password.component.css" t="Include" />
-                <e p="create-password.component.html" t="Include" />
-                <e p="create-password.component.ts" t="Include" />
-              </e>
-              <e p="forgot-password" t="Include">
-                <e p="forgot-password.component.css" t="Include" />
-                <e p="forgot-password.component.html" t="Include" />
-                <e p="forgot-password.component.ts" t="Include" />
-              </e>
-              <e p="home" t="Include">
-                <e p="home.component.css" t="Include" />
-                <e p="home.component.html" t="Include" />
-                <e p="home.component.ts" t="Include" />
-              </e>
-              <e p="invite-user" t="Include">
-                <e p="invite-user.component.css" t="Include" />
-                <e p="invite-user.component.html" t="Include" />
-                <e p="invite-user.component.ts" t="Include" />
-              </e>
               <e p="login" t="Include">
                 <e p="login.component.css" t="Include" />
                 <e p="login.component.html" t="Include" />
                 <e p="login.component.ts" t="Include" />
+              </e>
+              <e p="overview" t="Include">
+                <e p="overview.component.css" t="Include" />
+                <e p="overview.component.html" t="Include" />
+                <e p="overview.component.ts" t="Include" />
+              </e>
+              <e p="register" t="Include">
+                <e p="register.component.css" t="Include" />
+                <e p="register.component.html" t="Include" />
+                <e p="register.component.ts" t="Include" />
               </e>
               <e p="work-item-cards" t="Include">
                 <e p="work-item-cards.component.css" t="Include" />
@@ -286,11 +260,6 @@
                 <e p="nav-menu.component.html" t="Include" />
                 <e p="nav-menu.component.ts" t="Include" />
               </e>
-              <e p="scatter-plot" t="Include">
-                <e p="scatter-plot.component.css" t="Include" />
-                <e p="scatter-plot.component.html" t="Include" />
-                <e p="scatter-plot.component.ts" t="Include" />
-              </e>
             </e>
             <e p="environments" t="Include">
               <e p="environment.prod.ts" t="Include" />
@@ -311,13 +280,8 @@
           <e p="tslint.json" t="Include" />
         </e>
         <e p="Controllers" t="Include">
-          <e p="EmailManager.cs" t="Include" />
-          <e p="ForgotPasswordController.cs" t="Include" />
-          <e p="LoginUserController.cs" t="Include" />
           <e p="OverviewController.cs" t="Include" />
-          <e p="PasswordChangeController.cs" t="Include" />
           <e p="RegisterController.cs" t="Include" />
-          <e p="WorkItemCardDataController.cs" t="Include" />
         </e>
         <e p="KPIWebApp.csproj" t="IncludeRecursive" />
         <e p="Models" t="Include">
@@ -331,7 +295,6 @@
             </e>
           </e>
         </e>
-        <e p="package-lock.json" t="Include" />
         <e p="Pages" t="Include">
           <e p="_ViewImports.cshtml" t="Include" />
           <e p="Error.cshtml" t="Include" />
@@ -369,15 +332,14 @@
         </e>
         <e p="Tests" t="Include">
           <e p="DataExtractor" t="Include" />
-          <e p="DataManipulation" t="Include">
+          <e p="DataObjects" t="Include" />
+          <e p="DataWrapper" t="Include">
             <e p="ApiWrapper" t="Include">
               <e p="DevOpsApiWrapperTests.cs" t="Include" />
               <e p="KanbanizeApiWrapperTests.cs" t="Include" />
             </e>
             <e p="DatabaseAccess" t="Include">
-              <e p="AuthorizationDataAccessTests.cs" t="Include" />
-              <e p="ReleaseDataAccessTests.cs" t="Include" />
-              <e p="WorkItemCardDataAccessTests.cs" t="Include" />
+              <e p="DataAccessTests.cs" t="Include" />
             </e>
             <e p="Deserializer" t="Include">
               <e p="DevOpsDeserializerTests.cs" t="Include" />
@@ -386,12 +348,7 @@
           </e>
           <e p="DevOpsWorkItemCardDataExtractor" t="Include" />
           <e p="KPIWebApp" t="Include">
-            <e p="ForgotPasswordControllerTests.cs" t="Include" />
-            <e p="LoginUserControllerTests.cs" t="Include" />
             <e p="OverviewControllerTests.cs" t="Include" />
-            <e p="PasswordChangeControllerTests.cs" t="Include" />
-            <e p="RegisterControllerTests.cs" t="Include" />
-            <e p="WorkItemCardDataControllerTests.cs" t="Include" />
           </e>
         </e>
       </e>
@@ -408,6 +365,5 @@
     <e p="C:\Users\krwhe\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.pdb" t="Include" />
     <e p="C:\Users\krwhe\AppData\local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
     <e p="C:\Users\krwhe\AppData\local\JetBrains\Rider2020.2\resharper-host\local\Transient\Rider\v202\SolutionCaches\_KPIWebApp.545620917.00" t="ExcludeRecursive" />
-    <e p="C:\Users\krwhe\AppData\Roaming\JetBrains\Rider2020.2\javascript\extLibs\http_d3js.org_d3.v4.js" t="IncludeRecursive" />
   </component>
 </project>

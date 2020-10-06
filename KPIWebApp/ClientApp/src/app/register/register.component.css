@@ -1,4 +1,4 @@
-﻿.password-container {
+﻿.register-container {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -7,25 +7,21 @@
 
 h1 {
   display: flex;
-  justify-content: center;
 }
 
-form {
-  width: 33%;
+.login-block {
+  width: 26%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
-.password-block, .confirm-password-block {
+.first-name-block, .last-name-block, .email-block, .username-block, .password-block, .confirm-password-block {
   display: flex;
-  width: 100%;
   flex-direction: row;
   margin-top: 16px;
 }
 
-.password, .confirm-password {
+.first-name, .last-name, .email, .username, .password, .confirm-password {
   height: 48px;
   width: 100%;
   border-radius: 15px;
@@ -40,27 +36,10 @@ form {
 }
 
 .submit-block {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-top: 8px;
-}
-
-.result {
-  margin-bottom: 0;
-}
-
-.success {
-  color: green;
-  margin-bottom: 0;
-  justify-content: center;
-}
-
-.buttons {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  margin-top: 8px;
+  margin-top: 16px;
 }
 
 .submit, .cancel {

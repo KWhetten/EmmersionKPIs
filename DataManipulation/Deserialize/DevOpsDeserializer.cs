@@ -16,9 +16,8 @@ namespace DataManipulation.Deserialize
         public List<Release> Releases(JToken jsonObjects)
         {
             return (from item in jsonObjects
-                where (DateTime) item["completedOn"] >= DateTime.Now.AddDays(-360)
-                      && (item["releaseDefinition"]["name"].ToString() == "TrueNorthTest Release"
-                          || item["releaseDefinition"]["name"].ToString() == "Assessments PC")
+                where (DateTime) item["completedOn"] >= DateTime.Now.AddDays(-30)
+                      && (item["releaseDefinition"]["name"].ToString() == "TrueNorthTest Release" || item["releaseDefinition"]["name"].ToString() == "Assessments PC")
                 select new Release
                 {
                     Id = (int) item["id"],

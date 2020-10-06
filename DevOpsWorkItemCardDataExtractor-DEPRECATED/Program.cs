@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using DataAccess.DatabaseAccess;
 using DataManipulation.DatabaseAccess;
 using KPIDevOpsDataExtractor_DEPRECATED.Deserializer;
 using RestSharp;
@@ -13,7 +12,8 @@ namespace KPIDevOpsDataExtractor_DEPRECATED
     public static class Program
     {
         private static readonly IDevOpsApiWrapper DevOpsApiWrapper = new DevOpsApiWrapper(new RestClient());
-        private static readonly IDevOpsDeserializer DevOpsDeserializer = new DevOpsDeserializer(DevOpsApiWrapper, new ReleaseDataAccess(), new WorkItemCardDataAccess(), new UserDataAccess());
+        private static readonly IDatabaseWrapper DataAccess = new DatabaseWrapper();
+        private static readonly IDevOpsDeserializer DevOpsDeserializer = new DevOpsDeserializer(DevOpsApiWrapper, DataAccess);
 
         public static async Task Main()
         {
@@ -27,12 +27,10 @@ namespace KPIDevOpsDataExtractor_DEPRECATED
 
         private static async Task InsertDevOpsCards()
         {
-            var accessWorkItemCardData = new WorkItemCardDataAccess();
-
             var workItemCardList = await DevOpsApiWrapper.GetWorkItemCardList();
             if (workItemCardList.Any())
             {
-                accessWorkItemCardData.InsertWorkItemCardList(DevOpsDeserializer.WorkItemCardList(workItemCardList));
+                DataAccess.InsertWorkItemCardList(DevOpsDeserializer.WorkItemCardList(workItemCardList));
             }
             else
                 Console.WriteLine("No new cards.");

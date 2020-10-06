@@ -1,7 +1,6 @@
-﻿import {Component, Inject, OnInit} from "@angular/core";
+﻿import {Component, Inject} from "@angular/core";
+import {HttpClient} from "@angular/common/http";
 import {DatePipe} from "@angular/common";
-import {Router} from '@angular/router';
-import {getCookie} from '../app.component';
 
 @Component({
   selector: "app-work-item-cards-component",
@@ -9,16 +8,9 @@ import {getCookie} from '../app.component';
   styleUrls: ["./work-item-cards.component.css"],
   providers: [DatePipe]
 })
-export class WorkItemCardsComponent implements OnInit {
+export class WorkItemCardsComponent {
 
-  constructor(private router: Router, @Inject("BASE_URL") baseUrl: string) {
+  constructor(http: HttpClient, @Inject("BASE_URL") baseUrl: string, datepipe: DatePipe) {
 
-  }
-
-  ngOnInit() {
-    let cookieValue = getCookie();
-    if (cookieValue == undefined) {
-      this.router.navigate(['/login']);
-    }
   }
 }

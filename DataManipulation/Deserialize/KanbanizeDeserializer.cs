@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DataAccess.DatabaseAccess;
 using DataManipulation.ApiWrapper;
 using DataManipulation.DatabaseAccess;
 using DataObjects.Objects;
@@ -20,22 +19,19 @@ namespace DataManipulation.Deserialize
     public class KanbanizeDeserializer : IKanbanizeDeserializer
     {
         private readonly IKanbanizeApiWrapper kanbanizeApiWrapper;
-        private readonly ReleaseDataAccess releaseDataAccess = new ReleaseDataAccess();
-        private readonly IWorkItemCardDataAccess workItemCardDataAccess;
-        private readonly IUserDataAccess userDataAccess;
+        private readonly IDatabaseWrapper databaseWrapper;
 
-        public KanbanizeDeserializer(IKanbanizeApiWrapper kanbanizeApiWrapper, IReleaseDataAccess releaseDataAccess, IWorkItemCardDataAccess workItemCardDataAccess, IUserDataAccess userDataAccess)
+        public KanbanizeDeserializer(IKanbanizeApiWrapper kanbanizeApiWrapper, IDatabaseWrapper databaseWrapper)
         {
             this.kanbanizeApiWrapper = kanbanizeApiWrapper;
-            this.workItemCardDataAccess = workItemCardDataAccess;
-            this.userDataAccess = userDataAccess;
+            this.databaseWrapper = databaseWrapper;
         }
 
         public IEnumerable<WorkItemCard> WorkItemCardList(IEnumerable<JToken> jsonWorkItemCards, int boardId)
         {
             return (from item in jsonWorkItemCards
                 where !item["columnid"].ToString().Contains("archive")
-                      || (DateTime) item["updatedat"] < DateTime.Now.AddDays(-90)
+                      || (DateTime) item["updatedat"] < DateTime.Now.AddDays(-30)
                 select WorkItemCard(item, boardId)).ToList();
         }
 
@@ -67,7 +63,7 @@ namespace DataManipulation.Deserialize
 
             WorkItemCardHistoryItems(jsonWorkItemCard, workItemCard, boardId);
 
-            var releases = releaseDataAccess.GetReleasesBeforeDate(workItemCard.FinishTime);
+            var releases = databaseWrapper.GetReleasesBeforeDate(workItemCard.FinishTime);
             var release = new Release();
             if (releases.Count > 0)
             {

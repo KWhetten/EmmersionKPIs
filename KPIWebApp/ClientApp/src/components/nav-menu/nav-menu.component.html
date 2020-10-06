@@ -1,4 +1,4 @@
-﻿<header>
+﻿﻿<header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">Emmersion KPIs</a>
@@ -8,13 +8,14 @@
         data-toggle="collapse"
         data-target=".navbar-collapse"
         aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded">
+        [attr.aria-expanded]="isExpanded"
+        (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" *ngIf="isExpanded">
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/']">Overview</a>
+            <a class="nav-link text-dark" [routerLink]="['/home']">Overview</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/work-item-cards']">Work Item Cards</a>
@@ -23,13 +24,7 @@
             <a class="nav-link text-dark" [routerLink]="['/releases']">Releases</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/invite-user']">Invite User</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/change-password']">Change Password</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" (click)="collapse()" [routerLink]="['/login']">Logout</a>
+            <a class="nav-link text-dark" [routerLink]="['/login']">Logout</a>
           </li>
         </ul>
       </div>
