@@ -1,36 +1,50 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule} from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {RouterModule} from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { NavMenuComponent } from '../components/nav-menu/nav-menu.component';
-import {OverviewComponent} from "./overview/overview.component";
-import {WorkItemCardsComponent} from "./work-item-cards/work-item-cards.component";
-import {FilterOptionsComponent} from "../components/filter-options/filter-options.component";
-import {LoginComponent} from "./login/login.component";
-import {RegisterComponent} from "./register/register.component";
+import {AppComponent} from './app.component';
+import {NavMenuComponent} from '../components/nav-menu/nav-menu.component';
+import {HomeComponent} from './home/home.component';
+import {WorkItemCardsComponent} from './work-item-cards/work-item-cards.component';
+import {FilterOptionsComponent} from '../components/filter-options/filter-options.component';
+import {LoginComponent} from './login/login.component';
+import {InviteUserComponent} from './invite-user/invite-user.component';
+import {CreatePasswordComponent} from './create-password/create-password.component';
+import {ChangePasswordComponent} from './change-password/change-password.component';
+import {ForgotPasswordComponent} from './forgot-password/forgot-password.component';
+import {ScatterPlotComponent} from '../components/scatter-plot/scatter-plot.component'
+import {GoogleChartsModule} from 'angular-google-charts';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     FilterOptionsComponent,
-    OverviewComponent,
+    HomeComponent,
     WorkItemCardsComponent,
     LoginComponent,
-    RegisterComponent
+    InviteUserComponent,
+    CreatePasswordComponent,
+    ChangePasswordComponent,
+    ForgotPasswordComponent,
+    ScatterPlotComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
+    GoogleChartsModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: 'home', component: OverviewComponent, pathMatch: 'full' },
-      { path: 'work-item-cards', component: WorkItemCardsComponent },
-      { path: "login", component: LoginComponent },
-      { path: "register", component: RegisterComponent }
+      {path: '', component: HomeComponent, pathMatch: 'full'},
+      {path: 'work-item-cards', component: WorkItemCardsComponent},
+      {path: 'work-item-cards', component: WorkItemCardsComponent},
+      {path: 'login', component: LoginComponent},
+      {path: 'invite-user', component: InviteUserComponent},
+      {path: 'create-password', component: CreatePasswordComponent},
+      {path: 'change-password', component: ChangePasswordComponent},
+      {path: 'forgot-password', component: ForgotPasswordComponent}
     ])
   ],
   providers: [],
