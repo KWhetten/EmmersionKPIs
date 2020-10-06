@@ -31,7 +31,11 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
                 },
                 attempt = 3,
                 startedOn = startTime,
-                completedOn = DateTime.Now
+                completedOn = DateTime.Now,
+                releaseDefinition = new ReleaseDefinition
+                {
+                    name = "TrueNorthTest Release"
+                }
             };
             var release2 = new JsonRelease
             {
@@ -48,7 +52,11 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
                 },
                 attempt = 5,
                 startedOn = DateTime.Now.AddHours(-3),
-                completedOn = finishTime
+                completedOn = finishTime,
+                releaseDefinition = new ReleaseDefinition
+                {
+                    name = "Assessments PC"
+                }
             };
 
             var release1JToken = JToken.Parse(JsonConvert.SerializeObject(release1));

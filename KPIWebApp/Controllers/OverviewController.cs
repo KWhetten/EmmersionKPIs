@@ -1,5 +1,5 @@
 ﻿using System;
-using DataManipulation.DatabaseAccess;
+using DataAccess.DatabaseAccess;
 using KPIWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +9,13 @@ namespace KPIWebApp.Controllers
     [Route("[controller]")]
     public class OverviewController : ControllerBase
     {
+        private readonly DateTime startDateDefault = new DateTime(2000, 01, 01);
+
         [HttpGet]
         public OverviewData Get(string startDateString, string endDateString)
         {
-            var startDate = new DateTime(2015, 01, 01);
+
+            var startDate = startDateDefault;
             var endDate = DateTime.Today;
             try
             {
@@ -28,19 +31,20 @@ namespace KPIWebApp.Controllers
 
             if (startDate == DateTime.MinValue)
             {
-                startDate = new DateTime(2015, 01, 01);
+                startDate = startDateDefault;
             }
             if (endDate == DateTime.MinValue.AddDays(1))
             {
                 endDate = DateTime.Now;
             }
 
-            var dataAccess = new DatabaseWrapper();
+            var workItemCardData = new WorkItemCardDataAccess();
+            var releaseData = new ReleaseDataAccess();
 
-            var workItemCardList = dataAccess.GetWorkItemCardList(startDate, endDate);
-            var releaseList = dataAccess.GetReleaseList(startDate, endDate);
+            var workItemCardList = workItemCardData.GetWorkItemCardList(startDate, endDate);
+            var releaseList = releaseData.GetReleaseList(startDate, endDate);
 
-            return new OverviewData(workItemCardList, releaseList);
+            return new OverviewData(workItemCardList, releaseList, startDate, endDate);
         }
     }
 }

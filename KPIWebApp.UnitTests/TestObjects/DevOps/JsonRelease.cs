@@ -12,6 +12,12 @@ namespace KPIDataExtractor.UnitTests.Objects.DevOps
         public int attempt { get; set; }
         public DateTime startedOn { get; set; }
         public DateTime completedOn { get; set; }
+        public ReleaseDefinition releaseDefinition { get; set; }
+    }
+
+    public class ReleaseDefinition
+    {
+        public string name { get; set; }
     }
 
     public class JsonRelease2

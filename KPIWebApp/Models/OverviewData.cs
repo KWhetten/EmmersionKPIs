@@ -20,10 +20,13 @@ namespace KPIWebApp.Models
         public decimal MeanTimeToRestore { get; set; }
         public decimal ChangeFailPercentage { get; set; }
 
-        public OverviewData(IReadOnlyCollection<WorkItemCard> workItemCardList, IEnumerable<Release> releaseList)
+        public OverviewData(IReadOnlyCollection<WorkItemCard> workItemCardList, IEnumerable<Release> releaseList, DateTime startDate, DateTime endDate)
         {
             var earliest = DateTime.MaxValue;
-            var latest = DateTime.MinValue;
+            if (startDate != DateTime.MinValue)
+            {
+                earliest = startDate;
+            }
             var averageLeadTimeWorkItemCards = workItemCardList.Where(workItemCard =>
                 workItemCard.StartTime != DateTime.MinValue && workItemCard.FinishTime != DateTime.MinValue).ToList();
             AverageLeadTime = (averageLeadTimeWorkItemCards.Sum(item => item.LeadTimeHours) /
@@ -45,16 +48,13 @@ namespace KPIWebApp.Models
                     ShortestLeadTime = item.LeadTimeHours;
                 }
 
-                if (item.StartTime < earliest && item.StartTime != DateTime.MinValue)
+                if (item.FinishTime < earliest && item.FinishTime != DateTime.MinValue && startDate == DateTime.MinValue)
                 {
-                    earliest = item.StartTime;
-                }
-
-                if (item.FinishTime > latest && item.FinishTime != DateTime.MaxValue)
-                {
-                    latest = item.FinishTime;
+                    earliest = item.FinishTime;
                 }
             }
+
+            var weeks = (endDate - earliest).Days / 7m;
 
             TotalCards = workItemCardList.Count;
             AverageLeadTime = decimal.Round(AverageLeadTime / 7, 2, MidpointRounding.AwayFromZero);
@@ -64,7 +64,7 @@ namespace KPIWebApp.Models
             TotalDeploys = releaseList.Count();
             SuccessfulDeploys = 0;
             RolledBackDeploys = 0;
-            DeployFrequency = decimal.Round(decimal.Parse((TotalDeploys / ((latest - earliest).Days / 7m)).ToString ("0.##")), 2, MidpointRounding.AwayFromZero);
+            DeployFrequency = decimal.Round(decimal.Parse((TotalDeploys / weeks).ToString ("0.##")), 2, MidpointRounding.AwayFromZero);
             MeanTimeToRestore = 0;
             ChangeFailPercentage = 0;
         }
