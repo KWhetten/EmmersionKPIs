@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DataManipulation\DataManipulation.csproj" />
+      <ProjectReference Include="..\DevOpsWorkItemCardDataExtractor-DEPRECATED\DevOpsWorkItemCardDataExtractor-DEPRECATED.csproj" />
     </ItemGroup>
 
 </Project>

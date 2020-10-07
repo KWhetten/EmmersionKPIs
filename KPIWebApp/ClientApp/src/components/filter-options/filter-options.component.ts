@@ -1,7 +1,7 @@
 ﻿import {Component, Inject, ViewChild} from "@angular/core";
 import {DatePipe} from "@angular/common";
-import {OverviewComponent} from "../../app/overview/overview.component";
 import {HttpClient} from "@angular/common/http";
+import {HomeComponent} from '../../app/home/home.component';
 
 @Component({
   selector: 'app-filter-options',
@@ -14,7 +14,7 @@ export class FilterOptionsComponent {
   startDate: string = "The Beginning of Time";
   endDate: string = "The Present Day";
   private datePipe: DatePipe;
-  @ViewChild(OverviewComponent, {static: false}) overview: OverviewComponent;
+  @ViewChild(HomeComponent, {static: false}) overview: HomeComponent;
 
   constructor(datepipe: DatePipe, http: HttpClient, @Inject("BASE_URL") baseUrl: string) {
     this.startDate = "The Beginning of Time";

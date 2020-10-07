@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataAccess.DatabaseAccess;
 using DataManipulation.ApiWrapper;
 using DataManipulation.DatabaseAccess;
 using DataManipulation.Deserialize;
@@ -150,8 +151,8 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
             var mockKanbanizeApiWrapper = new Mock<IKanbanizeApiWrapper>();
             mockKanbanizeApiWrapper.Setup(x => x.GetWorkItemCardHistory(It.IsAny<JToken>(), It.IsAny<int>()))
                 .Returns(historyArray);
-            var mockDataAccess = new Mock<IDatabaseWrapper>();
-            mockDataAccess.Setup(x => x.GetReleasesBeforeDate(It.IsAny<DateTime>())).Returns(new List<Release>
+            var mockReleaseDataAccess = new Mock<IReleaseDataAccess>();
+            mockReleaseDataAccess.Setup(x => x.GetReleasesBeforeDate(It.IsAny<DateTime>())).Returns(new List<Release>
             {
                 new Release
                 {
@@ -183,7 +184,7 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
                 }
             });
 
-            var deserializer = new KanbanizeDeserializer(mockKanbanizeApiWrapper.Object, mockDataAccess.Object);
+            var deserializer = new KanbanizeDeserializer(mockKanbanizeApiWrapper.Object, mockReleaseDataAccess.Object, new WorkItemCardDataAccess(), new UserDataAccess());
             var result = deserializer.WorkItemCardList(jsonWorkItemCardList, 4).ToList();
 
             Assert.That(result.ElementAt(0).Id, Is.EqualTo(1));
@@ -258,8 +259,8 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
             var mockKanbanizeApiWrapper = new Mock<IKanbanizeApiWrapper>();
             mockKanbanizeApiWrapper.Setup(x => x.GetWorkItemCardHistory(It.IsAny<JToken>(), It.IsAny<int>()))
                 .Returns("");
-            var mockDataAccess = new Mock<IDatabaseWrapper>();
-            mockDataAccess.Setup(x => x.GetReleasesBeforeDate(It.IsAny<DateTime>())).Returns(new List<Release>
+            var mockReleaseDataAccess = new Mock<IReleaseDataAccess>();
+            mockReleaseDataAccess.Setup(x => x.GetReleasesBeforeDate(It.IsAny<DateTime>())).Returns(new List<Release>
             {
                 new Release
                 {
@@ -277,7 +278,7 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
                 }
             });
 
-            var deserializer = new KanbanizeDeserializer(mockKanbanizeApiWrapper.Object, mockDataAccess.Object);
+            var deserializer = new KanbanizeDeserializer(mockKanbanizeApiWrapper.Object, mockReleaseDataAccess.Object, new WorkItemCardDataAccess(), new UserDataAccess());
             var result = deserializer.WorkItemCardList(jsonWorkItemCardList, 5).ToList();
 
             Assert.That(result.ElementAt(0).Id, Is.EqualTo(1));

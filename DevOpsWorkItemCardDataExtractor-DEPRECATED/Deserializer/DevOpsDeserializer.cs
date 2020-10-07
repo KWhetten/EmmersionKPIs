@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataAccess.DatabaseAccess;
 using DataManipulation.DatabaseAccess;
 using DataObjects.Objects;
 using KPIDevOpsDataExtractor_DEPRECATED.ApiWrapper;
@@ -20,12 +21,16 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
     public class DevOpsDeserializer : IDevOpsDeserializer
     {
         private readonly IDevOpsApiWrapper devOpsApiWrapper;
-        private readonly IDatabaseWrapper databaseWrapper;
+        private readonly IWorkItemCardDataAccess workItemCardDataAccess;
+        private readonly IUserDataAccess userDataAccess;
+        private readonly IReleaseDataAccess releaseDataAccess;
 
-        public DevOpsDeserializer(IDevOpsApiWrapper devOpsApiWrapper, IDatabaseWrapper databaseWrapper)
+        public DevOpsDeserializer(IDevOpsApiWrapper devOpsApiWrapper, IReleaseDataAccess releaseDataAccess, IWorkItemCardDataAccess workItemCardDataAccess, IUserDataAccess userDataAccess)
         {
+            this.releaseDataAccess = releaseDataAccess;
             this.devOpsApiWrapper = devOpsApiWrapper;
-            this.databaseWrapper = databaseWrapper;
+            this.workItemCardDataAccess = workItemCardDataAccess;
+            this.userDataAccess = userDataAccess;
         }
 
         public IEnumerable<WorkItemCard> WorkItemCardList(IEnumerable<JToken> jsonWorkItemCards)
@@ -67,7 +72,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
 
             workItemCard.FinishTime = JsonWorkItemFinishTime(jsonWorkItemUpdates);
 
-            var releases = databaseWrapper.GetReleasesBeforeDate(workItemCard.FinishTime);
+            var releases = releaseDataAccess.GetReleasesBeforeDate(workItemCard.FinishTime);
             var release = new Release();
             if (releases.Count > 0)
             {

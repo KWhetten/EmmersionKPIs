@@ -1,4 +1,4 @@
-﻿namespace DataObjects.Objects
+﻿﻿namespace DataObjects.Objects
 {
     public class ReleaseEnvironment
     {

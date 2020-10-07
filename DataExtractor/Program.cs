@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
+using DataAccess.DatabaseAccess;
 using DataManipulation.ApiWrapper;
-using DataManipulation.DatabaseAccess;
 using DataManipulation.Deserialize;
 using RestSharp;
 
@@ -11,9 +11,12 @@ namespace KPIDataExtractor
     {
         private static readonly IDevOpsApiWrapper DevOpsApiWrapper = new DevOpsApiWrapper(new RestClient());
         private static readonly IKanbanizeApiWrapper KanbanizeApiWrapper = new KanbanizeApiWrapper(new RestClient());
-        private static readonly IDatabaseWrapper DatabaseWrapper = new DatabaseWrapper();
+        private static readonly ReleaseDataAccess ReleaseDataAccess = new ReleaseDataAccess();
         private static readonly IDevOpsDeserializer DevOpsDeserializer = new DevOpsDeserializer();
-        private static readonly IKanbanizeDeserializer KanbanizeDeserializer = new KanbanizeDeserializer(KanbanizeApiWrapper, DatabaseWrapper);
+        private static readonly IKanbanizeDeserializer KanbanizeDeserializer
+            = new KanbanizeDeserializer(KanbanizeApiWrapper, new ReleaseDataAccess(),
+                new WorkItemCardDataAccess(), new UserDataAccess());
+        private static readonly WorkItemCardDataAccess WorkItemCardDataAccess = new WorkItemCardDataAccess();
 
         public static void Main()
         {
@@ -26,7 +29,7 @@ namespace KPIDataExtractor
         {
             var releases = DevOpsApiWrapper.GetReleaseList();
 
-            DatabaseWrapper.InsertReleaseList(DevOpsDeserializer.Releases(releases));
+            ReleaseDataAccess.InsertReleaseList(DevOpsDeserializer.Releases(releases));
         }
 
         private static void InsertWorkItemsIntoDatabaseFromApi()
@@ -43,7 +46,7 @@ namespace KPIDataExtractor
             var workItemCardList = KanbanizeApiWrapper.GetWorkItemCardList(boardId);
             if (workItemCardList.Any())
             {
-                DatabaseWrapper.InsertWorkItemCardList(KanbanizeDeserializer.WorkItemCardList(workItemCardList, boardId));
+                WorkItemCardDataAccess.InsertWorkItemCardList(KanbanizeDeserializer.WorkItemCardList(workItemCardList, boardId));
             }
             else
                 Console.WriteLine("No new cards.");
