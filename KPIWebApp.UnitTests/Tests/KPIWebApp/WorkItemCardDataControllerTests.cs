@@ -9,18 +9,18 @@ using NUnit.Framework;
 
 namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
 {
-    public class WorkItemCardDataControllerTests
+    public class TaskItemDataControllerTests
     {
         // [Test]
         // public void When_getting_work_item_card_data()
         // {
-        //     var workItemCard1 = new WorkItemCard
+        //     var TaskItem1 = new TaskItem
         //     {
         //         Id = 1,
         //         Title = "Title1",
         //         StartTime = DateTime.Today.AddDays(-2),
         //         FinishTime = DateTime.Today,
-        //         Type = WorkItemCardType.Unanticipated,
+        //         Type = TaskItemType.Unanticipated,
         //         DevelopmentTeamName = "DevelopmentTeam1",
         //         CreatedOn = DateTime.Today.AddDays(-3),
         //         CreatedBy = "CreatedBy1",
@@ -46,13 +46,13 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
         //             Attempts = 3
         //         }
         //     };
-        //     var workItemCard2 = new WorkItemCard
+        //     var TaskItem2 = new TaskItem
         //     {
         //         Id = 2,
         //         Title = "Title2",
         //         StartTime = DateTime.Today.AddDays(-2),
         //         FinishTime = DateTime.MaxValue,
-        //         Type = WorkItemCardType.Unanticipated,
+        //         Type = TaskItemType.Unanticipated,
         //         DevelopmentTeamName = "DevelopmentTeam2",
         //         CreatedOn = DateTime.Today.AddDays(-3),
         //         CreatedBy = "CreatedBy2",
@@ -78,34 +78,34 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
         //             Attempts = 3
         //         }
         //     };
-        //     var workItemCardList = new List<WorkItemCard>
+        //     var TaskItemList = new List<TaskItem>
         //     {
-        //         workItemCard1,
-        //         workItemCard2
+        //         TaskItem1,
+        //         TaskItem2
         //     };
         //
-        //     var mockWorkItemCardDataAccess = new Mock<WorkItemCardDataAccess>();
-        //     mockWorkItemCardDataAccess.Setup(x => x.GetWorkItemCardList(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-        //         .Returns(workItemCardList);
+        //     var mockTaskItemDataAccess = new Mock<TaskItemDataAccess>();
+        //     mockTaskItemDataAccess.Setup(x => x.GetTaskItemList(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+        //         .Returns(TaskItemList);
         //
-        //     var workItemCardDataController = new WorkItemCardDataController(mockWorkItemCardDataAccess.Object);
+        //     var TaskItemDataController = new TaskItemDataController(mockTaskItemDataAccess.Object);
         //
-        //     var result = workItemCardDataController.Get(DateTime.Now.ToString(), DateTime.Now.ToString());
+        //     var result = TaskItemDataController.Get(DateTime.Now.ToString(), DateTime.Now.ToString());
         //
         //     Assert.That(result.Length, Is.EqualTo(1));
-        //     Assert.That(result[0], Is.EqualTo(workItemCard1));
+        //     Assert.That(result[0], Is.EqualTo(TaskItem1));
         // }
         //
         // [Test]
         // public void When_getting_work_item_card_and_dates_are_invalid()
         // {
-        //     var workItemCard1 = new WorkItemCard
+        //     var TaskItem1 = new TaskItem
         //     {
         //         Id = 1,
         //         Title = "Title1",
         //         StartTime = DateTime.Today.AddDays(-2),
         //         FinishTime = DateTime.Today,
-        //         Type = WorkItemCardType.Unanticipated,
+        //         Type = TaskItemType.Unanticipated,
         //         DevelopmentTeamName = "DevelopmentTeam1",
         //         CreatedOn = DateTime.Today.AddDays(-3),
         //         CreatedBy = "CreatedBy1",
@@ -131,13 +131,13 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
         //             Attempts = 3
         //         }
         //     };
-        //     var workItemCard2 = new WorkItemCard
+        //     var TaskItem2 = new TaskItem
         //     {
         //         Id = 2,
         //         Title = "Title2",
         //         StartTime = DateTime.Today.AddDays(-2),
         //         FinishTime = DateTime.MaxValue,
-        //         Type = WorkItemCardType.Unanticipated,
+        //         Type = TaskItemType.Unanticipated,
         //         DevelopmentTeamName = "DevelopmentTeam2",
         //         CreatedOn = DateTime.Today.AddDays(-3),
         //         CreatedBy = "CreatedBy2",
@@ -163,22 +163,22 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
         //             Attempts = 3
         //         }
         //     };
-        //     var workItemCardList = new List<WorkItemCard>
+        //     var TaskItemList = new List<TaskItem>
         //     {
-        //         workItemCard1,
-        //         workItemCard2
+        //         TaskItem1,
+        //         TaskItem2
         //     };
         //
-        //     var mockWorkItemCardDataAccess = new Mock<WorkItemCardDataAccess>();
-        //     mockWorkItemCardDataAccess.Setup(x => x.GetWorkItemCardList(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-        //         .Returns(workItemCardList);
+        //     var mockTaskItemDataAccess = new Mock<TaskItemDataAccess>();
+        //     mockTaskItemDataAccess.Setup(x => x.GetTaskItemList(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+        //         .Returns(TaskItemList);
         //
-        //     var workItemCardDataController = new WorkItemCardDataController(mockWorkItemCardDataAccess.Object);
+        //     var TaskItemDataController = new TaskItemDataController(mockTaskItemDataAccess.Object);
         //
-        //     var result = workItemCardDataController.Get("Hahaha", "Teeheehee");
+        //     var result = TaskItemDataController.Get("Hahaha", "Teeheehee");
         //
         //     Assert.That(result.Length, Is.EqualTo(1));
-        //     Assert.That(result[0], Is.EqualTo(workItemCard1));
+        //     Assert.That(result[0], Is.EqualTo(TaskItem1));
         // }
     }
 }

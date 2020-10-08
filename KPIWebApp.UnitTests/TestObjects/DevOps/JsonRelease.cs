@@ -1,4 +1,5 @@
 ﻿using System;
+using KPIDataExtractor.UnitTests.DataWrapper.Deserializer;
 
 namespace KPIDataExtractor.UnitTests.Objects.DevOps
 {
@@ -12,6 +13,7 @@ namespace KPIDataExtractor.UnitTests.Objects.DevOps
         public int attempt { get; set; }
         public DateTime startedOn { get; set; }
         public DateTime completedOn { get; set; }
+        public ReleaseDefinition releaseDefinition;
     }
 
     public class JsonRelease2

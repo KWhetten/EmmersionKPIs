@@ -38,13 +38,13 @@ namespace KPIWebApp.Controllers
                 endDate = DateTime.Now;
             }
 
-            var workItemCardData = new WorkItemCardDataAccess();
-            var releaseData = new ReleaseDataAccess();
+            var TaskItemData = new TaskItemRepository();
+            var releaseData = new ReleaseRepository();
 
-            var workItemCardList = workItemCardData.GetWorkItemCardList(startDate, endDate);
+            var TaskItemList = TaskItemData.GetTaskItemList(startDate, endDate);
             var releaseList = releaseData.GetReleaseList(startDate, endDate);
 
-            return new OverviewData(workItemCardList, releaseList, startDate, endDate);
+            return new OverviewData(TaskItemList, releaseList, startDate, endDate);
         }
     }
 }

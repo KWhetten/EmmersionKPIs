@@ -13,14 +13,14 @@ namespace KPIWebApp.Controllers
     [Route("[controller]")]
     public class RegisterController : ControllerBase
     {
-        private readonly UserDataAccess userDataAccess;
+        private readonly UserRepository userRepository;
         private readonly EmailManager emailManager;
         private const int DuplicateEmail = -1;
         private const int RegistrationError = 0;
 
         public RegisterController()
         {
-            userDataAccess = new UserDataAccess();
+            userRepository = new UserRepository();
             emailManager = new EmailManager();
         }
 
@@ -34,7 +34,7 @@ namespace KPIWebApp.Controllers
         [HttpPost]
         public IActionResult Post(RegisterData data)
         {
-            var result = userDataAccess.InsertUserInfo(data.FirstName, data.LastName, data.Email);
+            var result = userRepository.InsertUserInfo(data.FirstName, data.LastName, data.Email);
 
             var userInfo = new UserInfo
             {

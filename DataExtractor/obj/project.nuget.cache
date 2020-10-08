@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wkhgUNUlSGEMcLIztBYYg55/2YOYk5WrIqI5nhOx3QRLIHaKsYvUu8jR8GKIjyryfQJP3NMr49ggwajh8m8VfA==",
+  "dgSpecHash": "FtBYmNx0hUZgrRJEmegCEMcBxi9EeCVjS6vwGtg77uUBcld/vKcE9QP+cYVDJTEUDwr0P2LqSBvLQAbPrbKDxw==",
   "success": true,
   "projectFilePath": "C:\\Code\\EmmersionKPIs\\DataExtractor\\DataExtractor.csproj",
   "expectedPackageFiles": [
@@ -14,7 +14,7 @@
     "C:\\Users\\krwhe\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\krwhe\\.nuget\\packages\\microsoft.win32.registry\\4.4.0\\microsoft.win32.registry.4.4.0.nupkg.sha512",
     "C:\\Users\\krwhe\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
-    "C:\\Users\\krwhe\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\krwhe\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
     "C:\\Users\\krwhe\\.nuget\\packages\\newtonsoft.json.bson\\1.0.1\\newtonsoft.json.bson.1.0.1.nupkg.sha512",
     "C:\\Users\\krwhe\\.nuget\\packages\\restsharp\\106.11.4\\restsharp.106.11.4.nupkg.sha512",
     "C:\\Users\\krwhe\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

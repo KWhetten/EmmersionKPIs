@@ -22,7 +22,6 @@
 
     <ItemGroup>
       <Folder Include="Tests\DataExtractor" />
-      <Folder Include="Tests\DataObjects" />
       <Folder Include="Tests\DevOpsWorkItemCardDataExtractor" />
     </ItemGroup>
 

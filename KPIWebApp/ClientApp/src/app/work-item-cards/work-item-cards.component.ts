@@ -9,7 +9,7 @@ import {getCookie} from '../app.component';
   styleUrls: ["./work-item-cards.component.css"],
   providers: [DatePipe]
 })
-export class WorkItemCardsComponent implements OnInit {
+export class TaskItemsComponent implements OnInit {
 
   constructor(private router: Router, @Inject("BASE_URL") baseUrl: string) {
 

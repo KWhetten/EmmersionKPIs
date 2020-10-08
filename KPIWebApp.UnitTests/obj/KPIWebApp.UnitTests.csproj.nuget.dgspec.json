@@ -27,6 +27,9 @@
             "projectReferences": {
               "C:\\Code\\EmmersionKPIs\\DataManipulation\\DataManipulation.csproj": {
                 "projectPath": "C:\\Code\\EmmersionKPIs\\DataManipulation\\DataManipulation.csproj"
+              },
+              "C:\\Code\\EmmersionKPIs\\DevOpsTaskItemDataExtractor-DEPRECATED\\DevOpsTaskItemDataExtractor-DEPRECATED.csproj": {
+                "projectPath": "C:\\Code\\EmmersionKPIs\\DevOpsTaskItemDataExtractor-DEPRECATED\\DevOpsTaskItemDataExtractor-DEPRECATED.csproj"
               }
             }
           }
@@ -84,11 +87,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "projectReferences": {
-              "C:\\Code\\EmmersionKPIs\\Deserializer\\Deserializer.csproj": {
-                "projectPath": "C:\\Code\\EmmersionKPIs\\Deserializer\\Deserializer.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -132,14 +131,14 @@
         }
       }
     },
-    "C:\\Code\\EmmersionKPIs\\Deserializer\\Deserializer.csproj": {
+    "C:\\Code\\EmmersionKPIs\\DevOpsTaskItemDataExtractor-DEPRECATED\\DevOpsTaskItemDataExtractor-DEPRECATED.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Code\\EmmersionKPIs\\Deserializer\\Deserializer.csproj",
-        "projectName": "Deserializer",
-        "projectPath": "C:\\Code\\EmmersionKPIs\\Deserializer\\Deserializer.csproj",
+        "projectUniqueName": "C:\\Code\\EmmersionKPIs\\DevOpsTaskItemDataExtractor-DEPRECATED\\DevOpsTaskItemDataExtractor-DEPRECATED.csproj",
+        "projectName": "DevOpsTaskItemDataExtractor-DEPRECATED",
+        "projectPath": "C:\\Code\\EmmersionKPIs\\DevOpsTaskItemDataExtractor-DEPRECATED\\DevOpsTaskItemDataExtractor-DEPRECATED.csproj",
         "packagesPath": "C:\\Users\\krwhe\\.nuget\\packages\\",
-        "outputPath": "C:\\Code\\EmmersionKPIs\\Deserializer\\obj\\",
+        "outputPath": "C:\\Code\\EmmersionKPIs\\DevOpsTaskItemDataExtractor-DEPRECATED\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\krwhe\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -152,7 +151,11 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Code\\EmmersionKPIs\\DataManipulation\\DataManipulation.csproj": {
+                "projectPath": "C:\\Code\\EmmersionKPIs\\DataManipulation\\DataManipulation.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -163,12 +166,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "dependencies": {
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[12.0.2, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -289,9 +286,6 @@
             "projectReferences": {
               "C:\\Code\\EmmersionKPIs\\DataManipulation\\DataManipulation.csproj": {
                 "projectPath": "C:\\Code\\EmmersionKPIs\\DataManipulation\\DataManipulation.csproj"
-              },
-              "C:\\Code\\EmmersionKPIs\\Deserializer\\Deserializer.csproj": {
-                "projectPath": "C:\\Code\\EmmersionKPIs\\Deserializer\\Deserializer.csproj"
               }
             }
           }

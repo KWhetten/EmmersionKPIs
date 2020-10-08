@@ -12,8 +12,8 @@ import {getCookie} from '../app.component';
 })
 export class HomeComponent implements OnInit {
   public overviewData: OverviewData;
-  private http: HttpClient;
-  private baseUrl: string;
+  protected http: HttpClient;
+  protected baseUrl: string;
   private datePipe: DatePipe;
   startDate: string = 'The Beginning of Time';
   endDate: string = 'The Present Day';

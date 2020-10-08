@@ -9,14 +9,14 @@ namespace KPIDataExtractor
 {
     public static class Program
     {
-        private static readonly IDevOpsApiWrapper DevOpsApiWrapper = new DevOpsApiWrapper(new RestClient());
-        private static readonly IKanbanizeApiWrapper KanbanizeApiWrapper = new KanbanizeApiWrapper(new RestClient());
-        private static readonly ReleaseDataAccess ReleaseDataAccess = new ReleaseDataAccess();
+        private static readonly IDevOpsApiRepository DevOpsApiRepository = new DevOpsApiRepository(new RestClient());
+        private static readonly IKanbanizeApiRepository KanbanizeApiRepository = new KanbanizeApiRepository(new RestClient());
+        private static readonly ReleaseRepository ReleaseRepository = new ReleaseRepository();
         private static readonly IDevOpsDeserializer DevOpsDeserializer = new DevOpsDeserializer();
         private static readonly IKanbanizeDeserializer KanbanizeDeserializer
-            = new KanbanizeDeserializer(KanbanizeApiWrapper, new ReleaseDataAccess(),
-                new WorkItemCardDataAccess(), new UserDataAccess());
-        private static readonly WorkItemCardDataAccess WorkItemCardDataAccess = new WorkItemCardDataAccess();
+            = new KanbanizeDeserializer(KanbanizeApiRepository, new ReleaseRepository(),
+                new TaskItemRepository(), new UserRepository());
+        private static readonly TaskItemRepository TaskItemRepository = new TaskItemRepository();
 
         public static void Main()
         {
@@ -27,9 +27,9 @@ namespace KPIDataExtractor
 
         private static void InsertReleasesIntoDatabaseFromApi()
         {
-            var releases = DevOpsApiWrapper.GetReleaseList();
+            var releases = DevOpsApiRepository.GetReleaseList();
 
-            ReleaseDataAccess.InsertReleaseList(DevOpsDeserializer.Releases(releases));
+            ReleaseRepository.InsertReleaseList(DevOpsDeserializer.Releases(releases));
         }
 
         private static void InsertWorkItemsIntoDatabaseFromApi()
@@ -43,10 +43,10 @@ namespace KPIDataExtractor
 
         private static void InsertKanbanizeCards(int boardId)
         {
-            var workItemCardList = KanbanizeApiWrapper.GetWorkItemCardList(boardId);
-            if (workItemCardList.Any())
+            var TaskItemList = KanbanizeApiRepository.GetTaskItemList(boardId);
+            if (TaskItemList.Any())
             {
-                WorkItemCardDataAccess.InsertWorkItemCardList(KanbanizeDeserializer.WorkItemCardList(workItemCardList, boardId));
+                TaskItemRepository.InsertTaskItemList(KanbanizeDeserializer.TaskItemList(TaskItemList, boardId));
             }
             else
                 Console.WriteLine("No new cards.");

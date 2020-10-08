@@ -20,19 +20,19 @@ namespace KPIWebApp.Models
         public decimal MeanTimeToRestore { get; set; }
         public decimal ChangeFailPercentage { get; set; }
 
-        public OverviewData(IReadOnlyCollection<WorkItemCard> workItemCardList, IEnumerable<Release> releaseList, DateTime startDate, DateTime endDate)
+        public OverviewData(IReadOnlyCollection<TaskItem> TaskItemList, IEnumerable<Release> releaseList, DateTime startDate, DateTime endDate)
         {
             var earliest = DateTime.MaxValue;
             if (startDate != DateTime.MinValue)
             {
                 earliest = startDate;
             }
-            var averageLeadTimeWorkItemCards = workItemCardList.Where(workItemCard =>
-                workItemCard.StartTime != DateTime.MinValue && workItemCard.FinishTime != DateTime.MinValue).ToList();
-            AverageLeadTime = (averageLeadTimeWorkItemCards.Sum(item => item.LeadTimeHours) /
-                              averageLeadTimeWorkItemCards.Count);
+            var averageLeadTimeTaskItems = TaskItemList.Where(TaskItem =>
+                TaskItem.StartTime != DateTime.MinValue && TaskItem.FinishTime != DateTime.MinValue).ToList();
+            AverageLeadTime = (averageLeadTimeTaskItems.Sum(item => item.LeadTimeHours) /
+                              averageLeadTimeTaskItems.Count);
 
-            foreach (var item in workItemCardList)
+            foreach (var item in TaskItemList)
             {
                 if (item.LeadTimeHours > LongestLeadTime
                     && item.StartTime != DateTime.MinValue &&
@@ -56,7 +56,7 @@ namespace KPIWebApp.Models
 
             var weeks = (endDate - earliest).Days / 7m;
 
-            TotalCards = workItemCardList.Count;
+            TotalCards = TaskItemList.Count;
             AverageLeadTime = decimal.Round(AverageLeadTime / 7, 2, MidpointRounding.AwayFromZero);
             LongestLeadTime = decimal.Round(LongestLeadTime / 7, 2, MidpointRounding.AwayFromZero);
             ShortestLeadTime = decimal.Round(ShortestLeadTime, 2, MidpointRounding.AwayFromZero);

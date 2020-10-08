@@ -8,12 +8,12 @@ namespace KPIWebApp.Controllers
     [Route("[controller]")]
     public class ForgotPasswordController : ControllerBase
     {
-        private readonly UserDataAccess userDataAccess;
+        private readonly UserRepository userRepository;
         private readonly EmailManager emailManager;
 
         public ForgotPasswordController()
         {
-            this.userDataAccess = new UserDataAccess();
+            this.userRepository = new UserRepository();
             this.emailManager = new EmailManager();
         }
 
@@ -29,7 +29,7 @@ namespace KPIWebApp.Controllers
         {
             try
             {
-                var userInfo = userDataAccess.GetUserInfoByEmail(email);
+                var userInfo = userRepository.GetUserInfoByEmail(email);
                 var result = emailManager.SendForgotPasswordEmail(userInfo, "");
 
                 if (result == false)

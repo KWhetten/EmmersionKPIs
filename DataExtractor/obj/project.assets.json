@@ -203,7 +203,7 @@
           "System.Xml.XDocument": "4.3.0"
         }
       },
-      "Newtonsoft.Json/12.0.2": {
+      "Newtonsoft.Json/11.0.2": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
@@ -1541,7 +1541,6 @@
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "Dapper": "2.0.35",
-          "Deserializer": "1.0.0",
           "Microsoft.TeamFoundationServer.Client": "16.153.0",
           "RestSharp": "106.11.4"
         },
@@ -1552,17 +1551,17 @@
           "bin/placeholder/DataManipulation.dll": {}
         }
       },
-      "Deserializer/1.0.0": {
+      "DevOpsTaskItemDataExtractor-DEPRECATED/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "Newtonsoft.Json": "12.0.2"
+          "DataManipulation": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/Deserializer.dll": {}
+          "bin/placeholder/DevOpsTaskItemDataExtractor-DEPRECATED.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Deserializer.dll": {}
+          "bin/placeholder/DevOpsTaskItemDataExtractor-DEPRECATED.dll": {}
         }
       }
     }
@@ -1890,10 +1889,10 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Newtonsoft.Json/12.0.2": {
-      "sha512": "rTK0s2EKlfHsQsH6Yx2smvcTCeyoDNgCW7FEYyV01drPlh2T243PR2DiDXqtC5N4GDm4Ma/lkxfW5a/4793vbA==",
+    "Newtonsoft.Json/11.0.2": {
+      "sha512": "IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ==",
       "type": "package",
-      "path": "newtonsoft.json/12.0.2",
+      "path": "newtonsoft.json/11.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1916,7 +1915,7 @@
         "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
-        "newtonsoft.json.12.0.2.nupkg.sha512",
+        "newtonsoft.json.11.0.2.nupkg.sha512",
         "newtonsoft.json.nuspec"
       ]
     },
@@ -5705,15 +5704,16 @@
       "path": "../DataManipulation/DataManipulation.csproj",
       "msbuildProject": "../DataManipulation/DataManipulation.csproj"
     },
-    "Deserializer/1.0.0": {
+    "DevOpsTaskItemDataExtractor-DEPRECATED/1.0.0": {
       "type": "project",
-      "path": "../Deserializer/Deserializer.csproj",
-      "msbuildProject": "../Deserializer/Deserializer.csproj"
+      "path": "../DevOpsTaskItemDataExtractor-DEPRECATED/DevOpsTaskItemDataExtractor-DEPRECATED.csproj",
+      "msbuildProject": "../DevOpsTaskItemDataExtractor-DEPRECATED/DevOpsTaskItemDataExtractor-DEPRECATED.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "DataManipulation >= 1.0.0",
+      "DevOpsTaskItemDataExtractor-DEPRECATED >= 1.0.0",
       "RestSharp >= 106.11.4"
     ]
   },
@@ -5743,6 +5743,9 @@
           "projectReferences": {
             "C:\\Code\\EmmersionKPIs\\DataManipulation\\DataManipulation.csproj": {
               "projectPath": "C:\\Code\\EmmersionKPIs\\DataManipulation\\DataManipulation.csproj"
+            },
+            "C:\\Code\\EmmersionKPIs\\DevOpsTaskItemDataExtractor-DEPRECATED\\DevOpsTaskItemDataExtractor-DEPRECATED.csproj": {
+              "projectPath": "C:\\Code\\EmmersionKPIs\\DevOpsTaskItemDataExtractor-DEPRECATED\\DevOpsTaskItemDataExtractor-DEPRECATED.csproj"
             }
           }
         }

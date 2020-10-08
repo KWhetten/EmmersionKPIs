@@ -18,13 +18,16 @@
       </e>
       <e p="DataManipulation" t="IncludeRecursive">
         <e p="ApiWrapper" t="Include">
-          <e p="DevOpsApiWrapper.cs" t="Include" />
-          <e p="KanbanizeApiWrapper.cs" t="Include" />
+          <e p="DevOpsApiRepository.cs" t="Include" />
+          <e p="KanbanizeApiRepository.cs" t="Include" />
         </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="DatabaseAccess" t="Include">
-          <e p="DatabaseWrapper.cs" t="Include" />
+          <e p="DatabaseConnection.cs" t="Include" />
           <e p="Helper.cs" t="Include" />
+          <e p="ReleaseRepository.cs" t="Include" />
+          <e p="UserRepository.cs" t="Include" />
+          <e p="WorkItemCardRepository.cs" t="Include" />
         </e>
         <e p="DataManipulation.csproj" t="IncludeRecursive" />
         <e p="Deserialize" t="Include">
@@ -41,11 +44,12 @@
         <e p="Objects" t="Include">
           <e p="Release.cs" t="Include" />
           <e p="ReleaseEnvironment.cs" t="Include" />
-          <e p="WorkItemCard.cs" t="Include" />
-          <e p="WorkItemCardType.cs" t="Include" />
+          <e p="TaskItem.cs" t="Include" />
+          <e p="TaskItemType.cs" t="Include" />
+          <e p="UserInfo.cs" t="Include" />
         </e>
       </e>
-      <e p="DevOpsWorkItemCardDataExtractor-DEPRECATED" t="IncludeRecursive">
+      <e p="DevOpsTaskItemDataExtractor-DEPRECATED" t="IncludeRecursive">
         <e p="ApiWrapper" t="Include">
           <e p="DevOpsApiWrapper.cs" t="Include" />
         </e>
@@ -53,11 +57,11 @@
         <e p="Deserializer" t="Include">
           <e p="DevOpsDeserializer.cs" t="Include" />
         </e>
-        <e p="DevOpsWorkItemCardDataExtractor-DEPRECATED.csproj" t="IncludeRecursive" />
+        <e p="DevOpsTaskItemDataExtractor-DEPRECATED.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
-              <e p="DevOpsWorkItemCardDataExtractor-DEPRECATED.AssemblyInfo.cs" t="Include" />
+              <e p="DevOpsTaskItemDataExtractor-DEPRECATED.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
@@ -223,20 +227,35 @@
               <e p="app.component.ts" t="Include" />
               <e p="app.module.ts" t="Include" />
               <e p="app.server.module.ts" t="Include" />
+              <e p="change-password" t="Include">
+                <e p="change-password.component.css" t="Include" />
+                <e p="change-password.component.html" t="Include" />
+                <e p="change-password.component.ts" t="Include" />
+              </e>
+              <e p="create-password" t="Include">
+                <e p="create-password.component.css" t="Include" />
+                <e p="create-password.component.html" t="Include" />
+                <e p="create-password.component.ts" t="Include" />
+              </e>
+              <e p="forgot-password" t="Include">
+                <e p="forgot-password.component.css" t="Include" />
+                <e p="forgot-password.component.html" t="Include" />
+                <e p="forgot-password.component.ts" t="Include" />
+              </e>
+              <e p="home" t="Include">
+                <e p="home.component.css" t="Include" />
+                <e p="home.component.html" t="Include" />
+                <e p="home.component.ts" t="Include" />
+              </e>
+              <e p="invite-user" t="Include">
+                <e p="invite-user.component.css" t="Include" />
+                <e p="invite-user.component.html" t="Include" />
+                <e p="invite-user.component.ts" t="Include" />
+              </e>
               <e p="login" t="Include">
                 <e p="login.component.css" t="Include" />
                 <e p="login.component.html" t="Include" />
                 <e p="login.component.ts" t="Include" />
-              </e>
-              <e p="overview" t="Include">
-                <e p="overview.component.css" t="Include" />
-                <e p="overview.component.html" t="Include" />
-                <e p="overview.component.ts" t="Include" />
-              </e>
-              <e p="register" t="Include">
-                <e p="register.component.css" t="Include" />
-                <e p="register.component.html" t="Include" />
-                <e p="register.component.ts" t="Include" />
               </e>
               <e p="work-item-cards" t="Include">
                 <e p="work-item-cards.component.css" t="Include" />
@@ -260,6 +279,11 @@
                 <e p="nav-menu.component.html" t="Include" />
                 <e p="nav-menu.component.ts" t="Include" />
               </e>
+              <e p="scatter-plot" t="Include">
+                <e p="scatter-plot.component.css" t="Include" />
+                <e p="scatter-plot.component.html" t="Include" />
+                <e p="scatter-plot.component.ts" t="Include" />
+              </e>
             </e>
             <e p="environments" t="Include">
               <e p="environment.prod.ts" t="Include" />
@@ -280,8 +304,14 @@
           <e p="tslint.json" t="Include" />
         </e>
         <e p="Controllers" t="Include">
+          <e p="EmailManager.cs" t="Include" />
+          <e p="ForgotPasswordController.cs" t="Include" />
+          <e p="LeadTimeController.cs" t="Include" />
+          <e p="LoginUserController.cs" t="Include" />
           <e p="OverviewController.cs" t="Include" />
+          <e p="PasswordChangeController.cs" t="Include" />
           <e p="RegisterController.cs" t="Include" />
+          <e p="WorkItemCardDataController.cs" t="Include" />
         </e>
         <e p="KPIWebApp.csproj" t="IncludeRecursive" />
         <e p="Models" t="Include">
@@ -295,6 +325,7 @@
             </e>
           </e>
         </e>
+        <e p="package-lock.json" t="Include" />
         <e p="Pages" t="Include">
           <e p="_ViewImports.cshtml" t="Include" />
           <e p="Error.cshtml" t="Include" />
@@ -326,20 +357,21 @@
             <e p="JsonRelease.cs" t="Include" />
           </e>
           <e p="Kanbanize" t="Include">
-            <e p="JsonWorkItemCard.cs" t="Include" />
-            <e p="JsonWorkItemCardHistoryEvent.cs" t="Include" />
+            <e p="JsonTaskItem.cs" t="Include" />
+            <e p="JsonTaskItemHistoryEvent.cs" t="Include" />
           </e>
         </e>
         <e p="Tests" t="Include">
           <e p="DataExtractor" t="Include" />
-          <e p="DataObjects" t="Include" />
-          <e p="DataWrapper" t="Include">
+          <e p="DataManipulation" t="Include">
             <e p="ApiWrapper" t="Include">
-              <e p="DevOpsApiWrapperTests.cs" t="Include" />
-              <e p="KanbanizeApiWrapperTests.cs" t="Include" />
+              <e p="DevOpsApiRepositoryTests.cs" t="Include" />
+              <e p="KanbanizeApiRepositoryTests.cs" t="Include" />
             </e>
             <e p="DatabaseAccess" t="Include">
-              <e p="DataAccessTests.cs" t="Include" />
+              <e p="AuthorizationRepositoryTests.cs" t="Include" />
+              <e p="ReleaseRepositoryTests.cs" t="Include" />
+              <e p="TaskItemRepositoryTests.cs" t="Include" />
             </e>
             <e p="Deserializer" t="Include">
               <e p="DevOpsDeserializerTests.cs" t="Include" />
@@ -348,7 +380,12 @@
           </e>
           <e p="DevOpsWorkItemCardDataExtractor" t="Include" />
           <e p="KPIWebApp" t="Include">
+            <e p="ForgotPasswordControllerTests.cs" t="Include" />
+            <e p="LoginUserControllerTests.cs" t="Include" />
             <e p="OverviewControllerTests.cs" t="Include" />
+            <e p="PasswordChangeControllerTests.cs" t="Include" />
+            <e p="RegisterControllerTests.cs" t="Include" />
+            <e p="WorkItemCardDataControllerTests.cs" t="Include" />
           </e>
         </e>
       </e>

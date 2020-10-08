@@ -11,11 +11,11 @@ namespace KPIWebApp.Controllers
     [Route("login-user")]
     public class LoginUserController : ControllerBase
     {
-        private readonly UserDataAccess authorizationData;
+        private readonly UserRepository authorizationData;
 
         public LoginUserController()
         {
-            authorizationData = new UserDataAccess();
+            authorizationData = new UserRepository();
         }
 
         // USED FOR TESTING

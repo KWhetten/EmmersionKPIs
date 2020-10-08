@@ -9,24 +9,24 @@ namespace KPIWebApp.Controllers
 {
     [ApiController]
     [Route("work-item-card-data")]
-    public class WorkItemCardDataController : ControllerBase
+    public class TaskItemDataController : ControllerBase
     {
-        private readonly WorkItemCardDataAccess workItemCardDataAccess;
+        private readonly TaskItemRepository TaskItemRepository;
         private readonly DateTime startDateDefault = new DateTime(2000, 01, 01);
 
-        public WorkItemCardDataController()
+        public TaskItemDataController()
         {
-            workItemCardDataAccess = new WorkItemCardDataAccess();
+            TaskItemRepository = new TaskItemRepository();
         }
 
         // USED FOR TESTING
-        // public WorkItemCardDataController(WorkItemCardDataAccess workItemCardDataAccess)
+        // public TaskItemDataController(TaskItemDataAccess TaskItemDataAccess)
         // {
-        //     this.workItemCardDataAccess = workItemCardDataAccess;
+        //     this.TaskItemDataAccess = TaskItemDataAccess;
         // }
 
         [HttpGet]
-        public WorkItemCard[] Get(string startDateString, string endDateString)
+        public TaskItem[] Get(string startDateString, string endDateString)
         {
             var startDate = startDateDefault;
             var endDate = DateTime.Today;
@@ -39,16 +39,16 @@ namespace KPIWebApp.Controllers
             {
                 // ignored
             }
-            var workItemCards = workItemCardDataAccess.GetWorkItemCardList(startDate, endDate);
+            var TaskItems = TaskItemRepository.GetTaskItemList(startDate, endDate);
 
-            var badWorkItemCards = workItemCards.Where(workItemCard => workItemCard.FinishTime == DateTime.MaxValue).ToList();
+            var badTaskItems = TaskItems.Where(TaskItem => TaskItem.FinishTime == DateTime.MaxValue).ToList();
 
-            foreach (var badWorkItemCard in badWorkItemCards)
+            foreach (var badTaskItem in badTaskItems)
             {
-                workItemCards.Remove(badWorkItemCard);
+                TaskItems.Remove(badTaskItem);
             }
 
-            return workItemCards.ToArray();
+            return TaskItems.ToArray();
         }
     }
 }

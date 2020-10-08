@@ -25,10 +25,10 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
             var releaseFinishTime = DateTime.Now;
             var startTime = DateTime.Now.AddHours(-5);
             var finishTime = DateTime.Now.AddHours(-3);
-            var workItemCard1 = new JsonWorkItemCard
+            var TaskItem1 = new JsonTaskItem
             {
                 taskid = 1,
-                title = "WorkItemCard1",
+                title = "TaskItem1",
                 type = "Product",
                 createdat = DateTime.Now.AddHours(-3),
                 reporter = "CreatedBy1",
@@ -49,15 +49,15 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
                     "Comment9",
                     "Comment10"
                 },
-                links = new JsonWorkItemCardLinks
+                links = new JsonTaskItemLinks
                 {
                     child = 1
                 }
             };
-            var workItemCard2 = new JsonWorkItemCard
+            var TaskItem2 = new JsonTaskItem
             {
                 taskid = 2,
-                title = "WorkItemCard2",
+                title = "TaskItem2",
                 type = "Engineering",
                 createdat = DateTime.Now.AddHours(-2),
                 reporter = "CreatedBy2",
@@ -70,12 +70,12 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
                     "Comment1",
                     "Comment2"
                 },
-                links = new JsonWorkItemCardLinks
+                links = new JsonTaskItemLinks
                 {
                     child = 0
                 }
             };
-            var workItemCard3 = new JsonWorkItemCard
+            var TaskItem3 = new JsonTaskItem
             {
                 taskid = 3,
                 title = "Task 3",
@@ -99,27 +99,27 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
                     "Comment9",
                     "Comment10"
                 },
-                links = new JsonWorkItemCardLinks
+                links = new JsonTaskItemLinks
                 {
                     child = 0
                 }
             };
 
-            var history1 = new JsonWorkItemCardHistory()
+            var history1 = new JsonTaskItemHistory()
             {
                 historyevent = "Task moved",
                 details = "to 'Top Priority'",
                 entrydate = startTime,
                 author = "ChangedBy1"
             };
-            var history2 = new JsonWorkItemCardHistory()
+            var history2 = new JsonTaskItemHistory()
             {
                 historyevent = "",
                 details = "",
                 entrydate = DateTime.Now.AddHours(-4),
                 author = "ChangedBy1"
             };
-            var history3 = new JsonWorkItemCardHistory()
+            var history3 = new JsonTaskItemHistory()
             {
                 historyevent = "Task moved",
                 details = "to 'Released to Prod this week'",
@@ -127,14 +127,14 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
                 author = "ChangedBy1"
             };
 
-            var workItemCard1JToken = JToken.Parse(JsonConvert.SerializeObject(workItemCard1));
-            var workItemCard2JToken = JToken.Parse(JsonConvert.SerializeObject(workItemCard2));
-            var workItemCard3JToken = JToken.Parse(JsonConvert.SerializeObject(workItemCard3));
-            var jsonWorkItemCardList = new JArray
+            var TaskItem1JToken = JToken.Parse(JsonConvert.SerializeObject(TaskItem1));
+            var TaskItem2JToken = JToken.Parse(JsonConvert.SerializeObject(TaskItem2));
+            var TaskItem3JToken = JToken.Parse(JsonConvert.SerializeObject(TaskItem3));
+            var jsonTaskItemList = new JArray
             {
-                workItemCard1JToken,
-                workItemCard2JToken,
-                workItemCard3JToken
+                TaskItem1JToken,
+                TaskItem2JToken,
+                TaskItem3JToken
             };
 
             var history1JToken = JToken.Parse(JsonConvert.SerializeObject(history1));
@@ -148,10 +148,10 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
                 history3JToken
             };
 
-            var mockKanbanizeApiWrapper = new Mock<IKanbanizeApiWrapper>();
-            mockKanbanizeApiWrapper.Setup(x => x.GetWorkItemCardHistory(It.IsAny<JToken>(), It.IsAny<int>()))
+            var mockKanbanizeApiWrapper = new Mock<IKanbanizeApiRepository>();
+            mockKanbanizeApiWrapper.Setup(x => x.GetTaskItemHistory(It.IsAny<JToken>(), It.IsAny<int>()))
                 .Returns(historyArray);
-            var mockReleaseDataAccess = new Mock<IReleaseDataAccess>();
+            var mockReleaseDataAccess = new Mock<IReleaseRepository>();
             mockReleaseDataAccess.Setup(x => x.GetReleasesBeforeDate(It.IsAny<DateTime>())).Returns(new List<Release>
             {
                 new Release
@@ -184,13 +184,13 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
                 }
             });
 
-            var deserializer = new KanbanizeDeserializer(mockKanbanizeApiWrapper.Object, mockReleaseDataAccess.Object, new WorkItemCardDataAccess(), new UserDataAccess());
-            var result = deserializer.WorkItemCardList(jsonWorkItemCardList, 4).ToList();
+            var deserializer = new KanbanizeDeserializer(mockKanbanizeApiWrapper.Object, mockReleaseDataAccess.Object, new TaskItemRepository(), new UserRepository());
+            var result = deserializer.TaskItemList(jsonTaskItemList, 4).ToList();
 
             Assert.That(result.ElementAt(0).Id, Is.EqualTo(1));
             Assert.That(result.ElementAt(0).Impact, Is.EqualTo("High"));
-            Assert.That(result.ElementAt(0).Title, Is.EqualTo("WorkItemCard1"));
-            Assert.That(result.ElementAt(0).Type, Is.EqualTo(WorkItemCardType.StrategicProduct));
+            Assert.That(result.ElementAt(0).Title, Is.EqualTo("TaskItem1"));
+            Assert.That(result.ElementAt(0).Type, Is.EqualTo(TaskItemType.StrategicProduct));
             Assert.That(result.ElementAt(0).CardState, Is.EqualTo("Resolved"));
             Assert.That(result.ElementAt(0).CommentCount, Is.EqualTo(10));
             Assert.That(result.ElementAt(0).CreatedBy, Is.EqualTo("CreatedBy1"));
@@ -203,8 +203,8 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
 
             Assert.That(result.ElementAt(1).Id, Is.EqualTo(2));
             Assert.That(result.ElementAt(1).Impact, Is.EqualTo("Low"));
-            Assert.That(result.ElementAt(1).Title, Is.EqualTo("WorkItemCard2"));
-            Assert.That(result.ElementAt(1).Type, Is.EqualTo(WorkItemCardType.TacticalEngineering));
+            Assert.That(result.ElementAt(1).Title, Is.EqualTo("TaskItem2"));
+            Assert.That(result.ElementAt(1).Type, Is.EqualTo(TaskItemType.TacticalEngineering));
             Assert.That(result.ElementAt(1).CardState, Is.EqualTo("Active"));
             Assert.That(result.ElementAt(1).CommentCount, Is.EqualTo(2));
             Assert.That(result.ElementAt(1).CreatedBy, Is.EqualTo("CreatedBy2"));
@@ -222,10 +222,10 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
         public void When_work_item_card_is_created_in_active_column()
         {
             var createdAt = DateTime.Now.AddHours(-5);
-            var workItemCard1 = new JsonWorkItemCard
+            var TaskItem1 = new JsonTaskItem
             {
                 taskid = 1,
-                title = "WorkItemCard1",
+                title = "TaskItem1",
                 type = "Product",
                 createdat = createdAt,
                 reporter = "CreatedBy1",
@@ -246,20 +246,20 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
                     "Comment9",
                     "Comment10"
                 },
-                links = new JsonWorkItemCardLinks
+                links = new JsonTaskItemLinks
                 {
                     child = 1
                 }
             };
-            var workItemCard1JToken = JToken.Parse(JsonConvert.SerializeObject(workItemCard1));
-            var jsonWorkItemCardList = new JArray
+            var TaskItem1JToken = JToken.Parse(JsonConvert.SerializeObject(TaskItem1));
+            var jsonTaskItemList = new JArray
             {
-                workItemCard1JToken
+                TaskItem1JToken
             };
-            var mockKanbanizeApiWrapper = new Mock<IKanbanizeApiWrapper>();
-            mockKanbanizeApiWrapper.Setup(x => x.GetWorkItemCardHistory(It.IsAny<JToken>(), It.IsAny<int>()))
+            var mockKanbanizeApiWrapper = new Mock<IKanbanizeApiRepository>();
+            mockKanbanizeApiWrapper.Setup(x => x.GetTaskItemHistory(It.IsAny<JToken>(), It.IsAny<int>()))
                 .Returns("");
-            var mockReleaseDataAccess = new Mock<IReleaseDataAccess>();
+            var mockReleaseDataAccess = new Mock<IReleaseRepository>();
             mockReleaseDataAccess.Setup(x => x.GetReleasesBeforeDate(It.IsAny<DateTime>())).Returns(new List<Release>
             {
                 new Release
@@ -278,13 +278,13 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
                 }
             });
 
-            var deserializer = new KanbanizeDeserializer(mockKanbanizeApiWrapper.Object, mockReleaseDataAccess.Object, new WorkItemCardDataAccess(), new UserDataAccess());
-            var result = deserializer.WorkItemCardList(jsonWorkItemCardList, 5).ToList();
+            var deserializer = new KanbanizeDeserializer(mockKanbanizeApiWrapper.Object, mockReleaseDataAccess.Object, new TaskItemRepository(), new UserRepository());
+            var result = deserializer.TaskItemList(jsonTaskItemList, 5).ToList();
 
             Assert.That(result.ElementAt(0).Id, Is.EqualTo(1));
             Assert.That(result.ElementAt(0).Impact, Is.EqualTo("High"));
-            Assert.That(result.ElementAt(0).Title, Is.EqualTo("WorkItemCard1"));
-            Assert.That(result.ElementAt(0).Type, Is.EqualTo(WorkItemCardType.StrategicProduct));
+            Assert.That(result.ElementAt(0).Title, Is.EqualTo("TaskItem1"));
+            Assert.That(result.ElementAt(0).Type, Is.EqualTo(TaskItemType.StrategicProduct));
             Assert.That(result.ElementAt(0).CardState, Is.EqualTo("Resolved"));
             Assert.That(result.ElementAt(0).CommentCount, Is.EqualTo(10));
             Assert.That(result.ElementAt(0).CreatedBy, Is.EqualTo("CreatedBy1"));

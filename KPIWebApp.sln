@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManipulation", "DataMan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KPIWebApp", "KPIWebApp\KPIWebApp.csproj", "{1BB05ABA-C570-45FD-9BCB-CB1876B397CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevOpsWorkItemCardDataExtractor-DEPRECATED", "DevOpsWorkItemCardDataExtractor-DEPRECATED\DevOpsWorkItemCardDataExtractor-DEPRECATED.csproj", "{014D56EB-0D06-46EC-AAB3-2A2E701B7FF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevOpsTaskItemDataExtractor-DEPRECATED", "DevOpsTaskItemDataExtractor-DEPRECATED\DevOpsTaskItemDataExtractor-DEPRECATED.csproj", "{014D56EB-0D06-46EC-AAB3-2A2E701B7FF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

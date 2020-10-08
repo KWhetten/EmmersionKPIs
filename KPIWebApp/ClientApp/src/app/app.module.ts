@@ -7,7 +7,7 @@ import {RouterModule} from '@angular/router';
 import {AppComponent} from './app.component';
 import {NavMenuComponent} from '../components/nav-menu/nav-menu.component';
 import {HomeComponent} from './home/home.component';
-import {WorkItemCardsComponent} from './work-item-cards/work-item-cards.component';
+import {TaskItemsComponent} from './work-item-cards/work-item-cards.component';
 import {FilterOptionsComponent} from '../components/filter-options/filter-options.component';
 import {LoginComponent} from './login/login.component';
 import {InviteUserComponent} from './invite-user/invite-user.component';
@@ -22,7 +22,7 @@ import {ScatterPlotComponent} from '../components/scatter-plot/scatter-plot.comp
     NavMenuComponent,
     FilterOptionsComponent,
     HomeComponent,
-    WorkItemCardsComponent,
+    TaskItemsComponent,
     LoginComponent,
     InviteUserComponent,
     CreatePasswordComponent,
@@ -36,8 +36,8 @@ import {ScatterPlotComponent} from '../components/scatter-plot/scatter-plot.comp
     FormsModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},
-      {path: 'work-item-cards', component: WorkItemCardsComponent},
-      {path: 'work-item-cards', component: WorkItemCardsComponent},
+      {path: 'work-item-cards', component: TaskItemsComponent},
+      {path: 'work-item-cards', component: TaskItemsComponent},
       {path: 'login', component: LoginComponent},
       {path: 'invite-user', component: InviteUserComponent},
       {path: 'create-password', component: CreatePasswordComponent},

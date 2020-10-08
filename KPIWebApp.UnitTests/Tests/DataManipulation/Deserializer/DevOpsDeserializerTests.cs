@@ -82,4 +82,9 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
             Assert.That(result[1].Status, Is.EqualTo("failed"));
         }
     }
+
+    public class ReleaseDefinition
+    {
+        public string name { get; set; }
+    }
 }

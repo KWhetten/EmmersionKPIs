@@ -11,77 +11,77 @@ namespace DataManipulation.Deserialize
 {
     public interface IKanbanizeDeserializer
     {
-        IEnumerable<WorkItemCard> WorkItemCardList(IEnumerable<JToken> jsonWorkItemCards, int boardId);
-        WorkItemCard WorkItemCard(JToken jsonWorkItemCard, int boardId);
-        void WorkItemCardHistoryItems(JToken jsonWorkItemCard, WorkItemCard workItemCard, int boardId);
-        WorkItemCardType GetCardType(JToken workItem);
+        IEnumerable<TaskItem> TaskItemList(IEnumerable<JToken> jsonTaskItems, int boardId);
+        TaskItem TaskItem(JToken jsonTaskItem, int boardId);
+        void TaskItemHistoryItems(JToken jsonTaskItem, TaskItem TaskItem, int boardId);
+        TaskItemType GetCardType(JToken workItem);
     }
 
     public class KanbanizeDeserializer : IKanbanizeDeserializer
     {
-        private readonly IKanbanizeApiWrapper kanbanizeApiWrapper;
-        private readonly ReleaseDataAccess releaseDataAccess = new ReleaseDataAccess();
-        private readonly IWorkItemCardDataAccess workItemCardDataAccess;
-        private readonly IUserDataAccess userDataAccess;
+        private readonly IKanbanizeApiRepository kanbanizeApiRepository;
+        private readonly ReleaseRepository releaseRepository = new ReleaseRepository();
+        private readonly ITaskItemRepository TaskItemRepository;
+        private readonly IUserRepository userRepository;
 
-        public KanbanizeDeserializer(IKanbanizeApiWrapper kanbanizeApiWrapper, IReleaseDataAccess releaseDataAccess, IWorkItemCardDataAccess workItemCardDataAccess, IUserDataAccess userDataAccess)
+        public KanbanizeDeserializer(IKanbanizeApiRepository kanbanizeApiRepository, IReleaseRepository releaseRepository, ITaskItemRepository TaskItemRepository, IUserRepository userRepository)
         {
-            this.kanbanizeApiWrapper = kanbanizeApiWrapper;
-            this.workItemCardDataAccess = workItemCardDataAccess;
-            this.userDataAccess = userDataAccess;
+            this.kanbanizeApiRepository = kanbanizeApiRepository;
+            this.TaskItemRepository = TaskItemRepository;
+            this.userRepository = userRepository;
         }
 
-        public IEnumerable<WorkItemCard> WorkItemCardList(IEnumerable<JToken> jsonWorkItemCards, int boardId)
+        public IEnumerable<TaskItem> TaskItemList(IEnumerable<JToken> jsonTaskItems, int boardId)
         {
-            return (from item in jsonWorkItemCards
+            return (from item in jsonTaskItems
                 where !item["columnid"].ToString().Contains("archive")
                       || (DateTime) item["updatedat"] < DateTime.Now.AddDays(-90)
-                select WorkItemCard(item, boardId)).ToList();
+                select TaskItem(item, boardId)).ToList();
         }
 
-        public WorkItemCard WorkItemCard(JToken jsonWorkItemCard, int boardId)
+        public TaskItem TaskItem(JToken jsonTaskItem, int boardId)
         {
-            var workItemCard = new WorkItemCard
+            var TaskItem = new TaskItem
             {
-                Id = (int) jsonWorkItemCard["taskid"],
-                Title = jsonWorkItemCard["title"].ToString(),
+                Id = (int) jsonTaskItem["taskid"],
+                Title = jsonTaskItem["title"].ToString(),
                 StartTime = DateTime.MinValue,
                 FinishTime = DateTime.MaxValue,
-                Type = GetCardType(jsonWorkItemCard),
+                Type = GetCardType(jsonTaskItem),
                 DevelopmentTeamName = boardId == 4
                     ? "Enterprise Team"
                     : "Assessment Team",
-                CreatedOn = (DateTime) jsonWorkItemCard["createdat"],
-                CreatedBy = jsonWorkItemCard["reporter"].ToString(),
-                LastChangedOn = (DateTime) jsonWorkItemCard["updatedat"],
+                CreatedOn = (DateTime) jsonTaskItem["createdat"],
+                CreatedBy = jsonTaskItem["reporter"].ToString(),
+                LastChangedOn = (DateTime) jsonTaskItem["updatedat"],
                 LastChangedBy = "",
-                CurrentBoardColumn = jsonWorkItemCard["columnname"].ToString(),
-                CardState = GetCardState(jsonWorkItemCard),
-                Impact = jsonWorkItemCard["priority"]?.ToString(),
-                CommentCount = jsonWorkItemCard["comments"].ToString() == ""
+                CurrentBoardColumn = jsonTaskItem["columnname"].ToString(),
+                CardState = GetCardState(jsonTaskItem),
+                Impact = jsonTaskItem["priority"]?.ToString(),
+                CommentCount = jsonTaskItem["comments"].ToString() == ""
                     ? 0
-                    : int.Parse(jsonWorkItemCard["comments"].Count().ToString()),
+                    : int.Parse(jsonTaskItem["comments"].Count().ToString()),
                 NumRevisions = 0
             };
 
 
-            WorkItemCardHistoryItems(jsonWorkItemCard, workItemCard, boardId);
+            TaskItemHistoryItems(jsonTaskItem, TaskItem, boardId);
 
-            var releases = releaseDataAccess.GetReleasesBeforeDate(workItemCard.FinishTime);
+            var releases = releaseRepository.GetReleasesBeforeDate(TaskItem.FinishTime);
             var release = new Release();
             if (releases.Count > 0)
             {
                 release = releases.First();
             }
 
-            workItemCard.Release = release;
+            TaskItem.Release = release;
 
-            return workItemCard;
+            return TaskItem;
         }
 
-        private string GetCardState(JToken jsonWorkItemCard)
+        private string GetCardState(JToken jsonTaskItem)
         {
-            return jsonWorkItemCard["columnname"].ToString() switch
+            return jsonTaskItem["columnname"].ToString() switch
             {
                 "Engineering Backlog" => "New",
                 "Engineering" => "New",
@@ -96,11 +96,11 @@ namespace DataManipulation.Deserialize
             };
         }
 
-        public void WorkItemCardHistoryItems(JToken jsonWorkItemCard, WorkItemCard workItemCard, int boardId)
+        public void TaskItemHistoryItems(JToken jsonTaskItem, TaskItem TaskItem, int boardId)
         {
-            var history = kanbanizeApiWrapper.GetWorkItemCardHistory(jsonWorkItemCard, boardId);
+            var history = kanbanizeApiRepository.GetTaskItemHistory(jsonTaskItem, boardId);
 
-            workItemCard.NumRevisions = history.Count();
+            TaskItem.NumRevisions = history.Count();
 
             foreach (var item in history)
             {
@@ -110,25 +110,25 @@ namespace DataManipulation.Deserialize
                     {
                         if ((item["details"].ToString().Contains("to 'Top Priority'")
                              || item["details"].ToString().Contains("to 'Working'"))
-                            && (workItemCard.StartTime > (DateTime) item["entrydate"]
-                                || workItemCard.StartTime == DateTime.MinValue))
+                            && (TaskItem.StartTime > (DateTime) item["entrydate"]
+                                || TaskItem.StartTime == DateTime.MinValue))
                         {
-                            workItemCard.StartTime = (DateTime) item["entrydate"];
+                            TaskItem.StartTime = (DateTime) item["entrydate"];
                         }
                         else if ((item["details"].ToString().Contains("to 'Ready for Prod Deploy'")
                                   || item["details"].ToString().Contains("to 'Released to Prod this week'")
                                   || item["details"].ToString().Contains("to 'Ready to Archive'"))
-                                 && (workItemCard.FinishTime < (DateTime) item["entrydate"]
-                                     || workItemCard.FinishTime == DateTime.MaxValue))
+                                 && (TaskItem.FinishTime < (DateTime) item["entrydate"]
+                                     || TaskItem.FinishTime == DateTime.MaxValue))
                         {
-                            workItemCard.FinishTime = (DateTime) item["entrydate"];
+                            TaskItem.FinishTime = (DateTime) item["entrydate"];
                         }
                     }
 
-                    if (workItemCard.LastChangedOn == (DateTime) item["entrydate"]
-                        || workItemCard.LastChangedBy == "")
+                    if (TaskItem.LastChangedOn == (DateTime) item["entrydate"]
+                        || TaskItem.LastChangedBy == "")
                     {
-                        workItemCard.LastChangedBy = item["author"].ToString();
+                        TaskItem.LastChangedBy = item["author"].ToString();
                     }
                 }
                 catch (Exception ex)
@@ -137,35 +137,35 @@ namespace DataManipulation.Deserialize
                 }
             }
 
-            if (workItemCard.StartTime == DateTime.MinValue && workItemCard.CardState != "New")
+            if (TaskItem.StartTime == DateTime.MinValue && TaskItem.CardState != "New")
             {
-                workItemCard.StartTime = workItemCard.CreatedOn;
+                TaskItem.StartTime = TaskItem.CreatedOn;
             }
 
-            if (workItemCard.NumRevisions == 0)
+            if (TaskItem.NumRevisions == 0)
             {
-                if (workItemCard.CurrentBoardColumn == "Ready for Prod Deploy"
-                    || workItemCard.CurrentBoardColumn == "Released to Prod this week"
-                    || workItemCard.CurrentBoardColumn == "Ready to Archive")
+                if (TaskItem.CurrentBoardColumn == "Ready for Prod Deploy"
+                    || TaskItem.CurrentBoardColumn == "Released to Prod this week"
+                    || TaskItem.CurrentBoardColumn == "Ready to Archive")
                 {
-                    workItemCard.FinishTime = workItemCard.CreatedOn;
+                    TaskItem.FinishTime = TaskItem.CreatedOn;
                 }
             }
         }
 
-        public WorkItemCardType GetCardType(JToken workItem)
+        public TaskItemType GetCardType(JToken workItem)
         {
             var workItemTypeString = workItem["type"].ToString();
 
             return workItemTypeString switch
             {
                 "Product" => (int.Parse(workItem["links"]["child"].ToString()) > 0
-                    ? WorkItemCardType.StrategicProduct
-                    : WorkItemCardType.TacticalProduct),
+                    ? TaskItemType.StrategicProduct
+                    : TaskItemType.TacticalProduct),
                 "Engineering" => (int.Parse(workItem["links"]["child"].ToString()) > 0
-                    ? WorkItemCardType.StrategicEngineering
-                    : WorkItemCardType.TacticalEngineering),
-                _ => WorkItemCardType.Unanticipated
+                    ? TaskItemType.StrategicEngineering
+                    : TaskItemType.TacticalEngineering),
+                _ => TaskItemType.Unanticipated
             };
         }
     }
