@@ -1,5 +1,5 @@
 ﻿using System;
-using KPIDataExtractor.UnitTests.DataWrapper.Deserializer;
+using KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer;
 
 namespace KPIDataExtractor.UnitTests.Objects.DevOps
 {

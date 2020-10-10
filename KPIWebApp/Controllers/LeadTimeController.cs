@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DataAccess.DatabaseAccess;
+using DataAccess.DataRepositories;
+using DataManipulation.DatabaseAccess;
 using DataObjects.Objects;
 using KPIWebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Services.Common;
 
 namespace KPIWebApp.Controllers
 {
@@ -14,7 +16,7 @@ namespace KPIWebApp.Controllers
     public class LeadTimeController : ControllerBase
     {
         [HttpGet]
-        public ScatterPlotData[] Get(string startDateString, string finishDateString)
+        public async Task<ScatterPlotData[]> Get(string startDateString, string finishDateString)
         {
             DateTime startDate;
             DateTime finishDate;
@@ -29,8 +31,8 @@ namespace KPIWebApp.Controllers
                 finishDate = DateTime.Now;
             }
 
-            var TaskItemDataAccess = new TaskItemRepository();
-            var rawData = TaskItemDataAccess.GetTaskItemList(startDate, finishDate);
+            var taskItemDataAccess = new TaskItemRepository(new DatabaseConnection());
+            var rawData = await taskItemDataAccess.GetTaskItemListAsync(startDate, finishDate);
             var cardTypes = new List<string>();
 
             foreach (var datum in rawData.Where(datum => !cardTypes.Contains(datum.Type.ToString())))

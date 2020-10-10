@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DataAccess.DatabaseAccess;
+using DataAccess.DataRepositories;
 using DataManipulation.DatabaseAccess;
 using DataObjects.Objects;
 using KPIDevOpsDataExtractor_DEPRECATED.ApiWrapper;
@@ -11,8 +13,8 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
 {
     public interface IDevOpsDeserializer
     {
-        IEnumerable<TaskItem> TaskItemList(IEnumerable<JToken> jsonTaskItems);
-        TaskItem TaskItem(JToken jsonTaskItem);
+        Task<IEnumerable<TaskItem>> TaskItemListAsync(IEnumerable<JToken> jsonTaskItems);
+        Task<TaskItem> TaskItem(JToken jsonTaskItem);
         DateTime JsonWorkItemStartTime(JToken jsonWorkItemUpdates);
         DateTime JsonWorkItemFinishTime(JToken jsonWorkItemUpdates);
         TaskItemType GetCardType(JToken workItemType);
@@ -33,23 +35,23 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
             this.userRepository = userRepository;
         }
 
-        public IEnumerable<TaskItem> TaskItemList(IEnumerable<JToken> jsonTaskItems)
+        public async Task<IEnumerable<TaskItem>> TaskItemListAsync(IEnumerable<JToken> jsonTaskItems)
         {
-            var TaskItemList = new List<TaskItem>();
+            var taskItemList = new List<TaskItem>();
             var i = 1;
             foreach (var item in jsonTaskItems)
             {
-                TaskItemList.Add(TaskItem(item));
+                taskItemList.Add(await TaskItem(item));
                 Console.WriteLine($"Card Number: {i}");
                 ++i;
             }
 
-            return TaskItemList;
+            return taskItemList;
         }
 
-        public TaskItem TaskItem(JToken jsonTaskItem)
+        public async Task<TaskItem> TaskItem(JToken jsonTaskItem)
         {
-            var TaskItem = new TaskItem
+            var taskItem = new TaskItem
             {
                 Id = (int) jsonTaskItem["id"],
                 Title = jsonTaskItem["fields"]["System.Title"].ToString(),
@@ -66,23 +68,23 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                 NumRevisions = (int) jsonTaskItem["rev"]
             };
 
-            var jsonWorkItemUpdates = devOpsApiWrapper.GetWorkItemUpdates(TaskItem);
+            var jsonWorkItemUpdates = devOpsApiWrapper.GetWorkItemUpdates(taskItem);
 
-            TaskItem.StartTime = JsonWorkItemStartTime(jsonWorkItemUpdates);
+            taskItem.StartTime = JsonWorkItemStartTime(jsonWorkItemUpdates);
 
-            TaskItem.FinishTime = JsonWorkItemFinishTime(jsonWorkItemUpdates);
+            taskItem.FinishTime = JsonWorkItemFinishTime(jsonWorkItemUpdates);
 
-            var releases = releaseRepository.GetReleasesBeforeDate(TaskItem.FinishTime);
+            var releases = await releaseRepository.GetReleasesBeforeDateAsync(taskItem.FinishTime);
             var release = new Release();
             if (releases.Count > 0)
             {
                 release = releases.First();
             }
 
-            TaskItem.Release = release;
+            taskItem.Release = release;
 
-            Console.WriteLine($"Finished Deserializing Card: {TaskItem.Id}");
-            return TaskItem;
+            Console.WriteLine($"Finished Deserializing Card: {taskItem.Id}");
+            return taskItem;
         }
 
         public TaskItemType GetCardType(JToken workItemType)

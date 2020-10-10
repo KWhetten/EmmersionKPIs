@@ -1,11 +1,11 @@
 using System;
-using DataManipulation.Deserialize;
+using DataAccess.Deserialize;
 using KPIDataExtractor.UnitTests.Objects.DevOps;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
-namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
+namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
 {
     [TestFixture]
     public class DevOpsDeserializerTests

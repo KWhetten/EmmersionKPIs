@@ -3,7 +3,6 @@
   <component name="ContentModelStore">
     <e p="C:\Code\EmmersionKPIs" t="IncludeFlat">
       <e p="DataExtractor" t="IncludeRecursive">
-        <e p="App.config" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="DataExtractor.csproj" t="IncludeRecursive" />
         <e p="docker-compose.yml" t="Include" />
@@ -21,15 +20,16 @@
           <e p="DevOpsApiRepository.cs" t="Include" />
           <e p="KanbanizeApiRepository.cs" t="Include" />
         </e>
+        <e p="App.config" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
-        <e p="DatabaseAccess" t="Include">
+        <e p="DataManipulation.csproj" t="IncludeRecursive" />
+        <e p="DataRepositories" t="Include">
           <e p="DatabaseConnection.cs" t="Include" />
           <e p="Helper.cs" t="Include" />
           <e p="ReleaseRepository.cs" t="Include" />
+          <e p="TaskItemRepository.cs" t="Include" />
           <e p="UserRepository.cs" t="Include" />
-          <e p="WorkItemCardRepository.cs" t="Include" />
         </e>
-        <e p="DataManipulation.csproj" t="IncludeRecursive" />
         <e p="Deserialize" t="Include">
           <e p="DevOpsDeserializer.cs" t="Include" />
           <e p="KanbanizeDeserializer.cs" t="Include" />
@@ -340,6 +340,30 @@
           <e p="favicon.ico" t="Include" />
         </e>
       </e>
+      <e p="KPIWebApp.IntegrationTests" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Class1.cs" t="Include" />
+        <e p="DataManipulation" t="Include">
+          <e p="ApiWrapper" t="Include">
+            <e p="DevOpsApiRepositoryTests.cs" t="Include" />
+            <e p="KanbanizeApiRepositoryTests.cs" t="Include" />
+          </e>
+          <e p="DatabaseAccess" t="Include">
+            <e p="AuthorizationRepositoryTests.cs" t="Include" />
+            <e p="ReleaseRepositoryTests.cs" t="Include" />
+            <e p="TaskItemRepositoryTests.cs" t="Include" />
+          </e>
+        </e>
+        <e p="KPIWebApp.IntegrationTests.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="KPIWebApp.IntegrationTests.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TestObjects" t="Include" />
+      </e>
       <e p="KPIWebApp.sln" t="IncludeFlat" />
       <e p="KPIWebApp.UnitTests" t="IncludeRecursive">
         <e p="App.config" t="Include" />
@@ -364,15 +388,6 @@
         <e p="Tests" t="Include">
           <e p="DataExtractor" t="Include" />
           <e p="DataManipulation" t="Include">
-            <e p="ApiWrapper" t="Include">
-              <e p="DevOpsApiRepositoryTests.cs" t="Include" />
-              <e p="KanbanizeApiRepositoryTests.cs" t="Include" />
-            </e>
-            <e p="DatabaseAccess" t="Include">
-              <e p="AuthorizationRepositoryTests.cs" t="Include" />
-              <e p="ReleaseRepositoryTests.cs" t="Include" />
-              <e p="TaskItemRepositoryTests.cs" t="Include" />
-            </e>
             <e p="Deserializer" t="Include">
               <e p="DevOpsDeserializerTests.cs" t="Include" />
               <e p="KanbanizeDeserializerTests.cs" t="Include" />
@@ -394,8 +409,13 @@
     <e p="C:\Users\krwhe\.nuget\packages\microsoft.net.test.sdk\16.4.0\build\netcoreapp2.1" t="Include">
       <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
     </e>
+    <e p="C:\Users\krwhe\.nuget\packages\microsoft.net.test.sdk\16.7.1\build\netcoreapp2.1" t="Include">
+      <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
+    </e>
     <e p="C:\Users\krwhe\.nuget\packages\microsoft.testplatform.testhost\16.4.0\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
     <e p="C:\Users\krwhe\.nuget\packages\microsoft.testplatform.testhost\16.4.0\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
+    <e p="C:\Users\krwhe\.nuget\packages\microsoft.testplatform.testhost\16.7.1\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
+    <e p="C:\Users\krwhe\.nuget\packages\microsoft.testplatform.testhost\16.7.1\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
     <e p="C:\Users\krwhe\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\nunit.engine.api.dll" t="Include" />
     <e p="C:\Users\krwhe\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\nunit.engine.dll" t="Include" />
     <e p="C:\Users\krwhe\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.dll" t="Include" />

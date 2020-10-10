@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using DataAccess.ApiWrapper;
 using DataAccess.DatabaseAccess;
+using DataAccess.DataRepositories;
+using DataAccess.Deserialize;
 using DataManipulation.ApiWrapper;
-using DataManipulation.DatabaseAccess;
-using DataManipulation.Deserialize;
-using DataObjects;
 using DataObjects.Objects;
 using KPIDataExtractor.UnitTests.Objects.Kanbanize;
 using Moq;
@@ -13,19 +14,19 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
-namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
+namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
 {
     [TestFixture]
     public class KanbanizeDeserializerTests
     {
         [Test]
-        public void When_deserializing_work_item_card_list()
+        public async Task When_deserializing_work_item_card_list()
         {
             var releaseStartTime = DateTime.Now.AddHours(-2);
             var releaseFinishTime = DateTime.Now;
             var startTime = DateTime.Now.AddHours(-5);
             var finishTime = DateTime.Now.AddHours(-3);
-            var TaskItem1 = new JsonTaskItem
+            var taskItem1 = new JsonTaskItem
             {
                 taskid = 1,
                 title = "TaskItem1",
@@ -54,7 +55,7 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
                     child = 1
                 }
             };
-            var TaskItem2 = new JsonTaskItem
+            var taskItem2 = new JsonTaskItem
             {
                 taskid = 2,
                 title = "TaskItem2",
@@ -75,7 +76,7 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
                     child = 0
                 }
             };
-            var TaskItem3 = new JsonTaskItem
+            var taskItem3 = new JsonTaskItem
             {
                 taskid = 3,
                 title = "Task 3",
@@ -127,14 +128,14 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
                 author = "ChangedBy1"
             };
 
-            var TaskItem1JToken = JToken.Parse(JsonConvert.SerializeObject(TaskItem1));
-            var TaskItem2JToken = JToken.Parse(JsonConvert.SerializeObject(TaskItem2));
-            var TaskItem3JToken = JToken.Parse(JsonConvert.SerializeObject(TaskItem3));
+            var taskItem1JToken = JToken.Parse(JsonConvert.SerializeObject(taskItem1));
+            var taskItem2JToken = JToken.Parse(JsonConvert.SerializeObject(taskItem2));
+            var taskItem3JToken = JToken.Parse(JsonConvert.SerializeObject(taskItem3));
             var jsonTaskItemList = new JArray
             {
-                TaskItem1JToken,
-                TaskItem2JToken,
-                TaskItem3JToken
+                taskItem1JToken,
+                taskItem2JToken,
+                taskItem3JToken
             };
 
             var history1JToken = JToken.Parse(JsonConvert.SerializeObject(history1));
@@ -152,40 +153,42 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
             mockKanbanizeApiWrapper.Setup(x => x.GetTaskItemHistory(It.IsAny<JToken>(), It.IsAny<int>()))
                 .Returns(historyArray);
             var mockReleaseDataAccess = new Mock<IReleaseRepository>();
-            mockReleaseDataAccess.Setup(x => x.GetReleasesBeforeDate(It.IsAny<DateTime>())).Returns(new List<Release>
-            {
-                new Release
+            mockReleaseDataAccess.Setup(x => x.GetReleasesBeforeDateAsync(It.IsAny<DateTime>())).ReturnsAsync(
+                new List<Release>
                 {
-                    Id = 1,
-                    Attempts = 3,
-                    FinishTime = releaseFinishTime,
-                    Name = "Release1",
-                    ReleaseEnvironment = new ReleaseEnvironment
+                    new Release
                     {
                         Id = 1,
-                        Name = "ReleaseEnvironment1"
+                        Attempts = 3,
+                        FinishTime = releaseFinishTime,
+                        Name = "Release1",
+                        ReleaseEnvironment = new ReleaseEnvironment
+                        {
+                            Id = 1,
+                            Name = "ReleaseEnvironment1"
+                        },
+                        StartTime = releaseStartTime,
+                        Status = "succeeded"
                     },
-                    StartTime = releaseStartTime,
-                    Status = "succeeded"
-                },
-                new Release
-                {
-                    Id = 2,
-                    Attempts = 5,
-                    FinishTime = DateTime.Now.AddHours(-1),
-                    Name = "Release2",
-                    ReleaseEnvironment = new ReleaseEnvironment
+                    new Release
                     {
                         Id = 2,
-                        Name = "ReleaseEnvironment2"
-                    },
-                    StartTime = DateTime.Now.AddHours(-3),
-                    Status = "failed"
-                }
-            });
+                        Attempts = 5,
+                        FinishTime = DateTime.Now.AddHours(-1),
+                        Name = "Release2",
+                        ReleaseEnvironment = new ReleaseEnvironment
+                        {
+                            Id = 2,
+                            Name = "ReleaseEnvironment2"
+                        },
+                        StartTime = DateTime.Now.AddHours(-3),
+                        Status = "failed"
+                    }
+                });
 
-            var deserializer = new KanbanizeDeserializer(mockKanbanizeApiWrapper.Object, mockReleaseDataAccess.Object, new TaskItemRepository(), new UserRepository());
-            var result = deserializer.TaskItemList(jsonTaskItemList, 4).ToList();
+            var deserializer = new KanbanizeDeserializer(mockKanbanizeApiWrapper.Object);
+            var results = await deserializer.TaskItemListAsync(jsonTaskItemList, 4);
+            var result = results.ToList();
 
             Assert.That(result.ElementAt(0).Id, Is.EqualTo(1));
             Assert.That(result.ElementAt(0).Impact, Is.EqualTo("High"));
@@ -219,10 +222,10 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
         }
 
         [Test]
-        public void When_work_item_card_is_created_in_active_column()
+        public async Task When_work_item_card_is_created_in_active_column()
         {
             var createdAt = DateTime.Now.AddHours(-5);
-            var TaskItem1 = new JsonTaskItem
+            var taskItem1 = new JsonTaskItem
             {
                 taskid = 1,
                 title = "TaskItem1",
@@ -251,35 +254,37 @@ namespace KPIDataExtractor.UnitTests.DataWrapper.Deserializer
                     child = 1
                 }
             };
-            var TaskItem1JToken = JToken.Parse(JsonConvert.SerializeObject(TaskItem1));
+            var taskItem1JToken = JToken.Parse(JsonConvert.SerializeObject(taskItem1));
             var jsonTaskItemList = new JArray
             {
-                TaskItem1JToken
+                taskItem1JToken
             };
             var mockKanbanizeApiWrapper = new Mock<IKanbanizeApiRepository>();
             mockKanbanizeApiWrapper.Setup(x => x.GetTaskItemHistory(It.IsAny<JToken>(), It.IsAny<int>()))
                 .Returns("");
             var mockReleaseDataAccess = new Mock<IReleaseRepository>();
-            mockReleaseDataAccess.Setup(x => x.GetReleasesBeforeDate(It.IsAny<DateTime>())).Returns(new List<Release>
-            {
-                new Release
+            mockReleaseDataAccess.Setup(x => x.GetReleasesBeforeDateAsync(It.IsAny<DateTime>())).ReturnsAsync(
+                new List<Release>
                 {
-                    Id = 2,
-                    Attempts = 5,
-                    FinishTime = DateTime.Now.AddHours(-1),
-                    Name = "Release2",
-                    ReleaseEnvironment = new ReleaseEnvironment
+                    new Release
                     {
                         Id = 2,
-                        Name = "ReleaseEnvironment2"
-                    },
-                    StartTime = DateTime.Now.AddHours(-3),
-                    Status = "failed"
-                }
-            });
+                        Attempts = 5,
+                        FinishTime = DateTime.Now.AddHours(-1),
+                        Name = "Release2",
+                        ReleaseEnvironment = new ReleaseEnvironment
+                        {
+                            Id = 2,
+                            Name = "ReleaseEnvironment2"
+                        },
+                        StartTime = DateTime.Now.AddHours(-3),
+                        Status = "failed"
+                    }
+                });
 
-            var deserializer = new KanbanizeDeserializer(mockKanbanizeApiWrapper.Object, mockReleaseDataAccess.Object, new TaskItemRepository(), new UserRepository());
-            var result = deserializer.TaskItemList(jsonTaskItemList, 5).ToList();
+            var deserializer = new KanbanizeDeserializer(mockKanbanizeApiWrapper.Object);
+            var results = await deserializer.TaskItemListAsync(jsonTaskItemList, 5);
+            var result = results.ToList();
 
             Assert.That(result.ElementAt(0).Id, Is.EqualTo(1));
             Assert.That(result.ElementAt(0).Impact, Is.EqualTo("High"));

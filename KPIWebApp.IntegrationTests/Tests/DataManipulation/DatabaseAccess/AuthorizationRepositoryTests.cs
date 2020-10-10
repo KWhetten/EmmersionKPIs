@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 using DataAccess.DatabaseAccess;
+using DataAccess.DataRepositories;
 using DataAccess.Objects;
+using DataManipulation.DatabaseAccess;
 using NUnit.Framework;
 
 namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.DatabaseAccess
@@ -12,9 +15,9 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.DatabaseAccess
 
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
-            userRepository = new UserRepository();
+            userRepository = new UserRepository(new DatabaseConnection());
 
             userInfo = new UserInfo()
             {
@@ -25,20 +28,20 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.DatabaseAccess
                 Guid = Guid.NewGuid()
             };
 
-            userRepository.InsertUserInfo(userInfo.FirstName, userInfo.LastName, userInfo.Email);
-            userRepository.InsertPassword(userInfo.Email, userInfo.Password);
+            await userRepository.InsertUserInfoAsync(userInfo.FirstName, userInfo.LastName, userInfo.Email);
+            await userRepository.InsertPasswordAsync(userInfo.Email, userInfo.Password);
         }
 
         [TearDown]
         public void TearDown()
         {
-            userRepository.RemoveUserInfo(userInfo);
+            userRepository.RemoveUserInfoAsync(userInfo);
         }
 
         [Test]
-        public void When_inserting_user_info()
+        public async Task When_inserting_user_info()
         {
-            var result = userRepository.GetUserInfoByEmail(userInfo.Email);
+            var result = await userRepository.GetUserInfoByEmailAsync(userInfo.Email);
 
             Assert.That(result.Email, Is.EqualTo(userInfo.Email));
             Assert.That(result.FirstName, Is.EqualTo(userInfo.FirstName));
@@ -47,7 +50,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.DatabaseAccess
         }
 
         [Test]
-        public void When_trying_to_insert_user_info_with_existing_email()
+        public async Task When_trying_to_insert_user_info_with_existing_email()
         {
             var userInfo2 = new UserInfo()
             {
@@ -56,10 +59,10 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.DatabaseAccess
                 LastName = "Last2"
             };
 
-            userRepository.InsertUserInfo(userInfo.FirstName, userInfo.LastName, userInfo.Email);
-            userRepository.InsertUserInfo(userInfo2.FirstName, userInfo2.LastName, userInfo2.Email);
+            await userRepository.InsertUserInfoAsync(userInfo.FirstName, userInfo.LastName, userInfo.Email);
+            await userRepository.InsertUserInfoAsync(userInfo2.FirstName, userInfo2.LastName, userInfo2.Email);
 
-            var result = userRepository.GetUserInfoByEmail(userInfo.Email);
+            var result = await userRepository.GetUserInfoByEmailAsync(userInfo.Email);
 
             Assert.That(result.Email, Is.EqualTo(userInfo.Email));
             Assert.That(result.FirstName, Is.EqualTo(userInfo.FirstName));
@@ -67,25 +70,25 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.DatabaseAccess
         }
 
         [Test]
-        public void When_authorizing_user()
+        public async Task When_authorizing_user()
         {
-            var result = userRepository.AuthorizeUser(userInfo);
+            var result = await userRepository.AuthorizeUserAsync(userInfo);
 
             Assert.That(result, Is.True);
         }
 
         [Test]
-        public void When_verifying_password()
+        public async Task When_verifying_password()
         {
-            var result = userRepository.VerifyPassword(userInfo);
+            var result = await userRepository.VerifyPasswordAsync(userInfo);
 
             Assert.That(result, Is.True);
         }
 
         [Test]
-        public void When_trying_to_authorize_user_that_does_not_exist()
+        public async Task When_trying_to_authorize_user_that_does_not_exist()
         {
-            var result = userRepository.AuthorizeUser(new UserInfo
+            var result = await userRepository.AuthorizeUserAsync(new UserInfo
             {
                 Email = "this is not an email in the system",
             });

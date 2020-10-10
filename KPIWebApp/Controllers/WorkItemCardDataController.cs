@@ -1,7 +1,9 @@
-﻿﻿using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using DataAccess.DatabaseAccess;
+using DataAccess.DataRepositories;
+using DataManipulation.DatabaseAccess;
 using DataObjects.Objects;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,12 +13,12 @@ namespace KPIWebApp.Controllers
     [Route("work-item-card-data")]
     public class TaskItemDataController : ControllerBase
     {
-        private readonly TaskItemRepository TaskItemRepository;
+        private readonly TaskItemRepository taskItemRepository;
         private readonly DateTime startDateDefault = new DateTime(2000, 01, 01);
 
         public TaskItemDataController()
         {
-            TaskItemRepository = new TaskItemRepository();
+            taskItemRepository = new TaskItemRepository(new DatabaseConnection());
         }
 
         // USED FOR TESTING
@@ -26,7 +28,7 @@ namespace KPIWebApp.Controllers
         // }
 
         [HttpGet]
-        public TaskItem[] Get(string startDateString, string endDateString)
+        public async Task<TaskItem[]> Get(string startDateString, string endDateString)
         {
             var startDate = startDateDefault;
             var endDate = DateTime.Today;
@@ -39,16 +41,16 @@ namespace KPIWebApp.Controllers
             {
                 // ignored
             }
-            var TaskItems = TaskItemRepository.GetTaskItemList(startDate, endDate);
+            var taskItems = await taskItemRepository.GetTaskItemListAsync(startDate, endDate);
 
-            var badTaskItems = TaskItems.Where(TaskItem => TaskItem.FinishTime == DateTime.MaxValue).ToList();
+            var badTaskItems = taskItems.Where(taskItem => taskItem.FinishTime == DateTime.MaxValue).ToList();
 
             foreach (var badTaskItem in badTaskItems)
             {
-                TaskItems.Remove(badTaskItem);
+                taskItems.Remove(badTaskItem);
             }
 
-            return TaskItems.ToArray();
+            return taskItems.ToArray();
         }
     }
 }

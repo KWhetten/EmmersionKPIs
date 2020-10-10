@@ -1,9 +1,10 @@
 ﻿﻿using System;
-using DataAccess.DatabaseAccess;
+ using System.Threading.Tasks;
+ using DataAccess.DatabaseAccess;
+ using DataAccess.DataRepositories;
  using DataAccess.Objects;
- using DataObjects.Objects;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
+ using DataManipulation.DatabaseAccess;
+ using Microsoft.AspNetCore.Mvc;
 
 namespace KPIWebApp.Controllers
 {
@@ -15,7 +16,7 @@ namespace KPIWebApp.Controllers
 
         public LoginUserController()
         {
-            authorizationData = new UserRepository();
+            authorizationData = new UserRepository(new DatabaseConnection());
         }
 
         // USED FOR TESTING
@@ -25,16 +26,16 @@ namespace KPIWebApp.Controllers
         // }
 
         [HttpPost]
-        public UserInfo Post(LoginData data)
+        public async Task<UserInfo> Post(LoginData data)
         {
             data.Guid = Guid.NewGuid();
 
-            var userInfo = authorizationData.GetUserInfoByEmail(data.Email);
-            var verified = authorizationData.VerifyPassword(userInfo);
+            var userInfo = await authorizationData.GetUserInfoByEmailAsync(data.Email);
+            var verified = await authorizationData.VerifyPasswordAsync(userInfo);
 
             if (!verified) return new UserInfo();
 
-            authorizationData.AuthorizeUser(userInfo);
+            await authorizationData.AuthorizeUserAsync(userInfo);
             return userInfo;
         }
     }

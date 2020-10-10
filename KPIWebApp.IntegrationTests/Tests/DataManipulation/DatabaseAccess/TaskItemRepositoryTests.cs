@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DataAccess.DatabaseAccess;
+using DataAccess.DataRepositories;
+using DataManipulation.DatabaseAccess;
 using DataObjects.Objects;
 using NUnit.Framework;
 
-namespace KPIDataExtractor.UnitTests.Tests.DataWrapper.DatabaseAccess
+namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.DatabaseAccess
 {
     [TestFixture]
     public class TaskItemRepositoryTests
     {
+        private readonly TaskItemRepository accessTaskItemData = new TaskItemRepository(new DatabaseConnection());
+        private readonly ReleaseRepository accessReleaseData = new ReleaseRepository(new DatabaseConnection());
         [Test]
-        public void When_inserting_work_item_card_list()
+        public async Task When_inserting_work_item_card_list()
         {
             var card1 = new TaskItem
             {
@@ -47,20 +52,18 @@ namespace KPIDataExtractor.UnitTests.Tests.DataWrapper.DatabaseAccess
             };
             var card2 = new TaskItem();
 
-            var TaskItemList = new List<TaskItem>
+            var taskItemList = new List<TaskItem>
             {
                 card1,
                 card2
             };
 
-            var accessTaskItemData = new TaskItemRepository();
-            var accessReleaseData = new ReleaseRepository();
 
-            accessTaskItemData.InsertTaskItemList(TaskItemList);
+            await accessTaskItemData.InsertTaskItemListAsync(taskItemList);
 
-            var result1 = accessTaskItemData.GetCardById(card1.Id);
+            var result1 = await accessTaskItemData.GetCardByIdAsync(card1.Id);
 
-            var ex = Assert.Throws<InvalidOperationException>(() => accessTaskItemData.GetCardById(card2.Id));
+            var ex = Assert.ThrowsAsync<InvalidOperationException>(async () => await accessTaskItemData.GetCardByIdAsync(card2.Id));
             Assert.That(ex.Message, Is.EqualTo("Sequence contains no elements"));
 
             Assert.That(card1.Id, Is.EqualTo(result1.Id));
@@ -87,27 +90,23 @@ namespace KPIDataExtractor.UnitTests.Tests.DataWrapper.DatabaseAccess
             Assert.That(card1.Release.Name, Is.EqualTo(result1.Release.Name));
             Assert.That(card1.Release.Attempts, Is.EqualTo(result1.Release.Attempts));
 
-            accessTaskItemData.RemoveTaskItemById(card1.Id);
-            accessReleaseData.RemoveReleaseById(card1.Release.Id);
-            accessReleaseData.RemoveReleaseEnvironmentById(card1.Release.ReleaseEnvironment.Id);
+            await accessTaskItemData.RemoveTaskItemByIdAsync(card1.Id);
+            await accessReleaseData.RemoveReleaseByIdAsync(card1.Release.Id);
+            await accessReleaseData.RemoveReleaseEnvironmentById(card1.Release.ReleaseEnvironment.Id);
         }
 
         [Test]
-        public void When_getting_work_item_cards_in_date_range()
+        public async Task When_getting_work_item_cards_in_date_range()
         {
-            var accessTaskItemData = new TaskItemRepository();
-
-            var result = accessTaskItemData.GetTaskItemList(DateTime.Now.AddDays(-7), DateTime.Now);
+            var result = await accessTaskItemData.GetTaskItemListAsync(DateTime.Now.AddDays(-7), DateTime.Now);
 
             Assert.That(result.Count, Is.GreaterThan(0));
         }
 
         [Test]
-        public void When_getting_releases_in_date_range()
+        public async Task When_getting_releases_in_date_range()
         {
-            var accessReleaseData = new ReleaseRepository();
-
-            var result = accessReleaseData.GetReleaseList(DateTime.Now.AddDays(-7), DateTime.Now);
+            var result = await accessReleaseData.GetReleaseListAsync(DateTime.Now.AddDays(-30), DateTime.Now);
 
             Assert.That(result.Count, Is.GreaterThan(0));
         }

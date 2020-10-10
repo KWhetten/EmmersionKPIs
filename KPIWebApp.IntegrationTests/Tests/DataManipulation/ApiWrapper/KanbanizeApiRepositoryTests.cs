@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using DataAccess.ApiWrapper;
 using DataManipulation.ApiWrapper;
 using KPIDataExtractor.UnitTests.Objects.Kanbanize;
 using Moq;
@@ -6,6 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using RestSharp;
+using JsonTaskItem = KPIWebApp.IntegrationTests.TestObjects.Kanbanize.JsonTaskItem;
 
 namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.ApiWrapper
 {

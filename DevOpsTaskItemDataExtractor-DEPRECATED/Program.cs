@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.DatabaseAccess;
+using DataAccess.DataRepositories;
 using DataManipulation.DatabaseAccess;
 using KPIDevOpsDataExtractor_DEPRECATED.Deserializer;
 using RestSharp;
@@ -13,26 +14,26 @@ namespace KPIDevOpsDataExtractor_DEPRECATED
     public static class Program
     {
         private static readonly IDevOpsApiWrapper DevOpsApiWrapper = new DevOpsApiWrapper(new RestClient());
-        private static readonly IDevOpsDeserializer DevOpsDeserializer = new DevOpsDeserializer(DevOpsApiWrapper, new ReleaseRepository(), new TaskItemRepository(), new UserRepository());
+        private static readonly IDevOpsDeserializer DevOpsDeserializer = new DevOpsDeserializer(DevOpsApiWrapper, new ReleaseRepository(new DatabaseConnection()), new TaskItemRepository(new DatabaseConnection()), new UserRepository(new DatabaseConnection()));
 
         public static async Task Main()
         {
-            await InsertWorkItemsIntoDatabaseFromApi();
+            await InsertWorkItemsIntoDatabaseFromApiAsync();
         }
 
-        private static async Task InsertWorkItemsIntoDatabaseFromApi()
+        private static async Task InsertWorkItemsIntoDatabaseFromApiAsync()
         {
-            await InsertDevOpsCards();
+            await InsertDevOpsCardsAsync();
         }
 
-        private static async Task InsertDevOpsCards()
+        private static async Task InsertDevOpsCardsAsync()
         {
-            var accessTaskItemData = new TaskItemRepository();
+            var accessTaskItemData = new TaskItemRepository(new DatabaseConnection());
 
-            var TaskItemList = await DevOpsApiWrapper.GetTaskItemList();
-            if (TaskItemList.Any())
+            var taskItemList = await DevOpsApiWrapper.GetTaskItemList();
+            if (taskItemList.Any())
             {
-                accessTaskItemData.InsertTaskItemList(DevOpsDeserializer.TaskItemList(TaskItemList));
+                await accessTaskItemData.InsertTaskItemListAsync(await DevOpsDeserializer.TaskItemListAsync(taskItemList));
             }
             else
                 Console.WriteLine("No new cards.");

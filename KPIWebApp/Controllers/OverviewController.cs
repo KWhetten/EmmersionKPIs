@@ -1,6 +1,9 @@
 ﻿﻿using System;
-using DataAccess.DatabaseAccess;
-using KPIWebApp.Models;
+ using System.Threading.Tasks;
+ using DataAccess.DatabaseAccess;
+ using DataAccess.DataRepositories;
+ using DataManipulation.DatabaseAccess;
+ using KPIWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KPIWebApp.Controllers
@@ -12,7 +15,7 @@ namespace KPIWebApp.Controllers
         private readonly DateTime startDateDefault = new DateTime(2000, 01, 01);
 
         [HttpGet]
-        public OverviewData Get(string startDateString, string endDateString)
+        public async Task<OverviewData> Get(string startDateString, string endDateString)
         {
 
             var startDate = startDateDefault;
@@ -38,13 +41,13 @@ namespace KPIWebApp.Controllers
                 endDate = DateTime.Now;
             }
 
-            var TaskItemData = new TaskItemRepository();
-            var releaseData = new ReleaseRepository();
+            var taskItemData = new TaskItemRepository(new DatabaseConnection());
+            var releaseData = new ReleaseRepository(new DatabaseConnection());
 
-            var TaskItemList = TaskItemData.GetTaskItemList(startDate, endDate);
-            var releaseList = releaseData.GetReleaseList(startDate, endDate);
+            var taskItemList = await taskItemData.GetTaskItemListAsync(startDate, endDate);
+            var releaseList = await releaseData.GetReleaseListAsync(startDate, endDate);
 
-            return new OverviewData(TaskItemList, releaseList, startDate, endDate);
+            return new OverviewData(taskItemList, releaseList, startDate, endDate);
         }
     }
 }

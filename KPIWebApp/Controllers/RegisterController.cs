@@ -1,11 +1,9 @@
-﻿﻿using System.Diagnostics.CodeAnalysis;
-using System.Net;
-using System.Net.Mail;
-using DataAccess.DatabaseAccess;
- using DataAccess.Objects;
- using DataObjects.Objects;
+﻿using System.Threading.Tasks;
+ using DataAccess.DatabaseAccess;
+using DataAccess.DataRepositories;
+using DataAccess.Objects;
+ using DataManipulation.DatabaseAccess;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
 namespace KPIWebApp.Controllers
 {
@@ -20,7 +18,7 @@ namespace KPIWebApp.Controllers
 
         public RegisterController()
         {
-            userRepository = new UserRepository();
+            userRepository = new UserRepository(new DatabaseConnection());
             emailManager = new EmailManager();
         }
 
@@ -32,9 +30,9 @@ namespace KPIWebApp.Controllers
         // }
 
         [HttpPost]
-        public IActionResult Post(RegisterData data)
+        public async Task<IActionResult> Post(RegisterData data)
         {
-            var result = userRepository.InsertUserInfo(data.FirstName, data.LastName, data.Email);
+            var result = await userRepository.InsertUserInfoAsync(data.FirstName, data.LastName, data.Email);
 
             var userInfo = new UserInfo
             {

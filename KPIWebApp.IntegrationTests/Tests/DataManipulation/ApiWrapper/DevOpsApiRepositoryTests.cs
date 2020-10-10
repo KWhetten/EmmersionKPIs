@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using RestSharp;
 
-namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.ApiWrapper
+namespace KPIWebApp.IntegrationTests.DataManipulation.ApiWrapper
 {
     [TestFixture]
     public class DevOpsApiRepositoryTests

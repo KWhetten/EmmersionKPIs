@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DataAccess.DatabaseAccess;
+using DataAccess.DataRepositories;
+using DataManipulation.DatabaseAccess;
 using DataObjects.Objects;
 using NUnit.Framework;
 
@@ -9,24 +12,24 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.DatabaseAccess
     [TestFixture]
     public class ReleaseRepositoryTests
     {
+        private readonly ReleaseRepository accessReleaseData = new ReleaseRepository(new DatabaseConnection());
+
         [Test]
-        public void When_getting_releases_before_date()
+        public async Task When_getting_releases_before_date()
         {
             var date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-            var accessReleaseData = new ReleaseRepository();
-            var result = accessReleaseData.GetReleasesBeforeDate(date);
+            var result = await accessReleaseData.GetReleasesBeforeDateAsync(date);
 
             Assert.That(result.Count, Is.GreaterThan(0));
         }
 
         [Test]
-        public void When_getting_releases_before_date_max()
+        public async Task When_getting_releases_before_date_max()
         {
             var date = DateTime.MaxValue;
 
-            var accessReleaseData = new ReleaseRepository();
-            var result = accessReleaseData.GetReleasesBeforeDate(date);
+            var result = await accessReleaseData.GetReleasesBeforeDateAsync(date);
 
             Assert.That(result.Count, Is.EqualTo(1));
 
@@ -39,7 +42,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.DatabaseAccess
         }
 
         [Test]
-        public void When_inserting_release_list()
+        public async Task When_inserting_release_list()
         {
             var startTime = DateTime.Today.AddDays(-2);
             var finishTime = DateTime.Today;
@@ -92,15 +95,13 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.DatabaseAccess
                 release2,
                 release3
             };
+            await accessReleaseData.InsertReleaseListAsync(releaseList);
 
-            var accessReleaseData = new ReleaseRepository();
-            accessReleaseData.InsertReleaseList(releaseList);
+            var result1 = await accessReleaseData.GetReleaseByIdAsync(release1.Id);
 
-            var result1 = accessReleaseData.GetReleaseById(release1.Id);
+            var result2 = await accessReleaseData.GetReleaseByIdAsync(release2.Id);
 
-            var result2 = accessReleaseData.GetReleaseById(release2.Id);
-
-            var ex = Assert.Throws<InvalidOperationException>(() => accessReleaseData.GetReleaseById(release3.Id));
+            var ex = Assert.ThrowsAsync<InvalidOperationException>(async () => await accessReleaseData.GetReleaseByIdAsync(release3.Id));
             Assert.That(ex.Message, Is.EqualTo("Sequence contains no elements"));
 
             Assert.That(release1.Id, Is.EqualTo(result1.Id));
@@ -121,16 +122,15 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.DatabaseAccess
             Assert.That(release2.Name, Is.EqualTo(result2.Name));
             Assert.That(release2.Attempts, Is.EqualTo(result2.Attempts));
 
-            accessReleaseData.RemoveReleaseById(release1.Id);
-            accessReleaseData.RemoveReleaseById(release2.Id);
-            accessReleaseData.RemoveReleaseEnvironmentById(release1.ReleaseEnvironment.Id);
+            await accessReleaseData.RemoveReleaseByIdAsync(release1.Id);
+            await accessReleaseData.RemoveReleaseByIdAsync(release2.Id);
+            await accessReleaseData.RemoveReleaseEnvironmentById(release1.ReleaseEnvironment.Id);
         }
 
         [Test]
-        public void When_inserting_release_list_null()
+        public async Task When_inserting_release_list_null()
         {
-            var accessReleaseData = new ReleaseRepository();
-            accessReleaseData.InsertReleaseList(null);
+            await accessReleaseData.InsertReleaseListAsync(null);
         }
     }
 }

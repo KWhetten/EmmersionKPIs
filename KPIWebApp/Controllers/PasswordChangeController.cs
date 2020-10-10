@@ -1,4 +1,7 @@
-﻿﻿using DataAccess.DatabaseAccess;
+﻿﻿using System.Threading.Tasks;
+ using DataAccess.DatabaseAccess;
+ using DataAccess.DataRepositories;
+ using DataManipulation.DatabaseAccess;
  using Microsoft.AspNetCore.Mvc;
 
 namespace KPIWebApp.Controllers
@@ -13,7 +16,7 @@ namespace KPIWebApp.Controllers
 
         public PasswordChangeController()
         {
-            userRepository = new UserRepository();
+            userRepository = new UserRepository(new DatabaseConnection());
         }
 
         // USED FOR TESTING
@@ -23,9 +26,9 @@ namespace KPIWebApp.Controllers
         // }
 
         [HttpPost]
-        public IActionResult Post(ChangePasswordData data)
+        public async Task<IActionResult> Post(ChangePasswordData data)
         {
-            var result = userRepository.InsertPassword(data.Email, data.Password);
+            var result = await userRepository.InsertPasswordAsync(data.Email, data.Password);
 
             return result switch
             {

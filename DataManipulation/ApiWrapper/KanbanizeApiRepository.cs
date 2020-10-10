@@ -1,15 +1,15 @@
-﻿﻿﻿using System.Xml;
+﻿using System.Xml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
-namespace DataManipulation.ApiWrapper
+namespace DataAccess.ApiWrapper
 {
     public interface IKanbanizeApiRepository
     {
         string GetInformation(string uri, string body);
         JToken GetTaskItemList(int boardId);
-        JToken GetTaskItemHistory(JToken TaskItem, int boardId);
+        JToken GetTaskItemHistory(JToken taskItem, int boardId);
     }
 
     public class KanbanizeApiRepository : IKanbanizeApiRepository

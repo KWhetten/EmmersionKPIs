@@ -45,3 +45,4 @@ C:\Code\EmmersionKPIs\DevOpsTaskItemDataExtractor-DEPRECATED\obj\Debug\netcoreap
 C:\Code\EmmersionKPIs\DevOpsTaskItemDataExtractor-DEPRECATED\obj\Debug\netcoreapp3.1\DevOpsTaskItemDataExtractor-DEPRECATED.dll
 C:\Code\EmmersionKPIs\DevOpsTaskItemDataExtractor-DEPRECATED\obj\Debug\netcoreapp3.1\DevOpsTaskItemDataExtractor-DEPRECATED.pdb
 C:\Code\EmmersionKPIs\DevOpsTaskItemDataExtractor-DEPRECATED\obj\Debug\netcoreapp3.1\DevOpsTaskItemDataExtractor-DEPRECATED.genruntimeconfig.cache
+C:\Code\EmmersionKPIs\DevOpsTaskItemDataExtractor-DEPRECATED\bin\Debug\netcoreapp3.1\DataManipulation.dll.config

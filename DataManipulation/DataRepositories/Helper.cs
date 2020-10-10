@@ -1,6 +1,6 @@
-﻿﻿using System.Configuration;
+﻿using System.Configuration;
 
-namespace DataWrapper.DatabaseAccess
+ namespace DataAccess.DatabaseAccess
 {
     public static class Helper
     {

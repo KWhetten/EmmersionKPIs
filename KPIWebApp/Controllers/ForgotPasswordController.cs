@@ -1,8 +1,11 @@
 ﻿﻿using System;
-using DataAccess.DatabaseAccess;
+ using System.Threading.Tasks;
+ using DataAccess.DatabaseAccess;
+ using DataAccess.DataRepositories;
+ using DataManipulation.DatabaseAccess;
  using Microsoft.AspNetCore.Mvc;
 
-namespace KPIWebApp.Controllers
+ namespace KPIWebApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -13,8 +16,8 @@ namespace KPIWebApp.Controllers
 
         public ForgotPasswordController()
         {
-            this.userRepository = new UserRepository();
-            this.emailManager = new EmailManager();
+            userRepository = new UserRepository(new DatabaseConnection());
+            emailManager = new EmailManager();
         }
 
         // USED FOR TESTING
@@ -25,11 +28,11 @@ namespace KPIWebApp.Controllers
         // }
 
         [HttpPost]
-        public IActionResult Post(string email)
+        public async Task<IActionResult> Post(string email)
         {
             try
             {
-                var userInfo = userRepository.GetUserInfoByEmail(email);
+                var userInfo = await userRepository.GetUserInfoByEmailAsync(email);
                 var result = emailManager.SendForgotPasswordEmail(userInfo, "");
 
                 if (result == false)
