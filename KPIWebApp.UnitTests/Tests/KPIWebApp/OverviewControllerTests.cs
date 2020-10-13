@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using KPIWebApp.Controllers;
-using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 
-namespace KPIDataExtractor.UnitTests.WebApp
+namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
 {
     [TestFixture]
     public class OverviewControllerTests

@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using DataAccess.DatabaseAccess;
 using DataAccess.DataRepositories;
-using DataManipulation.DatabaseAccess;
-using DataObjects.Objects;
+using DataAccess.Objects;
 using KPIWebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,69 +27,67 @@ namespace KPIWebApp.Controllers
                 finishDate = DateTime.Now;
             }
 
-            var taskItemDataAccess = new TaskItemRepository(new DatabaseConnection());
-            var rawData = await taskItemDataAccess.GetTaskItemListAsync(startDate, finishDate);
-            var cardTypes = new List<string>();
+            var taskItemRepository = new TaskItemRepository(new DatabaseConnection());
+            var rawData = (await taskItemRepository.GetTaskItemListAsync(startDate, finishDate)).ToArray();
 
-            foreach (var datum in rawData.Where(datum => !cardTypes.Contains(datum.Type.ToString())))
+            var cardTypes = await taskItemRepository.GetTaskItemTypesAsync();
+
+            var cardsByType = GetCardsByType(cardTypes, rawData);
+
+            return cardsByType;
+        }
+
+        private static ScatterPlotData[] GetCardsByType(TaskItemType[] cardTypes, TaskItem[] rawData)
+        {
+            var leadTimeDataByType = EstablishScatterPlotDataStructure(cardTypes);
+
+            return PopulateScatterPlotLeadTimeInfo(rawData, leadTimeDataByType);
+        }
+
+        private static ScatterPlotData[] PopulateScatterPlotLeadTimeInfo(TaskItem[] rawData, ScatterPlotData[] scatterPlotData)
+        {
+            foreach (var datum in rawData)
             {
-                cardTypes.Add(datum.Type.ToString());
-            }
-
-            var cardsByType = GetCardsByType(cardTypes, rawData).ToArray();
-
-            var scatterPlotData = new ScatterPlotData[cardTypes.Count];
-
-            for (var i = 0; i < scatterPlotData.Length; ++i)
-            {
-                scatterPlotData[i] = new ScatterPlotData
+                var typeIndex = (int) datum.Type;
+                var currentData = scatterPlotData[typeIndex].data;
+                var newData = new LeadTimeData[currentData.Length + 1];
+                for (var i = 0; i < currentData.Length; ++i)
                 {
-                    name = cardsByType[i].ElementAt(i).Type.ToString(),
-                    turboThreshold = 500000
-                };
-                var data = new LeadTimeData[scatterPlotData[i].data.Length];
-
-                foreach (var card in cardsByType[i])
-                {
-                    var leadTime = (decimal) (card.FinishTime - card.StartTime).TotalHours / 24m;
-                    var datum = new LeadTimeData
-                    {
-                        finishTime = card.FinishTime,
-                        leadTime = leadTime
-                    };
-                    data[i] = datum;
+                    newData[i] = currentData[i];
                 }
 
-                scatterPlotData[i].data = data;
+                newData[currentData.Length] = new LeadTimeData
+                {
+                    finishTime = datum.FinishTime,
+                    leadTime = (datum.FinishTime - datum.StartTime).TotalHours / 24
+                };
+                scatterPlotData[typeIndex].data = newData;
             }
 
             return scatterPlotData;
         }
 
-        private static List<List<TaskItem>> GetCardsByType(List<string> cardTypes, List<TaskItem> rawData)
+        private static ScatterPlotData[] EstablishScatterPlotDataStructure(TaskItemType[] cardTypes)
         {
-            var cardsByType = new List<List<TaskItem>>();
-            var i = 0;
-            foreach (var type in cardTypes)
+            var scatterPlotDataStructure = new ScatterPlotData[cardTypes.Length];
+            for (var i = 0; i < cardTypes.Length; i++)
             {
-                cardsByType.Add(new List<TaskItem>());
-
-                foreach (var datum in rawData.Where(datum => datum.Type.ToString() == type))
+                scatterPlotDataStructure[i] = new ScatterPlotData
                 {
-                    cardsByType.ElementAt(i).Add(datum);
-                }
-
-                ++i;
+                    name = cardTypes[i].ToString(),
+                    turboThreshold = 500000,
+                    data = new LeadTimeData[0]
+                };
             }
 
-            return cardsByType;
+            return scatterPlotDataStructure;
         }
     }
 
     public class LeadTimeData
     {
         public DateTime finishTime;
-        public decimal leadTime;
+        public double leadTime;
     }
 }
 

@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
- namespace DataAccess.DatabaseAccess
+namespace DataAccess.DataRepositories
 {
     public static class Helper
     {

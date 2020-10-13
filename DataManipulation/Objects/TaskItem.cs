@@ -1,6 +1,6 @@
-﻿﻿using System;
+﻿using System;
 
-namespace DataObjects.Objects
+namespace DataAccess.Objects
 {
     public class TaskItem
     {

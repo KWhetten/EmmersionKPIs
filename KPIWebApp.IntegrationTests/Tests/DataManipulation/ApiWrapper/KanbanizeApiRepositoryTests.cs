@@ -1,7 +1,5 @@
 ﻿using System.Linq;
 using DataAccess.ApiWrapper;
-using DataManipulation.ApiWrapper;
-using KPIDataExtractor.UnitTests.Objects.Kanbanize;
 using Moq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

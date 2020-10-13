@@ -1,6 +1,6 @@
 using System;
 using DataAccess.Deserialize;
-using KPIDataExtractor.UnitTests.Objects.DevOps;
+using KPIDataExtractor.UnitTests.TestObjects.DevOps;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;

@@ -1,9 +1,9 @@
-﻿﻿﻿using System;
+﻿using System;
 using System.Text;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
-namespace DataManipulation.ApiWrapper
+namespace DataAccess.ApiWrapper
 {
     public interface IDevOpsApiRepository
     {
@@ -22,9 +22,9 @@ namespace DataManipulation.ApiWrapper
             this.client = client;
         }
 
-        public int? ContinuationToken { get; set; }
+        private int? ContinuationToken { get; set; }
 
-        public string GetInformation(string uri)
+        private string GetInformation(string uri)
         {
             var request = new RestRequest(uri, Method.GET);
             request.AddHeader("Accept", "application/json");

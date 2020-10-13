@@ -2,11 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.ApiWrapper;
-using DataAccess.DatabaseAccess;
 using DataAccess.DataRepositories;
 using DataAccess.Deserialize;
-using DataManipulation.ApiWrapper;
-using DataManipulation.DatabaseAccess;
 using RestSharp;
 
 namespace KPIDataExtractor

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using DataAccess.DatabaseAccess;
 using DataAccess.DataRepositories;
-using DataManipulation.DatabaseAccess;
 using KPIDevOpsDataExtractor_DEPRECATED.Deserializer;
 using RestSharp;
 using DevOpsApiWrapper = KPIDevOpsDataExtractor_DEPRECATED.ApiWrapper.DevOpsApiWrapper;
@@ -14,7 +12,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED
     public static class Program
     {
         private static readonly IDevOpsApiWrapper DevOpsApiWrapper = new DevOpsApiWrapper(new RestClient());
-        private static readonly IDevOpsDeserializer DevOpsDeserializer = new DevOpsDeserializer(DevOpsApiWrapper, new ReleaseRepository(new DatabaseConnection()), new TaskItemRepository(new DatabaseConnection()), new UserRepository(new DatabaseConnection()));
+        private static readonly IDevOpsDeserializer DevOpsDeserializer = new DevOpsDeserializer(DevOpsApiWrapper, new ReleaseRepository(new DatabaseConnection()));
 
         public static async Task Main()
         {

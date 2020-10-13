@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KPIDataExtractor.UnitTests.Objects.Kanbanize
+namespace KPIDataExtractor.UnitTests.TestObjects.Kanbanize
 {
     public class JsonTaskItem
     {

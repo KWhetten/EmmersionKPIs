@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using DataManipulation.DatabaseAccess;
-using DataObjects.Objects;
+using DataAccess.Objects;
 using Microsoft.TeamFoundation.Common;
 
 namespace DataAccess.DataRepositories
@@ -14,7 +13,7 @@ namespace DataAccess.DataRepositories
         Task<List<TaskItem>> GetTaskItemListAsync(DateTime startDate, DateTime endDate);
         Task InsertTaskItemListAsync(IEnumerable<TaskItem> getTaskItemList);
         Task InsertTaskItemAsync(TaskItem taskItem);
-        Task<TaskItem> GetCardByIdAsync(int cardId);
+        Task<TaskItem> GetCardByIdAsync(int taskItemId);
         Task RemoveTaskItemByIdAsync(int cardId);
     }
 
@@ -37,38 +36,39 @@ namespace DataAccess.DataRepositories
                 var startDateString = $"{startDate:s}".Replace("T", " ");
                 var endDateString = $"{endDate:s}".Replace("T", " ");
 
-                var sql = $"SELECT * FROM TaskItem WHERE FinishTime > @startDateString AND FinishTime < @endDateString";
+                var sql = $"SELECT ti.Id, " +
+                          "ti.Title, " +
+                          "ti.StartTime, " +
+                          "ti.FinishTime, " +
+                          "ti.TaskItemTypeId, " +
+                          "tit.Name as TaskItemTypeName, " +
+                          "ti.DevelopmentTeamName, " +
+                          "ti.CreatedOn, " +
+                          "ti.CreatedBy, " +
+                          "ti.LastChangedOn, " +
+                          "ti.LastChangedBy, " +
+                          "ti.CurrentBoardColumn, " +
+                          "ti.CardState, " +
+                          "ti.Impact, " +
+                          "ti.CommentCount, " +
+                          "ti.NumRevisions, " +
+                          "ti.ReleaseId, " +
+                          "r.Status as ReleaseStatus, " +
+                          "r.ReleaseEnvironmentId, " +
+                          "re.Name as ReleaseEnvironmentName, " +
+                          "r.StartTime as ReleaseStartTime, " +
+                          "r.FinishTime as ReleaseFinishTime, " +
+                          "r.Name as ReleaseName, " +
+                          "r.Attempts as ReleaseAttempts " +
+                          "FROM TaskItem ti JOIN TaskItemType tit ON ti.TaskItemTypeId = tit.Id " +
+                          "JOIN Release r ON ti.ReleaseId = r.Id " +
+                          "JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
+                          "WHERE ti.FinishTime > @startDateString AND ti.FinishTime < @endDateString";
 
                 var taskItems = await databaseConnection.DbConnection
-                    .QueryAsync<TaskItem>(sql, new {startDateString, endDateString});
-                var taskItemList = taskItems.ToList();
+                    .QueryAsync<TaskItemInfo>(sql, new {startDateString, endDateString});
 
-                foreach (var taskItem in taskItemList)
-                {
-                    try
-                    {
-                        sql = $"SELECT ReleaseId FROM TaskItem WHERE Id = @taskItem.Id";
-                        var releaseId = await databaseConnection.DbConnection
-                            .QueryAsync<int>(sql, new {taskItem.Id});
-                        var releaseIdList = releaseId.ToList();
-
-                        sql = $"SELECT * FROM Release WHERE Id = @releaseId";
-                        var release = await databaseConnection.DbConnection
-                            .QueryAsync<Release>(sql, new {releaseId = releaseIdList.First()});
-                        taskItem.Release = release.First();
-
-                        sql = $"SELECT TaskItemTypeId FROM TaskItem WHERE Id = @taskItem.Id";
-                        var type = await (databaseConnection.DbConnection
-                            .QueryAsync<int>(sql, new {taskItem.Id}));
-                        taskItem.Type = (TaskItemType) type.ToList().First() - 1;
-                    }
-                    catch (Exception ex)
-                    {
-                        taskItem.Release = null;
-                    }
-                }
-
-                return taskItemList;
+                return GetTaskItemListFromTaskItemInfo(taskItems);
             }
         }
 
@@ -128,7 +128,7 @@ namespace DataAccess.DataRepositories
                     ? taskItem.Release.Id
                     : (int?) null;
 
-                var sql = $"IF EXISTS(SELECT * FROM TaskItem WHERE Id = @taskItemId) " +
+                var sql = "IF EXISTS(SELECT * FROM TaskItem WHERE Id = @taskItemId) " +
                           $"UPDATE TaskItem SET " +
                           "Title = @title, " +
                           "StartTime = @startTime, " +
@@ -182,47 +182,54 @@ namespace DataAccess.DataRepositories
             }
         }
 
-        public async Task<TaskItem> GetCardByIdAsync(int cardId)
+        public async Task<TaskItem> GetCardByIdAsync(int taskItemId)
         {
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
             {
-                var sql = $"SELECT * FROM TaskItem WHERE Id = @cardId";
-                var taskItems = await databaseConnection.DbConnection
-                    .QueryAsync<TaskItem>(sql, new {cardId});
-                var taskItem = taskItems.First();
+                var sql = $"SELECT ti.Id," +
+                          "ti.Title, " +
+                          "ti.StartTime, " +
+                          "ti.FinishTime, " +
+                          "ti.TaskItemTypeId, " +
+                          "tit.Name as TaskItemTypeName, " +
+                          "ti.DevelopmentTeamName, " +
+                          "ti.CreatedOn, " +
+                          "ti.CreatedBy, " +
+                          "ti.LastChangedOn, " +
+                          "ti.LastChangedBy, " +
+                          "ti.CurrentBoardColumn, " +
+                          "ti.CardState, " +
+                          "ti.Impact, " +
+                          "ti.CommentCount, " +
+                          "ti.NumRevisions, " +
+                          "ti.ReleaseId, " +
+                          "r.Status as ReleaseStatus, " +
+                          "r.ReleaseEnvironmentId, " +
+                          "re.Name as ReleaseEnvironmentName, " +
+                          "r.StartTime as ReleaseStartTime, " +
+                          "r.FinishTime as ReleaseFinishTime, " +
+                          "r.Name as ReleaseName, " +
+                          "r.Attempts as ReleaseAttempts " +
+                          "FROM TaskItem ti JOIN TaskItemType tit ON ti.TaskItemTypeId = tit.Id " +
+                          "JOIN Release r ON ti.ReleaseId = r.Id " +
+                          "JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
+                          "WHERE ti.Id = @taskItemId";
+                var taskItemInfo = (await databaseConnection.DbConnection.QueryAsync<TaskItemInfo>(sql, new {taskItemId}));
 
-                sql = $"SELECT TaskItemTypeId FROM TaskItem WHERE Id = @cardId";
-                var taskTypeIds = await databaseConnection.DbConnection
-                    .QueryAsync<int>(sql, new {cardId});
-                var taskTypeId = taskTypeIds.First();
+                return GetTaskItemListFromTaskItemInfo(taskItemInfo.ToList()).First();
+            }
+        }
 
-                sql = $"SELECT * FROM TaskItemType WHERE Id = @taskTypeId";
-                var taskType = await databaseConnection.DbConnection
-                    .QueryAsync<TaskItemType>(sql, new {taskTypeId});
-                taskItem.Type = taskType.First();
-
-                sql = $"SELECT ReleaseId FROM TaskItem WHERE Id = @cardId";
-                var releaseIds = await databaseConnection.DbConnection
-                    .QueryAsync<int>(sql, new {cardId});
-                var releaseId = releaseIds.First();
-
-                sql = $"SELECT * FROM Release WHERE Id = @releaseId";
-                var release = await databaseConnection.DbConnection
-                    .QueryAsync<Release>(sql, new {releaseId});
-                taskItem.Release = release.First();
-
-                sql = $"SELECT ReleaseEnvironmentId FROM Release WHERE Id = @releaseId";
-                var releaseEnvironmentIds = await databaseConnection.DbConnection
-                    .QueryAsync<int>(sql, new {releaseId});
-                var releaseEnvironmentId = releaseEnvironmentIds.First();
-
-                sql = $"SELECT * FROM ReleaseEnvironment WHERE Id = @releaseEnvironmentId";
-                var releaseEnvironment = await databaseConnection.DbConnection
-                    .QueryAsync<ReleaseEnvironment>(sql, new {releaseEnvironmentId});
-                taskItem.Release.ReleaseEnvironment = releaseEnvironment.First();
-
-                return taskItem;
+        public async Task<TaskItemType[]> GetTaskItemTypesAsync()
+        {
+            databaseConnection.GetNewConnection();
+            await using (databaseConnection.DbConnection)
+            {
+                var sql = $"SELECT Id FROM TaskItemType";
+                var taskItemTypes = await databaseConnection.DbConnection
+                    .QueryAsync<TaskItemType>(sql);
+                return taskItemTypes.ToArray();
             }
         }
 
@@ -236,5 +243,67 @@ namespace DataAccess.DataRepositories
                     new {cardId});
             }
         }
+
+        private static List<TaskItem> GetTaskItemListFromTaskItemInfo(IEnumerable<TaskItemInfo> taskItems)
+        {
+            return taskItems.Select(taskItem => new TaskItem
+                {
+                    Id = taskItem.Id,
+                    Title = taskItem.Title,
+                    StartTime = taskItem.StartTime,
+                    FinishTime = taskItem.FinishTime,
+                    Type = (TaskItemType) taskItem.TaskItemTypeId,
+                    DevelopmentTeamName = taskItem.DevelopmentTeamName,
+                    CreatedOn = taskItem.CreatedOn,
+                    CreatedBy = taskItem.CreatedBy,
+                    LastChangedOn = taskItem.LastChangedOn,
+                    LastChangedBy = taskItem.LastChangedBy,
+                    CurrentBoardColumn = taskItem.CurrentBoardColumn,
+                    CardState = taskItem.CardState,
+                    Impact = taskItem.Impact,
+                    CommentCount = taskItem.CommentCount,
+                    NumRevisions = taskItem.NumRevisions,
+                    Release = new Release
+                    {
+                        Id = taskItem.ReleaseId,
+                        Status = taskItem.ReleaseStatus,
+                        ReleaseEnvironment = new ReleaseEnvironment
+                            {Id = taskItem.ReleaseEnvironmentId, Name = taskItem.ReleaseEnvironmentName},
+                        StartTime = taskItem.ReleaseStartTime,
+                        FinishTime = taskItem.ReleaseFinishTime,
+                        Name = taskItem.ReleaseName,
+                        Attempts = taskItem.ReleaseAttempts
+                    }
+                })
+                .ToList();
+        }
+
+    }
+
+    public class TaskItemInfo
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime FinishTime { get; set; }
+        public int TaskItemTypeId { get; set; }
+        public string DevelopmentTeamName { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime LastChangedOn { get; set; }
+        public string LastChangedBy { get; set; }
+        public string CurrentBoardColumn { get; set; }
+        public string CardState { get; set; }
+        public string Impact { get; set; }
+        public int CommentCount { get; set; }
+        public int NumRevisions { get; set; }
+        public int ReleaseId { get; set; }
+        public string ReleaseStatus { get; set; }
+        public int ReleaseEnvironmentId { get; set; }
+        public string ReleaseEnvironmentName { get; set; }
+        public DateTime ReleaseStartTime { get; set; }
+        public DateTime ReleaseFinishTime { get; set; }
+        public string ReleaseName { get; set; }
+        public int ReleaseAttempts { get; set; }
     }
 }

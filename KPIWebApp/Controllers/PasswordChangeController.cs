@@ -1,7 +1,5 @@
-﻿﻿using System.Threading.Tasks;
- using DataAccess.DatabaseAccess;
+﻿using System.Threading.Tasks;
  using DataAccess.DataRepositories;
- using DataManipulation.DatabaseAccess;
  using Microsoft.AspNetCore.Mvc;
 
 namespace KPIWebApp.Controllers

@@ -1,11 +1,11 @@
 ﻿using System.Linq;
-using DataManipulation.ApiWrapper;
+using DataAccess.ApiWrapper;
 using Moq;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using RestSharp;
 
-namespace KPIWebApp.IntegrationTests.DataManipulation.ApiWrapper
+namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.ApiWrapper
 {
     [TestFixture]
     public class DevOpsApiRepositoryTests

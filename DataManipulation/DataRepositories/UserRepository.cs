@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using DataAccess.Objects;
-using DataManipulation.DatabaseAccess;
 
 namespace DataAccess.DataRepositories
 {

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DataObjects;
-using DataObjects.Objects;
+using DataAccess.Objects;
 
 namespace KPIWebApp.Models
 {

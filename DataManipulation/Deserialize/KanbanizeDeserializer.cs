@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.ApiWrapper;
-using DataAccess.DatabaseAccess;
 using DataAccess.DataRepositories;
-using DataManipulation.ApiWrapper;
-using DataManipulation.DatabaseAccess;
-using DataObjects.Objects;
+using DataAccess.Objects;
 using Newtonsoft.Json.Linq;
 
 namespace DataAccess.Deserialize

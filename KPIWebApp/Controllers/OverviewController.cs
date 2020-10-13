@@ -1,8 +1,6 @@
-﻿﻿using System;
+﻿using System;
  using System.Threading.Tasks;
- using DataAccess.DatabaseAccess;
  using DataAccess.DataRepositories;
- using DataManipulation.DatabaseAccess;
  using KPIWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 

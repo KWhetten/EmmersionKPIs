@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DataAccess.DatabaseAccess;
 using DataAccess.DataRepositories;
-using DataManipulation.DatabaseAccess;
-using DataObjects.Objects;
+using DataAccess.Objects;
 using NUnit.Framework;
 
-namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.DatabaseAccess
+namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DatabaseAccess
 {
     [TestFixture]
     public class ReleaseRepositoryTests

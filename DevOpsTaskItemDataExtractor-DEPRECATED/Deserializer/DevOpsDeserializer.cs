@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DataAccess.DatabaseAccess;
 using DataAccess.DataRepositories;
-using DataManipulation.DatabaseAccess;
-using DataObjects.Objects;
+using DataAccess.Objects;
 using KPIDevOpsDataExtractor_DEPRECATED.ApiWrapper;
 using Newtonsoft.Json.Linq;
 
@@ -23,16 +21,12 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
     public class DevOpsDeserializer : IDevOpsDeserializer
     {
         private readonly IDevOpsApiWrapper devOpsApiWrapper;
-        private readonly ITaskItemRepository TaskItemRepository;
-        private readonly IUserRepository userRepository;
         private readonly IReleaseRepository releaseRepository;
 
-        public DevOpsDeserializer(IDevOpsApiWrapper devOpsApiWrapper, IReleaseRepository releaseRepository, ITaskItemRepository TaskItemRepository, IUserRepository userRepository)
+        public DevOpsDeserializer(IDevOpsApiWrapper devOpsApiWrapper, IReleaseRepository releaseRepository)
         {
             this.releaseRepository = releaseRepository;
             this.devOpsApiWrapper = devOpsApiWrapper;
-            this.TaskItemRepository = TaskItemRepository;
-            this.userRepository = userRepository;
         }
 
         public async Task<IEnumerable<TaskItem>> TaskItemListAsync(IEnumerable<JToken> jsonTaskItems)
@@ -90,14 +84,17 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
         public TaskItemType GetCardType(JToken workItemType)
         {
             var workItemTypeString = workItemType.ToString();
+            if (workItemTypeString.ToLower().Contains("unanticipated"))
+            {
+                workItemTypeString = "Unanticipated";
+            }
             return workItemTypeString switch
             {
                 "Strategic Product Work" => TaskItemType.StrategicProduct,
                 "Tactical Product Work" => TaskItemType.TacticalProduct,
-                "Unanticipated Product Work" => TaskItemType.UnanticipatedProduct,
                 "Strategic Engineering Work" => TaskItemType.StrategicEngineering,
                 "Tactical Engineering Work" => TaskItemType.TacticalEngineering,
-                "Unanticipated Engineering Work" => TaskItemType.UnanticipatedEngineering,
+                "Unanticipated" => TaskItemType.Unanticipated,
                 _ => throw new Exception("Unknown Work Item Type...")
             };
         }

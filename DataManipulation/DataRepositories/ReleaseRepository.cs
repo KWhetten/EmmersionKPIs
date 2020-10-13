@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using DataManipulation.DatabaseAccess;
-using DataObjects.Objects;
+using DataAccess.Objects;
 
 namespace DataAccess.DataRepositories
 {
@@ -46,31 +45,20 @@ namespace DataAccess.DataRepositories
             {
                 var startDateString = ($"{startDate:s}").Replace("T", " ");
                 var endDateString = ($"{endDate:s}").Replace("T", " ");
-                var sql = $"SELECT * FROM Release WHERE FinishTime > @startDateString AND FinishTime < @endDateString";
-                var releases = await databaseConnection.DbConnection
-                    .QueryAsync<Release>(sql, new {startDateString, endDateString});
+                var sql = $"SELECT r.Id, " +
+                          "r.Status, " +
+                          "r.ReleaseEnvironmentId, " +
+                          "re.Name as ReleaseEnvironmentName, " +
+                          "r.StartTime, " +
+                          "r.FinishTime, " +
+                          "r.Name, " +
+                          "r.Attempts " +
+                          "FROM Release r JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
+                          "WHERE FinishTime > @startDateString AND FinishTime < @endDateString";
+                var releases = (await databaseConnection.DbConnection
+                    .QueryAsync<ReleaseInfo>(sql, new {startDateString, endDateString})).ToList();
 
-                var releaseList = releases.ToList();
-
-                foreach (var release in releaseList)
-                {
-                    try
-                    {
-                        sql = $"SELECT ReleaseEnvironmentId FROM Release WHERE Id = @release.Id";
-                        var releaseEnvironmentId = await databaseConnection.DbConnection
-                            .QueryAsync<int>(sql, new {release.Id});
-                        sql = $"SELECT * FROM ReleaseEnvironment WHERE Id = @releaseEnvironmentId";
-                        var environment = await databaseConnection.DbConnection
-                            .QueryAsync<ReleaseEnvironment>(sql, new {releaseEnvironmentId});
-                        release.ReleaseEnvironment = environment.First();
-                    }
-                    catch (Exception ex)
-                    {
-                        release.ReleaseEnvironment = new ReleaseEnvironment();
-                    }
-                }
-
-                return releaseList;
+                return GetListOfReleasesFromReleaseInfo(releases);
             }
         }
 
@@ -81,21 +69,21 @@ namespace DataAccess.DataRepositories
                 release.Name.Contains("Insights")) return;
 
             var releaseEnvironmentId = release.ReleaseEnvironment.Id;
-            var sql = $"IF NOT EXISTS (SELECT * FROM ReleaseEnvironment WHERE Id = @releaseEnvironmentId) " +
+            var sql = "IF NOT EXISTS (SELECT * FROM ReleaseEnvironment WHERE Id = @releaseEnvironmentId) " +
                       $"INSERT INTO ReleaseEnvironment VALUES (@releaseEnvironmentId, @releaseEnvironmentName)";
             await databaseConnection.DbConnection.ExecuteAsync(sql, new {releaseEnvironmentId, releaseEnvironmentName});
 
             var finishTime = release.FinishTime != DateTime.MaxValue
                 ? release.FinishTime
                 : (DateTime?) null;
-            sql = $"IF EXISTS(SELECT * FROM Release WHERE ID = @id) " +
+            sql = "IF EXISTS(SELECT * FROM Release WHERE ID = @id) " +
                   $"UPDATE Release SET Status = @status, " +
-                  $"ReleaseEnvironmentId = @releaseEnvironmentId, " +
-                  $"StartTime = @startTime, " +
-                  $"FinishTime = @finishTime, " +
-                  $"Name = @name, " +
-                  $"Attempts = @attempts " +
-                  $"WHERE Id = @id " +
+                  "ReleaseEnvironmentId = @releaseEnvironmentId, " +
+                  "StartTime = @startTime, " +
+                  "FinishTime = @finishTime, " +
+                  "Name = @name, " +
+                  "Attempts = @attempts " +
+                  "WHERE Id = @id " +
                   "ELSE " +
                   $"INSERT INTO Release VALUES (@id, @status, @releaseEnvironmentId, @startTime, @finishTime, @name, @attempts);";
             await databaseConnection.DbConnection.ExecuteAsync(sql, new
@@ -116,34 +104,27 @@ namespace DataAccess.DataRepositories
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
             {
-                var startTimeString = finishTime.AddDays(-7).ToString("yyyy'-'MM'-'dd HH':'mm':'ss'.'fff");
+                var startTimeString = finishTime.AddDays(-30).ToString("yyyy'-'MM'-'dd HH':'mm':'ss'.'fff");
                 var finishTimeString = finishTime.ToString("yyyy'-'MM'-'dd HH':'mm':'ss'.'fff");
-                var sql = $"SELECT * FROM Release WHERE FinishTime " +
-                          $"BETWEEN @startTimeString " +
-                          $"AND @finishTimeString " +
+                var sql = $"SELECT r.Id, " +
+                          "r.Status, " +
+                          "r.ReleaseEnvironmentId, " +
+                          "re.Name as ReleaseEnvironmentName, " +
+                          "r.StartTime, " +
+                          "r.FinishTime, " +
+                          "r.Name, " +
+                          "r.Attempts " +
+                          "FROM Release r JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
+                          "WHERE FinishTime " +
+                          "BETWEEN @startTimeString " +
+                          "AND @finishTimeString " +
                           "ORDER BY FinishTime DESC";
                 var releasesObjects =
-                    await databaseConnection.DbConnection.QueryAsync(sql, new {startTimeString, finishTimeString});
+                    await databaseConnection.DbConnection.QueryAsync<ReleaseInfo>(sql,
+                        new {startTimeString, finishTimeString});
                 var releasesObject = releasesObjects.ToList();
 
-                var releases = new List<Release>();
-                foreach (var item in releasesObject)
-                {
-                    var release = new Release
-                    {
-                        Attempts = item.Attempts,
-                        Id = item.Id,
-                        Name = item.Name,
-                        Status = item.Status,
-                        FinishTime = item.FinishTime,
-                        ReleaseEnvironment = await GetReleaseEnvironmentByIdAsync(item.ReleaseEnvironmentId),
-                        StartTime = item.StartTime
-                    };
-
-                    releases.Add(release);
-                }
-
-                return releases;
+                return GetListOfReleasesFromReleaseInfo(releasesObject);
             }
         }
 
@@ -160,22 +141,33 @@ namespace DataAccess.DataRepositories
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
             {
-                var sql = $"SELECT * FROM Release WHERE Id = @releaseId";
-                var results = await databaseConnection.DbConnection
-                    .QueryAsync<Release>(sql, new {releaseId});
-                var result = results.First();
-
-                sql = $"SELECT ReleaseEnvironmentId FROM Release WHERE Id = @releaseId";
-                var releaseEnvironmentIds = await databaseConnection.DbConnection
-                    .QueryAsync<int>(sql, new {releaseId});
-                var releaseEnvironmentId = releaseEnvironmentIds.First();
-
-                sql = $"SELECT * FROM ReleaseEnvironment WHERE Id = @releaseEnvironmentId";
-                var releaseEnvironment = await databaseConnection.DbConnection
-                    .QueryAsync<ReleaseEnvironment>(sql, new {releaseEnvironmentId});
-                result.ReleaseEnvironment = releaseEnvironment.First();
-
-                return result;
+                var sql =
+                    $"SELECT r.Id, " +
+                    "r.Status, " +
+                    "r.ReleaseEnvironmentId, " +
+                    "re.Name as ReleaseEnvironmentName, " +
+                    "r.StartTime, " +
+                    "r.FinishTime, " +
+                    "r.Name, " +
+                    "r.Attempts " +
+                    "FROM Release r JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
+                    "WHERE r.Id = @releaseId;";
+                var info = (await databaseConnection.DbConnection
+                    .QueryAsync<ReleaseInfo>(sql, new {releaseId})).First();
+                return new Release
+                {
+                    Id = info.Id,
+                    Status = info.Status,
+                    ReleaseEnvironment = new ReleaseEnvironment
+                    {
+                        Id = info.ReleaseEnvironmentId,
+                        Name = info.ReleaseEnvironmentName
+                    },
+                    StartTime = info.StartTime,
+                    FinishTime = info.FinishTime,
+                    Name = info.Name,
+                    Attempts = info.Attempts
+                };
             }
         }
 
@@ -198,5 +190,32 @@ namespace DataAccess.DataRepositories
                 await databaseConnection.DbConnection.ExecuteAsync(sql, new {releaseEnvironmentId});
             }
         }
+
+        private static List<Release> GetListOfReleasesFromReleaseInfo(List<ReleaseInfo> releasesObject)
+        {
+            return releasesObject.Select(item => new Release
+                {
+                    Attempts = item.Attempts,
+                    Id = item.Id,
+                    Name = item.Name,
+                    Status = item.Status,
+                    FinishTime = item.FinishTime,
+                    ReleaseEnvironment = new ReleaseEnvironment {Id = item.ReleaseEnvironmentId, Name = item.ReleaseEnvironmentName},
+                    StartTime = item.StartTime
+                })
+                .ToList();
+        }
+    }
+
+    public class ReleaseInfo
+    {
+        public int Id { get; set; }
+        public string Status { get; set; }
+        public int ReleaseEnvironmentId { get; set; }
+        public string ReleaseEnvironmentName { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime FinishTime { get; set; }
+        public string Name { get; set; }
+        public int Attempts { get; set; }
     }
 }

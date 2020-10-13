@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataObjects.Objects;
+using DataAccess.Objects;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.Common;
@@ -17,7 +17,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.ApiWrapper
         int? ContinuationToken { get; set; }
         string GetInformation(string uri);
         Task<JToken> GetTaskItemList();
-        JToken GetWorkItemUpdates(TaskItem TaskItem);
+        JToken GetWorkItemUpdates(TaskItem taskItem);
         Task<IList<WorkItem>> QueryWorkItemIds();
     }
 
@@ -67,14 +67,14 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.ApiWrapper
 
         public async Task<JToken> GetTaskItemList()
         {
-            var TaskItemList = await QueryWorkItemIds();
+            var taskItemList = await QueryWorkItemIds();
 
             var result = new JArray();
 
-            while (TaskItemList.Count > 0)
+            while (taskItemList.Count > 0)
             {
-                var ids = GetWorkItemIds(TaskItemList.Take(200));
-                TaskItemList = TaskItemList.TakeLast(TaskItemList.Count - 200).ToList();
+                var ids = GetWorkItemIds(taskItemList.Take(200));
+                taskItemList = taskItemList.TakeLast(taskItemList.Count - 200).ToList();
 
                 var uri =
                     $"https://dev.azure.com/{Organization}/{Project}/_apis/wit/workitems?ids={ids}&api-version=5.1";
@@ -90,13 +90,13 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.ApiWrapper
             return result;
         }
 
-        public JToken GetWorkItemUpdates(TaskItem TaskItem)
+        public JToken GetWorkItemUpdates(TaskItem taskItem)
         {
             string json;
             do
             {
                 json = GetInformation(
-                    $"https://dev.azure.com/{Organization}/{Project}/_apis/wit/workItems/{TaskItem.Id}/updates?api-version=5.1");
+                    $"https://dev.azure.com/{Organization}/{Project}/_apis/wit/workItems/{taskItem.Id}/updates?api-version=5.1");
             } while (json.StartsWith("<"));
 
             return !string.IsNullOrEmpty(json)

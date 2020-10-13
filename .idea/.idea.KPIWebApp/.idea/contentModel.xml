@@ -343,17 +343,6 @@
       <e p="KPIWebApp.IntegrationTests" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Class1.cs" t="Include" />
-        <e p="DataManipulation" t="Include">
-          <e p="ApiWrapper" t="Include">
-            <e p="DevOpsApiRepositoryTests.cs" t="Include" />
-            <e p="KanbanizeApiRepositoryTests.cs" t="Include" />
-          </e>
-          <e p="DatabaseAccess" t="Include">
-            <e p="AuthorizationRepositoryTests.cs" t="Include" />
-            <e p="ReleaseRepositoryTests.cs" t="Include" />
-            <e p="TaskItemRepositoryTests.cs" t="Include" />
-          </e>
-        </e>
         <e p="KPIWebApp.IntegrationTests.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -362,7 +351,24 @@
             </e>
           </e>
         </e>
-        <e p="TestObjects" t="Include" />
+        <e p="TestObjects" t="Include">
+          <e p="Kanbanize" t="Include">
+            <e p="JsonTaskItem.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Tests" t="Include">
+          <e p="DataManipulation" t="Include">
+            <e p="ApiWrapper" t="Include">
+              <e p="DevOpsApiRepositoryTests.cs" t="Include" />
+              <e p="KanbanizeApiRepositoryTests.cs" t="Include" />
+            </e>
+            <e p="DatabaseAccess" t="Include">
+              <e p="AuthorizationRepositoryTests.cs" t="Include" />
+              <e p="ReleaseRepositoryTests.cs" t="Include" />
+              <e p="TaskItemRepositoryTests.cs" t="Include" />
+            </e>
+          </e>
+        </e>
       </e>
       <e p="KPIWebApp.sln" t="IncludeFlat" />
       <e p="KPIWebApp.UnitTests" t="IncludeRecursive">

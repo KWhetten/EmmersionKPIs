@@ -1,7 +1,7 @@
 ﻿using System;
 using KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer;
 
-namespace KPIDataExtractor.UnitTests.Objects.DevOps
+namespace KPIDataExtractor.UnitTests.TestObjects.DevOps
 {
     public class JsonRelease
     {

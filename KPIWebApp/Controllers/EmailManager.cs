@@ -2,8 +2,7 @@
 using System.Net;
 using System.Net.Mail;
  using DataAccess.Objects;
- using DataObjects.Objects;
-using Microsoft.Extensions.Configuration;
+ using Microsoft.Extensions.Configuration;
 
 namespace KPIWebApp.Controllers
 {
@@ -55,10 +54,10 @@ namespace KPIWebApp.Controllers
                     From = new MailAddress("emmersion.kpi@gmail.com"),
                     Subject = "Welcome to Emmersion KPI Monitoring",
                     Body = $"<p>Hello {userInfo.FirstName} {userInfo.LastName},</p>\n" +
-                           $"<p>Someone at Emmersion registered your email so you can check out the Emmersion KPI Monitoring service. Click the link below to get started!</p>\n" +
+                           "<p>Someone at Emmersion registered your email so you can check out the Emmersion KPI Monitoring service. Click the link below to get started!</p>\n" +
                            $"<a href=\"{baseUrl}create-password?email={userInfo.Email}\">Click here to Register!</a>\n" +
-                           $"<p>Sincerely,</p>" +
-                           $"<p>The Emmersion Team",
+                           "<p>Sincerely,</p>" +
+                           "<p>The Emmersion Team",
                     IsBodyHtml = true,
                 };
                 mailMessage.To.Add(userInfo.Email);

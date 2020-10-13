@@ -1,7 +1,6 @@
 ﻿using System.Data.SqlClient;
-using DataAccess.DatabaseAccess;
 
-namespace DataManipulation.DatabaseAccess
+namespace DataAccess.DataRepositories
 {
     public interface IDatabaseConnection
     {

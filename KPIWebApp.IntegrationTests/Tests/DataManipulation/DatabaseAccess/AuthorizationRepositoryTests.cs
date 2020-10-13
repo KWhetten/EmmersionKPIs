@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DataAccess.DatabaseAccess;
 using DataAccess.DataRepositories;
 using DataAccess.Objects;
-using DataManipulation.DatabaseAccess;
 using NUnit.Framework;
 
-namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.DatabaseAccess
+namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DatabaseAccess
 {
     public class AuthorizationRepositoryTests
     {
