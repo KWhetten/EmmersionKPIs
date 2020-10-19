@@ -12,7 +12,7 @@ namespace DataAccess.DataRepositories
         Task InsertReleaseListAsync(IEnumerable<Release> releases);
         Task<IEnumerable<Release>> GetReleaseListAsync(DateTime startDate, DateTime endDate);
         Task InsertReleaseAsync(Release release);
-        Task<List<Release>> GetReleasesBeforeDateAsync(DateTime finishTime);
+        Task<Release> GetFirstReleaseBeforeDateAsync(DateTime finishTime);
         Task<ReleaseEnvironment> GetReleaseEnvironmentByIdAsync(int releaseEnvironmentId);
         Task<Release> GetReleaseByIdAsync(int releaseId);
         Task RemoveReleaseByIdAsync(int releaseId);
@@ -94,13 +94,10 @@ namespace DataAccess.DataRepositories
             Console.WriteLine($"Inserted or Updated Release: {release.Id}");
         }
 
-        public async Task<List<Release>> GetReleasesBeforeDateAsync(DateTime finishTime)
+        public async Task<Release> GetFirstReleaseBeforeDateAsync(DateTime finishTime)
         {
             if (finishTime == DateTime.MaxValue)
-                return new List<Release>
-                {
-                    new Release()
-                };
+                return new Release();
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
             {
@@ -124,7 +121,7 @@ namespace DataAccess.DataRepositories
                         new {startTimeString, finishTimeString});
                 var releasesObject = releasesObjects.ToList();
 
-                return GetListOfReleasesFromReleaseInfo(releasesObject);
+                return GetListOfReleasesFromReleaseInfo(releasesObject).FirstOrDefault();
             }
         }
 

@@ -5,7 +5,6 @@
       <e p="DataExtractor" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="DataExtractor.csproj" t="IncludeRecursive" />
-        <e p="docker-compose.yml" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
@@ -22,6 +21,9 @@
         </e>
         <e p="App.config" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="DatabaseScema" t="Include">
+          <e p="database-schema.sql" t="Include" />
+        </e>
         <e p="DataManipulation.csproj" t="IncludeRecursive" />
         <e p="DataRepositories" t="Include">
           <e p="DatabaseConnection.cs" t="Include" />
@@ -257,10 +259,15 @@
                 <e p="login.component.html" t="Include" />
                 <e p="login.component.ts" t="Include" />
               </e>
-              <e p="work-item-cards" t="Include">
-                <e p="work-item-cards.component.css" t="Include" />
-                <e p="work-item-cards.component.html" t="Include" />
-                <e p="work-item-cards.component.ts" t="Include" />
+              <e p="releases" t="Include">
+                <e p="releases.component.css" t="Include" />
+                <e p="releases.component.html" t="Include" />
+                <e p="releases.component.ts" t="Include" />
+              </e>
+              <e p="task-items" t="Include">
+                <e p="task-items.component.css" t="Include" />
+                <e p="task-items.component.html" t="Include" />
+                <e p="task-items.component.ts" t="Include" />
               </e>
             </e>
             <e p="assets" t="Include">
@@ -274,15 +281,20 @@
                 <e p="filter-options.component.spec.ts" t="Include" />
                 <e p="filter-options.component.ts" t="Include" />
               </e>
+              <e p="lead-time-box-graph" t="Include">
+                <e p="lead-time-box-graph.component.css" t="Include" />
+                <e p="lead-time-box-graph.component.html" t="Include" />
+                <e p="lead-time-box-graph.component.ts" t="Include" />
+              </e>
+              <e p="lead-time-scatter-plot" t="Include">
+                <e p="lead-time-scatter-plot.component.css" t="Include" />
+                <e p="lead-time-scatter-plot.component.html" t="Include" />
+                <e p="lead-time-scatter-plot.component.ts" t="Include" />
+              </e>
               <e p="nav-menu" t="Include">
                 <e p="nav-menu.component.css" t="Include" />
                 <e p="nav-menu.component.html" t="Include" />
                 <e p="nav-menu.component.ts" t="Include" />
-              </e>
-              <e p="scatter-plot" t="Include">
-                <e p="scatter-plot.component.css" t="Include" />
-                <e p="scatter-plot.component.html" t="Include" />
-                <e p="scatter-plot.component.ts" t="Include" />
               </e>
             </e>
             <e p="environments" t="Include">
@@ -304,14 +316,27 @@
           <e p="tslint.json" t="Include" />
         </e>
         <e p="Controllers" t="Include">
-          <e p="EmailManager.cs" t="Include" />
           <e p="ForgotPasswordController.cs" t="Include" />
-          <e p="LeadTimeController.cs" t="Include" />
+          <e p="LeadTimeScatterPlotController.cs" t="Include" />
           <e p="LoginUserController.cs" t="Include" />
           <e p="OverviewController.cs" t="Include" />
           <e p="PasswordChangeController.cs" t="Include" />
           <e p="RegisterController.cs" t="Include" />
-          <e p="WorkItemCardDataController.cs" t="Include" />
+          <e p="ReleaseScatterPlotController.cs" t="Include" />
+          <e p="TaskItemController.cs" t="Include" />
+        </e>
+        <e p="Helpers" t="Include">
+          <e p="DateHelper.cs" t="Include" />
+          <e p="EmailHelper.cs" t="Include" />
+          <e p="ForgotPasswordHelper.cs" t="Include" />
+          <e p="LeadTimeHelper.cs" t="Include" />
+          <e p="LoginUserHelper.cs" t="Include" />
+          <e p="OverviewHelper.cs" t="Include" />
+          <e p="PasswordChangeHelper.cs" t="Include" />
+          <e p="RegisterHelper.cs" t="Include" />
+          <e p="ReleaseHelper.cs" t="Include" />
+          <e p="ScatterPlotHelper.cs" t="Include" />
+          <e p="TaskItemHelper.cs" t="Include" />
         </e>
         <e p="KPIWebApp.csproj" t="IncludeRecursive" />
         <e p="Models" t="Include">
@@ -342,7 +367,6 @@
       </e>
       <e p="KPIWebApp.IntegrationTests" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="Class1.cs" t="Include" />
         <e p="KPIWebApp.IntegrationTests.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -401,12 +425,15 @@
           </e>
           <e p="DevOpsWorkItemCardDataExtractor" t="Include" />
           <e p="KPIWebApp" t="Include">
-            <e p="ForgotPasswordControllerTests.cs" t="Include" />
-            <e p="LoginUserControllerTests.cs" t="Include" />
-            <e p="OverviewControllerTests.cs" t="Include" />
-            <e p="PasswordChangeControllerTests.cs" t="Include" />
-            <e p="RegisterControllerTests.cs" t="Include" />
-            <e p="WorkItemCardDataControllerTests.cs" t="Include" />
+            <e p="DateHelperTests.cs" t="Include" />
+            <e p="EmailHelperTests.cs" t="Include" />
+            <e p="ForgotPasswordHelperTests.cs" t="Include" />
+            <e p="LoginUserHelperTests.cs" t="Include" />
+            <e p="OverviewHelperTests.cs" t="Include" />
+            <e p="PasswordChangeHelperTests.cs" t="Include" />
+            <e p="RegisterHelperTests.cs" t="Include" />
+            <e p="ScatterPlotHelperTests.cs" t="Include" />
+            <e p="TaskItemHelperTests.cs" t="Include" />
           </e>
         </e>
       </e>

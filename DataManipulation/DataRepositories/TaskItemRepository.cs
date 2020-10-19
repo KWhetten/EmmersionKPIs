@@ -13,7 +13,8 @@ namespace DataAccess.DataRepositories
         Task<List<TaskItem>> GetTaskItemListAsync(DateTime startDate, DateTime endDate);
         Task InsertTaskItemListAsync(IEnumerable<TaskItem> getTaskItemList);
         Task InsertTaskItemAsync(TaskItem taskItem);
-        Task<TaskItem> GetCardByIdAsync(int taskItemId);
+        Task<TaskItem> GetTaskItemByIdAsync(int taskItemId);
+        Task<TaskItemType[]> GetTaskItemTypesAsync();
         Task RemoveTaskItemByIdAsync(int cardId);
     }
 
@@ -60,9 +61,9 @@ namespace DataAccess.DataRepositories
                           "r.FinishTime as ReleaseFinishTime, " +
                           "r.Name as ReleaseName, " +
                           "r.Attempts as ReleaseAttempts " +
-                          "FROM TaskItem ti JOIN TaskItemType tit ON ti.TaskItemTypeId = tit.Id " +
-                          "JOIN Release r ON ti.ReleaseId = r.Id " +
-                          "JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
+                          "FROM TaskItem ti LEFT JOIN TaskItemType tit ON ti.TaskItemTypeId = tit.Id " +
+                          "LEFT JOIN Release r ON ti.ReleaseId = r.Id " +
+                          "LEFT JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
                           "WHERE ti.FinishTime > @startDateString AND ti.FinishTime < @endDateString";
 
                 var taskItems = await databaseConnection.DbConnection
@@ -182,7 +183,7 @@ namespace DataAccess.DataRepositories
             }
         }
 
-        public async Task<TaskItem> GetCardByIdAsync(int taskItemId)
+        public async Task<TaskItem> GetTaskItemByIdAsync(int taskItemId)
         {
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
@@ -211,9 +212,9 @@ namespace DataAccess.DataRepositories
                           "r.FinishTime as ReleaseFinishTime, " +
                           "r.Name as ReleaseName, " +
                           "r.Attempts as ReleaseAttempts " +
-                          "FROM TaskItem ti JOIN TaskItemType tit ON ti.TaskItemTypeId = tit.Id " +
-                          "JOIN Release r ON ti.ReleaseId = r.Id " +
-                          "JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
+                          "FROM TaskItem ti LEFT JOIN TaskItemType tit ON ti.TaskItemTypeId = tit.Id " +
+                          "LEFT JOIN Release r ON ti.ReleaseId = r.Id " +
+                          "LEFT JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
                           "WHERE ti.Id = @taskItemId";
                 var taskItemInfo = (await databaseConnection.DbConnection.QueryAsync<TaskItemInfo>(sql, new {taskItemId}));
 

@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System;
+using System.Xml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -55,6 +56,39 @@ namespace DataAccess.ApiWrapper
                 {
                     result.Add(item);
                 }
+            }
+
+            return AddArchivedTaskItemList(result, boardId);
+        }
+
+        public JArray AddArchivedTaskItemList(JArray result, int boardId)
+        {
+            try
+            {
+                var uri =
+                    $"http://{Subdomain}.kanbanize.com/index.php/api/kanbanize/get_all_tasks/";
+                var body = "{\"boardid\":\"" + boardId + "\", \"comments\": \"yes\", \"container\": \"archive\"}";
+
+                var xmlTaskItemList = GetInformation(uri, body);
+
+                var doc = new XmlDocument();
+                doc.LoadXml(xmlTaskItemList);
+
+                var json = JObject.Parse(JsonConvert.SerializeXmlNode(doc));
+                var jsonList = json["xml"]["task"]["item"];
+
+                foreach (var item in jsonList)
+                {
+                    if ((boardId == 4 && (int) item["workflow_id"] == 19) ||
+                        (boardId == 5 && (int) item["workflow_id"] == 8))
+                    {
+                        result.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write("");
             }
 
             return result;

@@ -25,7 +25,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.ApiWrapper
     {
         private readonly IRestClient client;
         private readonly WorkItemTrackingHttpClient httpClient;
-        private const string PersonalAccessToken = "y74r3pyqwyre2iq77ikznq7ewzhpgtvon6wcjurqvqcnrrltae7a";
+        private const string PersonalAccessToken = "q3s5tuvxwmajoy6tqjg4knognbdocqzm7h32j2sxcoj6ihh63mxq";
         private const string Organization = "emmersionlearning";
         private const string Project = "EmmersionLearning";
 

@@ -68,14 +68,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
 
             taskItem.FinishTime = JsonWorkItemFinishTime(jsonWorkItemUpdates);
 
-            var releases = await releaseRepository.GetReleasesBeforeDateAsync(taskItem.FinishTime);
-            var release = new Release();
-            if (releases.Count > 0)
-            {
-                release = releases.First();
-            }
-
-            taskItem.Release = release;
+            taskItem.Release = await releaseRepository.GetFirstReleaseBeforeDateAsync(taskItem.FinishTime);
 
             Console.WriteLine($"Finished Deserializing Card: {taskItem.Id}");
             return taskItem;
@@ -90,10 +83,10 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
             }
             return workItemTypeString switch
             {
-                "Strategic Product Work" => TaskItemType.StrategicProduct,
-                "Tactical Product Work" => TaskItemType.TacticalProduct,
-                "Strategic Engineering Work" => TaskItemType.StrategicEngineering,
-                "Tactical Engineering Work" => TaskItemType.TacticalEngineering,
+                "Strategic Product Work" => TaskItemType.Product,
+                "Tactical Product Work" => TaskItemType.Product,
+                "Strategic Engineering Work" => TaskItemType.Engineering,
+                "Tactical Engineering Work" => TaskItemType.Engineering,
                 "Unanticipated" => TaskItemType.Unanticipated,
                 _ => throw new Exception("Unknown Work Item Type...")
             };

@@ -59,9 +59,9 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DatabaseAccess
 
             await accessTaskItemData.InsertTaskItemListAsync(taskItemList);
 
-            var result1 = await accessTaskItemData.GetCardByIdAsync(card1.Id);
+            var result1 = await accessTaskItemData.GetTaskItemByIdAsync(card1.Id);
 
-            var ex = Assert.ThrowsAsync<InvalidOperationException>(async () => await accessTaskItemData.GetCardByIdAsync(card2.Id));
+            var ex = Assert.ThrowsAsync<InvalidOperationException>(async () => await accessTaskItemData.GetTaskItemByIdAsync(card2.Id));
             Assert.That(ex.Message, Is.EqualTo("Sequence contains no elements"));
 
             Assert.That(card1.Id, Is.EqualTo(result1.Id));

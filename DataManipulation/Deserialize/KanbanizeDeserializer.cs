@@ -13,7 +13,7 @@ namespace DataAccess.Deserialize
     {
         Task<IEnumerable<TaskItem>> TaskItemListAsync(IEnumerable<JToken> jsonTaskItems, int boardId);
         Task<TaskItem> TaskItemAsync(JToken jsonTaskItem, int boardId);
-        void TaskItemHistoryItems(JToken jsonTaskItem, TaskItem taskItem, int boardId);
+        TaskItem TaskItemHistoryItems(JToken jsonTaskItem, TaskItem taskItem, int boardId);
         TaskItemType GetCardType(JToken workItem);
     }
 
@@ -32,7 +32,12 @@ namespace DataAccess.Deserialize
             var list = new List<TaskItem>();
             foreach (var item in jsonTaskItems)
             {
-                if (!item["columnid"].ToString().Contains("archive") || (DateTime) item["updatedat"] < DateTime.Now.AddDays(-90)) list.Add(await TaskItemAsync(item, boardId));
+                var taskItemRepository = new TaskItemRepository(new DatabaseConnection());
+                var cardState = taskItemRepository.GetTaskItemByIdAsync((int) item["taskid"]).Result.CardState;
+                if (cardState != "Archived")
+                {
+                     list.Add(await TaskItemAsync(item, boardId));
+                }
             }
 
             return list;
@@ -50,9 +55,9 @@ namespace DataAccess.Deserialize
                 DevelopmentTeamName = boardId == 4
                     ? "Enterprise Team"
                     : "Assessment Team",
-                CreatedOn = (DateTime) jsonTaskItem["createdat"],
+                CreatedOn = ((DateTime) jsonTaskItem["createdat"]).ToUniversalTime(),
                 CreatedBy = jsonTaskItem["reporter"].ToString(),
-                LastChangedOn = (DateTime) jsonTaskItem["updatedat"],
+                LastChangedOn = ((DateTime) jsonTaskItem["updatedat"]).ToUniversalTime(),
                 LastChangedBy = "",
                 CurrentBoardColumn = jsonTaskItem["columnname"].ToString(),
                 CardState = GetCardState(jsonTaskItem),
@@ -63,17 +68,9 @@ namespace DataAccess.Deserialize
                 NumRevisions = 0
             };
 
+            taskItem = TaskItemHistoryItems(jsonTaskItem, taskItem, boardId);
 
-            TaskItemHistoryItems(jsonTaskItem, taskItem, boardId);
-
-            var releases = await releaseRepository.GetReleasesBeforeDateAsync(taskItem.FinishTime);
-            var release = new Release();
-            if (releases.Count > 0)
-            {
-                release = releases.First();
-            }
-
-            taskItem.Release = release;
+            taskItem.Release = await releaseRepository.GetFirstReleaseBeforeDateAsync(taskItem.FinishTime);
 
             return taskItem;
         }
@@ -91,11 +88,12 @@ namespace DataAccess.Deserialize
                 "Ready for Prod Deploy" => "Resolved",
                 "Released to Prod this week" => "Closed",
                 "Ready to Archive" => "Closed",
+                "Archive" => "Archived",
                 _ => ""
             };
         }
 
-        public void TaskItemHistoryItems(JToken jsonTaskItem, TaskItem taskItem, int boardId)
+        public TaskItem TaskItemHistoryItems(JToken jsonTaskItem, TaskItem taskItem, int boardId)
         {
             var history = kanbanizeApiRepository.GetTaskItemHistory(jsonTaskItem, boardId);
 
@@ -105,26 +103,30 @@ namespace DataAccess.Deserialize
             {
                 try
                 {
+                    var historyItemDate = (DateTime) item["entrydate"];
                     if (item["historyevent"].ToString() == "Task moved")
                     {
-                        if ((item["details"].ToString().Contains("to 'Top Priority'")
-                             || item["details"].ToString().Contains("to 'Working'"))
-                            && (taskItem.StartTime > (DateTime) item["entrydate"]
+                        var columnName = item["details"].ToString();
+                        if ((columnName.Contains("to 'Top Priority'")
+                             || columnName.Contains("to 'In Process.Working'")
+                             || columnName.Contains("Ready for Deploy")
+                             || columnName.Contains("to 'In Process.Ready for Prod Deploy'"))
+                            && (taskItem.StartTime > historyItemDate
                                 || taskItem.StartTime == DateTime.MinValue))
                         {
-                            taskItem.StartTime = (DateTime) item["entrydate"];
+                            taskItem.StartTime = historyItemDate.ToUniversalTime();
                         }
-                        else if ((item["details"].ToString().Contains("to 'Ready for Prod Deploy'")
-                                  || item["details"].ToString().Contains("to 'Released to Prod this week'")
-                                  || item["details"].ToString().Contains("to 'Ready to Archive'"))
-                                 && (taskItem.FinishTime < (DateTime) item["entrydate"]
-                                     || taskItem.FinishTime == DateTime.MaxValue))
+
+                        if ((columnName.Contains("to 'Released to Prod this week'")
+                             || columnName.Contains("to 'Ready to Archive'"))
+                            && (taskItem.FinishTime > historyItemDate
+                                || taskItem.FinishTime == DateTime.MaxValue))
                         {
-                            taskItem.FinishTime = (DateTime) item["entrydate"];
+                            taskItem.FinishTime = historyItemDate.ToUniversalTime();;
                         }
                     }
 
-                    if (taskItem.LastChangedOn == (DateTime) item["entrydate"]
+                    if (taskItem.LastChangedOn == historyItemDate
                         || taskItem.LastChangedBy == "")
                     {
                         taskItem.LastChangedBy = item["author"].ToString();
@@ -138,18 +140,21 @@ namespace DataAccess.Deserialize
 
             if (taskItem.StartTime == DateTime.MinValue && taskItem.CardState != "New")
             {
-                taskItem.StartTime = taskItem.CreatedOn;
+                taskItem.StartTime = taskItem.CreatedOn.ToUniversalTime();;
             }
 
             if (taskItem.NumRevisions == 0)
             {
                 if (taskItem.CurrentBoardColumn == "Ready for Prod Deploy"
                     || taskItem.CurrentBoardColumn == "Released to Prod this week"
-                    || taskItem.CurrentBoardColumn == "Ready to Archive")
+                    || taskItem.CurrentBoardColumn == "Ready to Archive"
+                    || taskItem.CurrentBoardColumn == "Archive")
                 {
-                    taskItem.FinishTime = taskItem.CreatedOn;
+                    taskItem.FinishTime = taskItem.CreatedOn.ToUniversalTime();;
                 }
             }
+
+            return taskItem;
         }
 
         public TaskItemType GetCardType(JToken workItem)
@@ -158,12 +163,8 @@ namespace DataAccess.Deserialize
 
             return workItemTypeString switch
             {
-                "Product" => (int.Parse(workItem["links"]["child"].ToString()) > 0
-                    ? TaskItemType.StrategicProduct
-                    : TaskItemType.TacticalProduct),
-                "Engineering" => (int.Parse(workItem["links"]["child"].ToString()) > 0
-                    ? TaskItemType.StrategicEngineering
-                    : TaskItemType.TacticalEngineering),
+                "Product" => TaskItemType.Product,
+                "Engineering" => TaskItemType.Engineering,
                 _ => TaskItemType.Unanticipated
             };
         }

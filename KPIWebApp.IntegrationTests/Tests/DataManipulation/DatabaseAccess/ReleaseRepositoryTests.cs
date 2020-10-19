@@ -17,26 +17,24 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DatabaseAccess
         {
             var date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-            var result = await accessReleaseData.GetReleasesBeforeDateAsync(date);
+            var result = await accessReleaseData.GetFirstReleaseBeforeDateAsync(date);
 
-            Assert.That(result.Count, Is.GreaterThan(0));
+            Assert.That(result != null);
         }
 
         [Test]
-        public async Task When_getting_releases_before_date_max()
+        public async Task When_getting_release_before_date_max()
         {
             var date = DateTime.MaxValue;
 
-            var result = await accessReleaseData.GetReleasesBeforeDateAsync(date);
+            var result = await accessReleaseData.GetFirstReleaseBeforeDateAsync(date);
 
-            Assert.That(result.Count, Is.EqualTo(1));
-
-            Assert.That(result[0].Attempts, Is.EqualTo(0));
-            Assert.That(result[0].FinishTime, Is.EqualTo(DateTime.MinValue));
-            Assert.That(result[0].Id, Is.EqualTo(0));
-            Assert.That(result[0].Name, Is.Null);
-            Assert.That(result[0].ReleaseEnvironment, Is.Null);
-            Assert.That(result[0].Status, Is.EqualTo(null));
+            Assert.That(result.Attempts, Is.EqualTo(0));
+            Assert.That(result.FinishTime, Is.EqualTo(DateTime.MinValue));
+            Assert.That(result.Id, Is.EqualTo(0));
+            Assert.That(result.Name, Is.Null);
+            Assert.That(result.ReleaseEnvironment, Is.Null);
+            Assert.That(result.Status, Is.EqualTo(null));
         }
 
         [Test]

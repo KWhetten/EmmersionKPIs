@@ -1,14 +1,14 @@
-﻿﻿using System;
+﻿using System;
 using System.Net;
 using System.Net.Mail;
- using DataAccess.Objects;
- using Microsoft.Extensions.Configuration;
+using DataAccess.Objects;
+using Microsoft.Extensions.Configuration;
 
-namespace KPIWebApp.Controllers
+namespace KPIWebApp.Helpers
 {
-    public class EmailManager
+    public class EmailHelper
     {
-        public virtual void SendRegistrationEmail(UserInfo userInfo, string baseUrl)
+        public void SendRegistrationEmail(UserInfo userInfo, string baseUrl)
         {
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json");

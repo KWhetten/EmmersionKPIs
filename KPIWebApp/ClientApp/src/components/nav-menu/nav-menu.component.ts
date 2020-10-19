@@ -14,26 +14,32 @@ export class NavMenuComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    console.log("ngOnInit");
     let cookieValue = getCookie();
     if (cookieValue == undefined) {
       if (this.isExpanded) {
+        console.log("collapse");
         this.collapse();
       }
     } else {
       if (!this.isExpanded) {
+        console.log("expand");
         this.expand();
       }
     }
   }
 
   ngOnChanges() {
+    console.log("ngOnChanges");
     let cookieValue = getCookie();
     if (cookieValue == undefined) {
       if (this.isExpanded) {
+        console.log("collapse");
         this.collapse();
       }
     } else {
       if (!this.isExpanded) {
+        console.log("expand");
         this.expand();
       }
     }

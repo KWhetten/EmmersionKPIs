@@ -1,5 +1,5 @@
-﻿﻿﻿<h2>Filter Options</h2>
-<form>
+﻿<form id="form">
+  <h2>Filter Options</h2>
   <div class="filter">
 
     <div class="card-type">
@@ -7,33 +7,33 @@
       <div class="card-type-checkboxes">
         <div class="product">
           <div>
-            <input type="checkbox" name="strategic-product" id="strategic-product">
+            <input type="checkbox" name="strategic-product" id="strategic-product" checked>
             <label for="strategic-product">Strategic Product</label>
           </div>
           <div>
-            <input type="checkbox" name="tactical-product" id="tactical-product">
+            <input type="checkbox" name="tactical-product" id="tactical-product" checked>
             <label for="tactical-product">Tactical Product</label>
           </div>
           <div>
-            <input type="checkbox" name="unanticipated-product" id="unanticipated-product">
+            <input type="checkbox" name="unanticipated-product" id="unanticipated-product" checked>
             <label for="unanticipated-product">Unanticipated Product</label>
           </div>
           <div>
-            <input type="checkbox" name="unanticipated" id="unanticipated">
+            <input type="checkbox" name="unanticipated" id="unanticipated" checked>
             <label for="unanticipated">Unanticipated</label>
           </div>
         </div>
         <div class="engineering">
           <div>
-            <input type="checkbox" name="strategic-engineering" id="strategic-engineering">
+            <input type="checkbox" name="strategic-engineering" id="strategic-engineering" checked>
             <label for="strategic-engineering">Strategic Engineering</label>
           </div>
           <div>
-            <input type="checkbox" name="tactical-engineering" id="tactical-engineering">
+            <input type="checkbox" name="tactical-engineering" id="tactical-engineering" checked>
             <label for="tactical-engineering">Tactical Engineering</label>
           </div>
           <div>
-            <input type="checkbox" name="unanticipated-engineering" id="unanticipated-engineering">
+            <input type="checkbox" name="unanticipated-engineering" id="unanticipated-engineering" checked>
             <label for="unanticipated-engineering">Unanticipated Engineering</label>
           </div>
         </div>
@@ -60,6 +60,3 @@
   </div>
   <hr>
 </form>
-
-<h2>Results:</h2>
-<h3><strong>From:</strong> {{startDate}} <strong>to</strong> {{endDate}}</h3>

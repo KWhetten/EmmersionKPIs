@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
- using DataAccess.DataRepositories;
- using Microsoft.AspNetCore.Mvc;
+using KPIWebApp.Helpers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KPIWebApp.Controllers
 {
@@ -8,38 +8,19 @@ namespace KPIWebApp.Controllers
     [Route("password-change")]
     public class PasswordChangeController : ControllerBase
     {
-        private readonly UserRepository userRepository;
         private const int DuplicateEmail = -1;
         private const int RegistrationError = 0;
 
-        public PasswordChangeController()
-        {
-            userRepository = new UserRepository(new DatabaseConnection());
-        }
-
-        // USED FOR TESTING
-        // public PasswordChangeController(UserDataAccess userDataAccess)
-        // {
-        //     this.userDataAccess = userDataAccess;
-        // }
-
         [HttpPost]
-        public async Task<IActionResult> Post(ChangePasswordData data)
+        public async Task<IActionResult> Post(PasswordChangeHelper.ChangePasswordData data)
         {
-            var result = await userRepository.InsertPasswordAsync(data.Email, data.Password);
-
-            return result switch
+            var passwordChangeHelper = new PasswordChangeHelper();
+            return await passwordChangeHelper.UpdatePassword(data) switch
             {
                 DuplicateEmail => BadRequest("User with that email already exists."),
                 RegistrationError => StatusCode(500, "An error occurred while trying to register. Please try again later."),
                 _ => Ok()
             };
         }
-    }
-
-    public class ChangePasswordData
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
     }
 }

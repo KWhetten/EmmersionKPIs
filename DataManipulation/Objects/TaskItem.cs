@@ -20,17 +20,6 @@ namespace DataAccess.Objects
         public int CommentCount { get; set; }
         public int NumRevisions { get; set; }
         public Release Release { get; set; }
-
-        public decimal LeadTimeHours
-        {
-            get
-            {
-                if (StartTime != DateTime.MinValue && FinishTime != DateTime.MinValue)
-                {
-                    return (decimal)(FinishTime - StartTime).TotalHours;
-                }
-                return 0m;
-            }
-        }
+        public decimal LeadTimeHours { get; set; }
     }
 }

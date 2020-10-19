@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using DataAccess.DataRepositories;
 using DataAccess.Objects;
+using KPIWebApp.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KPIWebApp.Controllers
@@ -9,39 +9,26 @@ namespace KPIWebApp.Controllers
     [Route("[controller]")]
     public class RegisterController : ControllerBase
     {
-        private readonly UserRepository userRepository;
-        private readonly EmailManager emailManager;
         private const int DuplicateEmail = -1;
         private const int RegistrationError = 0;
 
-        public RegisterController()
-        {
-            userRepository = new UserRepository(new DatabaseConnection());
-            emailManager = new EmailManager();
-        }
-
-        // USED FOR TESTING:
-        // public RegisterController(UserDataAccess userDataAccess, EmailManager emailManager)
-        // {
-        //     this.userDataAccess = userDataAccess;
-        //     this.emailManager = emailManager;
-        // }
-
         [HttpPost]
-        public async Task<IActionResult> Post(RegisterData data)
+        public async Task<IActionResult> Post(RegisterHelper.RegisterData data)
         {
-            var result = await userRepository.InsertUserInfoAsync(data.FirstName, data.LastName, data.Email);
+            var registerHelper = new RegisterHelper();
+            var emailHelper = new EmailHelper();
 
-            var userInfo = new UserInfo
-            {
-                Email = data.Email,
-                FirstName = data.FirstName,
-                LastName = data.LastName
-            };
+            var result = await registerHelper.RegisterUser(data);
 
             if (result != DuplicateEmail && result != RegistrationError)
             {
-                emailManager.SendRegistrationEmail(userInfo, data.BaseUrl);
+                var userInfo = new UserInfo
+                {
+                    FirstName = data.FirstName,
+                    LastName = data.LastName,
+                    Email = data.Email
+                };
+                emailHelper.SendRegistrationEmail(userInfo, data.BaseUrl);
             }
 
             return result switch
@@ -53,11 +40,5 @@ namespace KPIWebApp.Controllers
         }
     }
 
-    public class RegisterData
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string BaseUrl { get; set; }
-    }
+
 }

@@ -7,14 +7,16 @@ import {RouterModule} from '@angular/router';
 import {AppComponent} from './app.component';
 import {NavMenuComponent} from '../components/nav-menu/nav-menu.component';
 import {HomeComponent} from './home/home.component';
-import {TaskItemsComponent} from './work-item-cards/work-item-cards.component';
+import {TaskItemsComponent} from './task-items/task-items.component';
+import {ReleasesComponent} from './releases/releases.component';
 import {FilterOptionsComponent} from '../components/filter-options/filter-options.component';
 import {LoginComponent} from './login/login.component';
 import {InviteUserComponent} from './invite-user/invite-user.component';
 import {CreatePasswordComponent} from './create-password/create-password.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
 import {ForgotPasswordComponent} from './forgot-password/forgot-password.component';
-import {ScatterPlotComponent} from '../components/scatter-plot/scatter-plot.component'
+import {LeadTimeScatterPlotComponent} from '../components/lead-time-scatter-plot/lead-time-scatter-plot.component'
+import {LeadTimeBoxGraphComponent} from '../components/lead-time-box-graph/lead-time-box-graph.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +25,14 @@ import {ScatterPlotComponent} from '../components/scatter-plot/scatter-plot.comp
     FilterOptionsComponent,
     HomeComponent,
     TaskItemsComponent,
+    ReleasesComponent,
     LoginComponent,
     InviteUserComponent,
     CreatePasswordComponent,
     ChangePasswordComponent,
     ForgotPasswordComponent,
-    ScatterPlotComponent
+    LeadTimeScatterPlotComponent,
+    LeadTimeBoxGraphComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -36,8 +40,8 @@ import {ScatterPlotComponent} from '../components/scatter-plot/scatter-plot.comp
     FormsModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},
-      {path: 'work-item-cards', component: TaskItemsComponent},
-      {path: 'work-item-cards', component: TaskItemsComponent},
+      {path: 'task-items', component: TaskItemsComponent},
+      {path: 'releases', component: ReleasesComponent},
       {path: 'login', component: LoginComponent},
       {path: 'invite-user', component: InviteUserComponent},
       {path: 'create-password', component: CreatePasswordComponent},

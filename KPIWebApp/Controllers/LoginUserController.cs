@@ -1,8 +1,7 @@
-﻿using System;
- using System.Threading.Tasks;
- using DataAccess.DataRepositories;
- using DataAccess.Objects;
- using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using DataAccess.Objects;
+using KPIWebApp.Helpers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KPIWebApp.Controllers
 {
@@ -10,37 +9,12 @@ namespace KPIWebApp.Controllers
     [Route("login-user")]
     public class LoginUserController : ControllerBase
     {
-        private readonly UserRepository authorizationData;
-
-        public LoginUserController()
-        {
-            authorizationData = new UserRepository(new DatabaseConnection());
-        }
-
-        // USED FOR TESTING
-        // public LoginUserController(UserDataAccess authorizationData)
-        // {
-        //     this.authorizationData = authorizationData;
-        // }
 
         [HttpPost]
-        public async Task<UserInfo> Post(LoginData data)
+        public async Task<UserInfo> Post(LoginUserHelper.LoginData data)
         {
-            data.Guid = Guid.NewGuid();
-
-            var userInfo = await authorizationData.GetUserInfoByEmailAsync(data.Email);
-            var verified = await authorizationData.VerifyPasswordAsync(userInfo);
-
-            if (!verified) return new UserInfo();
-
-            await authorizationData.AuthorizeUserAsync(userInfo);
-            return userInfo;
+            var loginUserHelper = new LoginUserHelper();
+            return await loginUserHelper.LoginUser(data);
         }
-    }
-
-    public class LoginData
-    {
-        public string Email { get; set; }
-        public Guid Guid { get; set; }
     }
 }

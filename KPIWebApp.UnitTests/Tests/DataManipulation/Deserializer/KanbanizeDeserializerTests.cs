@@ -151,9 +151,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
             mockKanbanizeApiWrapper.Setup(x => x.GetTaskItemHistory(It.IsAny<JToken>(), It.IsAny<int>()))
                 .Returns(historyArray);
             var mockReleaseDataAccess = new Mock<IReleaseRepository>();
-            mockReleaseDataAccess.Setup(x => x.GetReleasesBeforeDateAsync(It.IsAny<DateTime>())).ReturnsAsync(
-                new List<Release>
-                {
+            mockReleaseDataAccess.Setup(x => x.GetFirstReleaseBeforeDateAsync(It.IsAny<DateTime>())).ReturnsAsync(
                     new Release
                     {
                         Id = 1,
@@ -167,22 +165,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                         },
                         StartTime = releaseStartTime,
                         Status = "succeeded"
-                    },
-                    new Release
-                    {
-                        Id = 2,
-                        Attempts = 5,
-                        FinishTime = DateTime.Now.AddHours(-1),
-                        Name = "Release2",
-                        ReleaseEnvironment = new ReleaseEnvironment
-                        {
-                            Id = 2,
-                            Name = "ReleaseEnvironment2"
-                        },
-                        StartTime = DateTime.Now.AddHours(-3),
-                        Status = "failed"
-                    }
-                });
+                    });
 
             var deserializer = new KanbanizeDeserializer(mockKanbanizeApiWrapper.Object);
             var results = await deserializer.TaskItemListAsync(jsonTaskItemList, 4);
@@ -191,7 +174,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
             Assert.That(result.ElementAt(0).Id, Is.EqualTo(1));
             Assert.That(result.ElementAt(0).Impact, Is.EqualTo("High"));
             Assert.That(result.ElementAt(0).Title, Is.EqualTo("TaskItem1"));
-            Assert.That(result.ElementAt(0).Type, Is.EqualTo(TaskItemType.StrategicProduct));
+            Assert.That(result.ElementAt(0).Type, Is.EqualTo(TaskItemType.Product));
             Assert.That(result.ElementAt(0).CardState, Is.EqualTo("Resolved"));
             Assert.That(result.ElementAt(0).CommentCount, Is.EqualTo(10));
             Assert.That(result.ElementAt(0).CreatedBy, Is.EqualTo("CreatedBy1"));
@@ -205,7 +188,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
             Assert.That(result.ElementAt(1).Id, Is.EqualTo(2));
             Assert.That(result.ElementAt(1).Impact, Is.EqualTo("Low"));
             Assert.That(result.ElementAt(1).Title, Is.EqualTo("TaskItem2"));
-            Assert.That(result.ElementAt(1).Type, Is.EqualTo(TaskItemType.TacticalEngineering));
+            Assert.That(result.ElementAt(1).Type, Is.EqualTo(TaskItemType.Engineering));
             Assert.That(result.ElementAt(1).CardState, Is.EqualTo("Active"));
             Assert.That(result.ElementAt(1).CommentCount, Is.EqualTo(2));
             Assert.That(result.ElementAt(1).CreatedBy, Is.EqualTo("CreatedBy2"));
@@ -216,7 +199,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
             Assert.That(result.ElementAt(1).CurrentBoardColumn, Is.EqualTo("Working"));
             Assert.That(result.ElementAt(1).LastChangedBy, Is.EqualTo("ChangedBy1"));
 
-            Assert.That(result.Count, Is.EqualTo(2));
+            Assert.That(result.Count, Is.EqualTo(3));
         }
 
         [Test]
@@ -261,9 +244,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
             mockKanbanizeApiWrapper.Setup(x => x.GetTaskItemHistory(It.IsAny<JToken>(), It.IsAny<int>()))
                 .Returns("");
             var mockReleaseDataAccess = new Mock<IReleaseRepository>();
-            mockReleaseDataAccess.Setup(x => x.GetReleasesBeforeDateAsync(It.IsAny<DateTime>())).ReturnsAsync(
-                new List<Release>
-                {
+            mockReleaseDataAccess.Setup(x => x.GetFirstReleaseBeforeDateAsync(It.IsAny<DateTime>())).ReturnsAsync(
                     new Release
                     {
                         Id = 2,
@@ -277,8 +258,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                         },
                         StartTime = DateTime.Now.AddHours(-3),
                         Status = "failed"
-                    }
-                });
+                    });
 
             var deserializer = new KanbanizeDeserializer(mockKanbanizeApiWrapper.Object);
             var results = await deserializer.TaskItemListAsync(jsonTaskItemList, 5);
@@ -287,7 +267,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
             Assert.That(result.ElementAt(0).Id, Is.EqualTo(1));
             Assert.That(result.ElementAt(0).Impact, Is.EqualTo("High"));
             Assert.That(result.ElementAt(0).Title, Is.EqualTo("TaskItem1"));
-            Assert.That(result.ElementAt(0).Type, Is.EqualTo(TaskItemType.StrategicProduct));
+            Assert.That(result.ElementAt(0).Type, Is.EqualTo(TaskItemType.Product));
             Assert.That(result.ElementAt(0).CardState, Is.EqualTo("Resolved"));
             Assert.That(result.ElementAt(0).CommentCount, Is.EqualTo(10));
             Assert.That(result.ElementAt(0).CreatedBy, Is.EqualTo("CreatedBy1"));
