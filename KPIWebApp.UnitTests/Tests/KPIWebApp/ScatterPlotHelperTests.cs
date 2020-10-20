@@ -169,23 +169,23 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
             Assert.That(result[0].turboThreshold, Is.EqualTo(500000));
             Assert.That(result[0].data.Count, Is.EqualTo(1));
             Assert.That(result[0].data[0].x, Is.EqualTo(productTaskItem1.FinishTime));
-            Assert.That(result[0].data[0].y, Is.EqualTo((productTaskItem1.FinishTime - productTaskItem1.StartTime).TotalHours / 24));
+            Assert.That(result[0].data[0].y, Is.EqualTo(8m));
 
             Assert.That(result[1].name, Is.EqualTo("Engineering"));
             Assert.That(result[1].turboThreshold, Is.EqualTo(500000));
             Assert.That(result[1].data.Count, Is.EqualTo(2));
             Assert.That(result[1].data[0].x, Is.EqualTo(engineeringTaskItem1.FinishTime));
-            Assert.That(result[1].data[0].y, Is.EqualTo((engineeringTaskItem1.FinishTime - engineeringTaskItem1.StartTime).TotalHours / 24));
+            Assert.That(result[1].data[0].y, Is.EqualTo(32m));
             Assert.That(result[1].data[1].x, Is.EqualTo(engineeringTaskItem2.FinishTime));
-            Assert.That(result[1].data[1].y, Is.EqualTo((engineeringTaskItem2.FinishTime - engineeringTaskItem2.StartTime).TotalHours / 24));
+            Assert.That(result[1].data[1].y, Is.EqualTo(16m));
 
             Assert.That(result[2].name, Is.EqualTo("Unanticipated"));
             Assert.That(result[2].turboThreshold, Is.EqualTo(500000));
             Assert.That(result[2].data.Count, Is.EqualTo(2));
             Assert.That(result[2].data[0].x, Is.EqualTo(unanticipatedTaskItem1.FinishTime));
-            Assert.That(result[2].data[0].y, Is.EqualTo((unanticipatedTaskItem1.FinishTime - unanticipatedTaskItem1.StartTime).TotalHours / 24));
+            Assert.That(result[2].data[0].y, Is.EqualTo(24m));
             Assert.That(result[2].data[1].x, Is.EqualTo(unanticipatedTaskItem2.FinishTime));
-            Assert.That(result[2].data[1].y, Is.EqualTo((unanticipatedTaskItem2.FinishTime - unanticipatedTaskItem2.StartTime).TotalHours / 24));
+            Assert.That(result[2].data[1].y, Is.EqualTo(32m));
         }
     }
 }

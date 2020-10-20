@@ -33,7 +33,16 @@ namespace DataAccess.Deserialize
             foreach (var item in jsonTaskItems)
             {
                 var taskItemRepository = new TaskItemRepository(new DatabaseConnection());
-                var cardState = taskItemRepository.GetTaskItemByIdAsync((int) item["taskid"]).Result.CardState;
+                var cardState = "";
+                try
+                {
+                    cardState = taskItemRepository.GetTaskItemByIdAsync((int) item["taskid"]).Result.CardState;
+                }
+                catch (Exception ex)
+                {
+                    // ignored
+                }
+
                 if (cardState != "Archived")
                 {
                      list.Add(await TaskItemAsync(item, boardId));

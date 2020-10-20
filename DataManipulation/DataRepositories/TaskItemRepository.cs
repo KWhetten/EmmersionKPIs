@@ -10,7 +10,7 @@ namespace DataAccess.DataRepositories
 {
     public interface ITaskItemRepository
     {
-        Task<List<TaskItem>> GetTaskItemListAsync(DateTime startDate, DateTime endDate);
+        Task<List<TaskItem>> GetTaskItemListAsync(DateTime startDate, DateTime finishDate);
         Task InsertTaskItemListAsync(IEnumerable<TaskItem> getTaskItemList);
         Task InsertTaskItemAsync(TaskItem taskItem);
         Task<TaskItem> GetTaskItemByIdAsync(int taskItemId);
@@ -29,13 +29,13 @@ namespace DataAccess.DataRepositories
 
         private readonly ReleaseRepository releaseRepository = new ReleaseRepository(new DatabaseConnection());
 
-        public virtual async Task<List<TaskItem>> GetTaskItemListAsync(DateTime startDate, DateTime endDate)
+        public virtual async Task<List<TaskItem>> GetTaskItemListAsync(DateTime startDate, DateTime finishDate)
         {
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
             {
                 var startDateString = $"{startDate:s}".Replace("T", " ");
-                var endDateString = $"{endDate:s}".Replace("T", " ");
+                var endDateString = $"{finishDate:s}".Replace("T", " ");
 
                 var sql = $"SELECT ti.Id, " +
                           "ti.Title, " +
@@ -66,7 +66,7 @@ namespace DataAccess.DataRepositories
                           "LEFT JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
                           "WHERE ti.FinishTime > @startDateString AND ti.FinishTime < @endDateString";
 
-                var taskItems = await databaseConnection.DbConnection
+                          var taskItems = await databaseConnection.DbConnection
                     .QueryAsync<TaskItemInfo>(sql, new {startDateString, endDateString});
 
                 return GetTaskItemListFromTaskItemInfo(taskItems);

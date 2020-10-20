@@ -132,9 +132,9 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
             var expected = new OverviewData
             {
                 TotalCards = 2,
-                AverageLeadTime = 60m,
-                LongestLeadTime = 96m,
-                ShortestLeadTime = 24m,
+                AverageLeadTime = 20m,
+                LongestLeadTime = 32m,
+                ShortestLeadTime = 8m,
                 TotalDeploys = 2,
                 SuccessfulDeploys = 0,
                 RolledBackDeploys = 0,

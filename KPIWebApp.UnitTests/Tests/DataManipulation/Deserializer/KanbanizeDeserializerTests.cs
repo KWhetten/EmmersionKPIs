@@ -178,9 +178,9 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
             Assert.That(result.ElementAt(0).CardState, Is.EqualTo("Resolved"));
             Assert.That(result.ElementAt(0).CommentCount, Is.EqualTo(10));
             Assert.That(result.ElementAt(0).CreatedBy, Is.EqualTo("CreatedBy1"));
-            Assert.That(result.ElementAt(0).FinishTime, Is.EqualTo(finishTime));
+            Assert.That(result.ElementAt(0).FinishTime, Is.EqualTo(finishTime.ToUniversalTime()));
             Assert.That(result.ElementAt(0).NumRevisions, Is.EqualTo(3));
-            Assert.That(result.ElementAt(0).StartTime, Is.EqualTo(startTime));
+            Assert.That(result.ElementAt(0).StartTime, Is.EqualTo(startTime.ToUniversalTime()));
             Assert.That(result.ElementAt(0).DevelopmentTeamName, Is.EqualTo("Enterprise Team"));
             Assert.That(result.ElementAt(0).CurrentBoardColumn, Is.EqualTo("Ready for Prod Deploy"));
             Assert.That(result.ElementAt(0).LastChangedBy, Is.EqualTo("ChangedBy1"));
@@ -192,9 +192,9 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
             Assert.That(result.ElementAt(1).CardState, Is.EqualTo("Active"));
             Assert.That(result.ElementAt(1).CommentCount, Is.EqualTo(2));
             Assert.That(result.ElementAt(1).CreatedBy, Is.EqualTo("CreatedBy2"));
-            Assert.That(result.ElementAt(1).FinishTime, Is.EqualTo(finishTime));
+            Assert.That(result.ElementAt(1).FinishTime, Is.EqualTo(finishTime.ToUniversalTime()));
             Assert.That(result.ElementAt(1).NumRevisions, Is.EqualTo(3));
-            Assert.That(result.ElementAt(1).StartTime, Is.EqualTo(startTime));
+            Assert.That(result.ElementAt(1).StartTime, Is.EqualTo(startTime.ToUniversalTime()));
             Assert.That(result.ElementAt(1).DevelopmentTeamName, Is.EqualTo("Enterprise Team"));
             Assert.That(result.ElementAt(1).CurrentBoardColumn, Is.EqualTo("Working"));
             Assert.That(result.ElementAt(1).LastChangedBy, Is.EqualTo("ChangedBy1"));
@@ -271,9 +271,9 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
             Assert.That(result.ElementAt(0).CardState, Is.EqualTo("Resolved"));
             Assert.That(result.ElementAt(0).CommentCount, Is.EqualTo(10));
             Assert.That(result.ElementAt(0).CreatedBy, Is.EqualTo("CreatedBy1"));
-            Assert.That(result.ElementAt(0).FinishTime, Is.EqualTo(createdAt));
+            Assert.That(result.ElementAt(0).FinishTime, Is.EqualTo(createdAt.ToUniversalTime()));
             Assert.That(result.ElementAt(0).NumRevisions, Is.EqualTo(0));
-            Assert.That(result.ElementAt(0).StartTime, Is.EqualTo(createdAt));
+            Assert.That(result.ElementAt(0).StartTime, Is.EqualTo(createdAt.ToUniversalTime()));
             Assert.That(result.ElementAt(0).DevelopmentTeamName, Is.EqualTo("Assessment Team"));
             Assert.That(result.ElementAt(0).CurrentBoardColumn, Is.EqualTo("Ready for Prod Deploy"));
         }

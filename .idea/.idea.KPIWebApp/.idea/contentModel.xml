@@ -317,6 +317,7 @@
         </e>
         <e p="Controllers" t="Include">
           <e p="ForgotPasswordController.cs" t="Include" />
+          <e p="LeadTimeBoxGraphController.cs" t="Include" />
           <e p="LeadTimeScatterPlotController.cs" t="Include" />
           <e p="LoginUserController.cs" t="Include" />
           <e p="OverviewController.cs" t="Include" />
@@ -326,6 +327,7 @@
           <e p="TaskItemController.cs" t="Include" />
         </e>
         <e p="Helpers" t="Include">
+          <e p="BoxGraphHelper.cs" t="Include" />
           <e p="DateHelper.cs" t="Include" />
           <e p="EmailHelper.cs" t="Include" />
           <e p="ForgotPasswordHelper.cs" t="Include" />
@@ -425,6 +427,7 @@
           </e>
           <e p="DevOpsWorkItemCardDataExtractor" t="Include" />
           <e p="KPIWebApp" t="Include">
+            <e p="BoxGraphHelperTests.cs" t="Include" />
             <e p="DateHelperTests.cs" t="Include" />
             <e p="EmailHelperTests.cs" t="Include" />
             <e p="ForgotPasswordHelperTests.cs" t="Include" />

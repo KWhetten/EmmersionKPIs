@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace KPIWebApp.Controllers
 {
     [ApiController]
-    [Route("lead-time")]
+    [Route("lead-time-scatter")]
     public class LeadTimeController : ControllerBase
     {
         [HttpGet]

@@ -15,17 +15,19 @@
 
   <h4>{{overviewData.totalCards}} Work Item Cards</h4>
   <div class="lead-time">
-    <div class="scatter-plot">
-      <app-lead-time-scatter-plot></app-lead-time-scatter-plot>
+    <div class="lead-time-results">
+      <p><strong>Shortest Lead Time:</strong> {{overviewData.shortestLeadTime}} hours</p>
+      <p><strong>Average Lead Time:</strong> {{overviewData.averageLeadTime}} hours</p>
+      <p><strong>Longest Lead Time:</strong> {{overviewData.longestLeadTime}} hours</p>
     </div>
-    <div class="right-column">
-      <div class="lead-time-box-graph">
-        <app-lead-time-box-graph></app-lead-time-box-graph>
+    <div class="lead-time-charts">
+      <div class="scatter-plot">
+        <app-lead-time-scatter-plot></app-lead-time-scatter-plot>
       </div>
-      <div class="lead-time-results">
-        <p><strong>Longest Lead Time:</strong> {{overviewData.longestLeadTime}} hours</p>
-        <p><strong>Shortest Lead Time:</strong> {{overviewData.shortestLeadTime}} hours</p>
-        <p><strong>Average Lead Time:</strong> {{overviewData.averageLeadTime}} hours</p>
+      <div class="right-column">
+        <div class="lead-time-box-graph">
+          <app-lead-time-box-graph></app-lead-time-box-graph>
+        </div>
       </div>
     </div>
   </div>

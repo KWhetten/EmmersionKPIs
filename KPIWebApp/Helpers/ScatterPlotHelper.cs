@@ -59,38 +59,12 @@ namespace KPIWebApp.Helpers
                 var newData = new Datum
                 {
                     x = datum.FinishTime,
-                    y = CalculateLeadTimeHours(datum)
+                    y = datum.CalculateLeadTimeHours()
                 };
                 scatterPlotData[typeIndex].data.Add(newData);
             }
 
             return scatterPlotData;
-        }
-
-        private static decimal CalculateLeadTimeHours(TaskItem item)
-        {
-            const int hoursInAWorkDay = 8;
-            var startOfDay = new TimeSpan(14, 30, 0);
-            var endOfDay = new TimeSpan(22, 30, 0);
-
-            var days = (decimal) (item.FinishTime - item.StartTime).TotalDays;
-            var totalHours = 0m;
-            if (days > 1)
-            {
-                for (var i = 1; i < Math.Floor(days); ++i)
-                {
-                    if (item.FinishTime.AddDays(-i).DayOfWeek != DayOfWeek.Saturday
-                        && item.FinishTime.AddDays(-i).DayOfWeek != DayOfWeek.Sunday)
-                    {
-                        totalHours += hoursInAWorkDay;
-                    }
-                }
-            }
-
-            totalHours += (decimal) (endOfDay - item.StartTime.TimeOfDay).TotalHours;
-            totalHours += (decimal) (item.FinishTime.TimeOfDay - startOfDay).TotalHours;
-
-            return totalHours;
         }
 
         private ScatterPlotData[] EstablishScatterPlotDataStructure(TaskItemType[] cardTypes)

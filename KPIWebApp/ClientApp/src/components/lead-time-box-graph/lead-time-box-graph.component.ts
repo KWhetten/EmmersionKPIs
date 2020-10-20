@@ -21,11 +21,12 @@ export class LeadTimeBoxGraphComponent extends HomeComponent implements OnInit {
 
   public options: any = {
     chart: {
-      type: 'boxplot'
+      type: 'boxplot',
+      inverted: true
     },
 
     title: {
-      text: 'Highcharts Box Plot Example'
+      text: 'Lead Time by Task Item Type'
     },
 
     legend: {
@@ -33,32 +34,20 @@ export class LeadTimeBoxGraphComponent extends HomeComponent implements OnInit {
     },
 
     xAxis: {
-      categories: ['1', '2', '3', '4', '5'],
+      categories: ['1', '2', '3', '4'],
       title: {
-        text: 'Experiment No.'
+        text: 'Task Item Type'
       }
     },
 
     yAxis: {
       title: {
-        text: 'Observations'
+        text: 'Lead Time'
       },
-      plotLines: [{
-        value: 932,
-        color: 'red',
-        width: 1,
-        label: {
-          text: 'Theoretical mean: 932',
-          align: 'center',
-          style: {
-            color: 'gray'
-          }
-        }
-      }]
     },
 
     series: [{
-      name: 'Observations',
+      name: 'Lead Time',
       data: [
         [760, 801, 848, 895, 965],
         [733, 853, 939, 980, 1080],
@@ -67,14 +56,14 @@ export class LeadTimeBoxGraphComponent extends HomeComponent implements OnInit {
         [834, 836, 864, 882, 910]
       ],
       tooltip: {
-        headerFormat: '<em>Experiment No {point.key}</em><br/>'
+        headerFormat: '<em>Lead Time {point.key}</em><br/>'
       }
     },
       {
         name: 'Outliers',
         color: Highcharts.getOptions().colors[0],
         type: 'scatter',
-        data: [ // x, y positions where 0 is the first category
+        data:[
           [0, 644],
           [4, 718],
           [4, 951],
@@ -92,6 +81,24 @@ export class LeadTimeBoxGraphComponent extends HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    Highcharts.chart('lead-time-box-graph-container', this.options);
+    this.http.get<BoxGraphData>(this.baseUrl + 'lead-time-box', {
+      params: {startDateString: this.startDate, endDateString: this.endDate}
+    })
+      .subscribe(x => {
+        let array = new Array(x["entries"].length);
+        let i = 0;
+        x["entries"].forEach(function(item) {
+          array[i] = [item["minimum"], item["lowerQuartile"], item["median"], item["upperQuartile"], item["maximum"]]
+          i++;
+        });
+        this.options.series[0].data = array;
+        this.options.series[1].data = x["outliers"];
+        Highcharts.chart('lead-time-box-graph-container', this.options);
+      });
   }
+}
+
+class BoxGraphData {
+  entries: [];
+  outliers: [];
 }

@@ -61,7 +61,7 @@ export class LeadTimeScatterPlotComponent extends HomeComponent implements OnIni
   }
 
   ngOnInit() {
-    this.http.get<ScatterPlotData[]>(this.baseUrl + 'lead-time', {
+    this.http.get<ScatterPlotData[]>(this.baseUrl + 'lead-time-scatter', {
       params: {startDateString: this.startDate, endDateString: this.endDate}
     })
       .subscribe(x => {
