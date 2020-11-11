@@ -9,7 +9,7 @@ namespace KPIWebApp.Helpers
 
         public PasswordChangeHelper()
         {
-            userRepository = new UserRepository(new DatabaseConnection());
+            userRepository = new UserRepository();
         }
         public PasswordChangeHelper(IUserRepository userRepository)
         {

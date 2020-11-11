@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using DataAccess.ApiWrapper;
+using DataAccess.Api;
 using DataAccess.DataRepositories;
 using DataAccess.Deserialize;
+using DataAccess.Deserialize.Kanbanize;
 using RestSharp;
 
 namespace KPIDataExtractor
@@ -11,42 +12,45 @@ namespace KPIDataExtractor
     public static class Program
     {
         private static readonly IDevOpsApiRepository DevOpsApiRepository = new DevOpsApiRepository(new RestClient());
-        private static readonly IKanbanizeApiRepository KanbanizeApiRepository = new KanbanizeApiRepository(new RestClient());
-        private static readonly ReleaseRepository ReleaseRepository = new ReleaseRepository(new DatabaseConnection());
+        private static readonly IKanbanizeApiRepository KanbanizeApiRepository = new KanbanizeApi(new RestClient());
+        private static readonly ReleaseRepository ReleaseRepository = new ReleaseRepository();
         private static readonly IDevOpsDeserializer DevOpsDeserializer = new DevOpsDeserializer();
-        private static readonly IKanbanizeDeserializer KanbanizeDeserializer
-            = new KanbanizeDeserializer(KanbanizeApiRepository);
-        private static readonly TaskItemRepository TaskItemRepository = new TaskItemRepository(new DatabaseConnection());
+        private static readonly TaskItemRepository TaskItemRepository = new TaskItemRepository();
+
+        private static readonly IKanbanizeTaskItemDeserializer KanbanizeTaskItemDeserializer =
+            new KanbanizeTaskItemDeserializer();
 
         public static async Task Main()
         {
             await InsertReleasesIntoDatabaseFromApiAsync();
 
-            await InsertWorkItemsIntoDatabaseFromApiAsync();
+            await InsertTaskItemsIntoDatabaseFromApiAsync();
         }
 
         private static async Task InsertReleasesIntoDatabaseFromApiAsync()
         {
             var releases = DevOpsApiRepository.GetReleaseList();
 
-            await ReleaseRepository.InsertReleaseListAsync(DevOpsDeserializer.Releases(releases));
+            await ReleaseRepository.InsertReleaseListAsync(DevOpsDeserializer.DeserializeReleases(releases));
         }
 
-        private static async Task InsertWorkItemsIntoDatabaseFromApiAsync()
+        private static async Task InsertTaskItemsIntoDatabaseFromApiAsync()
         {
             const int enterpriseTeamBoardId = 4;
             const int assessmentsTeamBoardId = 5;
 
-            await InsertKanbanizeCardsAsync(enterpriseTeamBoardId);
-            await InsertKanbanizeCardsAsync(assessmentsTeamBoardId);
+            await InsertKanbanizeTaskItemsAsync(enterpriseTeamBoardId);
+            await InsertKanbanizeTaskItemsAsync(assessmentsTeamBoardId);
         }
 
-        private static async Task InsertKanbanizeCardsAsync(int boardId)
+        private static async Task InsertKanbanizeTaskItemsAsync(int boardId)
         {
             var taskItemList = KanbanizeApiRepository.GetTaskItemList(boardId);
             if (taskItemList.Any())
             {
-                await TaskItemRepository.InsertTaskItemListAsync(await KanbanizeDeserializer.TaskItemListAsync(taskItemList, boardId));
+                var deserialized =
+                    await KanbanizeTaskItemDeserializer.DeserializeTaskItemListAsync(taskItemList, boardId);
+                await TaskItemRepository.InsertTaskItemListAsync(deserialized);
             }
             else
                 Console.WriteLine("No new cards.");

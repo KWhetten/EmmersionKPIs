@@ -6,19 +6,18 @@
 <div *ngIf="overviewData">
 
   <h2>Results:</h2>
-  <p class="small">Search took {{stopTime()}}</p>
   <h3><strong>From:</strong> {{startDate}} <strong>to</strong> {{endDate}}</h3>
 
   <div class="cumulative-flow-diagram">
-    <div>Cumulative Flow Diragram goes here...</div>
+    <app-cumulative-flow-diagram></app-cumulative-flow-diagram>
   </div>
 
   <h4>{{overviewData.totalCards}} Work Item Cards</h4>
   <div class="lead-time">
     <div class="lead-time-results">
-      <p><strong>Shortest Lead Time:</strong> {{overviewData.shortestLeadTime}} hours</p>
-      <p><strong>Average Lead Time:</strong> {{overviewData.averageLeadTime}} hours</p>
-      <p><strong>Longest Lead Time:</strong> {{overviewData.longestLeadTime}} hours</p>
+      <p><strong>Shortest Lead Time:</strong> {{overviewData.shortestLeadTime}} Hours of Work</p>
+      <p><strong>Average Lead Time:</strong> {{overviewData.averageLeadTime}} Hours of Work</p>
+      <p><strong>Longest Lead Time:</strong> {{overviewData.longestLeadTime}} Hours of Work</p>
     </div>
     <div class="lead-time-charts">
       <div class="scatter-plot">

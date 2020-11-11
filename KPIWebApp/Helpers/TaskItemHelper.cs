@@ -12,18 +12,18 @@ namespace KPIWebApp.Helpers
 
         public TaskItemHelper()
         {
-            taskItemRepository = new TaskItemRepository(new DatabaseConnection());
+            taskItemRepository = new TaskItemRepository();
         }
         public TaskItemHelper(ITaskItemRepository taskItemRepository)
         {
             this.taskItemRepository = taskItemRepository;
         }
 
-        public async Task<TaskItem[]> GetTaskItems(DateTime startDate, DateTime endDate)
+        public async Task<TaskItem[]> GetTaskItems(DateTimeOffset startDate, DateTimeOffset endDate)
         {
             var taskItems = await taskItemRepository.GetTaskItemListAsync(startDate, endDate);
 
-            var badTaskItems = taskItems.Where(taskItem => taskItem.FinishTime == DateTime.MaxValue).ToList();
+            var badTaskItems = taskItems.Where(taskItem => taskItem.FinishTime == null).ToList();
 
             foreach (var badTaskItem in badTaskItems)
             {

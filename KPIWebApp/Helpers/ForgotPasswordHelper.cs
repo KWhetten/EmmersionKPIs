@@ -10,7 +10,7 @@ namespace KPIWebApp.Helpers
 
         public ForgotPasswordHelper()
         {
-            userRepository = new UserRepository(new DatabaseConnection());
+            userRepository = new UserRepository();
             emailHelper = new EmailHelper();
         }
 

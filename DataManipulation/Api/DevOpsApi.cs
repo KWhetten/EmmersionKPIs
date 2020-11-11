@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Text;
+using DataAccess.DataRepositories;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
-namespace DataAccess.ApiWrapper
+namespace DataAccess.Api
 {
     public interface IDevOpsApiRepository
     {
@@ -68,10 +69,10 @@ namespace DataAccess.ApiWrapper
                     var temp = GetInformation(uri);
                     var newResult = JObject.Parse(temp)["value"] as JArray;
 
-                foreach (var item in newResult)
-                {
-                    resultList?.Add(item);
-                }
+                    foreach (var item in newResult)
+                    {
+                        resultList?.Add(item);
+                    }
                 }
                 catch (Exception ex)
                 {

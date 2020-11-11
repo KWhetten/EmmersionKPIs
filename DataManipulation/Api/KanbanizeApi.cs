@@ -1,25 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Xml;
+using DataAccess.DataRepositories;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
-namespace DataAccess.ApiWrapper
+namespace DataAccess.Api
 {
     public interface IKanbanizeApiRepository
     {
         string GetInformation(string uri, string body);
         JToken GetTaskItemList(int boardId);
-        JToken GetTaskItemHistory(JToken taskItem, int boardId);
+        Task<JToken> GetHistoryEventsAsync(List<int> taskItemIds, int boardId);
     }
 
-    public class KanbanizeApiRepository : IKanbanizeApiRepository
+    public class KanbanizeApi : IKanbanizeApiRepository
     {
         private readonly IRestClient client;
         private const string ApiKey = "TUilAxpp68ooVyExDLxkwNfQpVt8TTO7ZMWk1Mif";
         private const string Subdomain = "emmersion";
 
-        public KanbanizeApiRepository(IRestClient client)
+        public KanbanizeApi()
+        {
+            client = new RestClient();
+        }
+
+        public KanbanizeApi(IRestClient client)
         {
             this.client = client;
         }
@@ -52,9 +61,19 @@ namespace DataAccess.ApiWrapper
 
             foreach (var item in jsonList)
             {
-                if (item["workflow_name"].ToString().Contains("Delivery"))
+                var taskItemRepository = new TaskItemRepository();
+                if (item["workflow_name"].ToString().Contains("Delivery")
+                    /*&& !taskItemRepository.TaskItemHasAlreadyBeenReleasedAsync((int) item["taskid"])*/)
                 {
                     result.Add(item);
+                }
+                else
+                {
+                    if (item["workflow_name"].ToString().Contains("Delivery"))
+                    {
+                        Console.WriteLine(
+                            $"Task {item["taskid"]} has already been released. No more updates are needed.");
+                    }
                 }
             }
 
@@ -79,8 +98,8 @@ namespace DataAccess.ApiWrapper
 
                 foreach (var item in jsonList)
                 {
-                    if ((boardId == 4 && (int) item["workflow_id"] == 19) ||
-                        (boardId == 5 && (int) item["workflow_id"] == 8))
+                    if ((boardId == 4 && (int) item["workflow_id"] == 19)
+                        || (boardId == 5 && (int) item["workflow_id"] == 8))
                     {
                         result.Add(item);
                     }
@@ -94,25 +113,31 @@ namespace DataAccess.ApiWrapper
             return result;
         }
 
-        public JToken GetTaskItemHistory(JToken jsonTaskItem, int boardId)
+        public async Task<JToken> GetHistoryEventsAsync(List<int> taskItemIds, int boardId)
         {
+            var taskItemIdsString = taskItemIds.Aggregate("", (current, taskItemId) => current + $"{taskItemId},");
+            taskItemIdsString = taskItemIdsString.Substring(0, taskItemIdsString.Length - 1);
+
             var uri =
                 $"http://{Subdomain}.kanbanize.com/index.php/api/kanbanize/get_task_details/";
-            var body = "{\"boardid\":\"" + boardId + "\", \"taskid\":\"" + jsonTaskItem["taskid"] + "\", \"history\": \"yes\"}";
-
+            var body = "{\"boardid\":\"" + boardId + "\", \"taskid\":[" + taskItemIdsString +
+                       "], \"history\": \"yes\"}";
             var xmlTaskItemDetails = GetInformation(uri, body);
 
             var doc = new XmlDocument();
             doc.LoadXml(xmlTaskItemDetails);
 
             var json = JObject.Parse(JsonConvert.SerializeXmlNode(doc));
+
             try
             {
-                return json["xml"]["historydetails"]["item"];
+                return json["xml"]["item"];
             }
-            catch
+            catch (Exception ex)
             {
-                return "";
+                Console.WriteLine(
+                    $"Unable to get history for Task {taskItemIds}.\nException: {ex.Message}\nJson:{json}");
+                return new JArray();
             }
         }
     }

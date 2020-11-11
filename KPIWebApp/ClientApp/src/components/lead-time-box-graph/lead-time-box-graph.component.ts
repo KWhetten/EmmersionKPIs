@@ -34,7 +34,7 @@ export class LeadTimeBoxGraphComponent extends HomeComponent implements OnInit {
     },
 
     xAxis: {
-      categories: ['1', '2', '3', '4'],
+      categories: [],
       title: {
         text: 'Task Item Type'
       }
@@ -42,19 +42,13 @@ export class LeadTimeBoxGraphComponent extends HomeComponent implements OnInit {
 
     yAxis: {
       title: {
-        text: 'Lead Time'
+        text: 'Lead Time (Hours of Work)'
       },
     },
 
     series: [{
       name: 'Lead Time',
-      data: [
-        [760, 801, 848, 895, 965],
-        [733, 853, 939, 980, 1080],
-        [714, 762, 817, 870, 918],
-        [724, 802, 806, 871, 950],
-        [834, 836, 864, 882, 910]
-      ],
+      data: [],
       tooltip: {
         headerFormat: '<em>Lead Time {point.key}</em><br/>'
       }
@@ -63,12 +57,7 @@ export class LeadTimeBoxGraphComponent extends HomeComponent implements OnInit {
         name: 'Outliers',
         color: Highcharts.getOptions().colors[0],
         type: 'scatter',
-        data:[
-          [0, 644],
-          [4, 718],
-          [4, 951],
-          [4, 969]
-        ],
+        data:[],
         marker: {
           fillColor: 'white',
           lineWidth: 1,
@@ -85,13 +74,16 @@ export class LeadTimeBoxGraphComponent extends HomeComponent implements OnInit {
       params: {startDateString: this.startDate, endDateString: this.endDate}
     })
       .subscribe(x => {
-        let array = new Array(x["entries"].length);
+        let boxGraphDataArray = new Array(x["entries"].length);
+        let categoryArray = new Array(x["entries"].length);
         let i = 0;
         x["entries"].forEach(function(item) {
-          array[i] = [item["minimum"], item["lowerQuartile"], item["median"], item["upperQuartile"], item["maximum"]]
+          categoryArray[i] = item["taskItemType"]
+          boxGraphDataArray[i] = [item["minimum"], item["lowerQuartile"], item["median"], item["upperQuartile"], item["maximum"]]
           i++;
         });
-        this.options.series[0].data = array;
+        this.options.xAxis.categories = categoryArray;
+        this.options.series[0].data = boxGraphDataArray;
         this.options.series[1].data = x["outliers"];
         Highcharts.chart('lead-time-box-graph-container', this.options);
       });

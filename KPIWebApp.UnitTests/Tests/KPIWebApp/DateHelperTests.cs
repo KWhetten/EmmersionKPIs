@@ -11,7 +11,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
         {
             var result = DateHelper.GetFinishDate("09/01/2020");
 
-            Assert.That(result, Is.EqualTo(new DateTime(2020, 09 ,1)));
+            Assert.That(result, Is.EqualTo(new DateTimeOffset(new DateTime(2020, 09 ,1))));
         }
 
         [Test]
@@ -19,7 +19,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
         {
             var result = DateHelper.GetFinishDate("This is not a date!");
 
-            Assert.That(result, Is.EqualTo(new DateTime(2015, 1 ,1)));
+            Assert.That(result, Is.EqualTo(new DateTimeOffset(new DateTime(2015, 1 ,1))));
         }
 
         [Test]
@@ -27,7 +27,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
         {
             var result = DateHelper.GetFinishDate(null);
 
-            Assert.That(result, Is.EqualTo(DateTime.Today.AddDays(1)));
+            Assert.That(result, Is.EqualTo(new DateTimeOffset(DateTime.Today.AddDays(1))));
         }
 
 
@@ -36,7 +36,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
         {
             var result = DateHelper.GetStartDate("09/30/2020");
 
-            Assert.That(result, Is.EqualTo(new DateTime(2020, 09 ,30)));
+            Assert.That(result, Is.EqualTo(new DateTimeOffset(new DateTime(2020, 09 ,30))));
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
         {
             var result = DateHelper.GetStartDate("This is not a date!");
 
-            Assert.That(result, Is.EqualTo(new DateTime(2015, 1 ,1)));
+            Assert.That(result, Is.EqualTo(new DateTimeOffset(new DateTime(2015, 1 ,1))));
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
         {
             var result = DateHelper.GetStartDate(null);
 
-            Assert.That(result, Is.EqualTo(new DateTime(2015, 1 ,1)));
+            Assert.That(result, Is.EqualTo(new DateTimeOffset(new DateTime(2015, 1 ,1))));
         }
     }
 }

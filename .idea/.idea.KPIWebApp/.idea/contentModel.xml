@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Code\EmmersionKPIs" t="IncludeFlat">
+      <e p="AdHocs" t="Include" />
       <e p="DataExtractor" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="DataExtractor.csproj" t="IncludeRecursive" />
@@ -15,9 +16,9 @@
         <e p="Program.cs" t="Include" />
       </e>
       <e p="DataManipulation" t="IncludeRecursive">
-        <e p="ApiWrapper" t="Include">
-          <e p="DevOpsApiRepository.cs" t="Include" />
-          <e p="KanbanizeApiRepository.cs" t="Include" />
+        <e p="Api" t="Include">
+          <e p="DevOpsApi.cs" t="Include" />
+          <e p="KanbanizeApi.cs" t="Include" />
         </e>
         <e p="App.config" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
@@ -34,7 +35,10 @@
         </e>
         <e p="Deserialize" t="Include">
           <e p="DevOpsDeserializer.cs" t="Include" />
-          <e p="KanbanizeDeserializer.cs" t="Include" />
+          <e p="Kanbanize" t="Include">
+            <e p="KanbanizeHistoryEventDeserializer.cs" t="Include" />
+            <e p="KanbanizeTaskItemDeserializer.cs" t="Include" />
+          </e>
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -275,6 +279,11 @@
               <e p="success.png" t="Include" />
             </e>
             <e p="components" t="Include">
+              <e p="cumulative-flow-diagram" t="Include">
+                <e p="cumulative-flow-diagram.component.css" t="Include" />
+                <e p="cumulative-flow-diagram.component.html" t="Include" />
+                <e p="cumulative-flow-diagram.component.ts" t="Include" />
+              </e>
               <e p="filter-options" t="Include">
                 <e p="filter-options.component.css" t="Include" />
                 <e p="filter-options.component.html" t="Include" />
@@ -316,6 +325,7 @@
           <e p="tslint.json" t="Include" />
         </e>
         <e p="Controllers" t="Include">
+          <e p="CumulativeFlowDiagramController.cs" t="Include" />
           <e p="ForgotPasswordController.cs" t="Include" />
           <e p="LeadTimeBoxGraphController.cs" t="Include" />
           <e p="LeadTimeScatterPlotController.cs" t="Include" />
@@ -328,6 +338,7 @@
         </e>
         <e p="Helpers" t="Include">
           <e p="BoxGraphHelper.cs" t="Include" />
+          <e p="CumulativeFlowDiagramHelper.cs" t="Include" />
           <e p="DateHelper.cs" t="Include" />
           <e p="EmailHelper.cs" t="Include" />
           <e p="ForgotPasswordHelper.cs" t="Include" />
@@ -388,7 +399,7 @@
               <e p="DevOpsApiRepositoryTests.cs" t="Include" />
               <e p="KanbanizeApiRepositoryTests.cs" t="Include" />
             </e>
-            <e p="DatabaseAccess" t="Include">
+            <e p="DataRepositories" t="Include">
               <e p="AuthorizationRepositoryTests.cs" t="Include" />
               <e p="ReleaseRepositoryTests.cs" t="Include" />
               <e p="TaskItemRepositoryTests.cs" t="Include" />
@@ -422,12 +433,12 @@
           <e p="DataManipulation" t="Include">
             <e p="Deserializer" t="Include">
               <e p="DevOpsDeserializerTests.cs" t="Include" />
-              <e p="KanbanizeDeserializerTests.cs" t="Include" />
             </e>
           </e>
           <e p="DevOpsWorkItemCardDataExtractor" t="Include" />
           <e p="KPIWebApp" t="Include">
             <e p="BoxGraphHelperTests.cs" t="Include" />
+            <e p="CumulativeFlowDiagramHelperTests.cs" t="Include" />
             <e p="DateHelperTests.cs" t="Include" />
             <e p="EmailHelperTests.cs" t="Include" />
             <e p="ForgotPasswordHelperTests.cs" t="Include" />
@@ -441,6 +452,18 @@
         </e>
       </e>
       <e p="packages" t="ExcludeRecursive" />
+      <e p="UpdateReleaseDataForAllTasks" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="UpdateReleaseDataForAllTasks.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="UpdateReleaseDataForAllTasks.csproj" t="IncludeRecursive" />
+      </e>
     </e>
     <e p="C:\Users\krwhe\.nuget\packages\microsoft.net.test.sdk\16.4.0\build\netcoreapp2.1" t="Include">
       <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />

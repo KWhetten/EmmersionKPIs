@@ -9,7 +9,7 @@ namespace KPIWebApp.Helpers
 
         public RegisterHelper()
         {
-            userRepository = new UserRepository(new DatabaseConnection());
+            userRepository = new UserRepository();
         }
         public RegisterHelper(IUserRepository userRepository)
         {

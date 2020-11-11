@@ -11,8 +11,8 @@ namespace KPIDataExtractor.UnitTests.TestObjects.DevOps
         public int definitionEnvironmentId { get; set; }
         public JsonReleaseEnvironment releaseEnvironment { get; set; }
         public int attempt { get; set; }
-        public DateTime startedOn { get; set; }
-        public DateTime completedOn { get; set; }
+        public DateTimeOffset startedOn { get; set; }
+        public DateTimeOffset completedOn { get; set; }
         public ReleaseDefinition releaseDefinition;
     }
 

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace KPIWebApp.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("overview")]
     public class OverviewController : ControllerBase
     {
         [HttpGet]

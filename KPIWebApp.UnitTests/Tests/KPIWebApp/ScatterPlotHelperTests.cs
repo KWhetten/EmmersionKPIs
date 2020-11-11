@@ -20,28 +20,28 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 new Release
                 {
                     Id = 1,
-                    Status = "Status1",
+                    State = "Status1",
                     ReleaseEnvironment = new ReleaseEnvironment
                     {
                         Id = 1,
                         Name = "Name1"
                     },
-                    StartTime = DateTime.Today.AddDays(-5),
-                    FinishTime = DateTime.Today.AddDays(-4),
+                    StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-5)),
+                    FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-4)),
                     Name = "Name1",
                     Attempts = 1
                 },
                 new Release
                 {
                     Id = 2,
-                    Status = "Status2",
+                    State = "Status2",
                     ReleaseEnvironment = new ReleaseEnvironment
                     {
                         Id = 2,
                         Name = "Name2"
                     },
-                    StartTime = DateTime.Today.AddDays(-7),
-                    FinishTime = DateTime.Today,
+                    StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-7)),
+                    FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27)),
                     Name = "Name2",
                     Attempts = 2
                 }
@@ -50,16 +50,16 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
             {
                 Id = 1,
                 Title = "Title1",
-                StartTime = DateTime.Today.AddDays(-10),
-                FinishTime = DateTime.Today.AddDays(-5),
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-10)),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-5)),
                 Type = TaskItemType.Engineering,
                 DevelopmentTeamName = "Team1",
-                CreatedOn = DateTime.Today.AddDays(-8),
+                CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-8)),
                 CreatedBy = "CreatedBy1",
-                LastChangedOn = DateTime.Today,
+                LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
                 LastChangedBy = "ChangedBy1",
                 CurrentBoardColumn = "BoardColumn1",
-                CardState = "State1",
+                State = "State1",
                 Impact = "Impact 1",
                 CommentCount = 1,
                 NumRevisions = 1,
@@ -69,16 +69,16 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
             {
                 Id = 2,
                 Title = "Title2",
-                StartTime = DateTime.Today.AddDays(-5),
-                FinishTime = DateTime.Today.AddDays(-4),
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-5)),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-4)),
                 Type = TaskItemType.Product,
                 DevelopmentTeamName = "Team2",
-                CreatedOn = DateTime.Today.AddDays(-1),
+                CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-1)),
                 CreatedBy = "CreatedBy2",
-                LastChangedOn = DateTime.Today,
+                LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
                 LastChangedBy = "ChangedBy2",
                 CurrentBoardColumn = "BoardColumn2",
-                CardState = "State2",
+                State = "State2",
                 Impact = "Impact 2",
                 CommentCount = 2,
                 NumRevisions = 2,
@@ -88,16 +88,16 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
             {
                 Id = 3,
                 Title = "Title3",
-                StartTime = DateTime.Today.AddDays(-6),
-                FinishTime = DateTime.Today.AddDays(-3),
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-6)),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-3)),
                 Type = TaskItemType.Unanticipated,
                 DevelopmentTeamName = "Team3",
-                CreatedOn = DateTime.Today.AddDays(-1),
+                CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-1)),
                 CreatedBy = "CreatedBy3",
-                LastChangedOn = DateTime.Today,
+                LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
                 LastChangedBy = "ChangedBy3",
                 CurrentBoardColumn = "BoardColumn3",
-                CardState = "State3",
+                State = "State3",
                 Impact = "Impact 3",
                 CommentCount = 3,
                 NumRevisions = 3,
@@ -107,16 +107,16 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
             {
                 Id = 4,
                 Title = "Title4",
-                StartTime = DateTime.Today.AddDays(-7),
-                FinishTime = DateTime.Today.AddDays(-2),
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-7)),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-2)),
                 Type = TaskItemType.Unanticipated,
                 DevelopmentTeamName = "Team4",
-                CreatedOn = DateTime.Today.AddDays(-1),
+                CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-1)),
                 CreatedBy = "CreatedBy4",
-                LastChangedOn = DateTime.Today,
+                LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
                 LastChangedBy = "ChangedBy4",
                 CurrentBoardColumn = "BoardColumn4",
-                CardState = "State4",
+                State = "State4",
                 Impact = "Impact 4",
                 CommentCount = 4,
                 NumRevisions = 4,
@@ -126,16 +126,16 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
             {
                 Id = 5,
                 Title = "Title5",
-                StartTime = DateTime.Today.AddDays(-5),
-                FinishTime = DateTime.Today.AddDays(-1),
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-5)),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-1)),
                 Type = TaskItemType.Engineering,
                 DevelopmentTeamName = "Team5",
-                CreatedOn = DateTime.Today.AddDays(-1),
+                CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-1)),
                 CreatedBy = "CreatedBy5",
-                LastChangedOn = DateTime.Today,
+                LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
                 LastChangedBy = "ChangedBy5",
                 CurrentBoardColumn = "BoardColumn5",
-                CardState = "State5",
+                State = "State5",
                 Impact = "Impact 5",
                 CommentCount = 5,
                 NumRevisions = 5,
@@ -151,9 +151,9 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
             };
 
             var mockTaskItemRepository = new Mock<ITaskItemRepository>();
-            mockTaskItemRepository.Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+            mockTaskItemRepository.Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
                 .ReturnsAsync(taskItemList);
-            mockTaskItemRepository.Setup(x => x.GetTaskItemTypesAsync()).ReturnsAsync(new []
+            mockTaskItemRepository.Setup(x => x.GetTaskItemTypes()).Returns(new []
             {
                 TaskItemType.Product,
                 TaskItemType.Engineering,
@@ -161,7 +161,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
             });
 
             var scatterPlotHelper = new ScatterPlotHelper(mockTaskItemRepository.Object);
-            var result = await scatterPlotHelper.GetLeadTimeScatterPlotData(DateTime.Today.AddDays(-10), DateTime.Today);
+            var result = scatterPlotHelper.GetLeadTimeScatterPlotData(new DateTimeOffset(new DateTime(2020, 10, 12), TimeSpan.Zero), new DateTimeOffset(new DateTime(2020, 10, 24), TimeSpan.Zero));
 
             Console.Write("");
 

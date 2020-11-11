@@ -16,8 +16,8 @@ create table Release
     ReleaseEnvironmentId int
         constraint Release_ReleaseEnvironment_Id_fk
             references ReleaseEnvironment,
-    StartTime            datetime,
-    FinishTime           datetime,
+    StartTime            DateTimeOffset,
+    FinishTime           DateTimeOffset,
     Name                 nvarchar(100),
     Attempts             int
 )
@@ -46,15 +46,15 @@ create table TaskItem
         constraint TaskItem_pk
             primary key nonclustered,
     Title               nvarchar(255),
-    StartTime           datetime,
-    FinishTime          datetime,
+    StartTime           DateTimeOffset,
+    FinishTime          DateTimeOffset,
     TaskItemTypeId      int
         constraint TaskItem_TaskItemType_Id_fk
             references TaskItemType,
     DevelopmentTeamName nvarchar(50),
-    CreatedOn           datetime,
+    CreatedOn           DateTimeOffset,
     CreatedBy           nvarchar(50),
-    LastChangedOn       datetime,
+    LastChangedOn       DateTimeOffset,
     LastChangedBy       nvarchar(50),
     CurrentBoardColumn  nvarchar(255),
     CardState           nvarchar(255),

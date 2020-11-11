@@ -17,6 +17,7 @@ import {ChangePasswordComponent} from './change-password/change-password.compone
 import {ForgotPasswordComponent} from './forgot-password/forgot-password.component';
 import {LeadTimeScatterPlotComponent} from '../components/lead-time-scatter-plot/lead-time-scatter-plot.component'
 import {LeadTimeBoxGraphComponent} from '../components/lead-time-box-graph/lead-time-box-graph.component';
+import {CumulativeFlowDiagramComponent} from '../components/cumulative-flow-diagram/cumulative-flow-diagram.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {LeadTimeBoxGraphComponent} from '../components/lead-time-box-graph/lead-
     CreatePasswordComponent,
     ChangePasswordComponent,
     ForgotPasswordComponent,
+    CumulativeFlowDiagramComponent,
     LeadTimeScatterPlotComponent,
     LeadTimeBoxGraphComponent
   ],

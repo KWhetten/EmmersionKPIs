@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevOpsTaskItemDataExtractor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KPIWebApp.IntegrationTests", "KPIWebApp.IntegrationTests\KPIWebApp.IntegrationTests.csproj", "{AC974520-B88C-4910-AF7D-DD4DD4803FA0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateReleaseDataForAllTasks", "UpdateReleaseDataForAllTasks\UpdateReleaseDataForAllTasks.csproj", "{EDF9225A-EA94-41E5-B7BD-8067E4947701}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdHocs", "AdHocs", "{FD4FB7CD-5149-4809-BF4E-09E9EA42E443}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +46,12 @@ Global
 		{AC974520-B88C-4910-AF7D-DD4DD4803FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC974520-B88C-4910-AF7D-DD4DD4803FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC974520-B88C-4910-AF7D-DD4DD4803FA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDF9225A-EA94-41E5-B7BD-8067E4947701}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDF9225A-EA94-41E5-B7BD-8067E4947701}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDF9225A-EA94-41E5-B7BD-8067E4947701}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDF9225A-EA94-41E5-B7BD-8067E4947701}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EDF9225A-EA94-41E5-B7BD-8067E4947701} = {FD4FB7CD-5149-4809-BF4E-09E9EA42E443}
 	EndGlobalSection
 EndGlobal

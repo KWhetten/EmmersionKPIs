@@ -10,18 +10,24 @@ namespace DataAccess.DataRepositories
     public interface IReleaseRepository
     {
         Task InsertReleaseListAsync(IEnumerable<Release> releases);
-        Task<IEnumerable<Release>> GetReleaseListAsync(DateTime startDate, DateTime endDate);
+        Task<IEnumerable<Release>> GetReleaseListAsync(DateTimeOffset startDate, DateTimeOffset endDate);
         Task InsertReleaseAsync(Release release);
-        Task<Release> GetFirstReleaseBeforeDateAsync(DateTime finishTime);
+        Task<Release> GetFirstReleaseBeforeDateAsync(DateTimeOffset? finishTime);
         Task<ReleaseEnvironment> GetReleaseEnvironmentByIdAsync(int releaseEnvironmentId);
         Task<Release> GetReleaseByIdAsync(int releaseId);
         Task RemoveReleaseByIdAsync(int releaseId);
         Task RemoveReleaseEnvironmentById(int releaseEnvironmentId);
+        bool ReleaseIsFinishedInDatabase(int id);
     }
 
     public class ReleaseRepository : IReleaseRepository
     {
         private readonly DatabaseConnection databaseConnection;
+
+        public ReleaseRepository()
+        {
+            databaseConnection = new DatabaseConnection();
+        }
 
         public ReleaseRepository(DatabaseConnection databaseConnection)
         {
@@ -38,7 +44,7 @@ namespace DataAccess.DataRepositories
             }
         }
 
-        public async Task<IEnumerable<Release>> GetReleaseListAsync(DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<Release>> GetReleaseListAsync(DateTimeOffset startDate, DateTimeOffset endDate)
         {
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
@@ -46,7 +52,7 @@ namespace DataAccess.DataRepositories
                 var startDateString = ($"{startDate:s}").Replace("T", " ");
                 var endDateString = ($"{endDate:s}").Replace("T", " ");
                 var sql = $"SELECT r.Id, " +
-                          "r.Status, " +
+                          "r.state, " +
                           "r.ReleaseEnvironmentId, " +
                           "re.Name as ReleaseEnvironmentName, " +
                           "r.StartTime, " +
@@ -73,11 +79,9 @@ namespace DataAccess.DataRepositories
                       $"INSERT INTO ReleaseEnvironment VALUES (@releaseEnvironmentId, @releaseEnvironmentName)";
             await databaseConnection.DbConnection.ExecuteAsync(sql, new {releaseEnvironmentId, releaseEnvironmentName});
 
-            var finishTime = release.FinishTime != DateTime.MaxValue
-                ? release.FinishTime
-                : (DateTime?) null;
+            var finishTime = release.FinishTime;
             sql = "IF EXISTS(SELECT * FROM Release WHERE ID = @id) " +
-                  $"UPDATE Release SET Status = @status, " +
+                  $"UPDATE Release SET state = @state, " +
                   "ReleaseEnvironmentId = @releaseEnvironmentId, " +
                   "StartTime = @startTime, " +
                   "FinishTime = @finishTime, " +
@@ -85,26 +89,26 @@ namespace DataAccess.DataRepositories
                   "Attempts = @attempts " +
                   "WHERE Id = @id " +
                   "ELSE " +
-                  $"INSERT INTO Release VALUES (@id, @status, @releaseEnvironmentId, @startTime, @finishTime, @name, @attempts);";
+                  $"INSERT INTO Release VALUES (@id, @state, @releaseEnvironmentId, @startTime, @finishTime, @name, @attempts);";
             await databaseConnection.DbConnection.ExecuteAsync(sql, new
             {
-                id = release.Id, status = release.Status, releaseEnvironmentId, startTime = release.StartTime,
+                id = release.Id, state = release.State, releaseEnvironmentId, startTime = release.StartTime,
                 finishTime, name = release.Name, attempts = release.Attempts
             });
             Console.WriteLine($"Inserted or Updated Release: {release.Id}");
         }
 
-        public async Task<Release> GetFirstReleaseBeforeDateAsync(DateTime finishTime)
+        public async Task<Release> GetFirstReleaseBeforeDateAsync(DateTimeOffset? finishTime)
         {
-            if (finishTime == DateTime.MaxValue)
+            if (finishTime == null)
                 return new Release();
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
             {
-                var startTimeString = finishTime.AddDays(-30).ToString("yyyy'-'MM'-'dd HH':'mm':'ss'.'fff");
-                var finishTimeString = finishTime.ToString("yyyy'-'MM'-'dd HH':'mm':'ss'.'fff");
+                var startTimeString = finishTime?.AddDays(-30).ToString("yyyy'-'MM'-'dd HH':'mm':'ss'.'fff");
+                var finishTimeString = finishTime?.ToString("yyyy'-'MM'-'dd HH':'mm':'ss'.'fff");
                 var sql = $"SELECT r.Id, " +
-                          "r.Status, " +
+                          "r.state, " +
                           "r.ReleaseEnvironmentId, " +
                           "re.Name as ReleaseEnvironmentName, " +
                           "r.StartTime, " +
@@ -140,7 +144,7 @@ namespace DataAccess.DataRepositories
             {
                 var sql =
                     $"SELECT r.Id, " +
-                    "r.Status, " +
+                    "r.state, " +
                     "r.ReleaseEnvironmentId, " +
                     "re.Name as ReleaseEnvironmentName, " +
                     "r.StartTime, " +
@@ -154,7 +158,7 @@ namespace DataAccess.DataRepositories
                 return new Release
                 {
                     Id = info.Id,
-                    Status = info.Status,
+                    State = info.state,
                     ReleaseEnvironment = new ReleaseEnvironment
                     {
                         Id = info.ReleaseEnvironmentId,
@@ -188,6 +192,17 @@ namespace DataAccess.DataRepositories
             }
         }
 
+        public bool ReleaseIsFinishedInDatabase(int id)
+        {
+            databaseConnection.GetNewConnection();
+            using (databaseConnection.DbConnection)
+            {
+                var sql = $"SELECT * FROM Release WHERE Id = @id";
+                var result = databaseConnection.DbConnection.Query(sql, new {id});
+                return result.Any();
+            }
+        }
+
         private static List<Release> GetListOfReleasesFromReleaseInfo(List<ReleaseInfo> releasesObject)
         {
             return releasesObject.Select(item => new Release
@@ -195,7 +210,7 @@ namespace DataAccess.DataRepositories
                     Attempts = item.Attempts,
                     Id = item.Id,
                     Name = item.Name,
-                    Status = item.Status,
+                    State = item.state,
                     FinishTime = item.FinishTime,
                     ReleaseEnvironment = new ReleaseEnvironment {Id = item.ReleaseEnvironmentId, Name = item.ReleaseEnvironmentName},
                     StartTime = item.StartTime
@@ -207,11 +222,11 @@ namespace DataAccess.DataRepositories
     public class ReleaseInfo
     {
         public int Id { get; set; }
-        public string Status { get; set; }
+        public string state { get; set; }
         public int ReleaseEnvironmentId { get; set; }
         public string ReleaseEnvironmentName { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime FinishTime { get; set; }
+        public DateTimeOffset StartTime { get; set; }
+        public DateTimeOffset FinishTime { get; set; }
         public string Name { get; set; }
         public int Attempts { get; set; }
     }

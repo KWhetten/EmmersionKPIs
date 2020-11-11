@@ -8,20 +8,23 @@ namespace KPIWebApp.Helpers
 {
     public class ReleaseHelper
     {
-        public OverviewData PopulateOverviewData(OverviewData overviewData, List<Release> releaseList, DateTime finishDate)
+        public OverviewData PopulateOverviewData(OverviewData overviewData, List<Release> releaseList, DateTimeOffset finishDate)
         {
-            var earliestReleaseFinishTime = DateTime.MaxValue;
-            foreach (var item in releaseList.Where(item => item.FinishTime < earliestReleaseFinishTime))
+            DateTimeOffset? earliestReleaseFinishTime = null;
+            foreach (var item in releaseList)
             {
-                earliestReleaseFinishTime = item.FinishTime;
+                if (item.FinishTime < earliestReleaseFinishTime || earliestReleaseFinishTime == null)
+                {
+                    earliestReleaseFinishTime = item.FinishTime;
+                }
             }
-            var releaseWeeks = (finishDate - earliestReleaseFinishTime).Days / 7m;
+            var releaseWeeks = (finishDate - earliestReleaseFinishTime)?.Days / 7m;
 
             overviewData.TotalDeploys = releaseList.Count;
             overviewData.SuccessfulDeploys = 0;
             overviewData.RolledBackDeploys = 0;
             overviewData.DeployFrequency = decimal.Round(decimal.Parse((overviewData.TotalDeploys / releaseWeeks)
-                .ToString("0.##")), 2, MidpointRounding.AwayFromZero);
+                ?.ToString("0.##") ?? ""), 2, MidpointRounding.AwayFromZero);
             overviewData.MeanTimeToRestore = 0;
             overviewData.ChangeFailPercentage = 0;
 

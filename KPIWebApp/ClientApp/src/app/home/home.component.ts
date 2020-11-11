@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
   startTimer: any;
 
   constructor(private router: Router, datepipe: DatePipe, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.startTimer = this.timer();
     this.startDate = 'The Beginning of Time';
     this.endDate = 'The Present Day';
     this.datePipe = datepipe;
@@ -32,6 +31,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.timeStart();
     let cookieValue = getCookie();
     if (cookieValue == undefined) {
       this.router.navigate(['/login']);
@@ -39,6 +39,7 @@ export class HomeComponent implements OnInit {
     this.http.get<OverviewData>(this.baseUrl + 'overview')
       .subscribe(x => {
         this.overviewData = x;
+        this.timeStop();
       });
   }
 
@@ -54,7 +55,7 @@ export class HomeComponent implements OnInit {
   }
 
   submit() {
-    this.startTimer = this.timer();
+    this.startTimer = this.timeStart();
 
     this.overviewData = null;
 
@@ -72,19 +73,12 @@ export class HomeComponent implements OnInit {
     this.reloadData();
   }
 
-  timer() {
-    let timeStart = new Date().getTime();
-    return {
-      get seconds() {
-        let seconds = Math.floor((new Date().getTime() - timeStart) / 1000);
-        let ms = (new Date().getTime() - timeStart) - seconds * 1000;
-        return seconds + 's ' + ms + 'ms';
-      }
-    }
+  timeStart() {
+    console.time('Page Load')
   }
 
-  stopTime() {
-    return this.startTimer.seconds;
+  timeStop() {
+    console.timeEnd('Page Load')
   }
 }
 

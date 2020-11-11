@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using DataAccess.Deserialize.Kanbanize;
 using DataAccess.Objects;
 using Microsoft.TeamFoundation.Common;
 
@@ -10,26 +11,36 @@ namespace DataAccess.DataRepositories
 {
     public interface ITaskItemRepository
     {
-        Task<List<TaskItem>> GetTaskItemListAsync(DateTime startDate, DateTime finishDate);
+        Task<List<TaskItem>> GetTaskItemListAsync(DateTimeOffset startDate, DateTimeOffset finishDate);
+        List<TaskItem> GetTaskItemList(DateTimeOffset startDate, DateTimeOffset finishDate);
         Task InsertTaskItemListAsync(IEnumerable<TaskItem> getTaskItemList);
         Task InsertTaskItemAsync(TaskItem taskItem);
+        Task InsertHistoryEventsAsync(TaskItem taskItem);
         Task<TaskItem> GetTaskItemByIdAsync(int taskItemId);
-        Task<TaskItemType[]> GetTaskItemTypesAsync();
+        TaskItemType[] GetTaskItemTypes();
         Task RemoveTaskItemByIdAsync(int cardId);
+        Task RemoveHistoryItemByIdAsync(int id);
+        Task<List<HistoryEvent>> GetHistoryEventsByTaskIdAsync(int taskItemId);
     }
 
     public class TaskItemRepository : ITaskItemRepository
     {
         private readonly DatabaseConnection databaseConnection;
 
+        public TaskItemRepository()
+        {
+            databaseConnection = new DatabaseConnection();
+        }
+
         public TaskItemRepository(DatabaseConnection databaseConnection)
         {
             this.databaseConnection = databaseConnection;
         }
 
-        private readonly ReleaseRepository releaseRepository = new ReleaseRepository(new DatabaseConnection());
+        private readonly ReleaseRepository releaseRepository = new ReleaseRepository();
 
-        public virtual async Task<List<TaskItem>> GetTaskItemListAsync(DateTime startDate, DateTime finishDate)
+        public virtual async Task<List<TaskItem>> GetTaskItemListAsync(DateTimeOffset startDate,
+            DateTimeOffset finishDate)
         {
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
@@ -49,12 +60,12 @@ namespace DataAccess.DataRepositories
                           "ti.LastChangedOn, " +
                           "ti.LastChangedBy, " +
                           "ti.CurrentBoardColumn, " +
-                          "ti.CardState, " +
+                          "ti.State, " +
                           "ti.Impact, " +
                           "ti.CommentCount, " +
                           "ti.NumRevisions, " +
                           "ti.ReleaseId, " +
-                          "r.Status as ReleaseStatus, " +
+                          "r.State as ReleaseState, " +
                           "r.ReleaseEnvironmentId, " +
                           "re.Name as ReleaseEnvironmentName, " +
                           "r.StartTime as ReleaseStartTime, " +
@@ -64,12 +75,79 @@ namespace DataAccess.DataRepositories
                           "FROM TaskItem ti LEFT JOIN TaskItemType tit ON ti.TaskItemTypeId = tit.Id " +
                           "LEFT JOIN Release r ON ti.ReleaseId = r.Id " +
                           "LEFT JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
-                          "WHERE ti.FinishTime > @startDateString AND ti.FinishTime < @endDateString";
+                          "WHERE ti.FinishTime > @startDateString AND ti.FinishTime < @endDateString " +
+                          "ORDER BY ti.CreatedOn";
 
-                          var taskItems = await databaseConnection.DbConnection
-                    .QueryAsync<TaskItemInfo>(sql, new {startDateString, endDateString});
+                try
+                {
+                    var taskItems = await databaseConnection.DbConnection
+                        .QueryAsync<TaskItemInfo>(sql, new {startDateString, endDateString});
 
-                return GetTaskItemListFromTaskItemInfo(taskItems);
+                    return GetTaskItemListFromTaskItemInfo(taskItems);
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine();
+                    return new List<TaskItem>();
+                }
+
+            }
+        }
+
+        public List<TaskItem> GetTaskItemList(DateTimeOffset startDate,
+            DateTimeOffset finishDate)
+        {
+            databaseConnection.GetNewConnection();
+            using (databaseConnection.DbConnection)
+            {
+                var startDateString = $"{startDate:s}".Replace("T", " ");
+                var endDateString = $"{finishDate:s}".Replace("T", " ");
+
+                var sql = $"SELECT ti.Id, " +
+                          "ti.Title, " +
+                          "ti.StartTime, " +
+                          "ti.FinishTime, " +
+                          "ti.TaskItemTypeId, " +
+                          "tit.Name as TaskItemTypeName, " +
+                          "ti.DevelopmentTeamName, " +
+                          "ti.CreatedOn, " +
+                          "ti.CreatedBy, " +
+                          "ti.LastChangedOn, " +
+                          "ti.LastChangedBy, " +
+                          "ti.CurrentBoardColumn, " +
+                          "ti.State, " +
+                          "ti.Impact, " +
+                          "ti.CommentCount, " +
+                          "ti.NumRevisions, " +
+                          "ti.ReleaseId, " +
+                          "r.State as ReleaseState, " +
+                          "r.ReleaseEnvironmentId, " +
+                          "re.Name as ReleaseEnvironmentName, " +
+                          "r.StartTime as ReleaseStartTime, " +
+                          "r.FinishTime as ReleaseFinishTime, " +
+                          "r.Name as ReleaseName, " +
+                          "r.Attempts as ReleaseAttempts " +
+                          "FROM TaskItem ti LEFT JOIN TaskItemType tit ON ti.TaskItemTypeId = tit.Id " +
+                          "LEFT JOIN Release r ON ti.ReleaseId = r.Id " +
+                          "LEFT JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
+                          "WHERE ti.FinishTime > @startDateString AND ti.FinishTime < @endDateString " +
+                          "ORDER BY ti.CreatedOn";
+
+                try
+                {
+                    var taskItems = databaseConnection.DbConnection
+                        .Query<TaskItemInfo>(sql, new {startDateString, endDateString});
+
+                    return GetTaskItemListFromTaskItemInfo(taskItems);
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine();
+                    return new List<TaskItem>();
+                }
+
             }
         }
 
@@ -96,29 +174,25 @@ namespace DataAccess.DataRepositories
 
                 var taskItemId = taskItem.Id;
                 var title = taskItem.Title.Replace("\'", "\'\'");
-                var startTime = taskItem.StartTime != DateTime.MinValue
-                    ? $"{taskItem.StartTime:yyyy'-'MM'-'dd HH':'mm':'ss'.'fff}"
-                    : null;
-                var finishTime = taskItem.FinishTime != DateTime.MaxValue
-                    ? $"{taskItem.FinishTime:yyyy'-'MM'-'dd HH':'mm':'ss'.'fff}"
-                    : null;
+                var startTime = taskItem.StartTime;
+                var finishTime = taskItem.FinishTime;
                 var taskItemTypeId = (int) taskItem.Type;
                 var developmentTeamName = !taskItem.DevelopmentTeamName.IsNullOrEmpty()
                     ? taskItem.DevelopmentTeamName
                     : null;
-                var createdOn = $"{taskItem.CreatedOn:yyyy'-'MM'-'dd HH':'mm':'ss'.'fff}";
+                var createdOn = taskItem.CreatedOn;
                 var createdBy = !taskItem.CreatedBy.IsNullOrEmpty()
                     ? taskItem.CreatedBy
                     : null;
-                var lastChangedOn = $"{taskItem.LastChangedOn:yyyy'-'MM'-'dd HH':'mm':'ss'.'fff}";
+                var lastChangedOn = taskItem.LastChangedOn;
                 var lastChangedBy = !taskItem.LastChangedBy.IsNullOrEmpty()
                     ? taskItem.LastChangedBy
                     : null;
                 var currentBoardColumn = !taskItem.CurrentBoardColumn.IsNullOrEmpty()
                     ? taskItem.CurrentBoardColumn
                     : null;
-                var cardState = !taskItem.CardState.IsNullOrEmpty()
-                    ? taskItem.CardState
+                var state = !taskItem.State.IsNullOrEmpty()
+                    ? taskItem.State
                     : null;
                 var impact = !taskItem.Impact.IsNullOrEmpty()
                     ? taskItem.Impact
@@ -141,7 +215,7 @@ namespace DataAccess.DataRepositories
                           "LastChangedOn = @lastChangedOn, " +
                           "LastChangedBy = @lastChangedBy, " +
                           "CurrentBoardColumn = @currentBoardColumn, " +
-                          "CardState = @cardState, " +
+                          "State = @state, " +
                           "Impact = @impact, " +
                           "CommentCount = @commentCount, " +
                           "NumRevisions = @numRevisions, " +
@@ -149,7 +223,7 @@ namespace DataAccess.DataRepositories
                           "WHERE Id = @taskItemId " +
                           "ELSE " +
                           $"INSERT INTO TaskItem (Id, Title, StartTime, FinishTime, TaskItemTypeId, DevelopmentTeamName, CreatedOn, CreatedBy, " +
-                          "LastChangedOn, LastChangedBy, CurrentBoardColumn, CardState, Impact, CommentCount, NumRevisions, ReleaseId) " +
+                          "LastChangedOn, LastChangedBy, CurrentBoardColumn, State, Impact, CommentCount, NumRevisions, ReleaseId) " +
                           "VALUES (" +
                           "@taskItemId, " +
                           "@title, " +
@@ -162,7 +236,7 @@ namespace DataAccess.DataRepositories
                           "@lastChangedOn, " +
                           "@lastChangedBy, " +
                           "@currentBoardColumn, " +
-                          "@cardState, " +
+                          "@state, " +
                           "@impact, " +
                           "@commentCount, " +
                           "@numRevisions, " +
@@ -171,15 +245,60 @@ namespace DataAccess.DataRepositories
                     new
                     {
                         taskItemId, title, startTime, finishTime, taskItemTypeId, developmentTeamName, createdOn,
-                        createdBy, lastChangedOn, lastChangedBy, currentBoardColumn, cardState, impact, commentCount,
+                        createdBy, lastChangedOn, lastChangedBy, currentBoardColumn, state, impact, commentCount,
                         numRevisions, releaseId
                     });
 
-                Console.WriteLine($"Inserted or Updated Card: {taskItem.Id}");
+                await InsertHistoryEventsAsync(taskItem);
+
+                Console.WriteLine($"Inserted or Updated Task: {taskItem.Id}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Unable to insert card: {taskItem.Id} - " + ex.Message);
+                Console.WriteLine($"Unable to insert task: {taskItem.Id} - " + ex.Message);
+            }
+        }
+
+        public async Task InsertHistoryEventsAsync(TaskItem taskItem)
+        {
+            foreach (var historyEvent in taskItem.HistoryEvents)
+            {
+                try
+                {
+                    var taskItemDeserializer = new KanbanizeTaskItemDeserializer();
+                    var historyEventId = historyEvent.Id;
+                    var eventDate =
+                        historyEvent.EventDate;
+                    var taskItemColumn = historyEvent.TaskItemColumn;
+                    var taskItemState = taskItemDeserializer.GetTaskItemState(taskItemColumn);
+                    var eventType = historyEvent.EventType;
+                    var taskItemId = taskItem.Id;
+                    var author = historyEvent.Author;
+
+                    var sql = $"IF EXISTS(SELECT * FROM HistoryEvents WHERE Id = @historyEventId) " +
+                              $"UPDATE HistoryEvents SET " +
+                              "EventDate = @eventDate, " +
+                              "TaskItemColumn = @taskItemColumn, " +
+                              "TaskItemState = @taskItemState, " +
+                              "EventType = @eventType, " +
+                              "Author = @author " +
+                              "WHERE Id = @historyEventId " +
+                              "ELSE " +
+                              $"INSERT INTO HistoryEvents (Id, EventDate, TaskItemColumn, TaskItemState, EventType, Author, TaskItemId) " +
+                              "VALUES(@historyEventId, @eventDate, @taskItemColumn, @taskItemState, @eventType, @author, @taskItemId);";
+
+                    await databaseConnection.DbConnection.ExecuteAsync(sql,
+                        new
+                        {
+                            historyEventId, eventDate, taskItemColumn, taskItemState, eventType, taskItemId, author
+                        });
+
+                    Console.WriteLine($"Inserted History Event {historyEventId} for Task {taskItemId}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Unable to insert or update HistoryEvent #{historyEvent.Id} for Task: #{taskItem.Id}: {ex.Message}");
+                }
             }
         }
 
@@ -188,7 +307,7 @@ namespace DataAccess.DataRepositories
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
             {
-                var sql = $"SELECT ti.Id," +
+                var sql = $"SELECT ti.Id, " +
                           "ti.Title, " +
                           "ti.StartTime, " +
                           "ti.FinishTime, " +
@@ -200,12 +319,12 @@ namespace DataAccess.DataRepositories
                           "ti.LastChangedOn, " +
                           "ti.LastChangedBy, " +
                           "ti.CurrentBoardColumn, " +
-                          "ti.CardState, " +
+                          "ti.State, " +
                           "ti.Impact, " +
                           "ti.CommentCount, " +
                           "ti.NumRevisions, " +
                           "ti.ReleaseId, " +
-                          "r.Status as ReleaseStatus, " +
+                          "r.State as ReleaseState, " +
                           "r.ReleaseEnvironmentId, " +
                           "re.Name as ReleaseEnvironmentName, " +
                           "r.StartTime as ReleaseStartTime, " +
@@ -215,21 +334,38 @@ namespace DataAccess.DataRepositories
                           "FROM TaskItem ti LEFT JOIN TaskItemType tit ON ti.TaskItemTypeId = tit.Id " +
                           "LEFT JOIN Release r ON ti.ReleaseId = r.Id " +
                           "LEFT JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
-                          "WHERE ti.Id = @taskItemId";
-                var taskItemInfo = (await databaseConnection.DbConnection.QueryAsync<TaskItemInfo>(sql, new {taskItemId}));
+                          "WHERE ti.Id = @taskItemId;";
+
+                var taskItemInfo =
+                    (await databaseConnection.DbConnection.QueryAsync<TaskItemInfo>(sql, new {taskItemId}))
+                    .ToList();
 
                 return GetTaskItemListFromTaskItemInfo(taskItemInfo.ToList()).First();
             }
         }
 
-        public async Task<TaskItemType[]> GetTaskItemTypesAsync()
+        public bool TaskItemHasAlreadyBeenReleasedAsync(int id)
+        {
+            try
+            {
+                const string sql = @"SELECT * FROM TaskItem WHERE Id = @id";
+                var result = databaseConnection.DbConnection.Query<TaskItem>(sql, new {id}).First();
+                return result == null || result.State != "Released";
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public TaskItemType[] GetTaskItemTypes()
         {
             databaseConnection.GetNewConnection();
-            await using (databaseConnection.DbConnection)
+            using (databaseConnection.DbConnection)
             {
                 var sql = $"SELECT Id FROM TaskItemType";
-                var taskItemTypes = await databaseConnection.DbConnection
-                    .QueryAsync<TaskItemType>(sql);
+                var taskItemTypes = databaseConnection.DbConnection
+                    .Query<TaskItemType>(sql);
                 return taskItemTypes.ToArray();
             }
         }
@@ -245,65 +381,95 @@ namespace DataAccess.DataRepositories
             }
         }
 
-        private static List<TaskItem> GetTaskItemListFromTaskItemInfo(IEnumerable<TaskItemInfo> taskItems)
+        public async Task RemoveHistoryItemByIdAsync(int id)
         {
-            return taskItems.Select(taskItem => new TaskItem
-                {
-                    Id = taskItem.Id,
-                    Title = taskItem.Title,
-                    StartTime = taskItem.StartTime,
-                    FinishTime = taskItem.FinishTime,
-                    Type = (TaskItemType) taskItem.TaskItemTypeId,
-                    DevelopmentTeamName = taskItem.DevelopmentTeamName,
-                    CreatedOn = taskItem.CreatedOn,
-                    CreatedBy = taskItem.CreatedBy,
-                    LastChangedOn = taskItem.LastChangedOn,
-                    LastChangedBy = taskItem.LastChangedBy,
-                    CurrentBoardColumn = taskItem.CurrentBoardColumn,
-                    CardState = taskItem.CardState,
-                    Impact = taskItem.Impact,
-                    CommentCount = taskItem.CommentCount,
-                    NumRevisions = taskItem.NumRevisions,
-                    Release = new Release
-                    {
-                        Id = taskItem.ReleaseId,
-                        Status = taskItem.ReleaseStatus,
-                        ReleaseEnvironment = new ReleaseEnvironment
-                            {Id = taskItem.ReleaseEnvironmentId, Name = taskItem.ReleaseEnvironmentName},
-                        StartTime = taskItem.ReleaseStartTime,
-                        FinishTime = taskItem.ReleaseFinishTime,
-                        Name = taskItem.ReleaseName,
-                        Attempts = taskItem.ReleaseAttempts
-                    }
-                })
-                .ToList();
+            databaseConnection.GetNewConnection();
+            await using (databaseConnection.DbConnection)
+            {
+                var sql = $"DELETE FROM HistoryEvents WHERE Id = @id";
+                await databaseConnection.DbConnection.ExecuteAsync(sql,
+                    new {id});
+            }
         }
 
+        private static List<TaskItem> GetTaskItemListFromTaskItemInfo(IEnumerable<TaskItemInfo> taskItems)
+        {
+            try
+            {
+                return taskItems.Select(taskItem => new TaskItem
+                    {
+                        Id = taskItem.Id,
+                        Title = taskItem.Title,
+                        StartTime = taskItem.StartTime,
+                        FinishTime = taskItem.FinishTime,
+                        Type = (TaskItemType) taskItem.TaskItemTypeId,
+                        DevelopmentTeamName = taskItem.DevelopmentTeamName,
+                        CreatedOn = taskItem.CreatedOn,
+                        CreatedBy = taskItem.CreatedBy,
+                        LastChangedOn = taskItem.LastChangedOn,
+                        LastChangedBy = taskItem.LastChangedBy,
+                        CurrentBoardColumn = taskItem.CurrentBoardColumn,
+                        State = taskItem.State,
+                        Impact = taskItem.Impact,
+                        CommentCount = taskItem.CommentCount,
+                        NumRevisions = taskItem.NumRevisions,
+                        Release = new Release
+                        {
+                            Id = taskItem.ReleaseId,
+                            State = taskItem.ReleaseState,
+                            ReleaseEnvironment = new ReleaseEnvironment
+                                {Id = taskItem.ReleaseEnvironmentId, Name = taskItem.ReleaseEnvironmentName},
+                            StartTime = taskItem.ReleaseStartTime,
+                            FinishTime = taskItem.ReleaseFinishTime,
+                            Name = taskItem.ReleaseName,
+                            Attempts = taskItem.ReleaseAttempts
+                        }
+                    })
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+            }
+            return new List<TaskItem>();
+        }
+
+        public virtual async Task<List<HistoryEvent>> GetHistoryEventsByTaskIdAsync(int taskItemId)
+        {
+            databaseConnection.GetNewConnection();
+            await using (databaseConnection.DbConnection)
+            {
+                var sql = $"SELECT * FROM HistoryEvents WHERE TaskItemId = @taskItemId";
+                var result = (await databaseConnection.DbConnection.QueryAsync<HistoryEvent>(sql, new {taskItemId}))
+                    .ToList();
+                return result;
+            }
+        }
     }
 
-    public class TaskItemInfo
+    public class  TaskItemInfo
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime FinishTime { get; set; }
+        public DateTimeOffset StartTime { get; set; }
+        public DateTimeOffset FinishTime { get; set; }
         public int TaskItemTypeId { get; set; }
         public string DevelopmentTeamName { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
         public string CreatedBy { get; set; }
-        public DateTime LastChangedOn { get; set; }
+        public DateTimeOffset LastChangedOn { get; set; }
         public string LastChangedBy { get; set; }
         public string CurrentBoardColumn { get; set; }
-        public string CardState { get; set; }
+        public string State { get; set; }
         public string Impact { get; set; }
         public int CommentCount { get; set; }
         public int NumRevisions { get; set; }
         public int ReleaseId { get; set; }
-        public string ReleaseStatus { get; set; }
+        public string ReleaseState { get; set; }
         public int ReleaseEnvironmentId { get; set; }
         public string ReleaseEnvironmentName { get; set; }
-        public DateTime ReleaseStartTime { get; set; }
-        public DateTime ReleaseFinishTime { get; set; }
+        public DateTimeOffset ReleaseStartTime { get; set; }
+        public DateTimeOffset ReleaseFinishTime { get; set; }
         public string ReleaseName { get; set; }
         public int ReleaseAttempts { get; set; }
     }

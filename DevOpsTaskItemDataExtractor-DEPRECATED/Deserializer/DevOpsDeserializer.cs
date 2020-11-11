@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.DataRepositories;
 using DataAccess.Objects;
@@ -13,8 +12,8 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
     {
         Task<IEnumerable<TaskItem>> TaskItemListAsync(IEnumerable<JToken> jsonTaskItems);
         Task<TaskItem> TaskItem(JToken jsonTaskItem);
-        DateTime JsonWorkItemStartTime(JToken jsonWorkItemUpdates);
-        DateTime JsonWorkItemFinishTime(JToken jsonWorkItemUpdates);
+        DateTimeOffset? JsonWorkItemStartTime(JToken jsonWorkItemUpdates);
+        DateTimeOffset? JsonWorkItemFinishTime(JToken jsonWorkItemUpdates);
         TaskItemType GetCardType(JToken workItemType);
     }
 
@@ -51,12 +50,12 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                 Title = jsonTaskItem["fields"]["System.Title"].ToString(),
                 Type = GetCardType(jsonTaskItem["fields"]["System.WorkItemType"]),
                 DevelopmentTeamName = jsonTaskItem["fields"]["System.BoardLane"]?.ToString(),
-                CreatedOn = (DateTime) jsonTaskItem["fields"]["System.CreatedDate"],
+                CreatedOn = (DateTimeOffset) jsonTaskItem["fields"]["System.CreatedDate"],
                 CreatedBy = jsonTaskItem["fields"]["System.CreatedBy"]["displayName"].ToString(),
-                LastChangedOn = (DateTime) jsonTaskItem["fields"]["System.ChangedDate"],
+                LastChangedOn = (DateTimeOffset) jsonTaskItem["fields"]["System.ChangedDate"],
                 LastChangedBy = jsonTaskItem["fields"]["System.ChangedBy"]["displayName"].ToString(),
                 CurrentBoardColumn = jsonTaskItem["fields"]["System.BoardColumn"].ToString(),
-                CardState = jsonTaskItem["fields"]["System.State"].ToString(),
+                State = jsonTaskItem["fields"]["System.State"].ToString(),
                 Impact = jsonTaskItem["fields"]["Custom.Impact"]?.ToString(),
                 CommentCount = (int) jsonTaskItem["fields"]["System.CommentCount"],
                 NumRevisions = (int) jsonTaskItem["rev"]
@@ -69,6 +68,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
             taskItem.FinishTime = JsonWorkItemFinishTime(jsonWorkItemUpdates);
 
             taskItem.Release = await releaseRepository.GetFirstReleaseBeforeDateAsync(taskItem.FinishTime);
+
 
             Console.WriteLine($"Finished Deserializing Card: {taskItem.Id}");
             return taskItem;
@@ -92,7 +92,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
             };
         }
 
-        public DateTime JsonWorkItemStartTime(JToken jsonWorkItemUpdates)
+        public DateTimeOffset? JsonWorkItemStartTime(JToken jsonWorkItemUpdates)
         {
             foreach (var itemUpdate in jsonWorkItemUpdates)
             {
@@ -100,7 +100,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                 {
                     if (itemUpdate["fields"]["System.BoardColumn"]["oldValue"].ToString() == "Parking Lot")
                     {
-                        return (DateTime) itemUpdate["fields"]["System.ChangedDate"]["newValue"];
+                        return new DateTimeOffset((DateTime)itemUpdate["fields"]["System.ChangedDate"]["newValue"]);
                     }
                 }
                 catch (Exception)
@@ -109,10 +109,10 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                 }
             }
 
-            return DateTime.MinValue;
+            return null;
         }
 
-        public DateTime JsonWorkItemFinishTime(JToken jsonWorkItemUpdates)
+        public DateTimeOffset? JsonWorkItemFinishTime(JToken jsonWorkItemUpdates)
         {
             foreach (var itemUpdate in jsonWorkItemUpdates)
             {
@@ -120,7 +120,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                 {
                     if (itemUpdate["fields"]["System.State"]["newValue"].ToString() == "Resolved"
                         || itemUpdate["fields"]["System.State"]["newValue"].ToString() == "Closed")
-                        return (DateTime) itemUpdate["fields"]["System.ChangedDate"]["newValue"];
+                        return new DateTimeOffset((DateTime)itemUpdate["fields"]["System.ChangedDate"]["newValue"]);
                 }
                 catch (Exception)
                 {
@@ -128,7 +128,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                 }
             }
 
-            return DateTime.MaxValue;
+            return null;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace KPIWebApp.Helpers
 
         public ScatterPlotHelper()
         {
-            taskItemRepository = new TaskItemRepository(new DatabaseConnection());
+            taskItemRepository = new TaskItemRepository();
         }
         public ScatterPlotHelper(ITaskItemRepository taskItemRepository)
         {
@@ -27,16 +27,16 @@ namespace KPIWebApp.Helpers
             this.releaseRepository = releaseRepository;
         }
 
-        public async Task<ScatterPlotData[]> GetLeadTimeScatterPlotData(DateTime startDate, DateTime finishDate)
+        public ScatterPlotData[] GetLeadTimeScatterPlotData(DateTimeOffset startDate, DateTimeOffset finishDate)
         {
-            var rawData = (await taskItemRepository.GetTaskItemListAsync(startDate, finishDate)).ToArray();
+            var rawData = taskItemRepository.GetTaskItemList(startDate, finishDate).ToArray();
 
-            var cardTypes = await taskItemRepository.GetTaskItemTypesAsync();
+            var cardTypes = taskItemRepository.GetTaskItemTypes();
 
             return GetCardsByType(cardTypes, rawData);
         }
 
-        public async Task<ScatterPlotData[]> GetReleaseScatterPlotData(DateTime startDate, DateTime finishDate)
+        public async Task<ScatterPlotData[]> GetReleaseScatterPlotData(DateTimeOffset startDate, DateTimeOffset finishDate)
         {
             var rawData = (await releaseRepository.GetReleaseListAsync(startDate, finishDate)).ToArray();
 
@@ -58,7 +58,7 @@ namespace KPIWebApp.Helpers
 
                 var newData = new Datum
                 {
-                    x = datum.FinishTime,
+                    x = datum?.FinishTime,
                     y = datum.CalculateLeadTimeHours()
                 };
                 scatterPlotData[typeIndex].data.Add(newData);
@@ -86,7 +86,7 @@ namespace KPIWebApp.Helpers
 
     public class Datum
     {
-        public DateTime x { get; set; }
+        public DateTimeOffset? x { get; set; }
         public decimal y { get; set; }
     }
 }

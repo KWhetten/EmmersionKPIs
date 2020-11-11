@@ -2,8 +2,9 @@
 
 namespace KPIDataExtractor.UnitTests.TestObjects.Kanbanize
 {
-    public class JsonTaskItemHistory
+    public class JsonHistoryEvent
     {
+        public int historyid { get; set; }
         public string historyevent { get; set; }
         public string details { get; set; }
         public DateTime entrydate { get; set; }

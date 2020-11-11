@@ -15,8 +15,8 @@ namespace KPIWebApp.Helpers
 
         public OverviewHelper()
         {
-            taskItemRepository = new TaskItemRepository(new DatabaseConnection());
-            releaseRepository = new ReleaseRepository(new DatabaseConnection());
+            taskItemRepository = new TaskItemRepository();
+            releaseRepository = new ReleaseRepository();
         }
 
         public OverviewHelper(ITaskItemRepository taskItemRepository)
@@ -35,17 +35,17 @@ namespace KPIWebApp.Helpers
             this.releaseRepository = releaseRepository;
         }
 
-        public async Task<List<TaskItem>> GetTaskItemData(DateTime startDate, DateTime finishDate)
+        public async Task<List<TaskItem>> GetTaskItemData(DateTimeOffset startDate, DateTimeOffset finishDate)
         {
             return await taskItemRepository.GetTaskItemListAsync(startDate, finishDate);
         }
 
-        public async Task<List<Release>> GetReleaseData(DateTime startDate, DateTime finishDate)
+        public async Task<List<Release>> GetReleaseData(DateTimeOffset startDate, DateTimeOffset finishDate)
         {
             return (await releaseRepository.GetReleaseListAsync(startDate, finishDate)).ToList();
         }
 
-        public async Task<OverviewData> GetOverviewData(DateTime startDate, DateTime finishDate)
+        public async Task<OverviewData> GetOverviewData(DateTimeOffset startDate, DateTimeOffset finishDate)
         {
             var taskItemList = await GetTaskItemData(startDate, finishDate);
             var releaseList = await GetReleaseData(startDate, finishDate);

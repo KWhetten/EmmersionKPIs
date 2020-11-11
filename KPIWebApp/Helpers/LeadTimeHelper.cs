@@ -10,37 +10,37 @@ namespace KPIWebApp.Helpers
     {
         public OverviewData PopulateOverviewData(OverviewData overviewData, List<TaskItem> taskItemList)
         {
-            var earliestTaskItemFinishTime = DateTime.MaxValue;
+            DateTimeOffset? earliestTaskItemFinishTime = null;
             foreach (var item in taskItemList)
             {
-                if (item.StartTime != DateTime.MinValue && item.FinishTime != DateTime.MinValue)
+                if (item.StartTime != null && item.FinishTime != null)
                 {
                     item.LeadTimeHours = CalculateLeadTimeHours(item);
                 }
 
                 if (item.LeadTimeHours > overviewData.LongestLeadTime
-                    && item.StartTime != DateTime.MinValue &&
-                    item.FinishTime != DateTime.MaxValue)
+                    && item.StartTime != null &&
+                    item.FinishTime != null)
                 {
                     overviewData.LongestLeadTime = item.LeadTimeHours;
                 }
 
                 if (item.LeadTimeHours < overviewData.ShortestLeadTime
-                    && item.StartTime != DateTime.MinValue
-                    && item.FinishTime != DateTime.MaxValue
+                    && item.StartTime != null
+                    && item.FinishTime != null
                     && item.LeadTimeHours > 0)
                 {
                     overviewData.ShortestLeadTime = item.LeadTimeHours;
                 }
 
-                if (item.FinishTime < earliestTaskItemFinishTime && item.FinishTime != DateTime.MinValue)
+                if (item.FinishTime < earliestTaskItemFinishTime || item.FinishTime == null)
                 {
-                    earliestTaskItemFinishTime = item.FinishTime;
+                    earliestTaskItemFinishTime = item?.FinishTime;
                 }
             }
 
             var averageLeadTimeTaskItems = taskItemList.Where(taskItem =>
-                taskItem.StartTime != DateTime.MinValue && taskItem.FinishTime != DateTime.MinValue).ToList();
+                taskItem.StartTime != null && taskItem.FinishTime != null).ToList();
 
             overviewData.AverageLeadTime = (averageLeadTimeTaskItems.Sum(item => item.LeadTimeHours) /
                                             averageLeadTimeTaskItems.Count);
@@ -62,24 +62,38 @@ namespace KPIWebApp.Helpers
             var startOfDay = new TimeSpan(14, 30, 0);
             var endOfDay = new TimeSpan(22, 30, 0);
 
-            var days = (decimal) (item.FinishTime - item.StartTime).TotalDays;
-            var totalHours = 0m;
-            if (days > 1)
+            var totalDays = (item.FinishTime - item.StartTime)?.TotalDays;
+            if (totalDays != null)
             {
-                for (var i = 1; i < Math.Floor(days); ++i)
+                var days = (decimal) totalDays;
+                var totalHours = 0m;
+                if (days > 1)
                 {
-                    if (item.FinishTime.AddDays(-i).DayOfWeek != DayOfWeek.Saturday
-                        && item.FinishTime.AddDays(-i).DayOfWeek != DayOfWeek.Sunday)
+                    for (var i = 1; i < Math.Floor(days); ++i)
                     {
-                        totalHours += hoursInAWorkDay;
+                        if (item.FinishTime?.AddDays(-i).DayOfWeek != DayOfWeek.Saturday
+                            && item.FinishTime?.AddDays(-i).DayOfWeek != DayOfWeek.Sunday)
+                        {
+                            totalHours += hoursInAWorkDay;
+                        }
                     }
                 }
+
+                var hours = (endOfDay - item.StartTime?.TimeOfDay)?.TotalHours;
+                if (hours != null)
+                {
+                    totalHours += (decimal) hours;
+                }
+
+                hours = (item.FinishTime?.TimeOfDay - startOfDay)?.TotalHours;
+                if (hours != null)
+                    totalHours += (decimal) totalHours;
+
+
+                return totalHours;
             }
 
-            totalHours += (decimal) (endOfDay - item.StartTime.TimeOfDay).TotalHours;
-            totalHours += (decimal) (item.FinishTime.TimeOfDay - startOfDay).TotalHours;
-
-            return totalHours;
+            return 0m;
         }
     }
 }

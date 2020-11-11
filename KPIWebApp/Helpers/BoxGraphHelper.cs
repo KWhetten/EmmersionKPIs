@@ -14,7 +14,7 @@ namespace KPIWebApp.Helpers
 
         public BoxGraphHelper()
         {
-            taskItemRepository = new TaskItemRepository(new DatabaseConnection());
+            taskItemRepository = new TaskItemRepository();
         }
 
         public BoxGraphHelper(ITaskItemRepository taskItemRepository)
@@ -22,13 +22,12 @@ namespace KPIWebApp.Helpers
             this.taskItemRepository = taskItemRepository;
         }
 
-        public async Task<BoxGraphData> GetLeadTimeBoxGraphData(DateTime startDate, DateTime finishDate)
+        public async Task<BoxGraphData> GetLeadTimeBoxGraphData(DateTimeOffset startDate, DateTimeOffset finishDate)
         {
             var boxGraphData = new BoxGraphData
             {
                 Entries = new List<BoxGraphDataEntry>
                 {
-                    new BoxGraphDataEntry(),
                     new BoxGraphDataEntry(),
                     new BoxGraphDataEntry(),
                     new BoxGraphDataEntry()
@@ -41,7 +40,6 @@ namespace KPIWebApp.Helpers
             {
                 new List<TaskItem>(),
                 new List<TaskItem>(),
-                new List<TaskItem>(),
                 new List<TaskItem>()
             };
 
@@ -52,42 +50,53 @@ namespace KPIWebApp.Helpers
 
             foreach (var itemList in taskItemsByType)
             {
-                if (itemList.IsNullOrEmpty()) continue;
-
                 var sortedItemList = SortByLeadTime(itemList);
-
                 var index = (int) itemList[0].Type - 1;
-                var boxGraphDataEntry = boxGraphData.Entries[index];
-
-                boxGraphDataEntry.TaskItemType = itemList[0].Type;
-
-                var lowerQuartileIndex = (int) ((sortedItemList.Count - 1) * (1m / 4m));
-                var middleIndex = (int) ((sortedItemList.Count - 1) / 2m);
-                var upperQuartileIndex = (int) ((sortedItemList.Count - 1) * (3m / 4m));
-
-                boxGraphDataEntry.LowerQuartile = sortedItemList[lowerQuartileIndex].LeadTimeHours;
-                boxGraphDataEntry.Median = sortedItemList[middleIndex].LeadTimeHours;
-                boxGraphDataEntry.UpperQuartile = sortedItemList[upperQuartileIndex].LeadTimeHours;
-
-                var iqr = sortedItemList[upperQuartileIndex].LeadTimeHours -
-                          sortedItemList[lowerQuartileIndex].LeadTimeHours;
-
-                var minWhiskerValue = boxGraphDataEntry.LowerQuartile - (iqr * 1.5m) > 0
-                    ? boxGraphDataEntry.LowerQuartile - (iqr * 1.5m)
-                    : 0;
-                var maxWhiskerValue = boxGraphDataEntry.UpperQuartile + (iqr * 1.5m);
-
-                var outliers = boxGraphData.Outliers;
-                (boxGraphDataEntry.Minimum, outliers) = GetMinimumAndOutliers(sortedItemList, minWhiskerValue, outliers);
-                (boxGraphDataEntry.Maximum, outliers) = GetMaximumAndSetOutliers(sortedItemList, maxWhiskerValue, outliers);
-
-                boxGraphData.Outliers = outliers;
+                boxGraphData = CalculateBoxGraphData(sortedItemList, boxGraphData, index);
             }
+
+            boxGraphData.Entries.Add(new BoxGraphDataEntry());
+            boxGraphData = CalculateBoxGraphData(SortByLeadTime(taskItems), boxGraphData, 3);
+            boxGraphData.Entries[3].TaskItemType = "All Task Items";
 
             return boxGraphData;
         }
 
-        private (decimal, List<object[]>) GetMinimumAndOutliers(List<TaskItem> sortedItemList, decimal minWhiskerValue, List<object[]> outliers)
+        private BoxGraphData CalculateBoxGraphData(List<TaskItem> itemList, BoxGraphData boxGraphData, int index)
+        {
+            if (itemList.IsNullOrEmpty()) return null;
+
+            var boxGraphDataEntry = boxGraphData.Entries[index];
+
+            boxGraphDataEntry.TaskItemType = itemList[0].Type.ToString();
+
+            var lowerQuartileIndex = (int) ((itemList.Count - 1) * (1m / 4m));
+            var middleIndex = (int) ((itemList.Count - 1) / 2m);
+            var upperQuartileIndex = (int) ((itemList.Count - 1) * (3m / 4m));
+
+            boxGraphDataEntry.LowerQuartile = itemList[lowerQuartileIndex].LeadTimeHours;
+            boxGraphDataEntry.Median = itemList[middleIndex].LeadTimeHours;
+            boxGraphDataEntry.UpperQuartile = itemList[upperQuartileIndex].LeadTimeHours;
+
+            var iqr = itemList[upperQuartileIndex].LeadTimeHours -
+                      itemList[lowerQuartileIndex].LeadTimeHours;
+
+            var minWhiskerValue = boxGraphDataEntry.LowerQuartile - (iqr * 1.5m) > 0
+                ? boxGraphDataEntry.LowerQuartile - (iqr * 1.5m)
+                : 0;
+            var maxWhiskerValue = boxGraphDataEntry.UpperQuartile + (iqr * 1.5m);
+
+            var outliers = boxGraphData.Outliers;
+            (boxGraphDataEntry.Minimum, outliers) = GetMinimumAndOutliers(itemList, minWhiskerValue, outliers, index);
+            (boxGraphDataEntry.Maximum, outliers) = GetMaximumAndSetOutliers(itemList, maxWhiskerValue, outliers, index);
+
+            boxGraphData.Outliers = outliers;
+
+            return boxGraphData;
+        }
+
+        private (decimal, List<object[]>) GetMinimumAndOutliers(List<TaskItem> sortedItemList, decimal minWhiskerValue,
+            List<object[]> outliers, int index)
         {
             decimal minimum;
             for (var i = 0;; i++)
@@ -95,12 +104,15 @@ namespace KPIWebApp.Helpers
                 var leadTimeHours = sortedItemList[i].LeadTimeHours;
                 if (leadTimeHours < minWhiskerValue)
                 {
-                    var type = (int) sortedItemList[i].Type - 1;
-                    outliers.Add(new object[]
+                    if (leadTimeHours < 150)
                     {
-                        type,
-                        leadTimeHours
-                    });
+                        outliers.Add(new object[]
+                        {
+                            index,
+                            leadTimeHours
+                        });
+                    }
+
                     continue;
                 }
 
@@ -111,7 +123,8 @@ namespace KPIWebApp.Helpers
             return (minimum, outliers);
         }
 
-        private (decimal, List<object[]>) GetMaximumAndSetOutliers(List<TaskItem> itemList, decimal maxWhiskerValue, List<object[]> outliers)
+        private (decimal, List<object[]>) GetMaximumAndSetOutliers(List<TaskItem> itemList, decimal maxWhiskerValue,
+            List<object[]> outliers, int index)
         {
             decimal maximum;
             for (var i = 1;; i++)
@@ -119,12 +132,15 @@ namespace KPIWebApp.Helpers
                 var leadTimeHours = itemList[^i].LeadTimeHours;
                 if (itemList[^i].LeadTimeHours > maxWhiskerValue)
                 {
-                    var type = (int) itemList[^i].Type - 1;
-                    outliers.Add(new object[]
+                    if (leadTimeHours < 150)
                     {
-                        type,
-                        leadTimeHours
-                    });
+                        outliers.Add(new object[]
+                        {
+                            index,
+                            leadTimeHours
+                        });
+                    }
+
                     continue;
                 }
 
@@ -154,7 +170,7 @@ namespace KPIWebApp.Helpers
 
     public class BoxGraphDataEntry
     {
-        public TaskItemType TaskItemType { get; set; }
+        public string TaskItemType { get; set; }
         public decimal Minimum { get; set; }
         public decimal LowerQuartile { get; set; }
         public decimal Median { get; set; }

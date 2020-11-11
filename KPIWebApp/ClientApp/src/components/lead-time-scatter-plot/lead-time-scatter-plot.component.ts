@@ -51,7 +51,7 @@ export class LeadTimeScatterPlotComponent extends HomeComponent implements OnIni
     },
     yAxis: {
       title: {
-        text: 'Lead Time (Hours)'
+        text: 'Lead Time (Hours of Work)'
       },
       labels: {
         format: '{value:,.0f}'

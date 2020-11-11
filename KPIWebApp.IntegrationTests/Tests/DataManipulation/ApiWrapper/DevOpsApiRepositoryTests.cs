@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using DataAccess.ApiWrapper;
+using DataAccess.Api;
 using Moq;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;

@@ -19,11 +19,11 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
         {
             var mockTaskItemRepository = new Mock<ITaskItemRepository>();
             var taskItemList = new List<TaskItem>();
-            mockTaskItemRepository.Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+            mockTaskItemRepository.Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
                 .ReturnsAsync(taskItemList);
 
             var overviewHelper = new OverviewHelper(mockTaskItemRepository.Object);
-            var result = await overviewHelper.GetTaskItemData(DateTime.Today, DateTime.Today);
+            var result = await overviewHelper.GetTaskItemData(new DateTimeOffset(new DateTime(2020, 10, 28), TimeSpan.Zero), new DateTimeOffset(new DateTime(2020, 10, 28), TimeSpan.Zero));
 
             Assert.That(result, Is.EqualTo(taskItemList));
         }
@@ -33,11 +33,11 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
         {
             var mockReleaseRepository = new Mock<IReleaseRepository>();
             var releaseList = new List<Release>();
-            mockReleaseRepository.Setup(x => x.GetReleaseListAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+            mockReleaseRepository.Setup(x => x.GetReleaseListAsync(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
                 .ReturnsAsync(releaseList);
 
             var overviewHelper = new OverviewHelper(mockReleaseRepository.Object);
-            var result = await overviewHelper.GetReleaseData(DateTime.Today, DateTime.Today);
+            var result = await overviewHelper.GetReleaseData(new DateTimeOffset(new DateTime(2020, 10, 28), TimeSpan.Zero), new DateTimeOffset(new DateTime(2020, 10, 28), TimeSpan.Zero));
 
             Assert.That(result, Is.EqualTo(releaseList));
         }
@@ -53,28 +53,28 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 new Release
                 {
                     Id = 1,
-                    Status = "Status1",
+                    State = "Status1",
                     ReleaseEnvironment = new ReleaseEnvironment
                     {
                         Id = 1,
                         Name = "Name1"
                     },
-                    StartTime = DateTime.Today.AddDays(-5),
-                    FinishTime = DateTime.Today.AddDays(-4),
+                    StartTime = new DateTimeOffset(new DateTime(2020, 10, 28).AddDays(-5)),
+                    FinishTime = new DateTimeOffset(new DateTime(2020, 10, 28).AddDays(-4)),
                     Name = "Name1",
                     Attempts = 1
                 },
                 new Release
                 {
                     Id = 2,
-                    Status = "Status2",
+                    State = "Status2",
                     ReleaseEnvironment = new ReleaseEnvironment
                     {
                         Id = 2,
                         Name = "Name2"
                     },
-                    StartTime = DateTime.Today.AddDays(-7),
-                    FinishTime = DateTime.Today,
+                    StartTime = new DateTimeOffset(new DateTime(2020, 10, 28).AddDays(-7)),
+                    FinishTime = new DateTimeOffset(new DateTime(2020, 10, 28)),
                     Name = "Name2",
                     Attempts = 2
                 }
@@ -85,16 +85,16 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 {
                     Id = 1,
                     Title = "Title1",
-                    StartTime = DateTime.Today.AddDays(-7),
-                    FinishTime = DateTime.Today.AddDays(-3),
+                    StartTime = new DateTimeOffset(new DateTime(2020, 10, 28).AddDays(-7)),
+                    FinishTime = new DateTimeOffset(new DateTime(2020, 10, 28).AddDays(-3)),
                     Type = TaskItemType.Engineering,
                     DevelopmentTeamName = "Team1",
-                    CreatedOn = DateTime.Today.AddDays(-8),
+                    CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 28).AddDays(-8)),
                     CreatedBy = "CreatedBy1",
-                    LastChangedOn = DateTime.Today,
+                    LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 28)),
                     LastChangedBy = "ChangedBy1",
                     CurrentBoardColumn = "BoardColumn1",
-                    CardState = "State1",
+                    State = "State1",
                     Impact = "Impact 1",
                     CommentCount = 1,
                     NumRevisions = 1,
@@ -104,16 +104,16 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 {
                     Id = 2,
                     Title = "Title2",
-                    StartTime = DateTime.Today.AddDays(-1),
-                    FinishTime = DateTime.Today,
+                    StartTime = new DateTimeOffset(new DateTime(2020, 10, 28).AddDays(-1)),
+                    FinishTime = new DateTimeOffset(new DateTime(2020, 10, 28)),
                     Type = TaskItemType.Engineering,
                     DevelopmentTeamName = "Team2",
-                    CreatedOn = DateTime.Today.AddDays(-1),
+                    CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 28).AddDays(-1)),
                     CreatedBy = "CreatedBy2",
-                    LastChangedOn = DateTime.Today,
+                    LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 28)),
                     LastChangedBy = "ChangedBy2",
                     CurrentBoardColumn = "BoardColumn2",
-                    CardState = "State2",
+                    State = "State2",
                     Impact = "Impact 2",
                     CommentCount = 2,
                     NumRevisions = 2,
@@ -121,24 +121,24 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 }
             };
 
-            mockTaskItemRepository.Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+            mockTaskItemRepository.Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
                 .ReturnsAsync(taskItemList);
-            mockReleaseRepository.Setup(x => x.GetReleaseListAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+            mockReleaseRepository.Setup(x => x.GetReleaseListAsync(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
                 .ReturnsAsync(releaseList);
 
             var overviewHelper = new OverviewHelper(mockTaskItemRepository.Object, mockReleaseRepository.Object);
-            var result = await overviewHelper.GetOverviewData(DateTime.Today.AddDays(-10), DateTime.Today);
+            var result = await overviewHelper.GetOverviewData(new DateTimeOffset(new DateTime(2020, 10, 28).AddDays(-10), TimeSpan.Zero), new DateTimeOffset(new DateTime(2020, 10, 28), TimeSpan.Zero));
 
             var expected = new OverviewData
             {
                 TotalCards = 2,
-                AverageLeadTime = 20m,
-                LongestLeadTime = 32m,
+                AverageLeadTime = 16m,
+                LongestLeadTime = 24m,
                 ShortestLeadTime = 8m,
                 TotalDeploys = 2,
                 SuccessfulDeploys = 0,
                 RolledBackDeploys = 0,
-                DeployFrequency = 3.5m,
+                DeployFrequency = 4.67m,
                 MeanTimeToRestore = 0,
                 ChangeFailPercentage = 0,
             };

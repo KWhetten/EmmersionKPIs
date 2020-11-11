@@ -12,7 +12,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED
     public static class Program
     {
         private static readonly IDevOpsApiWrapper DevOpsApiWrapper = new DevOpsApiWrapper(new RestClient());
-        private static readonly IDevOpsDeserializer DevOpsDeserializer = new DevOpsDeserializer(DevOpsApiWrapper, new ReleaseRepository(new DatabaseConnection()));
+        private static readonly IDevOpsDeserializer DevOpsDeserializer = new DevOpsDeserializer(DevOpsApiWrapper, new ReleaseRepository());
 
         public static async Task Main()
         {
@@ -26,7 +26,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED
 
         private static async Task InsertDevOpsCardsAsync()
         {
-            var accessTaskItemData = new TaskItemRepository(new DatabaseConnection());
+            var accessTaskItemData = new TaskItemRepository();
 
             var taskItemList = await DevOpsApiWrapper.GetTaskItemList();
             if (taskItemList.Any())

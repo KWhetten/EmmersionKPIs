@@ -11,7 +11,7 @@ namespace KPIWebApp.Helpers
 
         public LoginUserHelper()
         {
-            userRepository = new UserRepository(new DatabaseConnection());
+            userRepository = new UserRepository();
         }
 
         public LoginUserHelper(IUserRepository userRepository)

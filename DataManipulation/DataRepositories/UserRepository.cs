@@ -20,6 +20,10 @@ namespace DataAccess.DataRepositories
     {
         private readonly DatabaseConnection databaseConnection;
 
+        public UserRepository()
+        {
+            databaseConnection = new DatabaseConnection();
+        }
         public UserRepository(DatabaseConnection databaseConnection)
         {
             this.databaseConnection = databaseConnection;
@@ -65,7 +69,7 @@ namespace DataAccess.DataRepositories
 
                     var guid = userInfo.Guid.ToString();
                     var email = userInfo.Email;
-                    var now = DateTime.Now.AddHours(2).ToString("yyyy'-'MM'-'dd HH':'mm':'ss'.'ff");
+                    var now = DateTimeOffset.Now.AddHours(2).ToString("yyyy'-'MM'-'dd HH':'mm':'ss'.'ff");
                     sql = $"INSERT INTO AuthorizedUsers (Guid, Email, Expires) " +
                           $"VALUES (@guid, @email, @now);";
                     await databaseConnection.DbConnection.ExecuteAsync(sql, new {guid, email, now});

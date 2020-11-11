@@ -13,8 +13,8 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
         [Test]
         public void When_deserializing_releases()
         {
-            var startTime = DateTime.Now.AddHours(-2);
-            var finishTime = DateTime.Now.AddHours(-1);
+            var startTime = DateTimeOffset.Now.AddHours(-2);
+            var finishTime = DateTimeOffset.Now.AddHours(-1);
 
             var release1 = new JsonRelease
             {
@@ -31,7 +31,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                 },
                 attempt = 3,
                 startedOn = startTime,
-                completedOn = DateTime.Now,
+                completedOn = finishTime,
                 releaseDefinition = new ReleaseDefinition
                 {
                     name = "TrueNorthTest Release"
@@ -51,7 +51,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                     name = "JsonReleaseEnvironment2"
                 },
                 attempt = 5,
-                startedOn = DateTime.Now.AddHours(-3),
+                startedOn = DateTimeOffset.Now.AddHours(-3),
                 completedOn = finishTime,
                 releaseDefinition = new ReleaseDefinition
                 {
@@ -69,17 +69,27 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
             };
 
             var deserializer = new DevOpsDeserializer();
-            var result = deserializer.Releases(jsonReleases);
+            var result = deserializer.DeserializeReleases(jsonReleases);
 
             Assert.That(result.Count, Is.EqualTo(2));
-            Assert.That(result[1].Id, Is.EqualTo(2));
-            Assert.That(result[0].Attempts, Is.EqualTo(3));
-            Assert.That(result[1].FinishTime, Is.EqualTo(finishTime));
-            Assert.That(result[0].Name, Is.EqualTo("JsonRelease1"));
-            Assert.That(result[1].ReleaseEnvironment.Id, Is.EqualTo(2));
-            Assert.That(result[0].ReleaseEnvironment.Name, Is.EqualTo("JsonReleaseEnvironment1"));
-            Assert.That(result[0].StartTime, Is.EqualTo(startTime));
-            Assert.That(result[1].Status, Is.EqualTo("failed"));
+            Assert.That(result[0].Id, Is.EqualTo(release1.id));
+            Assert.That(result[0].Attempts, Is.EqualTo(release1.attempt));
+            Assert.That(result[0].FinishTime, Is.EqualTo(release1.completedOn));
+            Assert.That(result[0].Name, Is.EqualTo(release1.release.name));
+            Assert.That(result[0].ReleaseEnvironment.Id, Is.EqualTo(release1.definitionEnvironmentId));
+            Assert.That(result[0].ReleaseEnvironment.Name, Is.EqualTo(release1.releaseEnvironment.name));
+            Assert.That(result[0].StartTime, Is.EqualTo(release1.startedOn));
+            Assert.That(result[0].State, Is.EqualTo(release1.deploymentStatus));
+
+            Assert.That(result.Count, Is.EqualTo(2));
+            Assert.That(result[1].Id, Is.EqualTo(release2.id));
+            Assert.That(result[1].Attempts, Is.EqualTo(release2.attempt));
+            Assert.That(result[1].FinishTime, Is.EqualTo(release2.completedOn));
+            Assert.That(result[1].Name, Is.EqualTo(release2.release.name));
+            Assert.That(result[1].ReleaseEnvironment.Id, Is.EqualTo(release2.definitionEnvironmentId));
+            Assert.That(result[1].ReleaseEnvironment.Name, Is.EqualTo(release2.releaseEnvironment.name));
+            Assert.That(result[1].StartTime, Is.EqualTo(release2.startedOn));
+            Assert.That(result[1].State, Is.EqualTo(release2.deploymentStatus));
         }
     }
 
