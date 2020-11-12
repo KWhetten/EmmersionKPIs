@@ -94,6 +94,7 @@ namespace KPIWebApp.Helpers
                 }
             };
             dates = new List<DateTimeOffset>();
+            var newDates = new List<string>();
             if (startDate?.Date != null)
             {
                 var currentDate = new DateTimeOffset((DateTime) startDate?.Date);
@@ -103,7 +104,8 @@ namespace KPIWebApp.Helpers
                     if (currentDate.DayOfWeek != DayOfWeek.Saturday
                         && currentDate.DayOfWeek != DayOfWeek.Sunday)
                     {
-                        dates.Add(new DateTimeOffset(currentDate.Date));
+                        dates.Add(currentDate.Date);
+                        newDates.Add(currentDate.Date.ToString("MMMM dd"));
                         cumulativeFlowData.data[0].data.Add(0);
                         cumulativeFlowData.data[1].data.Add(0);
                         cumulativeFlowData.data[2].data.Add(0);
@@ -114,7 +116,7 @@ namespace KPIWebApp.Helpers
                 } while (currentDate <= finishDate);
             }
 
-            cumulativeFlowData.dates = dates;
+            cumulativeFlowData.dates = newDates;
 
             return cumulativeFlowData;
         }
@@ -180,7 +182,7 @@ namespace KPIWebApp.Helpers
     public class CumulativeFlowData
     {
         public List<CumulativeFlowDataRow> data { get; set; }
-        public List<DateTimeOffset> dates { get; set; }
+        public List<string> dates { get; set; }
     }
 
     public class CumulativeFlowDataRow
