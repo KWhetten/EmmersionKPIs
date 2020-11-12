@@ -44,15 +44,15 @@ namespace KPIWebApp.Helpers
                 taskList.Remove(removeItem);
             }
 
-            startDate = taskList.First().CreatedOn?.Date;
-            finishDate = finishTime.Date;
+            startDate = taskList.First().CreatedOn?.ToUniversalTime().Date;
+            finishDate = finishTime.ToUniversalTime().Date;
 
             try
             {
                 var cumulativeFlowData = BuildCumulativeFlowDataStructure();
 
                 var cumulativeFlowDataFinal = taskList.Aggregate(cumulativeFlowData.data,
-                    (current, taskItem) => ProcessTaskItemHistoryAsync(taskItem, current));
+                    (current, taskItem) => ProcessTaskItemHistory(taskItem, current));
 
                 cumulativeFlowData.data = cumulativeFlowDataFinal;
 
@@ -119,7 +119,7 @@ namespace KPIWebApp.Helpers
             return cumulativeFlowData;
         }
 
-        private List<CumulativeFlowDataRow> ProcessTaskItemHistoryAsync(TaskItem taskItem,
+        private List<CumulativeFlowDataRow> ProcessTaskItemHistory(TaskItem taskItem,
             List<CumulativeFlowDataRow> cumulativeFlowData)
         {
             var dateNum = 0;
@@ -132,10 +132,11 @@ namespace KPIWebApp.Helpers
                 {
                     var currentHistoryItem = taskItem.HistoryEvents[historyEventIndex];
 
-                    if (currentHistoryItem.EventDate.Date == date)
+                    while (currentHistoryItem.EventDate.Date == date)
                     {
                         ++historyEventIndex;
                         inState = GetState(currentHistoryItem.TaskItemState);
+                        currentHistoryItem = taskItem.HistoryEvents[historyEventIndex];
                     }
                 }
                 catch (Exception ex)
@@ -154,7 +155,7 @@ namespace KPIWebApp.Helpers
             return cumulativeFlowData;
         }
 
-        public InState GetState(string state)
+        private static InState GetState(string state)
         {
             return state switch
             {
@@ -166,7 +167,7 @@ namespace KPIWebApp.Helpers
             };
         }
 
-        public enum InState
+        private enum InState
         {
             None = -1,
             Backlog = 0,
