@@ -2,6 +2,7 @@
 import {DatePipe} from "@angular/common";
 import {Router} from '@angular/router';
 import {getCookie} from '../app.component';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: "app-task-items-component",
@@ -11,7 +12,13 @@ import {getCookie} from '../app.component';
 })
 export class TaskItemsComponent implements OnInit {
 
-  constructor(private router: Router, @Inject("BASE_URL") baseUrl: string) {
+  protected http: HttpClient;
+  protected baseUrl: string;
+
+
+  constructor(private router: Router, @Inject("BASE_URL") baseUrl: string, http: HttpClient) {
+    this.http = http;
+    this.baseUrl = baseUrl;
 
   }
   ngOnInit() {
@@ -19,5 +26,8 @@ export class TaskItemsComponent implements OnInit {
     if (cookieValue == undefined) {
       this.router.navigate(['/login']);
     }
+    this.http.get<number[]>(this.baseUrl + 'cluster-analysis')
+      .subscribe(x => {
+      });
   }
 }

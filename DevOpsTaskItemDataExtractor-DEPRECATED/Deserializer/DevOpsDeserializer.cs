@@ -12,8 +12,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
     {
         Task<IEnumerable<TaskItem>> TaskItemListAsync(IEnumerable<JToken> jsonTaskItems);
         Task<TaskItem> TaskItem(JToken jsonTaskItem);
-        DateTimeOffset? JsonWorkItemStartTime(JToken jsonWorkItemUpdates);
-        DateTimeOffset? JsonWorkItemFinishTime(JToken jsonWorkItemUpdates);
+        TaskItem GetHistoryDetails(TaskItem taskItem, JToken jsonWorkItemUpdates);
         TaskItemType GetCardType(JToken workItemType);
     }
 
@@ -21,6 +20,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
     {
         private readonly IDevOpsApiWrapper devOpsApiWrapper;
         private readonly IReleaseRepository releaseRepository;
+        private DateTimeOffset minStartTime;
 
         public DevOpsDeserializer(IDevOpsApiWrapper devOpsApiWrapper, IReleaseRepository releaseRepository)
         {
@@ -44,10 +44,13 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
 
         public async Task<TaskItem> TaskItem(JToken jsonTaskItem)
         {
+            minStartTime = new DateTimeOffset(new DateTime(2015, 1, 1));
             var taskItem = new TaskItem
             {
                 Id = (int) jsonTaskItem["id"],
                 Title = jsonTaskItem["fields"]["System.Title"].ToString(),
+                StartTime = minStartTime,
+                FinishTime = new DateTimeOffset(DateTime.Now.AddYears(50)),
                 Type = GetCardType(jsonTaskItem["fields"]["System.WorkItemType"]),
                 DevelopmentTeamName = jsonTaskItem["fields"]["System.BoardLane"]?.ToString(),
                 CreatedOn = (DateTimeOffset) jsonTaskItem["fields"]["System.CreatedDate"],
@@ -56,79 +59,129 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                 LastChangedBy = jsonTaskItem["fields"]["System.ChangedBy"]["displayName"].ToString(),
                 CurrentBoardColumn = jsonTaskItem["fields"]["System.BoardColumn"].ToString(),
                 State = jsonTaskItem["fields"]["System.State"].ToString(),
-                Impact = jsonTaskItem["fields"]["Custom.Impact"]?.ToString(),
-                CommentCount = (int) jsonTaskItem["fields"]["System.CommentCount"],
-                NumRevisions = (int) jsonTaskItem["rev"]
+                NumRevisions = (int) jsonTaskItem["rev"],
+                Release = new Release(),
+                HistoryEvents = new List<HistoryEvent>()
             };
 
             var jsonWorkItemUpdates = devOpsApiWrapper.GetWorkItemUpdates(taskItem);
 
-            taskItem.StartTime = JsonWorkItemStartTime(jsonWorkItemUpdates);
-
-            taskItem.FinishTime = JsonWorkItemFinishTime(jsonWorkItemUpdates);
+            taskItem = GetHistoryDetails(taskItem, jsonWorkItemUpdates);
 
             taskItem.Release = await releaseRepository.GetFirstReleaseBeforeDateAsync(taskItem.FinishTime);
-
 
             Console.WriteLine($"Finished Deserializing Card: {taskItem.Id}");
             return taskItem;
         }
 
+        public TaskItem GetHistoryDetails(TaskItem taskItem, JToken jsonWorkItemUpdates)
+        {
+            foreach (var workItemUpdate in jsonWorkItemUpdates)
+            {
+                var historyEvent = new HistoryEvent();
+                try
+                {
+                    historyEvent.Author = workItemUpdate["revisedBy"]["name"].ToString();
+                    historyEvent.Id = (int) workItemUpdate["fields"]["System.Watermark"]["newValue"];
+                    historyEvent.EventDate = (DateTimeOffset) workItemUpdate["revisedDate"];
+                    historyEvent.TaskId = (int) workItemUpdate["workItemId"];
+                    var boardColumn = workItemUpdate["fields"]["System.BoardColumn"]["newValue"].ToString();
+                    switch (boardColumn)
+                    {
+                        case "Parking Lot":
+                        case "Engineering Backlog":
+                        case "Product Backlog":
+                        {
+                            historyEvent.EventType = "Task created";
+                            historyEvent.TaskItemColumn = "Backlog";
+                            historyEvent.TaskItemState = "Backlog";
+                            if (taskItem.CreatedOn == minStartTime || taskItem.CreatedOn > historyEvent.EventDate)
+                            {
+                                taskItem.CreatedOn = historyEvent.EventDate;
+                            }
+
+                            break;
+                        }
+                        case "Top Priority":
+                            historyEvent.EventType = "Task moved";
+                            historyEvent.TaskItemColumn = "Top Priority";
+                            historyEvent.TaskItemState = "Top Priority";
+                            taskItem.StartTime = historyEvent.EventDate;
+                            break;
+                        case "Working On":
+                        {
+                            historyEvent.EventType = "Task moved";
+                            historyEvent.TaskItemColumn = "In Process.Working";
+                            historyEvent.TaskItemState = "In Process";
+                            if (taskItem.CreatedOn == minStartTime)
+                            {
+                                taskItem.StartTime = historyEvent.EventDate;
+                            }
+
+                            break;
+                        }
+                        case "Ready for Prod Deploy":
+                        case "Merged into Master":
+                        {
+                            historyEvent.EventType = "Task moved";
+                            historyEvent.TaskItemColumn = "In Process.Ready for Prod Deploy";
+                            historyEvent.TaskItemState = "In Process";
+                            if (taskItem.StartTime == minStartTime)
+                            {
+                                taskItem.StartTime = historyEvent.EventDate;
+                            }
+
+                            break;
+                        }
+                        case "Released To Production This week":
+                            historyEvent.EventType = "Task moved";
+                            historyEvent.TaskItemColumn = "Released to Prod this week";
+                            historyEvent.TaskItemState = "Released";
+                            taskItem.FinishTime = historyEvent.EventDate;
+                            break;
+                        case "In Production":
+                        {
+                            historyEvent.EventType = "Task moved";
+                            historyEvent.TaskItemColumn = "Archive";
+                            historyEvent.TaskItemState = "Released";
+                            if (taskItem.FinishTime > historyEvent.EventDate)
+                            {
+                                taskItem.FinishTime = historyEvent.EventDate;
+                            }
+
+                            break;
+                        }
+                    }
+                    taskItem.HistoryEvents.Add(historyEvent);
+                }
+                catch (Exception ex)
+                {
+                    // ignored
+                }
+            }
+
+            return taskItem;
+        }
+
         public TaskItemType GetCardType(JToken workItemType)
         {
-            var workItemTypeString = workItemType.ToString();
-            if (workItemTypeString.ToLower().Contains("unanticipated"))
-            {
-                workItemTypeString = "Unanticipated";
-            }
-            return workItemTypeString switch
-            {
-                "Strategic Product Work" => TaskItemType.Product,
-                "Tactical Product Work" => TaskItemType.Product,
-                "Strategic Engineering Work" => TaskItemType.Engineering,
-                "Tactical Engineering Work" => TaskItemType.Engineering,
-                "Unanticipated" => TaskItemType.Unanticipated,
-                _ => throw new Exception("Unknown Work Item Type...")
-            };
-        }
+            var workItemTypeString = workItemType.ToString().ToLower();
 
-        public DateTimeOffset? JsonWorkItemStartTime(JToken jsonWorkItemUpdates)
-        {
-            foreach (var itemUpdate in jsonWorkItemUpdates)
+            if (workItemTypeString.Contains("unanticipated"))
             {
-                try
-                {
-                    if (itemUpdate["fields"]["System.BoardColumn"]["oldValue"].ToString() == "Parking Lot")
-                    {
-                        return new DateTimeOffset((DateTime)itemUpdate["fields"]["System.ChangedDate"]["newValue"]);
-                    }
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
+                return TaskItemType.Unanticipated;
             }
 
-            return null;
-        }
-
-        public DateTimeOffset? JsonWorkItemFinishTime(JToken jsonWorkItemUpdates)
-        {
-            foreach (var itemUpdate in jsonWorkItemUpdates)
+            if (workItemTypeString.Contains("product"))
             {
-                try
-                {
-                    if (itemUpdate["fields"]["System.State"]["newValue"].ToString() == "Resolved"
-                        || itemUpdate["fields"]["System.State"]["newValue"].ToString() == "Closed")
-                        return new DateTimeOffset((DateTime)itemUpdate["fields"]["System.ChangedDate"]["newValue"]);
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
+                return TaskItemType.Product;
             }
 
-            return null;
+            if (workItemTypeString.Contains("engineering"))
+            {
+                return TaskItemType.Engineering;
+            }
+            throw new Exception("Unknown Card Type...");
         }
     }
 }

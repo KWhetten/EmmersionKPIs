@@ -44,8 +44,6 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
                     }
                 },
                 State = "State1",
-                Impact = "Impact1",
-                CommentCount = 5,
                 NumRevisions = 4,
                 Release = new Release
                 {
@@ -92,8 +90,6 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
                 Assert.That(card1.LastChangedBy, Is.EqualTo(result1.LastChangedBy));
                 Assert.That(card1.CurrentBoardColumn, Is.EqualTo(result1.CurrentBoardColumn));
                 Assert.That(card1.State, Is.EqualTo(result1.State));
-                Assert.That(card1.Impact, Is.EqualTo(result1.Impact));
-                Assert.That(card1.CommentCount, Is.EqualTo(result1.CommentCount));
                 Assert.That(card1.NumRevisions, Is.EqualTo(result1.NumRevisions));
                 Assert.That(card1.Release.Id, Is.EqualTo(result1.Release.Id));
                 Assert.That(card1.Release.State, Is.EqualTo(result1.Release.State));

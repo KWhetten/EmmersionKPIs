@@ -279,11 +279,6 @@
               <e p="success.png" t="Include" />
             </e>
             <e p="components" t="Include">
-              <e p="cumulative-flow-diagram" t="Include">
-                <e p="cumulative-flow-diagram.component.css" t="Include" />
-                <e p="cumulative-flow-diagram.component.html" t="Include" />
-                <e p="cumulative-flow-diagram.component.ts" t="Include" />
-              </e>
               <e p="filter-options" t="Include">
                 <e p="filter-options.component.css" t="Include" />
                 <e p="filter-options.component.html" t="Include" />
@@ -334,6 +329,7 @@
           <e p="PasswordChangeController.cs" t="Include" />
           <e p="RegisterController.cs" t="Include" />
           <e p="ReleaseScatterPlotController.cs" t="Include" />
+          <e p="TaskItemClusterAnalysis.cs" t="Include" />
           <e p="TaskItemController.cs" t="Include" />
         </e>
         <e p="Helpers" t="Include">
@@ -349,6 +345,7 @@
           <e p="RegisterHelper.cs" t="Include" />
           <e p="ReleaseHelper.cs" t="Include" />
           <e p="ScatterPlotHelper.cs" t="Include" />
+          <e p="TaskItemClusterAnalysisHelper.cs" t="Include" />
           <e p="TaskItemHelper.cs" t="Include" />
         </e>
         <e p="KPIWebApp.csproj" t="IncludeRecursive" />
@@ -465,6 +462,7 @@
         <e p="UpdateReleaseDataForAllTasks.csproj" t="IncludeRecursive" />
       </e>
     </e>
+    <e p="C:\Users\krwhe\.nuget\packages\accord\3.8.0\build\Accord.dll.config" t="Include" />
     <e p="C:\Users\krwhe\.nuget\packages\microsoft.net.test.sdk\16.4.0\build\netcoreapp2.1" t="Include">
       <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
     </e>

@@ -61,8 +61,6 @@ namespace DataAccess.DataRepositories
                           "ti.LastChangedBy, " +
                           "ti.CurrentBoardColumn, " +
                           "ti.State, " +
-                          "ti.Impact, " +
-                          "ti.CommentCount, " +
                           "ti.NumRevisions, " +
                           "ti.ReleaseId, " +
                           "r.State as ReleaseState, " +
@@ -117,8 +115,6 @@ namespace DataAccess.DataRepositories
                           "ti.LastChangedBy, " +
                           "ti.CurrentBoardColumn, " +
                           "ti.State, " +
-                          "ti.Impact, " +
-                          "ti.CommentCount, " +
                           "ti.NumRevisions, " +
                           "ti.ReleaseId, " +
                           "r.State as ReleaseState, " +
@@ -179,7 +175,7 @@ namespace DataAccess.DataRepositories
                 var taskItemTypeId = (int) taskItem.Type;
                 var developmentTeamName = !taskItem.DevelopmentTeamName.IsNullOrEmpty()
                     ? taskItem.DevelopmentTeamName
-                    : null;
+                    : "";
                 var createdOn = taskItem.CreatedOn;
                 var createdBy = !taskItem.CreatedBy.IsNullOrEmpty()
                     ? taskItem.CreatedBy
@@ -194,10 +190,6 @@ namespace DataAccess.DataRepositories
                 var state = !taskItem.State.IsNullOrEmpty()
                     ? taskItem.State
                     : null;
-                var impact = !taskItem.Impact.IsNullOrEmpty()
-                    ? taskItem.Impact
-                    : null;
-                var commentCount = taskItem.CommentCount;
                 var numRevisions = taskItem.NumRevisions;
                 var releaseId = taskItem.Release != null && taskItem.Release.Id != 0
                     ? taskItem.Release.Id
@@ -216,14 +208,12 @@ namespace DataAccess.DataRepositories
                           "LastChangedBy = @lastChangedBy, " +
                           "CurrentBoardColumn = @currentBoardColumn, " +
                           "State = @state, " +
-                          "Impact = @impact, " +
-                          "CommentCount = @commentCount, " +
                           "NumRevisions = @numRevisions, " +
                           "ReleaseId = @releaseId " +
                           "WHERE Id = @taskItemId " +
                           "ELSE " +
                           $"INSERT INTO TaskItem (Id, Title, StartTime, FinishTime, TaskItemTypeId, DevelopmentTeamName, CreatedOn, CreatedBy, " +
-                          "LastChangedOn, LastChangedBy, CurrentBoardColumn, State, Impact, CommentCount, NumRevisions, ReleaseId) " +
+                          "LastChangedOn, LastChangedBy, CurrentBoardColumn, State, NumRevisions, ReleaseId) " +
                           "VALUES (" +
                           "@taskItemId, " +
                           "@title, " +
@@ -237,16 +227,13 @@ namespace DataAccess.DataRepositories
                           "@lastChangedBy, " +
                           "@currentBoardColumn, " +
                           "@state, " +
-                          "@impact, " +
-                          "@commentCount, " +
                           "@numRevisions, " +
                           "@releaseId)";
                 await databaseConnection.DbConnection.ExecuteAsync(sql,
                     new
                     {
                         taskItemId, title, startTime, finishTime, taskItemTypeId, developmentTeamName, createdOn,
-                        createdBy, lastChangedOn, lastChangedBy, currentBoardColumn, state, impact, commentCount,
-                        numRevisions, releaseId
+                        createdBy, lastChangedOn, lastChangedBy, currentBoardColumn, state, numRevisions, releaseId
                     });
 
                 await InsertHistoryEventsAsync(taskItem);
@@ -320,8 +307,6 @@ namespace DataAccess.DataRepositories
                           "ti.LastChangedBy, " +
                           "ti.CurrentBoardColumn, " +
                           "ti.State, " +
-                          "ti.Impact, " +
-                          "ti.CommentCount, " +
                           "ti.NumRevisions, " +
                           "ti.ReleaseId, " +
                           "r.State as ReleaseState, " +
@@ -348,7 +333,7 @@ namespace DataAccess.DataRepositories
         {
             try
             {
-                const string sql = @"SELECT * FROM TaskItem WHERE Id = @id";
+                var sql = $"SELECT * FROM TaskItem WHERE Id = @id";
                 var result = databaseConnection.DbConnection.Query<TaskItem>(sql, new {id}).First();
                 return result == null || result.State != "Released";
             }
@@ -410,8 +395,6 @@ namespace DataAccess.DataRepositories
                         LastChangedBy = taskItem.LastChangedBy,
                         CurrentBoardColumn = taskItem.CurrentBoardColumn,
                         State = taskItem.State,
-                        Impact = taskItem.Impact,
-                        CommentCount = taskItem.CommentCount,
                         NumRevisions = taskItem.NumRevisions,
                         Release = new Release
                         {
@@ -461,8 +444,6 @@ namespace DataAccess.DataRepositories
         public string LastChangedBy { get; set; }
         public string CurrentBoardColumn { get; set; }
         public string State { get; set; }
-        public string Impact { get; set; }
-        public int CommentCount { get; set; }
         public int NumRevisions { get; set; }
         public int ReleaseId { get; set; }
         public string ReleaseState { get; set; }

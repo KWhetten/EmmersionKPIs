@@ -58,7 +58,6 @@ create table TaskItem
     LastChangedBy       nvarchar(50),
     CurrentBoardColumn  nvarchar(255),
     CardState           nvarchar(255),
-    Impact              nvarchar(255),
     CommentCount        int,
     NumRevisions        int,
     ReleaseId           int

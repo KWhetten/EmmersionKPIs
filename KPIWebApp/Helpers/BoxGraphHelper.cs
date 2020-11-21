@@ -104,7 +104,7 @@ namespace KPIWebApp.Helpers
                 var leadTimeHours = sortedItemList[i].LeadTimeHours;
                 if (leadTimeHours < minWhiskerValue)
                 {
-                    if (leadTimeHours < 150)
+                    if (leadTimeHours < 150 && leadTimeHours >= 0)
                     {
                         outliers.Add(new object[]
                         {

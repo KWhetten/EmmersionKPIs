@@ -57,8 +57,6 @@ namespace DataAccess.Deserialize.Kanbanize
                 DevelopmentTeamName = boardId == 4
                     ? "Enterprise Team"
                     : "Assessments Team",
-                Impact = jsonTaskItem["priority"].ToString(),
-                CommentCount = jsonTaskItem["comments"].Count(),
                 LastChangedOn = null,
                 CurrentBoardColumn = jsonTaskItem["columnname"].ToString()
             };

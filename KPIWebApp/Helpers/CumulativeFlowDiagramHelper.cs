@@ -24,8 +24,7 @@ namespace KPIWebApp.Helpers
             taskItemRepository = new TaskItemRepository();
         }
 
-        public async Task<CumulativeFlowData> GetCumulativeFlowData(DateTimeOffset startTime,
-            DateTimeOffset finishTime)
+        public async Task<CumulativeFlowData> GetCumulativeFlowData(DateTimeOffset startTime, DateTimeOffset finishTime)
         {
             var taskList = await taskItemRepository.GetTaskItemListAsync(startTime, finishTime);
             var removeList = new List<TaskItem>();

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using KPIWebApp.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +12,7 @@ namespace KPIWebApp.Controllers
         public async Task<CumulativeFlowData> Get(string startDateString, string finishDateString)
         {
             var startDate = DateHelper.GetStartDate(startDateString);
-            var finishDate = DateHelper.GetFinishDate(finishDateString);
+            var finishDate = DateHelper.GetFinishDate(finishDateString).AddDays(1);
 
             var cumulativeFlowDiagramHelper = new CumulativeFlowDiagramHelper();
 

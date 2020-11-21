@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.DataRepositories;
@@ -19,7 +20,7 @@ namespace KPIWebApp.Helpers
             this.taskItemRepository = taskItemRepository;
         }
 
-        public async Task<TaskItem[]> GetTaskItems(DateTimeOffset startDate, DateTimeOffset endDate)
+        public async Task<List<TaskItem>> GetTaskItems(DateTimeOffset startDate, DateTimeOffset endDate)
         {
             var taskItems = await taskItemRepository.GetTaskItemListAsync(startDate, endDate);
 
@@ -30,7 +31,7 @@ namespace KPIWebApp.Helpers
                 taskItems.Remove(badTaskItem);
             }
 
-            return taskItems.ToArray();
+            return taskItems;
         }
     }
 }

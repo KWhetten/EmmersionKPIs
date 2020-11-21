@@ -28,6 +28,6 @@ export class FilterOptionsComponent {
     date = new Date((document.getElementById("end-date") as HTMLInputElement).value);
     this.endDate = this.datePipe.transform(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1) , 'MMMM d, yyyy');
 
-    //this.overview.reloadData(this.startDate, this.endDate);
+    // this.overview.reloadData(this.startDate, this.endDate);
   }
 }

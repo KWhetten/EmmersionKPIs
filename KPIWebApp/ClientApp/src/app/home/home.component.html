@@ -1,15 +1,56 @@
 ﻿<h1>Overview</h1>
 
-<app-filter-options></app-filter-options>
+<form id="form">
+  <h2>Filter Options</h2>
+  <div class="filter">
 
-<p *ngIf="!overviewData"><em>Loading...</em></p>
-<div *ngIf="overviewData">
+    <div class="card-type">
+      <h3>Card Type(s):</h3>
+      <div class="card-type-checkboxes">
+        <div class="product">
+          <div>
+            <input type="checkbox" name="strategic-product" id="product" checked>
+            <label for="product">Product</label>
+          </div>
+          <div>
+            <input type="checkbox" name="unanticipated" id="unanticipated" checked>
+            <label for="unanticipated">Unanticipated</label>
+          </div>
+          <div>
+            <input type="checkbox" name="strategic-engineering" id="engineering" checked>
+            <label for="engineering">Engineering</label>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <div class="date-range">
+      <h3>Date Range:</h3>
+      <div>
+        <div class="from-date">
+          <label for="start-date">From:</label>
+          <input id="start-date" name="start-date" type="date" dataformatas="yyyy/MM/dd"/>
+        </div>
+        <div class="to-date">
+          <label for="finish-date">To:</label>
+          <input id="finish-date" name="finish-date" type="date" dataformatas="yyyy/MM/dd"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit">
+      <button class="btn btn-primary" (click)="submit()">Submit</button>
+    </div>
+  </div>
+  <hr>
+</form>
+
+<div>
   <h2>Results:</h2>
-  <h3><strong>From:</strong> {{startDate}} <strong>to</strong> {{endDate}}</h3>
+  <h3><strong>From:</strong> {{startDate}} <strong>to</strong> {{finishDate}}</h3>
 
   <div class="cumulative-flow-diagram">
-    <app-cumulative-flow-diagram></app-cumulative-flow-diagram>
+    <div id="cumulative-flow-diagram-container"></div>
   </div>
 
   <h4>{{overviewData.totalCards}} Work Item Cards</h4>
@@ -21,11 +62,11 @@
     </div>
     <div class="lead-time-charts">
       <div class="scatter-plot">
-        <app-lead-time-scatter-plot></app-lead-time-scatter-plot>
+        <div id="lead-time-scatter-plot-container"></div>
       </div>
       <div class="right-column">
         <div class="lead-time-box-graph">
-          <app-lead-time-box-graph></app-lead-time-box-graph>
+          <div id="lead-time-box-graph-container"></div>
         </div>
       </div>
     </div>

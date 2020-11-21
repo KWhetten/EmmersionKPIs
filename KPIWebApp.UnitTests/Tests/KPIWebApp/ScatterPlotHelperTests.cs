@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DataAccess.DataRepositories;
 using DataAccess.Objects;
 using KPIWebApp.Helpers;
@@ -13,7 +12,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
     public class ScatterPlotHelperTests
     {
         [Test]
-        public async Task When_getting_lead_time_scatter_plot_data()
+        public void When_getting_lead_time_scatter_plot_data()
         {
             var releaseList = new List<Release>
             {
@@ -60,8 +59,6 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 LastChangedBy = "ChangedBy1",
                 CurrentBoardColumn = "BoardColumn1",
                 State = "State1",
-                Impact = "Impact 1",
-                CommentCount = 1,
                 NumRevisions = 1,
                 Release = releaseList.First()
             };
@@ -79,8 +76,6 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 LastChangedBy = "ChangedBy2",
                 CurrentBoardColumn = "BoardColumn2",
                 State = "State2",
-                Impact = "Impact 2",
-                CommentCount = 2,
                 NumRevisions = 2,
                 Release = releaseList.Last()
             };
@@ -98,8 +93,6 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 LastChangedBy = "ChangedBy3",
                 CurrentBoardColumn = "BoardColumn3",
                 State = "State3",
-                Impact = "Impact 3",
-                CommentCount = 3,
                 NumRevisions = 3,
                 Release = releaseList.Last()
             };
@@ -117,8 +110,6 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 LastChangedBy = "ChangedBy4",
                 CurrentBoardColumn = "BoardColumn4",
                 State = "State4",
-                Impact = "Impact 4",
-                CommentCount = 4,
                 NumRevisions = 4,
                 Release = releaseList.Last()
             };
@@ -136,8 +127,6 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 LastChangedBy = "ChangedBy5",
                 CurrentBoardColumn = "BoardColumn5",
                 State = "State5",
-                Impact = "Impact 5",
-                CommentCount = 5,
                 NumRevisions = 5,
                 Release = releaseList.Last()
             };
@@ -151,8 +140,8 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
             };
 
             var mockTaskItemRepository = new Mock<ITaskItemRepository>();
-            mockTaskItemRepository.Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
-                .ReturnsAsync(taskItemList);
+            mockTaskItemRepository.Setup(x => x.GetTaskItemList(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
+                .Returns(taskItemList);
             mockTaskItemRepository.Setup(x => x.GetTaskItemTypes()).Returns(new []
             {
                 TaskItemType.Product,

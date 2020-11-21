@@ -63,7 +63,7 @@ namespace DataAccess.Api
             {
                 var taskItemRepository = new TaskItemRepository();
                 if (item["workflow_name"].ToString().Contains("Delivery")
-                    /*&& !taskItemRepository.TaskItemHasAlreadyBeenReleasedAsync((int) item["taskid"])*/)
+                    && !taskItemRepository.TaskItemHasAlreadyBeenReleasedAsync((int) item["taskid"]))
                 {
                     result.Add(item);
                 }

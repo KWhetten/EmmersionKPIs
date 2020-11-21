@@ -252,3 +252,103 @@ form .lead-time {
   width: 100%;
   margin-bottom: 64px;
 }
+
+.filter h2 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.filter h3 {
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 32px;
+}
+
+.filter h4 {
+  font-size: 20px;
+  padding: 0;
+  margin-bottom: 16px;
+  font-weight: bolder;
+}
+
+.filter h5 {
+  font-size: 16px;
+}
+
+.filter p {
+  margin: 0;
+}
+
+.filter form {
+  padding: 0;
+  margin-bottom: 32px;
+}
+
+.filter {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.filter .card-type-checkboxes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.filter .card-type-checkboxes label {
+  margin-left: 8px;
+}
+
+.filter .product {
+  flex-direction: column;
+}
+
+.filter .engineering {
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.filter .date-range {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.filter .date-range label {
+  margin-right: 8px;
+}
+
+.filter .from-date {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter .to-date {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter .submit {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+
+.filter .cumulative-flow-diagram {
+  border: 1px black solid;
+  width: 100%;
+  height: 500px;
+  margin-bottom: 64px;
+}
+
+.filter .lead-time {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 64px;
+}

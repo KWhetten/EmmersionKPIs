@@ -15,9 +15,6 @@ import {InviteUserComponent} from './invite-user/invite-user.component';
 import {CreatePasswordComponent} from './create-password/create-password.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
 import {ForgotPasswordComponent} from './forgot-password/forgot-password.component';
-import {LeadTimeScatterPlotComponent} from '../components/lead-time-scatter-plot/lead-time-scatter-plot.component'
-import {LeadTimeBoxGraphComponent} from '../components/lead-time-box-graph/lead-time-box-graph.component';
-import {CumulativeFlowDiagramComponent} from '../components/cumulative-flow-diagram/cumulative-flow-diagram.component';
 
 @NgModule({
   declarations: [
@@ -32,9 +29,6 @@ import {CumulativeFlowDiagramComponent} from '../components/cumulative-flow-diag
     CreatePasswordComponent,
     ChangePasswordComponent,
     ForgotPasswordComponent,
-    CumulativeFlowDiagramComponent,
-    LeadTimeScatterPlotComponent,
-    LeadTimeBoxGraphComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),

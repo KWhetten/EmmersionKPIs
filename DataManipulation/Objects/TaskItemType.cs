@@ -1,5 +1,8 @@
-﻿namespace DataAccess.Objects
+﻿using System;
+
+namespace DataAccess.Objects
 {
+    [Serializable]
     public enum TaskItemType
     {
         Product = 1,

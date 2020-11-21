@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using KPIWebApp.Helpers;
+﻿using KPIWebApp.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KPIWebApp.Controllers
@@ -13,7 +11,7 @@ namespace KPIWebApp.Controllers
         public ScatterPlotData[] Get(string startDateString, string finishDateString)
         {
             var startDate = DateHelper.GetStartDate(startDateString);
-            var finishDate = DateHelper.GetFinishDate(finishDateString);
+            var finishDate = DateHelper.GetFinishDate(finishDateString).AddDays(1);
 
             var scatterPlotHelper = new ScatterPlotHelper();
             return  scatterPlotHelper.GetLeadTimeScatterPlotData(startDate, finishDate);

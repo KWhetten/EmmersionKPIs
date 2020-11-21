@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using DataAccess.DataRepositories;
 
 namespace DataAccess.Objects
 {
-    public class TaskItem : IComparable<TaskItem>
+    [Serializable]
+    public class TaskItem : IEquatable<TaskItem>, IComparable<TaskItem>
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -18,8 +18,6 @@ namespace DataAccess.Objects
         public string LastChangedBy { get; set; }
         public string CurrentBoardColumn { get; set; }
         public string State { get; set; }
-        public string Impact { get; set; }
-        public int CommentCount { get; set; }
         public int NumRevisions { get; set; }
         public Release Release { get; set; }
         public List<HistoryEvent> HistoryEvents { get; set; }
@@ -74,6 +72,13 @@ namespace DataAccess.Objects
             }
 
             return LeadTimeHours;
+        }
+
+        public bool Equals(TaskItem other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Id == other.Id && Title == other.Title && Nullable.Equals(StartTime, other.StartTime) && Nullable.Equals(FinishTime, other.FinishTime) && Type == other.Type && DevelopmentTeamName == other.DevelopmentTeamName && Nullable.Equals(CreatedOn, other.CreatedOn) && CreatedBy == other.CreatedBy && Nullable.Equals(LastChangedOn, other.LastChangedOn) && LastChangedBy == other.LastChangedBy && CurrentBoardColumn == other.CurrentBoardColumn && State == other.State && NumRevisions == other.NumRevisions && Equals(Release, other.Release) && Equals(HistoryEvents, other.HistoryEvents) && LeadTimeHours == other.LeadTimeHours;
         }
     }
 

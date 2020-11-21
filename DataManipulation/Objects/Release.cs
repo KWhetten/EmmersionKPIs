@@ -1,7 +1,8 @@
-﻿﻿using System;
+﻿using System;
 
  namespace DataAccess.Objects
 {
+    [Serializable]
     public class Release
     {
         public int Id { get; set; }

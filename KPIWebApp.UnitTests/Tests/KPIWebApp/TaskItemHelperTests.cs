@@ -27,9 +27,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 LastChangedOn = DateTimeOffset.Now.Date,
                 LastChangedBy = "LastChangedBy1",
                 CurrentBoardColumn = "CurrentBoardColumn1",
-                Impact = "Impact1",
                 State = "CardState1",
-                CommentCount = 1,
                 NumRevisions = 3,
                 Release = new Release
                 {
@@ -59,9 +57,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 LastChangedOn = DateTimeOffset.Now.Date,
                 LastChangedBy = "LastChangedBy2",
                 CurrentBoardColumn = "CurrentBoardColumn2",
-                Impact = "Impact2",
                 State = "CardState2",
-                CommentCount = 2,
                 NumRevisions = 3,
                 Release = new Release
                 {
@@ -92,7 +88,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
 
             var result = await taskItemHelper.GetTaskItems(DateTimeOffset.Now.Date, DateTimeOffset.Now.Date);
 
-            Assert.That(result.Length, Is.EqualTo(1));
+            Assert.That(result.Count, Is.EqualTo(1));
             Assert.That(result[0], Is.EqualTo(taskItem1));
         }
 
@@ -112,9 +108,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 LastChangedOn = DateTimeOffset.Now.Date,
                 LastChangedBy = "LastChangedBy1",
                 CurrentBoardColumn = "CurrentBoardColumn1",
-                Impact = "Impact1",
                 State = "CardState1",
-                CommentCount = 1,
                 NumRevisions = 3,
                 Release = new Release
                 {
@@ -144,9 +138,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 LastChangedOn = DateTimeOffset.Now.Date,
                 LastChangedBy = "LastChangedBy2",
                 CurrentBoardColumn = "CurrentBoardColumn2",
-                Impact = "Impact2",
                 State = "CardState2",
-                CommentCount = 2,
                 NumRevisions = 3,
                 Release = new Release
                 {
@@ -177,7 +169,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
 
             var result = await taskItemHelper.GetTaskItems(DateTimeOffset.Now.Date, DateTimeOffset.Now.Date);
 
-            Assert.That(result.Length, Is.EqualTo(1));
+            Assert.That(result.Count, Is.EqualTo(1));
             Assert.That(result[0], Is.EqualTo(taskItem1));
         }
     }

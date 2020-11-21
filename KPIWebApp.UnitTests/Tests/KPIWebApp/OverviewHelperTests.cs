@@ -95,8 +95,6 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                     LastChangedBy = "ChangedBy1",
                     CurrentBoardColumn = "BoardColumn1",
                     State = "State1",
-                    Impact = "Impact 1",
-                    CommentCount = 1,
                     NumRevisions = 1,
                     Release = releaseList.First()
                 },
@@ -114,8 +112,6 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                     LastChangedBy = "ChangedBy2",
                     CurrentBoardColumn = "BoardColumn2",
                     State = "State2",
-                    Impact = "Impact 2",
-                    CommentCount = 2,
                     NumRevisions = 2,
                     Release = releaseList.Last()
                 }
@@ -132,9 +128,9 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
             var expected = new OverviewData
             {
                 TotalCards = 2,
-                AverageLeadTime = 16m,
-                LongestLeadTime = 24m,
-                ShortestLeadTime = 8m,
+                AverageLeadTime = 61m,
+                LongestLeadTime = 77m,
+                ShortestLeadTime = 45m,
                 TotalDeploys = 2,
                 SuccessfulDeploys = 0,
                 RolledBackDeploys = 0,

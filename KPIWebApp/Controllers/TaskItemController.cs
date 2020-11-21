@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataAccess.Objects;
 using KPIWebApp.Helpers;
@@ -11,7 +12,7 @@ namespace KPIWebApp.Controllers
     public class TaskItemController : ControllerBase
     {
         [HttpGet]
-        public async Task<TaskItem[]> Get(string startDateString, string endDateString)
+        public async Task<List<TaskItem>> Get(string startDateString, string endDateString)
         {
             var taskItemHelper = new TaskItemHelper();
             var startDate = DateHelper.GetStartDate(startDateString);

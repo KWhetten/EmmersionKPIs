@@ -12,7 +12,7 @@ namespace KPIWebApp.Controllers
         public async Task<BoxGraphData> Get(string startDateString, string finishDateString)
         {
             var startDate = DateHelper.GetStartDate(startDateString);
-            var finishDate = DateHelper.GetFinishDate(finishDateString);
+            var finishDate = DateHelper.GetFinishDate(finishDateString).AddDays(1);
 
             var boxGraphHelper = new BoxGraphHelper();
             return await boxGraphHelper.GetLeadTimeBoxGraphData(startDate, finishDate);

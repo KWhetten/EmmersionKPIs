@@ -40,7 +40,7 @@ namespace KPIWebApp.Helpers
             }
             catch (Exception ex)
             {
-                return new DateTimeOffset(new DateTime(2015, 1, 1));
+                return new DateTimeOffset(DateTime.Today);
             }
         }
     }
