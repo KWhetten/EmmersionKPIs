@@ -14,7 +14,7 @@ namespace DataAccess.Api
     public class DevOpsApiRepository : IDevOpsApiRepository
     {
         private readonly IRestClient client;
-        private const string PersonalAccessToken = "q3s5tuvxwmajoy6tqjg4knognbdocqzm7h32j2sxcoj6ihh63mxq";
+        private const string PersonalAccessToken = "";
         private const string Organization = "emmersionlearning";
         private const string Project = "EmmersionLearning";
 
