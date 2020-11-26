@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DataAccess.DataRepositories;
 using DataAccess.Objects;
 using KPIWebApp.Helpers;
 using Moq;
 using NUnit.Framework;
 
-namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
+namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
 {
     public class ScatterPlotHelperTests
     {
         [Test]
-        public void When_getting_lead_time_scatter_plot_data()
+        public async Task When_getting_lead_time_scatter_plot_data()
         {
             var releaseList = new List<Release>
             {
@@ -52,13 +53,13 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-10)),
                 FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-5)),
                 Type = TaskItemType.Engineering,
-                DevelopmentTeamName = "Team1",
+                DevelopmentTeam = "Team1",
                 CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-8)),
                 CreatedBy = "CreatedBy1",
                 LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
                 LastChangedBy = "ChangedBy1",
                 CurrentBoardColumn = "BoardColumn1",
-                State = "State1",
+                State = TaskItemState.Backlog,
                 NumRevisions = 1,
                 Release = releaseList.First()
             };
@@ -69,13 +70,13 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-5)),
                 FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-4)),
                 Type = TaskItemType.Product,
-                DevelopmentTeamName = "Team2",
+                DevelopmentTeam = "Team2",
                 CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-1)),
                 CreatedBy = "CreatedBy2",
                 LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
                 LastChangedBy = "ChangedBy2",
                 CurrentBoardColumn = "BoardColumn2",
-                State = "State2",
+                State = TaskItemState.TopPriority,
                 NumRevisions = 2,
                 Release = releaseList.Last()
             };
@@ -86,13 +87,13 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-6)),
                 FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-3)),
                 Type = TaskItemType.Unanticipated,
-                DevelopmentTeamName = "Team3",
+                DevelopmentTeam = "Team3",
                 CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-1)),
                 CreatedBy = "CreatedBy3",
                 LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
                 LastChangedBy = "ChangedBy3",
                 CurrentBoardColumn = "BoardColumn3",
-                State = "State3",
+                State = TaskItemState.InProcess,
                 NumRevisions = 3,
                 Release = releaseList.Last()
             };
@@ -103,13 +104,13 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-7)),
                 FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-2)),
                 Type = TaskItemType.Unanticipated,
-                DevelopmentTeamName = "Team4",
+                DevelopmentTeam = "Team4",
                 CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-1)),
                 CreatedBy = "CreatedBy4",
                 LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
                 LastChangedBy = "ChangedBy4",
                 CurrentBoardColumn = "BoardColumn4",
-                State = "State4",
+                State = TaskItemState.Released,
                 NumRevisions = 4,
                 Release = releaseList.Last()
             };
@@ -120,14 +121,31 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-5)),
                 FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-1)),
                 Type = TaskItemType.Engineering,
-                DevelopmentTeamName = "Team5",
+                DevelopmentTeam = "Team5",
                 CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-1)),
                 CreatedBy = "CreatedBy5",
                 LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
                 LastChangedBy = "ChangedBy5",
                 CurrentBoardColumn = "BoardColumn5",
-                State = "State5",
+                State = TaskItemState.Backlog,
                 NumRevisions = 5,
+                Release = releaseList.Last()
+            };
+            var taskFrom2YearsAgo = new TaskItem
+            {
+                Id = 6,
+                Title = "Title6",
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddYears(-6)),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddYears(-2)),
+                Type = TaskItemType.Engineering,
+                DevelopmentTeam = "Team6",
+                CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddYears(-2)),
+                CreatedBy = "CreatedBy6",
+                LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
+                LastChangedBy = "ChangedBy6",
+                CurrentBoardColumn = "BoardColumn6",
+                State = TaskItemState.TopPriority,
+                NumRevisions = 6,
                 Release = releaseList.Last()
             };
             var taskItemList = new List<TaskItem>
@@ -136,12 +154,13 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 productTaskItem1,
                 unanticipatedTaskItem1,
                 unanticipatedTaskItem2,
-                engineeringTaskItem2
+                engineeringTaskItem2,
+                taskFrom2YearsAgo
             };
 
             var mockTaskItemRepository = new Mock<ITaskItemRepository>();
-            mockTaskItemRepository.Setup(x => x.GetTaskItemList(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
-                .Returns(taskItemList);
+            mockTaskItemRepository.Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
+                .ReturnsAsync(taskItemList);
             mockTaskItemRepository.Setup(x => x.GetTaskItemTypes()).Returns(new []
             {
                 TaskItemType.Product,
@@ -150,31 +169,31 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
             });
 
             var scatterPlotHelper = new ScatterPlotHelper(mockTaskItemRepository.Object);
-            var result = scatterPlotHelper.GetLeadTimeScatterPlotData(new DateTimeOffset(new DateTime(2020, 10, 12), TimeSpan.Zero), new DateTimeOffset(new DateTime(2020, 10, 24), TimeSpan.Zero));
+            var result = await scatterPlotHelper.GetLeadTimeScatterPlotData(new DateTimeOffset(new DateTime(2020, 10, 12), TimeSpan.Zero), new DateTimeOffset(new DateTime(2020, 10, 24), TimeSpan.Zero), true, true, true);
 
             Console.Write("");
 
-            Assert.That(result[0].name, Is.EqualTo("Product"));
-            Assert.That(result[0].turboThreshold, Is.EqualTo(500000));
-            Assert.That(result[0].data.Count, Is.EqualTo(1));
-            Assert.That(result[0].data[0].x, Is.EqualTo(productTaskItem1.FinishTime));
-            Assert.That(result[0].data[0].y, Is.EqualTo(8m));
+            Assert.That(result[TaskItemType.Product].name, Is.EqualTo("Product"));
+            Assert.That(result[TaskItemType.Product].turboThreshold, Is.EqualTo(500000));
+            Assert.That(result[TaskItemType.Product].data.Count, Is.EqualTo(1));
+            Assert.That(result[TaskItemType.Product].data[0].x, Is.EqualTo(productTaskItem1.FinishTime));
+            Assert.That(result[TaskItemType.Product].data[0].y, Is.EqualTo(8m));
 
-            Assert.That(result[1].name, Is.EqualTo("Engineering"));
-            Assert.That(result[1].turboThreshold, Is.EqualTo(500000));
-            Assert.That(result[1].data.Count, Is.EqualTo(2));
-            Assert.That(result[1].data[0].x, Is.EqualTo(engineeringTaskItem1.FinishTime));
-            Assert.That(result[1].data[0].y, Is.EqualTo(32m));
-            Assert.That(result[1].data[1].x, Is.EqualTo(engineeringTaskItem2.FinishTime));
-            Assert.That(result[1].data[1].y, Is.EqualTo(16m));
+            Assert.That(result[TaskItemType.Engineering].name, Is.EqualTo("Engineering"));
+            Assert.That(result[TaskItemType.Engineering].turboThreshold, Is.EqualTo(500000));
+            Assert.That(result[TaskItemType.Engineering].data.Count, Is.EqualTo(2));
+            Assert.That(result[TaskItemType.Engineering].data[0].x, Is.EqualTo(engineeringTaskItem1.FinishTime));
+            Assert.That(result[TaskItemType.Engineering].data[0].y, Is.EqualTo(32m));
+            Assert.That(result[TaskItemType.Engineering].data[1].x, Is.EqualTo(engineeringTaskItem2.FinishTime));
+            Assert.That(result[TaskItemType.Engineering].data[1].y, Is.EqualTo(16m));
 
-            Assert.That(result[2].name, Is.EqualTo("Unanticipated"));
-            Assert.That(result[2].turboThreshold, Is.EqualTo(500000));
-            Assert.That(result[2].data.Count, Is.EqualTo(2));
-            Assert.That(result[2].data[0].x, Is.EqualTo(unanticipatedTaskItem1.FinishTime));
-            Assert.That(result[2].data[0].y, Is.EqualTo(24m));
-            Assert.That(result[2].data[1].x, Is.EqualTo(unanticipatedTaskItem2.FinishTime));
-            Assert.That(result[2].data[1].y, Is.EqualTo(32m));
+            Assert.That(result[TaskItemType.Unanticipated].name, Is.EqualTo("Unanticipated"));
+            Assert.That(result[TaskItemType.Unanticipated].turboThreshold, Is.EqualTo(500000));
+            Assert.That(result[TaskItemType.Unanticipated].data.Count, Is.EqualTo(2));
+            Assert.That(result[TaskItemType.Unanticipated].data[0].x, Is.EqualTo(unanticipatedTaskItem1.FinishTime));
+            Assert.That(result[TaskItemType.Unanticipated].data[0].y, Is.EqualTo(24m));
+            Assert.That(result[TaskItemType.Unanticipated].data[1].x, Is.EqualTo(unanticipatedTaskItem2.FinishTime));
+            Assert.That(result[TaskItemType.Unanticipated].data[1].y, Is.EqualTo(32m));
         }
     }
 }

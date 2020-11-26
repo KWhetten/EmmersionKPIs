@@ -165,3 +165,10 @@ C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\KPIWebA
 C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\DataExtractor.pdb
 C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\DevOpsTaskItemDataExtractor-DEPRECATED.pdb
 C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\KPIWebApp.pdb
+C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\package.json
+C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\Accord.dll.config
+C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\Accord.dll
+C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\Accord.MachineLearning.dll
+C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\Accord.Math.Core.dll
+C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\Accord.Math.dll
+C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\Accord.Statistics.dll

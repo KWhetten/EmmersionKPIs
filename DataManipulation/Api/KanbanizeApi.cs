@@ -10,14 +10,14 @@ using RestSharp;
 
 namespace DataAccess.Api
 {
-    public interface IKanbanizeApiRepository
+    public interface IKanbanizeApi
     {
         string GetInformation(string uri, string body);
         JToken GetTaskItemList(int boardId);
         Task<JToken> GetHistoryEventsAsync(List<int> taskItemIds, int boardId);
     }
 
-    public class KanbanizeApi : IKanbanizeApiRepository
+    public class KanbanizeApi : IKanbanizeApi
     {
         private readonly IRestClient client;
         private const string ApiKey = "TUilAxpp68ooVyExDLxkwNfQpVt8TTO7ZMWk1Mif";

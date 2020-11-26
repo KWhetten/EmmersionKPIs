@@ -2,60 +2,66 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Accord.Collections;
 using DataAccess.DataRepositories;
 using DataAccess.Objects;
 
 namespace KPIWebApp.Helpers
 {
-    public class CumulativeFlowDiagramHelper
+    interface ICumulativeFlowDiagramHelper
+    {
+        Task<CumulativeFlowData> GetCumulativeFlowDataAsync(DateTime startTime, DateTime finishTime,
+            bool product, bool engineering, bool unanticipated);
+
+        Task<List<TaskItem>> GetTaskItems(DateTime startTime, DateTime finishTime);
+
+        OrderedDictionary<DateTime, List<int>> SetupData(OrderedDictionary<DateTime, List<int>> data,
+            DateTime startDate, DateTime finishDate);
+
+        CumulativeFlowData FormatData(OrderedDictionary<DateTime, List<int>> data,
+            DateTime startDate, DateTime finishDate);
+
+        OrderedDictionary<DateTime, List<int>> ProcessTaskItemHistory(TaskItem taskItem,
+            OrderedDictionary<DateTime, List<int>> data);
+
+        DateTime UpdateCumulativeFlowData(HistoryEvent historyEvent, DateTime lastResultDate,
+            OrderedDictionary<DateTime, List<int>> data);
+    }
+
+    public class CumulativeFlowDiagramHelper : ICumulativeFlowDiagramHelper
     {
         private readonly ITaskItemRepository taskItemRepository;
-        private DateTimeOffset? startDate;
-        private DateTimeOffset? finishDate;
-        private List<DateTimeOffset> dates;
-
-        public CumulativeFlowDiagramHelper(ITaskItemRepository taskItemRepository)
-        {
-            this.taskItemRepository = taskItemRepository;
-        }
 
         public CumulativeFlowDiagramHelper()
         {
             taskItemRepository = new TaskItemRepository();
         }
 
-        public async Task<CumulativeFlowData> GetCumulativeFlowData(DateTimeOffset startTime, DateTimeOffset finishTime)
+        public CumulativeFlowDiagramHelper(ITaskItemRepository taskItemRepository)
         {
-            var taskList = await taskItemRepository.GetTaskItemListAsync(startTime, finishTime);
-            var removeList = new List<TaskItem>();
+            this.taskItemRepository = taskItemRepository;
+        }
 
-            foreach (var taskItem in taskList)
-            {
-                taskItem.HistoryEvents = await taskItemRepository.GetHistoryEventsByTaskIdAsync(taskItem.Id);
-                if (taskItem.HistoryEvents.Count == 0)
-                {
-                    removeList.Add(taskItem);
-                }
-            }
+        public async Task<CumulativeFlowData> GetCumulativeFlowDataAsync(DateTime startTime, DateTime finishTime, bool product, bool engineering, bool unanticipated)
+        {
+            var data = new OrderedDictionary<DateTime, List<int>>();
 
-            foreach (var removeItem in removeList)
-            {
-                taskList.Remove(removeItem);
-            }
+            var taskList = await GetTaskItems(startTime, finishTime);
 
-            startDate = taskList.First().CreatedOn?.ToUniversalTime().Date;
-            finishDate = finishTime.ToUniversalTime().Date;
+            data = SetupData(data, GetStartDate(taskList), GetFinishDate(taskList));
 
             try
             {
-                var cumulativeFlowData = BuildCumulativeFlowDataStructure();
+                data = (from task in taskList
+                        let type = task.Type
+                        where (type == TaskItemType.Product && product)
+                              || (type == TaskItemType.Engineering && engineering)
+                              || (type == TaskItemType.Unanticipated && unanticipated)
+                        select task)
+                    .Aggregate(data, (current, task)
+                        => ProcessTaskItemHistory(task, current));
 
-                var cumulativeFlowDataFinal = taskList.Aggregate(cumulativeFlowData.data,
-                    (current, taskItem) => ProcessTaskItemHistory(taskItem, current));
-
-                cumulativeFlowData.data = cumulativeFlowDataFinal;
-
-                return cumulativeFlowData;
+                return FormatData(data, startTime.Date, finishTime.Date);
             }
             catch (Exception ex)
             {
@@ -64,117 +70,141 @@ namespace KPIWebApp.Helpers
             }
         }
 
-        private CumulativeFlowData BuildCumulativeFlowDataStructure()
+        private static DateTime GetFinishDate(List<TaskItem> taskList)
         {
-            var cumulativeFlowData = new CumulativeFlowData
-            {
-                data = new List<CumulativeFlowDataRow>
-                {
-                    new CumulativeFlowDataRow
-                    {
-                        name = "Backlog",
-                        data = new List<int>()
-                    },
-                    new CumulativeFlowDataRow
-                    {
-                        name = "Top Priority",
-                        data = new List<int>()
-                    },
-                    new CumulativeFlowDataRow
-                    {
-                        name = "In Process",
-                        data = new List<int>()
-                    },
-                    new CumulativeFlowDataRow
-                    {
-                        name = "Released",
-                        data = new List<int>()
-                    }
-                }
-            };
-            dates = new List<DateTimeOffset>();
-            var newDates = new List<string>();
-            if (startDate?.Date != null)
-            {
-                var currentDate = new DateTimeOffset((DateTime) startDate?.Date);
 
-                do
-                {
-                    if (currentDate.DayOfWeek != DayOfWeek.Saturday
-                        && currentDate.DayOfWeek != DayOfWeek.Sunday)
-                    {
-                        dates.Add(currentDate.Date);
-                        newDates.Add(currentDate.Date.ToString("MMMM dd"));
-                        cumulativeFlowData.data[0].data.Add(0);
-                        cumulativeFlowData.data[1].data.Add(0);
-                        cumulativeFlowData.data[2].data.Add(0);
-                        cumulativeFlowData.data[3].data.Add(0);
-                    }
-
-                    currentDate = currentDate.AddDays(1);
-                } while (currentDate <= finishDate);
-            }
-
-            cumulativeFlowData.dates = newDates;
-
-            return cumulativeFlowData;
+            return taskList.Last().HistoryEvents.Last().EventDate.Date;
         }
 
-        private List<CumulativeFlowDataRow> ProcessTaskItemHistory(TaskItem taskItem,
-            List<CumulativeFlowDataRow> cumulativeFlowData)
+        private static DateTime GetStartDate(List<TaskItem> taskList)
         {
-            var dateNum = 0;
-            var inState = InState.None;
-            var historyEventIndex = 0;
-
-            foreach (var date in dates)
-            {
-                try
-                {
-                    var currentHistoryItem = taskItem.HistoryEvents[historyEventIndex];
-
-                    while (currentHistoryItem.EventDate.Date == date)
-                    {
-                        ++historyEventIndex;
-                        inState = GetState(currentHistoryItem.TaskItemState);
-                        currentHistoryItem = taskItem.HistoryEvents[historyEventIndex];
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // ignored
-                }
-
-                if (inState != InState.None)
-                {
-                    cumulativeFlowData[(int) inState].data[dateNum]++;
-                }
-
-                ++dateNum;
-            }
-
-            return cumulativeFlowData;
+            return taskList.First().HistoryEvents.First().EventDate.Date;
         }
 
-        private static InState GetState(string state)
+        public async Task<List<TaskItem>> GetTaskItems(DateTime startTime, DateTime finishTime)
         {
-            return state switch
+            var taskList = await taskItemRepository.GetTaskItemListAsync(startTime, finishTime);
+
+            foreach (var task in taskList)
             {
-                "Backlog" => InState.Backlog,
-                "Top Priority" => InState.TopPriority,
-                "In Process" => InState.InProcess,
-                "Released" => InState.Released,
-                _ => InState.None
+                task.HistoryEvents = await taskItemRepository.GetHistoryEventsByTaskIdAsync(task.Id);
+            }
+
+            var removeList = taskList.Where(taskItem => taskItem.StartTime == null).ToList();
+
+            foreach (var removeItem in removeList)
+            {
+                taskList.Remove(removeItem);
+            }
+
+            return taskList;
+        }
+
+        public OrderedDictionary<DateTime, List<int>> SetupData(
+            OrderedDictionary<DateTime, List<int>> data,
+            DateTime startDate, DateTime finishDate)
+        {
+            var date = startDate;
+            do
+            {
+                data.Add(date!, new List<int> {0, 0, 0, 0});
+                date = date.AddDays(1);
+            } while (date <= finishDate);
+
+            return data;
+        }
+
+        public CumulativeFlowData FormatData(OrderedDictionary<DateTime, List<int>> data,
+            DateTime startDate, DateTime finishDate)
+        {
+            var newData = new List<CumulativeFlowDataRow>();
+            var dateList = new List<string>();
+
+            for (var i = 0; i < data.Values.First().Count; ++i)
+            {
+                newData.Add(new CumulativeFlowDataRow
+                {
+                    data = new List<int>(),
+                    name = ((TaskItemState) i).ToString()
+                });
+            }
+
+            for (var i = 0; i < data.Count; i++)
+            {
+                if (data.Keys.ElementAt(i) < startDate || data.Keys.ElementAt(i) > finishDate)
+                {
+                    data.Remove(data.ElementAt(i));
+                }
+                else
+                {
+                    newData[0].data.Add(data.Values.ElementAt(i)[0]);
+                    newData[1].data.Add(data.Values.ElementAt(i)[1]);
+                    newData[2].data.Add(data.Values.ElementAt(i)[2]);
+                    newData[3].data.Add(data.Values.ElementAt(i)[3]);
+
+                    dateList.Add(data.Keys.ElementAt(i).ToString("dd MMMM"));
+                }
+            }
+
+            return new CumulativeFlowData
+            {
+                data = newData,
+                dates = dateList
             };
         }
 
-        private enum InState
+        public OrderedDictionary<DateTime, List<int>> ProcessTaskItemHistory(TaskItem taskItem,
+            OrderedDictionary<DateTime, List<int>> data)
         {
-            None = -1,
-            Backlog = 0,
-            TopPriority = 1,
-            InProcess = 2,
-            Released = 3
+            var lastResultDate = data.Keys.First();
+            foreach (var historyEvent in taskItem.HistoryEvents)
+            {
+                lastResultDate = UpdateCumulativeFlowData(historyEvent, lastResultDate, data);
+                if (lastResultDate == DateTime.MinValue)
+                {
+                    break;
+                }
+            }
+
+            return data;
+        }
+
+        public DateTime UpdateCumulativeFlowData(HistoryEvent historyEvent, DateTime lastResultDate,
+            OrderedDictionary<DateTime, List<int>> data)
+        {
+            if (historyEvent.EventDate < data.Keys.First()) return data.Keys.First();
+            if(historyEvent.EventDate > data.Keys.Last()) return data.Keys.Last();
+
+            if (historyEvent.EventType == "Task created")
+            {
+                data[historyEvent.EventDate.Date][(int) historyEvent.TaskItemState]++;
+                return historyEvent.EventDate.Date;
+            }
+
+            if (historyEvent.EventDate.Date == lastResultDate)
+            {
+                data[historyEvent.EventDate.Date][(int) historyEvent.TaskItemState]--;
+            }
+            data[historyEvent.EventDate.Date][(int) historyEvent.TaskItemState]++;
+
+            var checkDate = historyEvent.EventDate.AddDays(-1).Date;
+            while (checkDate > lastResultDate)
+            {
+                data[checkDate][(int) historyEvent.TaskItemState - 1]++;
+                checkDate = checkDate.AddDays(-1);
+            }
+
+            if (historyEvent.TaskItemState != TaskItemState.Released) return historyEvent.EventDate!.Date;
+
+            checkDate = historyEvent.EventDate.AddDays(1).Date;
+            while (checkDate <= data.Keys.Last())
+            {
+                data[checkDate][(int) historyEvent.TaskItemState]++;
+                checkDate = checkDate.AddDays(1);
+            }
+
+            return DateTime.MinValue;
+
         }
     }
 

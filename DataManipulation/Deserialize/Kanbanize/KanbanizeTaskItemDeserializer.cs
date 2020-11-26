@@ -16,18 +16,23 @@ namespace DataAccess.Deserialize.Kanbanize
             int boardId);
 
         TaskItem DeserializeTaskItem(JToken jsonTaskItem, int boardId);
-        Task<TaskItem> FillInTaskItemStateDetails(HistoryEvent historyEvent, TaskItem taskItem);
-        string GetTaskItemState(string column);
+        Task<TaskItem> FillInTaskItemStateDetailsAsync(HistoryEvent historyEvent, TaskItem taskItem);
+        TaskItemState GetTaskItemState(string column);
         TaskItemType GetCardType(string type);
     }
 
     public class KanbanizeTaskItemDeserializer : IKanbanizeTaskItemDeserializer
     {
-        private readonly IKanbanizeHistoryEventDeserializer historyEventDeserializer;
+        private readonly IKanbanizeHistoryEventDeserializer kanbanizeHistoryEventDeserializer;
 
         public KanbanizeTaskItemDeserializer()
         {
-            historyEventDeserializer = new KanbanizeHistoryEventDeserializer();
+            kanbanizeHistoryEventDeserializer = new KanbanizeHistoryEventDeserializer();
+        }
+
+        public KanbanizeTaskItemDeserializer(IKanbanizeHistoryEventDeserializer kanbanizeHistoryEventDeserializer)
+        {
+            this.kanbanizeHistoryEventDeserializer = kanbanizeHistoryEventDeserializer;
         }
 
         public async Task<List<TaskItem>> DeserializeTaskItemListAsync(IEnumerable<JToken> jsonTaskItems,
@@ -40,7 +45,7 @@ namespace DataAccess.Deserialize.Kanbanize
             var kanbanizeApi = new KanbanizeApi(new RestClient());
             var history = await kanbanizeApi.GetHistoryEventsAsync(taskIds, boardId);
 
-            taskItems = await historyEventDeserializer.DeserializeHistoryEventsAsync(history, taskItems);
+            taskItems = await kanbanizeHistoryEventDeserializer.DeserializeHistoryEventsAsync(history, taskItems);
 
             return taskItems.Values.ToList();
         }
@@ -54,18 +59,24 @@ namespace DataAccess.Deserialize.Kanbanize
                 StartTime = null,
                 FinishTime = null,
                 Type = GetCardType(jsonTaskItem["type"].ToString()),
-                DevelopmentTeamName = boardId == 4
+                DevelopmentTeam = boardId == 4
                     ? "Enterprise Team"
                     : "Assessments Team",
                 LastChangedOn = null,
                 CurrentBoardColumn = jsonTaskItem["columnname"].ToString()
             };
+
+            if(taskItem.Id == 540)
+            {
+                Console.WriteLine();
+            }
+
             taskItem.State = GetTaskItemState(taskItem.CurrentBoardColumn);
 
             return taskItem;
         }
 
-        public async Task<TaskItem> FillInTaskItemStateDetails(HistoryEvent historyEvent, TaskItem taskItem)
+        public virtual async Task<TaskItem> FillInTaskItemStateDetailsAsync(HistoryEvent historyEvent, TaskItem taskItem)
         {
             switch (historyEvent.EventType)
             {
@@ -75,12 +86,12 @@ namespace DataAccess.Deserialize.Kanbanize
                     break;
                 case "Task moved":
                 {
-                    if (historyEvent.TaskItemState == "Top Priority")
+                    if (historyEvent.TaskItemState == TaskItemState.TopPriority)
                     {
                         taskItem.StartTime = historyEvent.EventDate;
                     }
 
-                    if (historyEvent.TaskItemState == "Released")
+                    if (historyEvent.TaskItemState == TaskItemState.Released)
                     {
                         if (historyEvent.EventDate < taskItem.FinishTime || taskItem.FinishTime == null)
                         {
@@ -98,25 +109,25 @@ namespace DataAccess.Deserialize.Kanbanize
             return taskItem;
         }
 
-        public string GetTaskItemState(string column)
+        public TaskItemState GetTaskItemState(string column)
         {
             return column switch
             {
-                "Backlog" => "Backlog",
-                "Engineering Backlog" => "Backlog",
-                "Engineering" => "Backlog",
-                "Product Backlog" => "Backlog",
-                "Product" => "Backlog",
-                "Top Priority" => "Top Priority",
-                "In Process.Working" => "In Process",
-                "In Process" => "In Process",
-                "Working" => "In Process",
-                "Ready for Prod Deploy" => "In Process",
-                "In Process.Ready for Prod Deploy" => "In Process",
-                "Released to Prod this week" => "Released",
-                "Ready to Archive" => "Released",
-                "Archive" => "Released",
-                _ => null
+                "Backlog" => TaskItemState.Backlog,
+                "Engineering Backlog" => TaskItemState.Backlog,
+                "Engineering" => TaskItemState.Backlog,
+                "Product Backlog" => TaskItemState.Backlog,
+                "Product" => TaskItemState.Backlog,
+                "Top Priority" => TaskItemState.TopPriority,
+                "In Process.Working" => TaskItemState.InProcess,
+                "In Process" => TaskItemState.InProcess,
+                "Working" => TaskItemState.InProcess,
+                "Ready for Prod Deploy" => TaskItemState.InProcess,
+                "In Process.Ready for Prod Deploy" => TaskItemState.InProcess,
+                "Released to Prod this week" => TaskItemState.Released,
+                "Ready to Archive" => TaskItemState.Released,
+                "Archive" => TaskItemState.Released,
+                _ => TaskItemState.None
             };
         }
 

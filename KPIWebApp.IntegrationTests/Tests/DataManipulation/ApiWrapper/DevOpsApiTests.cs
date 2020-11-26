@@ -8,7 +8,7 @@ using RestSharp;
 namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.ApiWrapper
 {
     [TestFixture]
-    public class DevOpsApiRepositoryTests
+    public class DevOpsApiTests
     {
         [Test]
         public void When_getting_release_list()
@@ -21,7 +21,7 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.ApiWrapper
                     "{\n\"value\": [\n{\"item1\": \"This is a json value\"}, {\n\"item2\": \"This is another json value\"}\n]\n}"
             });
 
-            var devOpsApiWrapper = new DevOpsApiRepository(mockRestClient.Object);
+            var devOpsApiWrapper = new DevOpsApi(mockRestClient.Object);
 
             var result = devOpsApiWrapper.GetReleaseList();
 
@@ -40,7 +40,7 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.ApiWrapper
                 Content = "{\n\"value\": []\n}"
             });
 
-            var devOpsApiWrapper = new DevOpsApiRepository(mockRestClient.Object);
+            var devOpsApiWrapper = new DevOpsApi(mockRestClient.Object);
 
             var result = devOpsApiWrapper.GetReleaseList();
 

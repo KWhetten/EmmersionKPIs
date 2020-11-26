@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "H2XwHLmU00oPG8ThNeIRecbIcz1l4Ox4Mh2RpoAEqZaXTYNG+zmN9iVEvJ7X1Yosi55iCqvA/MrUiiuzhPQG3Q==",
+  "dgSpecHash": "gYju5m93ZkPnXhhPayeVfx6XIvVdOlD5AA+9YKWg+q0Gy0rL8AH1UIssAoHgujfQrLvmikJ+yYsqn3+rGtjATg==",
   "success": true,
   "projectFilePath": "C:\\Code\\EmmersionKPIs\\KPIWebApp.UnitTests\\KPIWebApp.UnitTests.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\krwhe\\.nuget\\packages\\accord\\3.8.0\\accord.3.8.0.nupkg.sha512",
+    "C:\\Users\\krwhe\\.nuget\\packages\\accord.machinelearning\\3.8.0\\accord.machinelearning.3.8.0.nupkg.sha512",
+    "C:\\Users\\krwhe\\.nuget\\packages\\accord.math\\3.8.0\\accord.math.3.8.0.nupkg.sha512",
+    "C:\\Users\\krwhe\\.nuget\\packages\\accord.statistics\\3.8.0\\accord.statistics.3.8.0.nupkg.sha512",
     "C:\\Users\\krwhe\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",
     "C:\\Users\\krwhe\\.nuget\\packages\\dapper\\2.0.35\\dapper.2.0.35.nupkg.sha512",
     "C:\\Users\\krwhe\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.4\\microsoft.aspnet.webapi.client.5.2.4.nupkg.sha512",

@@ -13,7 +13,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
         Task<IEnumerable<TaskItem>> TaskItemListAsync(IEnumerable<JToken> jsonTaskItems);
         Task<TaskItem> TaskItem(JToken jsonTaskItem);
         TaskItem GetHistoryDetails(TaskItem taskItem, JToken jsonWorkItemUpdates);
-        TaskItemType GetCardType(JToken workItemType);
+        TaskItemType GetTaskItemType(JToken workItemType);
     }
 
     public class DevOpsDeserializer : IDevOpsDeserializer
@@ -51,14 +51,14 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                 Title = jsonTaskItem["fields"]["System.Title"].ToString(),
                 StartTime = minStartTime,
                 FinishTime = new DateTimeOffset(DateTime.Now.AddYears(50)),
-                Type = GetCardType(jsonTaskItem["fields"]["System.WorkItemType"]),
-                DevelopmentTeamName = jsonTaskItem["fields"]["System.BoardLane"]?.ToString(),
+                Type = GetTaskItemType(jsonTaskItem["fields"]["System.WorkItemType"]),
+                DevelopmentTeam = jsonTaskItem["fields"]["System.BoardLane"]?.ToString(),
                 CreatedOn = (DateTimeOffset) jsonTaskItem["fields"]["System.CreatedDate"],
                 CreatedBy = jsonTaskItem["fields"]["System.CreatedBy"]["displayName"].ToString(),
                 LastChangedOn = (DateTimeOffset) jsonTaskItem["fields"]["System.ChangedDate"],
                 LastChangedBy = jsonTaskItem["fields"]["System.ChangedBy"]["displayName"].ToString(),
                 CurrentBoardColumn = jsonTaskItem["fields"]["System.BoardColumn"].ToString(),
-                State = jsonTaskItem["fields"]["System.State"].ToString(),
+                State = GetTaskItemState(jsonTaskItem["fields"]["System.State"].ToString()),
                 NumRevisions = (int) jsonTaskItem["rev"],
                 Release = new Release(),
                 HistoryEvents = new List<HistoryEvent>()
@@ -94,7 +94,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                         {
                             historyEvent.EventType = "Task created";
                             historyEvent.TaskItemColumn = "Backlog";
-                            historyEvent.TaskItemState = "Backlog";
+                            historyEvent.TaskItemState = TaskItemState.Backlog;
                             if (taskItem.CreatedOn == minStartTime || taskItem.CreatedOn > historyEvent.EventDate)
                             {
                                 taskItem.CreatedOn = historyEvent.EventDate;
@@ -105,14 +105,14 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                         case "Top Priority":
                             historyEvent.EventType = "Task moved";
                             historyEvent.TaskItemColumn = "Top Priority";
-                            historyEvent.TaskItemState = "Top Priority";
+                            historyEvent.TaskItemState = TaskItemState.TopPriority;
                             taskItem.StartTime = historyEvent.EventDate;
                             break;
                         case "Working On":
                         {
                             historyEvent.EventType = "Task moved";
                             historyEvent.TaskItemColumn = "In Process.Working";
-                            historyEvent.TaskItemState = "In Process";
+                            historyEvent.TaskItemState = TaskItemState.InProcess;
                             if (taskItem.CreatedOn == minStartTime)
                             {
                                 taskItem.StartTime = historyEvent.EventDate;
@@ -125,7 +125,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                         {
                             historyEvent.EventType = "Task moved";
                             historyEvent.TaskItemColumn = "In Process.Ready for Prod Deploy";
-                            historyEvent.TaskItemState = "In Process";
+                            historyEvent.TaskItemState = TaskItemState.InProcess;
                             if (taskItem.StartTime == minStartTime)
                             {
                                 taskItem.StartTime = historyEvent.EventDate;
@@ -136,14 +136,14 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                         case "Released To Production This week":
                             historyEvent.EventType = "Task moved";
                             historyEvent.TaskItemColumn = "Released to Prod this week";
-                            historyEvent.TaskItemState = "Released";
+                            historyEvent.TaskItemState = TaskItemState.Released;
                             taskItem.FinishTime = historyEvent.EventDate;
                             break;
                         case "In Production":
                         {
                             historyEvent.EventType = "Task moved";
                             historyEvent.TaskItemColumn = "Archive";
-                            historyEvent.TaskItemState = "Released";
+                            historyEvent.TaskItemState = TaskItemState.Released;
                             if (taskItem.FinishTime > historyEvent.EventDate)
                             {
                                 taskItem.FinishTime = historyEvent.EventDate;
@@ -163,7 +163,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
             return taskItem;
         }
 
-        public TaskItemType GetCardType(JToken workItemType)
+        public TaskItemType GetTaskItemType(JToken workItemType)
         {
             var workItemTypeString = workItemType.ToString().ToLower();
 
@@ -182,6 +182,16 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                 return TaskItemType.Engineering;
             }
             throw new Exception("Unknown Card Type...");
+        }
+
+        public TaskItemState GetTaskItemState(string taskItemState)
+        {
+            if (taskItemState == "")
+            {
+                return TaskItemState.Backlog;
+            }
+
+            return TaskItemState.None;
         }
     }
 }

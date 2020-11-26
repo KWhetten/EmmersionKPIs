@@ -53,7 +53,7 @@ namespace KPIWebApp.Controllers
                 ++i;
                 if (label != 0) continue;
                 var task = taskItems.ElementAt(i);
-                Console.WriteLine($"{task.Id},{task.Title},{task.StartTime},{task.FinishTime},{task.Type.ToString()},{task.DevelopmentTeamName},{task.CreatedOn},{task.CreatedBy},{task.LastChangedOn},{task.LastChangedBy},{task.CurrentBoardColumn},{task.State},{task.NumRevisions},{task.Release.Id}");
+                Console.WriteLine($"{task.Id},{task.Title},{task.StartTime},{task.FinishTime},{task.Type.ToString()},{task.DevelopmentTeam},{task.CreatedOn},{task.CreatedBy},{task.LastChangedOn},{task.LastChangedBy},{task.CurrentBoardColumn},{task.State},{task.NumRevisions},{task.Release.Id}");
             }
             i = -1;
             Console.WriteLine("CLUSTER 2");
@@ -62,7 +62,7 @@ namespace KPIWebApp.Controllers
                 ++i;
                 if (label != 1) continue;
                 var task = taskItems.ElementAt(i);
-                Console.WriteLine($"{task.Id},{task.Title},{task.StartTime},{task.FinishTime},{task.Type.ToString()},{task.DevelopmentTeamName},{task.CreatedOn},{task.CreatedBy},{task.LastChangedOn},{task.LastChangedBy},{task.CurrentBoardColumn},{task.State},{task.NumRevisions},{task.Release.Id}");
+                Console.WriteLine($"{task.Id},{task.Title},{task.StartTime},{task.FinishTime},{task.Type.ToString()},{task.DevelopmentTeam},{task.CreatedOn},{task.CreatedBy},{task.LastChangedOn},{task.LastChangedBy},{task.CurrentBoardColumn},{task.State},{task.NumRevisions},{task.Release.Id}");
             }
             i = -1;
             Console.WriteLine("CLUSTER 3");
@@ -71,7 +71,7 @@ namespace KPIWebApp.Controllers
                 ++i;
                 if (label != 2) continue;
                 var task = taskItems.ElementAt(i);
-                Console.WriteLine($"{task.Id},{task.Title},{task.StartTime},{task.FinishTime},{task.Type.ToString()},{task.DevelopmentTeamName},{task.CreatedOn},{task.CreatedBy},{task.LastChangedOn},{task.LastChangedBy},{task.CurrentBoardColumn},{task.State},{task.NumRevisions},{task.Release.Id}");
+                Console.WriteLine($"{task.Id},{task.Title},{task.StartTime},{task.FinishTime},{task.Type.ToString()},{task.DevelopmentTeam},{task.CreatedOn},{task.CreatedBy},{task.LastChangedOn},{task.LastChangedBy},{task.CurrentBoardColumn},{task.State},{task.NumRevisions},{task.Release.Id}");
             }
             i = -1;
             Console.WriteLine("CLUSTER 4");
@@ -80,7 +80,7 @@ namespace KPIWebApp.Controllers
                 ++i;
                 if (label != 3) continue;
                 var task = taskItems.ElementAt(i);
-                Console.WriteLine($"{task.Id},{task.Title},{task.StartTime},{task.FinishTime},{task.Type.ToString()},{task.DevelopmentTeamName},{task.CreatedOn},{task.CreatedBy},{task.LastChangedOn},{task.LastChangedBy},{task.CurrentBoardColumn},{task.State},{task.NumRevisions},{task.Release.Id}");
+                Console.WriteLine($"{task.Id},{task.Title},{task.StartTime},{task.FinishTime},{task.Type.ToString()},{task.DevelopmentTeam},{task.CreatedOn},{task.CreatedBy},{task.LastChangedOn},{task.LastChangedBy},{task.CurrentBoardColumn},{task.State},{task.NumRevisions},{task.Release.Id}");
             }
             Console.Write("");
         }
@@ -90,13 +90,13 @@ namespace KPIWebApp.Controllers
             var startTime = GetDateTimeInt(taskItem.StartTime);
             var finishTime = GetDateTimeInt(taskItem.FinishTime);
             var type = (int) taskItem.Type;
-            var developmentTeamName = GetDevelopmentTeamNameInt(taskItem.DevelopmentTeamName);
+            var developmentTeamName = GetDevelopmentTeamNameInt(taskItem.DevelopmentTeam);
             var createdOn = GetDateTimeInt(taskItem.CreatedOn);
             var createdBy = GetUserInt(taskItem.CreatedBy);
             var lastChangedOn = GetDateTimeInt(taskItem.LastChangedOn);
             var lastChangedBy = GetUserInt(taskItem.LastChangedBy);
             var currentBoardColumn = GetCurrentBoardColumnInt(taskItem.CurrentBoardColumn);
-            var state = GetStateInt(taskItem.State);
+            var state = (int) taskItem.State;
             var numRevisions = taskItem.NumRevisions;
             var releaseId = taskItem.Release.Id;
 

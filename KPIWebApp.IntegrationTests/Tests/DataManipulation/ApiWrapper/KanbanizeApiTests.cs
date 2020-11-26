@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.Api;
 using Moq;
@@ -11,8 +12,17 @@ using JsonTaskItem = KPIWebApp.IntegrationTests.TestObjects.Kanbanize.JsonTaskIt
 namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.ApiWrapper
 {
     [TestFixture]
-    public class KanbanizeApiRepositoryTests
+    public class KanbanizeApiTests
     {
+        [Test]
+        public void When_getting_task_item_list()
+        {
+            var kanbanizeApi = new KanbanizeApi();
+            var result = kanbanizeApi.GetTaskItemList(4);
+
+            Assert.That(result.Count, Is.GreaterThan(0));
+        }
+
         [Test]
         public async Task When_getting_task_item_history()
         {

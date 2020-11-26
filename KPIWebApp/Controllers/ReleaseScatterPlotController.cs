@@ -15,7 +15,8 @@ namespace KPIWebApp.Controllers
             var finishDate = DateHelper.GetFinishDate(finishDateString);
 
             var scatterPlotHelper = new ScatterPlotHelper();
-            return await scatterPlotHelper.GetReleaseScatterPlotData(startDate, finishDate);
+            //return await scatterPlotHelper.GetReleaseScatterPlotData(startDate, finishDate);
+            return new ScatterPlotData[1];
         }
     }
 }

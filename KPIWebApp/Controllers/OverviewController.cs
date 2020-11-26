@@ -11,14 +11,16 @@ namespace KPIWebApp.Controllers
     public class OverviewController : ControllerBase
     {
         [HttpGet]
-        public async Task<OverviewData> Get(string startDateString, string finishDateString)
+        public async Task<OverviewData> Get(string startDateString, string finishDateString, bool product, bool engineering, bool unanticipated)
         {
             var overviewHelper = new OverviewHelper();
 
             var startDate = DateHelper.GetStartDate(startDateString);
             var finishDate = DateHelper.GetFinishDate(finishDateString);
 
-            return await overviewHelper.GetOverviewData(startDate, finishDate);
+            var result = await overviewHelper.GetOverviewDataAsync(startDate, finishDate, product, engineering, unanticipated);
+
+            return result;
         }
     }
 }

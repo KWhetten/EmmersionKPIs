@@ -18,9 +18,10 @@ namespace DataAccess.Deserialize
         {
             var releaseRepository = new ReleaseRepository();
             return (from item in jsonObjects
-                where ((item["releaseDefinition"]["name"].ToString() == "TrueNorthTest Release"
-                           || item["releaseDefinition"]["name"].ToString() == "Assessments PC")
-                        && !releaseRepository.ReleaseIsFinishedInDatabase((int) item["id"]))
+                where (item["releaseDefinition"]["name"].ToString().Contains("TrueNorthTest")
+                       || item["releaseDefinition"]["name"].ToString().Contains("Assessments")
+                       || item["releaseDefinition"]["name"].ToString().Contains("Production"))
+                      && !releaseRepository.ReleaseIsFinishedInDatabase((int) item["id"])
                 select new Release
                 {
                     Id = (int) item["id"],

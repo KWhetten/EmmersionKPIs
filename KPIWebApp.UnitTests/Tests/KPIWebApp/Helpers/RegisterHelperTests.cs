@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
 using DataAccess.DataRepositories;
-using DataAccess.Objects;
 using KPIWebApp.Helpers;
 using Moq;
 using NUnit.Framework;
 
-namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
+namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
 {
     public class RegisterHelperTests
     {

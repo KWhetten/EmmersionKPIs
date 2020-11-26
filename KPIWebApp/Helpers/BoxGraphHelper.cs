@@ -11,6 +11,9 @@ namespace KPIWebApp.Helpers
     public class BoxGraphHelper
     {
         private readonly ITaskItemRepository taskItemRepository;
+        public bool Product { get; set; }
+        public bool Engineering { get; set; }
+        public bool Unanticipated { get; set; }
 
         public BoxGraphHelper()
         {
@@ -22,12 +25,17 @@ namespace KPIWebApp.Helpers
             this.taskItemRepository = taskItemRepository;
         }
 
-        public async Task<BoxGraphData> GetLeadTimeBoxGraphData(DateTimeOffset startDate, DateTimeOffset finishDate)
+        public async Task<BoxGraphData> GetLeadTimeBoxGraphData(DateTimeOffset startDate, DateTimeOffset finishDate, bool product, bool engineering, bool unanticipated)
         {
+            Product = product;
+            Engineering = engineering;
+            Unanticipated = unanticipated;
+
             var boxGraphData = new BoxGraphData
             {
                 Entries = new List<BoxGraphDataEntry>
                 {
+                    new BoxGraphDataEntry(),
                     new BoxGraphDataEntry(),
                     new BoxGraphDataEntry(),
                     new BoxGraphDataEntry()
@@ -43,9 +51,17 @@ namespace KPIWebApp.Helpers
                 new List<TaskItem>()
             };
 
+            var finalTaskItemList = new List<TaskItem>();
+
             foreach (var item in taskItems)
             {
                 taskItemsByType[(int) item.Type - 1].Add(item);
+                if ((item.Type == TaskItemType.Product && Product)
+                    || (item.Type == TaskItemType.Engineering && Engineering)
+                    || (item.Type == TaskItemType.Unanticipated && Unanticipated))
+                {
+                    finalTaskItemList.Add(item);
+                }
             }
 
             foreach (var itemList in taskItemsByType)
@@ -55,14 +71,13 @@ namespace KPIWebApp.Helpers
                 boxGraphData = CalculateBoxGraphData(sortedItemList, boxGraphData, index);
             }
 
-            boxGraphData.Entries.Add(new BoxGraphDataEntry());
-            boxGraphData = CalculateBoxGraphData(SortByLeadTime(taskItems), boxGraphData, 3);
-            boxGraphData.Entries[3].TaskItemType = "All Task Items";
+            boxGraphData = CalculateBoxGraphData(SortByLeadTime(finalTaskItemList), boxGraphData, 3);
+            boxGraphData.Entries[3].TaskItemType = "Selected Task Items";
 
             return boxGraphData;
         }
 
-        private BoxGraphData CalculateBoxGraphData(List<TaskItem> itemList, BoxGraphData boxGraphData, int index)
+        public BoxGraphData CalculateBoxGraphData(List<TaskItem> itemList, BoxGraphData boxGraphData, int index)
         {
             if (itemList.IsNullOrEmpty()) return null;
 
@@ -95,7 +110,7 @@ namespace KPIWebApp.Helpers
             return boxGraphData;
         }
 
-        private (decimal, List<object[]>) GetMinimumAndOutliers(List<TaskItem> sortedItemList, decimal minWhiskerValue,
+        public (decimal, List<object[]>) GetMinimumAndOutliers(List<TaskItem> sortedItemList, decimal minWhiskerValue,
             List<object[]> outliers, int index)
         {
             decimal minimum;

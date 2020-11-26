@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace KPIDataExtractor.UnitTests.TestObjects.Kanbanize
 {
@@ -13,5 +14,11 @@ namespace KPIDataExtractor.UnitTests.TestObjects.Kanbanize
         public string columnname { get; set; }
         public string priority { get; set; }
         public string[] comments { get; set; }
+        public HistoryDetails historydetails { get; set; }
+    }
+
+    public class HistoryDetails
+    {
+        public List<JsonHistoryEvent> item { get; set; }
     }
 }

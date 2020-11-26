@@ -1,6 +1,6 @@
-﻿import {Component, OnInit} from '@angular/core';
+﻿import {Component, Inject, OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts';
-import {HomeComponent} from '../../app/home/home.component';
+import {HttpClient} from '@angular/common/http';
 
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
@@ -17,9 +17,14 @@ noData(Highcharts);
   templateUrl: './lead-time-box-graph.component.html',
   styleUrls: ['./lead-time-box-graph.component.css']
 })
-export class LeadTimeBoxGraphComponent extends HomeComponent implements OnInit {
+export class LeadTimeBoxGraphComponent implements OnInit {
 
-  public options: any = {
+  private http: HttpClient;
+  private baseUrl: string;
+  private startDate: string;
+  private finishDate: string;
+
+  public boxGraphOptions: any = {
     chart: {
       type: 'boxplot',
       inverted: true
@@ -57,7 +62,7 @@ export class LeadTimeBoxGraphComponent extends HomeComponent implements OnInit {
         name: 'Outliers',
         color: Highcharts.getOptions().colors[0],
         type: 'scatter',
-        data:[],
+        data: [],
         marker: {
           fillColor: 'white',
           lineWidth: 1,
@@ -69,23 +74,45 @@ export class LeadTimeBoxGraphComponent extends HomeComponent implements OnInit {
       }]
   }
 
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    this.http = http;
+    this.baseUrl = baseUrl;
+    this.startDate = "The Beginning of Time";
+    this.finishDate = "The Present";
+  }
+
   ngOnInit() {
+    this.reloadData(this.startDate, this.finishDate);
+  }
+
+  reloadData(startDate, finishDate) {
+    const productElement = <HTMLInputElement>document.getElementById('product');
+    const engineeringElement = <HTMLInputElement>document.getElementById('engineering');
+    const unanticipatedElement = <HTMLInputElement>document.getElementById('unanticipated');
+
     this.http.get<BoxGraphData>(this.baseUrl + 'lead-time-box', {
-      params: {startDateString: this.startDate, endDateString: this.endDate}
+      params:
+        {
+          startDateString: startDate,
+          finishDateString: finishDate,
+          product: String(productElement.checked),
+          engineering: String(engineeringElement.checked),
+          unanticipated: String(unanticipatedElement.checked)
+        }
     })
       .subscribe(x => {
-        let boxGraphDataArray = new Array(x["entries"].length);
-        let categoryArray = new Array(x["entries"].length);
+        let boxGraphDataArray = new Array(x['entries'].length);
+        let categoryArray = new Array(x['entries'].length);
         let i = 0;
-        x["entries"].forEach(function(item) {
-          categoryArray[i] = item["taskItemType"]
-          boxGraphDataArray[i] = [item["minimum"], item["lowerQuartile"], item["median"], item["upperQuartile"], item["maximum"]]
+        x['entries'].forEach(function (item) {
+          categoryArray[i] = item['taskItemType']
+          boxGraphDataArray[i] = [item['minimum'], item['lowerQuartile'], item['median'], item['upperQuartile'], item['maximum']]
           i++;
         });
-        this.options.xAxis.categories = categoryArray;
-        this.options.series[0].data = boxGraphDataArray;
-        this.options.series[1].data = x["outliers"];
-        Highcharts.chart('lead-time-box-graph-container', this.options);
+        this.boxGraphOptions.xAxis.categories = categoryArray;
+        this.boxGraphOptions.series[0].data = boxGraphDataArray;
+        this.boxGraphOptions.series[1].data = x['outliers'];
+        Highcharts.chart('lead-time-box-graph-container', this.boxGraphOptions);
       });
   }
 }

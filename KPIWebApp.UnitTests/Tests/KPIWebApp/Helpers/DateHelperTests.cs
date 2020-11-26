@@ -2,7 +2,7 @@
 using KPIWebApp.Helpers;
 using NUnit.Framework;
 
-namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
+namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
 {
     public class DateHelperTests
     {
@@ -19,7 +19,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
         {
             var result = DateHelper.GetFinishDate("This is not a date!");
 
-            Assert.That(result, Is.EqualTo(new DateTimeOffset(new DateTime(2015, 1 ,1))));
+            Assert.That(result, Is.EqualTo(new DateTimeOffset(DateTime.Today)));
         }
 
         [Test]

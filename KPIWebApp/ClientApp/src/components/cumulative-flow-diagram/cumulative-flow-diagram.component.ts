@@ -1,6 +1,6 @@
-﻿import {Component, OnInit} from '@angular/core';
+﻿import {Component, Inject, OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts';
-import {HomeComponent} from '../../app/home/home.component';
+import {HttpClient} from '@angular/common/http';
 
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
@@ -17,9 +17,14 @@ noData(Highcharts);
   templateUrl: './cumulative-flow-diagram.component.html',
   styleUrls: ['./cumulative-flow-diagram.component.css']
 })
-export class CumulativeFlowDiagramComponent extends HomeComponent implements OnInit {
+export class CumulativeFlowDiagramComponent implements OnInit {
 
-  public options: any = {
+  private http: HttpClient;
+  private baseUrl: string;
+  private startDate: string;
+  private finishDate: string;
+
+  public cumulativeFlowOptions: any = {
     chart: {
       type: 'area',
       height: 495
@@ -38,11 +43,7 @@ export class CumulativeFlowDiagramComponent extends HomeComponent implements OnI
       title: {
         text: 'Number of Tasks'
       },
-      labels: {
-        formatter: function () {
-          return this.value;
-        }
-      }
+      labels: {}
     },
     tooltip: {
       split: true
@@ -61,14 +62,36 @@ export class CumulativeFlowDiagramComponent extends HomeComponent implements OnI
     series: []
   }
 
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    this.http = http;
+    this.baseUrl = baseUrl;
+    this.startDate = 'The Beginning of Time';
+    this.finishDate = 'The Present Day';
+  }
+
   ngOnInit() {
+    this.reloadData(this.startDate, this.finishDate);
+  }
+
+  reloadData(startDate, finishDate) {
+    const productElement = <HTMLInputElement>document.getElementById('product');
+    const engineeringElement = <HTMLInputElement>document.getElementById('engineering');
+    const unanticipatedElement = <HTMLInputElement>document.getElementById('unanticipated');
+
     this.http.get(this.baseUrl + 'cumulative-flow', {
-      params: {startDateString: this.startDate, endDateString: this.endDate}
+      params:
+        {
+          startDateString: startDate,
+          finishDateString: finishDate,
+          product: String(productElement.checked),
+          engineering: String(engineeringElement.checked.valueOf()),
+          unanticipated: String(unanticipatedElement.checked.valueOf())
+        }
     })
       .subscribe(x => {
-        this.options.series = x['data'];
-        this.options.xAxis.categories = x['dates'];
-        Highcharts.chart('cumulative-flow-diagram-container', this.options);
+        this.cumulativeFlowOptions.series = x['data'];
+        this.cumulativeFlowOptions.xAxis.categories = x['dates'];
+        Highcharts.chart('cumulative-flow-diagram-container', this.cumulativeFlowOptions);
       });
   }
 }

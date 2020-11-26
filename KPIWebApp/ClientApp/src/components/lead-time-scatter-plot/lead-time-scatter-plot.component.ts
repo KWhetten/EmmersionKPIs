@@ -1,6 +1,6 @@
-﻿import {Component, OnInit} from '@angular/core';
+﻿import {Component, Inject, OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts';
-import {HomeComponent} from '../../app/home/home.component';
+import {HttpClient} from '@angular/common/http';
 
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
@@ -17,9 +17,14 @@ noData(Highcharts);
   templateUrl: './lead-time-scatter-plot.component.html',
   styleUrls: ['./lead-time-scatter-plot.component.css']
 })
-export class LeadTimeScatterPlotComponent extends HomeComponent implements OnInit {
+export class LeadTimeScatterPlotComponent implements OnInit {
 
-  public options: any = {
+  private http: HttpClient;
+  private baseUrl: string;
+  private startDate: string;
+  private finishDate: string;
+
+  public scatterPlotOptions: any = {
     chart: {
       type: 'scatter'
     },
@@ -44,7 +49,7 @@ export class LeadTimeScatterPlotComponent extends HomeComponent implements OnIni
         text: 'FinishDate'
       },
       labels: {
-        formatter: function() {
+        formatter: function () {
           return Highcharts.dateFormat('%b %y', this.value);
         }
       }
@@ -60,24 +65,45 @@ export class LeadTimeScatterPlotComponent extends HomeComponent implements OnIni
     series: []
   }
 
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string){
+    this.http = http;
+    this.baseUrl = baseUrl;
+    this.startDate = "The Beginning of Time";
+    this.finishDate = "The Present";
+  }
+
   ngOnInit() {
+    this.reloadData(this.startDate, this.finishDate);
+  }
+
+  reloadData(startDate, finishDate) {
+    const productElement = <HTMLInputElement>document.getElementById('product');
+    const engineeringElement = <HTMLInputElement>document.getElementById('engineering');
+    const unanticipatedElement = <HTMLInputElement>document.getElementById('unanticipated');
+
     this.http.get<ScatterPlotData[]>(this.baseUrl + 'lead-time-scatter', {
-      params: {startDateString: this.startDate, endDateString: this.endDate}
+      params:
+        {
+          startDateString: startDate,
+          finishDateString: finishDate,
+          product: String(productElement.checked),
+          engineering: String(engineeringElement.checked),
+          unanticipated: String(unanticipatedElement.checked)
+        }
     })
       .subscribe(x => {
-        this.options.series = x;
-        this.options.series.forEach(function(item){
-          item["data"].forEach(function(dataItem){
-            dataItem["x"] = new Date(dataItem["x"])
+        this.scatterPlotOptions.series = x;
+        this.scatterPlotOptions.series.forEach(function (item) {
+          item['data'].forEach(function (dataItem) {
+            dataItem['x'] = new Date(dataItem['x'])
           });
         });
-        Highcharts.chart('lead-time-scatter-plot-container', this.options);
+        Highcharts.chart('lead-time-scatter-plot-container', this.scatterPlotOptions);
       });
-
   }
 }
 
-class ScatterPlotData {
+  class ScatterPlotData {
   name: string;
   turboThreshold: number;
   data: [Date, number]

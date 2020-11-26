@@ -1,4 +1,4 @@
-﻿import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
+﻿import {Component, EventEmitter, Inject, OnInit, Output, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
@@ -73,96 +73,6 @@ export class HomeComponent implements OnInit {
     },
     series: []
   }
-  public scatterPlotOptions: any = {
-    chart: {
-      type: 'scatter'
-    },
-    data: {
-      dateFormat: '%e %b %y %H:%M:%S'
-    },
-    title: {
-      text: 'Lead Time for Task Items'
-    },
-    credits: {
-      enabled: false
-    },
-    tooltip: {
-      formatter: function () {
-        return 'x: ' + Highcharts.dateFormat('%e %b %y %H:%M:%S', this.x) +
-          '  y: ' + this.y.toFixed(2);
-      }
-    },
-    xAxis: {
-      type: 'datetime',
-      title: {
-        text: 'FinishDate'
-      },
-      labels: {
-        formatter: function() {
-          return Highcharts.dateFormat('%b %y', this.value);
-        }
-      }
-    },
-    yAxis: {
-      title: {
-        text: 'Lead Time (Hours of Work)'
-      },
-      labels: {
-        format: '{value:,.0f}'
-      }
-    },
-    series: []
-  }
-  public boxGraphOptions: any = {
-    chart: {
-      type: 'boxplot',
-      inverted: true
-    },
-
-    title: {
-      text: 'Lead Time by Task Item Type'
-    },
-
-    legend: {
-      enabled: false
-    },
-
-    xAxis: {
-      categories: [],
-      title: {
-        text: 'Task Item Type'
-      }
-    },
-
-    yAxis: {
-      title: {
-        text: 'Lead Time (Hours of Work)'
-      },
-    },
-
-    series: [{
-      name: 'Lead Time',
-      data: [],
-      tooltip: {
-        headerFormat: '<em>Lead Time {point.key}</em><br/>'
-      }
-    },
-      {
-        name: 'Outliers',
-        color: Highcharts.getOptions().colors[0],
-        type: 'scatter',
-        data:[],
-        marker: {
-          fillColor: 'white',
-          lineWidth: 1,
-          lineColor: Highcharts.getOptions().colors[0]
-        },
-        tooltip: {
-          pointFormat: 'Observation: {point.y}'
-        }
-      }]
-  }
-
   constructor(protected router: Router, datepipe: DatePipe, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.startDate = 'The Beginning of Time';
     this.finishDate = 'The Present Day';
@@ -175,108 +85,36 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.reloadData();
+  }
+
+  reloadData() {
+    this.overviewData = null;
+    this.cumulativeFlowOptions.series = [];
+
+    const productElement = <HTMLInputElement>document.getElementById('product');
+    const engineeringElement = <HTMLInputElement>document.getElementById('engineering');
+    const unanticipatedElement = <HTMLInputElement>document.getElementById('unanticipated');
     // Check for login
     this.timeStart();
     let cookieValue = getCookie();
     if (cookieValue == undefined) {
       this.router.navigate(['/login']);
     }
-    this.http.get<OverviewData>(this.baseUrl + 'overview')
+    // Overview Data
+    this.http.get<OverviewData>(this.baseUrl + 'overview', {
+      params:
+        {
+          startDateString: this.startDate,
+          finishDateString: this.finishDate,
+          product: String(productElement.checked),
+          engineering: String(engineeringElement.checked.valueOf()),
+          unanticipated: String(unanticipatedElement.checked.valueOf())
+        }
+    })
       .subscribe(x => {
         this.overviewData = x;
         this.timeStop();
-      });
-    // Cumulative Flow Diagram
-    this.http.get(this.baseUrl + 'cumulative-flow', {
-      params: {startDateString: this.startDate, finishDateString: this.finishDate}
-    })
-      .subscribe(x => {
-        this.cumulativeFlowOptions.series = x['data'];
-        this.cumulativeFlowOptions.xAxis.categories = x['dates'];
-        Highcharts.chart('cumulative-flow-diagram-container', this.cumulativeFlowOptions);
-      });
-    // Scatter Plot
-    this.http.get<ScatterPlotData[]>(this.baseUrl + 'lead-time-scatter', {
-      params: {startDateString: this.startDate, finishDateString: this.finishDate}
-    })
-      .subscribe(x => {
-        this.scatterPlotOptions.series = x;
-        this.scatterPlotOptions.series.forEach(function(item){
-          item["data"].forEach(function(dataItem){
-            dataItem["x"] = new Date(dataItem["x"])
-          });
-        });
-        Highcharts.chart('lead-time-scatter-plot-container', this.scatterPlotOptions);
-      });
-    // Box Graph
-    this.http.get<BoxGraphData>(this.baseUrl + 'lead-time-box', {
-      params: {startDateString: this.startDate, finishDateString: this.finishDate}
-    })
-      .subscribe(x => {
-        let boxGraphDataArray = new Array(x["entries"].length);
-        let categoryArray = new Array(x["entries"].length);
-        let i = 0;
-        x["entries"].forEach(function(item) {
-          categoryArray[i] = item["taskItemType"]
-          boxGraphDataArray[i] = [item["minimum"], item["lowerQuartile"], item["median"], item["upperQuartile"], item["maximum"]]
-          i++;
-        });
-        this.boxGraphOptions.xAxis.categories = categoryArray;
-        this.boxGraphOptions.series[0].data = boxGraphDataArray;
-        this.boxGraphOptions.series[1].data = x["outliers"];
-        Highcharts.chart('lead-time-box-graph-container', this.boxGraphOptions);
-      });
-  }
-
-  reloadData() {
-    this.overviewData = null;
-
-    // Overview Data
-    this.http.get<OverviewData>(this.baseUrl + 'overview', {
-      params: {startDateString: this.startDate, finishDateString: this.finishDate}
-    })
-      .subscribe(x => {
-        this.overviewData = x;
-      });
-    // Cumulative Flow Diagram
-    this.http.get(this.baseUrl + 'cumulative-flow', {
-      params: {startDateString: this.startDate, finishDateString: this.finishDate}
-    })
-      .subscribe(x => {
-        this.cumulativeFlowOptions.series = x['data'];
-        this.cumulativeFlowOptions.xAxis.categories = x['dates'];
-        Highcharts.chart('cumulative-flow-diagram-container', this.cumulativeFlowOptions);
-      });
-    // Scatter Plot
-    this.http.get<ScatterPlotData[]>(this.baseUrl + 'lead-time-scatter', {
-      params: {startDateString: this.startDate, finishDateString: this.finishDate}
-    })
-      .subscribe(x => {
-        this.scatterPlotOptions.series = x;
-        this.scatterPlotOptions.series.forEach(function(item){
-          item["data"].forEach(function(dataItem){
-            dataItem["x"] = new Date(dataItem["x"])
-          });
-        });
-        Highcharts.chart('lead-time-scatter-plot-container', this.scatterPlotOptions);
-      });
-    // Box Graph
-    this.http.get<BoxGraphData>(this.baseUrl + 'lead-time-box', {
-      params: {startDateString: this.startDate, finishDateString: this.finishDate}
-    })
-      .subscribe(x => {
-        let boxGraphDataArray = new Array(x["entries"].length);
-        let categoryArray = new Array(x["entries"].length);
-        let i = 0;
-        x["entries"].forEach(function(item) {
-          categoryArray[i] = item["taskItemType"]
-          boxGraphDataArray[i] = [item["minimum"], item["lowerQuartile"], item["median"], item["upperQuartile"], item["maximum"]]
-          i++;
-        });
-        this.boxGraphOptions.xAxis.categories = categoryArray;
-        this.boxGraphOptions.series[0].data = boxGraphDataArray;
-        this.boxGraphOptions.series[1].data = x["outliers"];
-        Highcharts.chart('lead-time-box-graph-container', this.boxGraphOptions);
       });
   }
 
@@ -306,6 +144,14 @@ export class HomeComponent implements OnInit {
   timeStop() {
     console.timeEnd('Page Load')
   }
+
+  expand() {
+    this.isExpanded = true;
+  }
+
+  collapse() {
+    this.isExpanded = false;
+  }
 }
 
 interface OverviewData {
@@ -319,14 +165,4 @@ interface OverviewData {
   meanTimeToRestore: number;
   changeFailPercentage: number;
   totalCards: number;
-}
-class BoxGraphData {
-  entries: [];
-  outliers: [];
-}
-
-class ScatterPlotData {
-  name: string;
-  turboThreshold: number;
-  data: [Date, number]
 }

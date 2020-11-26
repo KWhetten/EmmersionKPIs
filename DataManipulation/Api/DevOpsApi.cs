@@ -6,19 +6,19 @@ using RestSharp;
 
 namespace DataAccess.Api
 {
-    public interface IDevOpsApiRepository
+    public interface IDevOpsApi
     {
         JToken GetReleaseList();
     }
 
-    public class DevOpsApiRepository : IDevOpsApiRepository
+    public class DevOpsApi : IDevOpsApi
     {
         private readonly IRestClient client;
         private const string PersonalAccessToken = "";
         private const string Organization = "emmersionlearning";
         private const string Project = "EmmersionLearning";
 
-        public DevOpsApiRepository(IRestClient client)
+        public DevOpsApi(IRestClient client)
         {
             this.client = client;
         }

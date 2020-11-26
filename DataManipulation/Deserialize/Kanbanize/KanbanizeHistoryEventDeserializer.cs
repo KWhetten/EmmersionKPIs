@@ -23,6 +23,10 @@ namespace DataAccess.Deserialize.Kanbanize
             foreach (var jsonTaskItem in jsonTaskList)
             {
                 var historyEventList = new List<HistoryEvent>();
+                if ((int) jsonTaskItem["taskid"] == 540)
+                {
+                    Console.WriteLine();
+                }
                 foreach (var jsonHistoryEvent in jsonTaskItem["historydetails"]["item"])
                 {
                     try
@@ -36,7 +40,7 @@ namespace DataAccess.Deserialize.Kanbanize
 
                             var taskItem = taskItems[(int) jsonTaskItem["taskid"]];
                             var taskItemDeserializer = new KanbanizeTaskItemDeserializer();
-                            taskItem = await taskItemDeserializer.FillInTaskItemStateDetails(historyEvent, taskItem);
+                            taskItem = await taskItemDeserializer.FillInTaskItemStateDetailsAsync(historyEvent, taskItem);
 
                             if (taskItem.LastChangedOn < historyEvent.EventDate || taskItem.LastChangedOn == null)
                             {
@@ -45,7 +49,7 @@ namespace DataAccess.Deserialize.Kanbanize
                             }
 
                             taskItem.NumRevisions++;
-                            if (taskItem.StartTime == null && taskItem.State != "Backlog")
+                            if (taskItem.StartTime == null && taskItem.State != TaskItemState.Backlog)
                             {
                                 taskItem.StartTime = taskItem.CreatedOn;
                             }

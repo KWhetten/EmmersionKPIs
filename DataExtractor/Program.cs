@@ -11,8 +11,8 @@ namespace KPIDataExtractor
 {
     public static class Program
     {
-        private static readonly IDevOpsApiRepository DevOpsApiRepository = new DevOpsApiRepository(new RestClient());
-        private static readonly IKanbanizeApiRepository KanbanizeApiRepository = new KanbanizeApi(new RestClient());
+        private static readonly IDevOpsApi DevOpsApi = new DevOpsApi(new RestClient());
+        private static readonly IKanbanizeApi KanbanizeApi = new KanbanizeApi(new RestClient());
         private static readonly ReleaseRepository ReleaseRepository = new ReleaseRepository();
         private static readonly IDevOpsDeserializer DevOpsDeserializer = new DevOpsDeserializer();
         private static readonly TaskItemRepository TaskItemRepository = new TaskItemRepository();
@@ -29,9 +29,11 @@ namespace KPIDataExtractor
 
         private static async Task InsertReleasesIntoDatabaseFromApiAsync()
         {
-            var releases = DevOpsApiRepository.GetReleaseList();
+            var releases = DevOpsApi.GetReleaseList();
 
-            await ReleaseRepository.InsertReleaseListAsync(DevOpsDeserializer.DeserializeReleases(releases));
+            var deserializedReleases = DevOpsDeserializer.DeserializeReleases(releases);
+
+            await ReleaseRepository.InsertReleaseListAsync(deserializedReleases);
         }
 
         private static async Task InsertTaskItemsIntoDatabaseFromApiAsync()
@@ -45,7 +47,7 @@ namespace KPIDataExtractor
 
         private static async Task InsertKanbanizeTaskItemsAsync(int boardId)
         {
-            var taskItemList = KanbanizeApiRepository.GetTaskItemList(boardId);
+            var taskItemList = KanbanizeApi.GetTaskItemList(boardId);
             if (taskItemList.Any())
             {
                 var deserialized =

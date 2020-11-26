@@ -11,13 +11,13 @@ namespace DataAccess.Objects
         public DateTimeOffset? StartTime { get; set; }
         public DateTimeOffset? FinishTime { get; set; }
         public TaskItemType Type { get; set; }
-        public string DevelopmentTeamName { get; set; }
+        public string DevelopmentTeam { get; set; }
         public DateTimeOffset? CreatedOn { get; set; }
         public string CreatedBy { get; set; }
         public DateTimeOffset? LastChangedOn { get; set; }
         public string LastChangedBy { get; set; }
         public string CurrentBoardColumn { get; set; }
-        public string State { get; set; }
+        public TaskItemState State { get; set; }
         public int NumRevisions { get; set; }
         public Release Release { get; set; }
         public List<HistoryEvent> HistoryEvents { get; set; }
@@ -78,18 +78,7 @@ namespace DataAccess.Objects
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Id == other.Id && Title == other.Title && Nullable.Equals(StartTime, other.StartTime) && Nullable.Equals(FinishTime, other.FinishTime) && Type == other.Type && DevelopmentTeamName == other.DevelopmentTeamName && Nullable.Equals(CreatedOn, other.CreatedOn) && CreatedBy == other.CreatedBy && Nullable.Equals(LastChangedOn, other.LastChangedOn) && LastChangedBy == other.LastChangedBy && CurrentBoardColumn == other.CurrentBoardColumn && State == other.State && NumRevisions == other.NumRevisions && Equals(Release, other.Release) && Equals(HistoryEvents, other.HistoryEvents) && LeadTimeHours == other.LeadTimeHours;
+            return Id == other.Id && Title == other.Title && Nullable.Equals(StartTime, other.StartTime) && Nullable.Equals(FinishTime, other.FinishTime) && Type == other.Type && DevelopmentTeam == other.DevelopmentTeam && Nullable.Equals(CreatedOn, other.CreatedOn) && CreatedBy == other.CreatedBy && Nullable.Equals(LastChangedOn, other.LastChangedOn) && LastChangedBy == other.LastChangedBy && CurrentBoardColumn == other.CurrentBoardColumn && State == other.State && NumRevisions == other.NumRevisions && Equals(Release, other.Release) && Equals(HistoryEvents, other.HistoryEvents) && LeadTimeHours == other.LeadTimeHours;
         }
-    }
-
-    public class HistoryEvent
-    {
-        public int Id { get; set; }
-        public DateTimeOffset EventDate { get; set; }
-        public string EventType { get; set; }
-        public string TaskItemColumn { get; set; }
-        public string TaskItemState { get; set; }
-        public string Author { get; set; }
-        public int TaskId { get; set; }
     }
 }

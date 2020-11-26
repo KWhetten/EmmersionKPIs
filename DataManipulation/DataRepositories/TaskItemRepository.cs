@@ -11,8 +11,7 @@ namespace DataAccess.DataRepositories
 {
     public interface ITaskItemRepository
     {
-        Task<List<TaskItem>> GetTaskItemListAsync(DateTimeOffset startDate, DateTimeOffset finishDate);
-        List<TaskItem> GetTaskItemList(DateTimeOffset startDate, DateTimeOffset finishDate);
+        Task<List<TaskItem>> GetTaskItemListAsync(DateTimeOffset? startDate, DateTimeOffset? finishDate);
         Task InsertTaskItemListAsync(IEnumerable<TaskItem> getTaskItemList);
         Task InsertTaskItemAsync(TaskItem taskItem);
         Task InsertHistoryEventsAsync(TaskItem taskItem);
@@ -39,8 +38,7 @@ namespace DataAccess.DataRepositories
 
         private readonly ReleaseRepository releaseRepository = new ReleaseRepository();
 
-        public virtual async Task<List<TaskItem>> GetTaskItemListAsync(DateTimeOffset startDate,
-            DateTimeOffset finishDate)
+        public virtual async Task<List<TaskItem>> GetTaskItemListAsync(DateTimeOffset? startDate, DateTimeOffset? finishDate)
         {
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
@@ -93,60 +91,6 @@ namespace DataAccess.DataRepositories
             }
         }
 
-        public List<TaskItem> GetTaskItemList(DateTimeOffset startDate,
-            DateTimeOffset finishDate)
-        {
-            databaseConnection.GetNewConnection();
-            using (databaseConnection.DbConnection)
-            {
-                var startDateString = $"{startDate:s}".Replace("T", " ");
-                var endDateString = $"{finishDate:s}".Replace("T", " ");
-
-                var sql = $"SELECT ti.Id, " +
-                          "ti.Title, " +
-                          "ti.StartTime, " +
-                          "ti.FinishTime, " +
-                          "ti.TaskItemTypeId, " +
-                          "tit.Name as TaskItemTypeName, " +
-                          "ti.DevelopmentTeamName, " +
-                          "ti.CreatedOn, " +
-                          "ti.CreatedBy, " +
-                          "ti.LastChangedOn, " +
-                          "ti.LastChangedBy, " +
-                          "ti.CurrentBoardColumn, " +
-                          "ti.State, " +
-                          "ti.NumRevisions, " +
-                          "ti.ReleaseId, " +
-                          "r.State as ReleaseState, " +
-                          "r.ReleaseEnvironmentId, " +
-                          "re.Name as ReleaseEnvironmentName, " +
-                          "r.StartTime as ReleaseStartTime, " +
-                          "r.FinishTime as ReleaseFinishTime, " +
-                          "r.Name as ReleaseName, " +
-                          "r.Attempts as ReleaseAttempts " +
-                          "FROM TaskItem ti LEFT JOIN TaskItemType tit ON ti.TaskItemTypeId = tit.Id " +
-                          "LEFT JOIN Release r ON ti.ReleaseId = r.Id " +
-                          "LEFT JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
-                          "WHERE ti.FinishTime > @startDateString AND ti.FinishTime < @endDateString " +
-                          "ORDER BY ti.CreatedOn";
-
-                try
-                {
-                    var taskItems = databaseConnection.DbConnection
-                        .Query<TaskItemInfo>(sql, new {startDateString, endDateString});
-
-                    return GetTaskItemListFromTaskItemInfo(taskItems);
-
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine();
-                    return new List<TaskItem>();
-                }
-
-            }
-        }
-
         public async Task InsertTaskItemListAsync(IEnumerable<TaskItem> getTaskItemList)
         {
             databaseConnection.GetNewConnection();
@@ -173,8 +117,8 @@ namespace DataAccess.DataRepositories
                 var startTime = taskItem.StartTime;
                 var finishTime = taskItem.FinishTime;
                 var taskItemTypeId = (int) taskItem.Type;
-                var developmentTeamName = !taskItem.DevelopmentTeamName.IsNullOrEmpty()
-                    ? taskItem.DevelopmentTeamName
+                var developmentTeamName = !taskItem.DevelopmentTeam.IsNullOrEmpty()
+                    ? taskItem.DevelopmentTeam
                     : "";
                 var createdOn = taskItem.CreatedOn;
                 var createdBy = !taskItem.CreatedBy.IsNullOrEmpty()
@@ -187,9 +131,7 @@ namespace DataAccess.DataRepositories
                 var currentBoardColumn = !taskItem.CurrentBoardColumn.IsNullOrEmpty()
                     ? taskItem.CurrentBoardColumn
                     : null;
-                var state = !taskItem.State.IsNullOrEmpty()
-                    ? taskItem.State
-                    : null;
+                var state = (int) taskItem.State;
                 var numRevisions = taskItem.NumRevisions;
                 var releaseId = taskItem.Release != null && taskItem.Release.Id != 0
                     ? taskItem.Release.Id
@@ -333,9 +275,9 @@ namespace DataAccess.DataRepositories
         {
             try
             {
-                var sql = $"SELECT * FROM TaskItem WHERE Id = @id";
+                var sql = $"SELECT * FROM TaskItem WHERE Id = @id AND State = 3";
                 var result = databaseConnection.DbConnection.Query<TaskItem>(sql, new {id}).First();
-                return result == null || result.State != "Released";
+                return result != null;
             }
             catch (Exception ex)
             {
@@ -388,7 +330,7 @@ namespace DataAccess.DataRepositories
                         StartTime = taskItem.StartTime,
                         FinishTime = taskItem.FinishTime,
                         Type = (TaskItemType) taskItem.TaskItemTypeId,
-                        DevelopmentTeamName = taskItem.DevelopmentTeamName,
+                        DevelopmentTeam = taskItem.DevelopmentTeamName,
                         CreatedOn = taskItem.CreatedOn,
                         CreatedBy = taskItem.CreatedBy,
                         LastChangedOn = taskItem.LastChangedOn,
@@ -443,7 +385,7 @@ namespace DataAccess.DataRepositories
         public DateTimeOffset LastChangedOn { get; set; }
         public string LastChangedBy { get; set; }
         public string CurrentBoardColumn { get; set; }
-        public string State { get; set; }
+        public TaskItemState State { get; set; }
         public int NumRevisions { get; set; }
         public int ReleaseId { get; set; }
         public string ReleaseState { get; set; }

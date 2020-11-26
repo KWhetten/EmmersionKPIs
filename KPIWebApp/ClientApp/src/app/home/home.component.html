@@ -13,12 +13,12 @@
             <label for="product">Product</label>
           </div>
           <div>
-            <input type="checkbox" name="unanticipated" id="unanticipated" checked>
-            <label for="unanticipated">Unanticipated</label>
-          </div>
-          <div>
             <input type="checkbox" name="strategic-engineering" id="engineering" checked>
             <label for="engineering">Engineering</label>
+          </div>
+          <div>
+            <input type="checkbox" name="unanticipated" id="unanticipated" checked>
+            <label for="unanticipated">Unanticipated</label>
           </div>
         </div>
       </div>
@@ -50,7 +50,7 @@
   <h3><strong>From:</strong> {{startDate}} <strong>to</strong> {{finishDate}}</h3>
 
   <div class="cumulative-flow-diagram">
-    <div id="cumulative-flow-diagram-container"></div>
+    <app-cumulative-flow-diagram></app-cumulative-flow-diagram>
   </div>
 
   <h4>{{overviewData.totalCards}} Work Item Cards</h4>
@@ -62,11 +62,11 @@
     </div>
     <div class="lead-time-charts">
       <div class="scatter-plot">
-        <div id="lead-time-scatter-plot-container"></div>
+        <app-lead-time-scatter-plot></app-lead-time-scatter-plot>
       </div>
       <div class="right-column">
         <div class="lead-time-box-graph">
-          <div id="lead-time-box-graph-container"></div>
+          <app-lead-time-box-graph></app-lead-time-box-graph>
         </div>
       </div>
     </div>

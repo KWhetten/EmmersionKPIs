@@ -27,7 +27,7 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
                 StartTime = DateTime.Today.AddDays(-2).Date,
                 FinishTime = DateTime.Today.Date,
                 Type = TaskItemType.Unanticipated,
-                DevelopmentTeamName = "Team1",
+                DevelopmentTeam = "Team1",
                 CreatedOn = DateTime.Today,
                 CreatedBy = "CreatedBy1",
                 LastChangedOn = DateTime.Today,
@@ -43,7 +43,7 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
                         EventType = "Task moved"
                     }
                 },
-                State = "State1",
+                State = TaskItemState.Backlog,
                 NumRevisions = 4,
                 Release = new Release
                 {
@@ -83,7 +83,7 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
                 Assert.That(card1.StartTime, Is.EqualTo(result1.StartTime));
                 Assert.That(card1.FinishTime, Is.EqualTo(result1.FinishTime));
                 Assert.That(card1.Type, Is.EqualTo(result1.Type));
-                Assert.That(card1.DevelopmentTeamName, Is.EqualTo(result1.DevelopmentTeamName));
+                Assert.That(card1.DevelopmentTeam, Is.EqualTo(result1.DevelopmentTeam));
                 Assert.That(card1.CreatedOn, Is.EqualTo(result1.CreatedOn));
                 Assert.That(card1.CreatedBy, Is.EqualTo(result1.CreatedBy));
                 Assert.That(card1.LastChangedOn, Is.EqualTo(result1.LastChangedOn));
@@ -143,6 +143,26 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
             Assert.That(result[0], Is.EqualTo(TaskItemType.Product));
             Assert.That(result[1], Is.EqualTo(TaskItemType.Engineering));
             Assert.That(result[2], Is.EqualTo(TaskItemType.Unanticipated));
+        }
+
+        [Test]
+        public void When_task_item_has_already_been_released()
+        {
+            var result = taskItemRepository.TaskItemHasAlreadyBeenReleasedAsync(1);
+
+            Assert.False(result);
+
+            result = taskItemRepository.TaskItemHasAlreadyBeenReleasedAsync(356);
+
+            Assert.True(result);
+        }
+
+        [Test]
+        public async Task When_getting_history_events_by_task_item_id()
+        {
+            var result = await taskItemRepository.GetHistoryEventsByTaskIdAsync(356);
+
+            Assert.That(result.Count, Is.EqualTo(4));
         }
     }
 }

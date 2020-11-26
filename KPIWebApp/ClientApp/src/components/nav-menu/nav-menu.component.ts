@@ -1,5 +1,6 @@
-﻿import {Component, OnChanges, OnInit} from '@angular/core';
+﻿import {Component, Inject, OnInit} from '@angular/core';
 import {getCookie} from '../../app/app.component';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,23 +8,27 @@ import {getCookie} from '../../app/app.component';
   styleUrls: ['./nav-menu.component.css']
 })
 
-export class NavMenuComponent implements OnInit, OnChanges {
+export class NavMenuComponent implements OnInit {
   public isExpanded = false;
 
-  constructor() {
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+
   }
 
   ngOnInit() {
-    console.log("ngOnInit");
+    this.reloadData();
+  }
+
+  reloadData() {
     let cookieValue = getCookie();
     if (cookieValue == undefined) {
       if (this.isExpanded) {
-        console.log("collapse");
+        console.log('collapse');
         this.collapse();
       }
     } else {
       if (!this.isExpanded) {
-        console.log("expand");
+        console.log('expand');
         this.expand();
       }
     }

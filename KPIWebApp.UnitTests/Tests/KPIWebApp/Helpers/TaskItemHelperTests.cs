@@ -7,7 +7,7 @@ using KPIWebApp.Helpers;
 using Moq;
 using NUnit.Framework;
 
-namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
+namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
 {
     public class TaskItemHelperTests
     {
@@ -21,13 +21,13 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 StartTime = DateTimeOffset.Now.Date.AddDays(-2),
                 FinishTime = DateTimeOffset.Now.Date,
                 Type = TaskItemType.Unanticipated,
-                DevelopmentTeamName = "DevelopmentTeam1",
+                DevelopmentTeam = "DevelopmentTeam1",
                 CreatedOn = DateTimeOffset.Now.Date.AddDays(-3),
                 CreatedBy = "CreatedBy1",
                 LastChangedOn = DateTimeOffset.Now.Date,
                 LastChangedBy = "LastChangedBy1",
                 CurrentBoardColumn = "CurrentBoardColumn1",
-                State = "CardState1",
+                State = TaskItemState.Backlog,
                 NumRevisions = 3,
                 Release = new Release
                 {
@@ -51,13 +51,13 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 StartTime = DateTimeOffset.Now.Date.AddDays(-2),
                 FinishTime = null,
                 Type = TaskItemType.Unanticipated,
-                DevelopmentTeamName = "DevelopmentTeam2",
+                DevelopmentTeam = "DevelopmentTeam2",
                 CreatedOn = DateTimeOffset.Now.Date.AddDays(-3),
                 CreatedBy = "CreatedBy2",
                 LastChangedOn = DateTimeOffset.Now.Date,
                 LastChangedBy = "LastChangedBy2",
                 CurrentBoardColumn = "CurrentBoardColumn2",
-                State = "CardState2",
+                State = TaskItemState.TopPriority,
                 NumRevisions = 3,
                 Release = new Release
                 {
@@ -102,13 +102,13 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 StartTime = DateTimeOffset.Now.Date.AddDays(-2),
                 FinishTime = DateTimeOffset.Now.Date,
                 Type = TaskItemType.Unanticipated,
-                DevelopmentTeamName = "DevelopmentTeam1",
+                DevelopmentTeam = "DevelopmentTeam1",
                 CreatedOn = DateTimeOffset.Now.Date.AddDays(-3),
                 CreatedBy = "CreatedBy1",
                 LastChangedOn = DateTimeOffset.Now.Date,
                 LastChangedBy = "LastChangedBy1",
                 CurrentBoardColumn = "CurrentBoardColumn1",
-                State = "CardState1",
+                State = TaskItemState.Backlog,
                 NumRevisions = 3,
                 Release = new Release
                 {
@@ -132,13 +132,13 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp
                 StartTime = DateTimeOffset.Now.Date.AddDays(-2),
                 FinishTime = null,
                 Type = TaskItemType.Unanticipated,
-                DevelopmentTeamName = "DevelopmentTeam2",
+                DevelopmentTeam = "DevelopmentTeam2",
                 CreatedOn = DateTimeOffset.Now.Date.AddDays(-3),
                 CreatedBy = "CreatedBy2",
                 LastChangedOn = DateTimeOffset.Now.Date,
                 LastChangedBy = "LastChangedBy2",
                 CurrentBoardColumn = "CurrentBoardColumn2",
-                State = "CardState2",
+                State = TaskItemState.InProcess,
                 NumRevisions = 3,
                 Release = new Release
                 {
