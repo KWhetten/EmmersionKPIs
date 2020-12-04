@@ -1,86 +1,46 @@
-﻿<h1>Overview</h1>
+﻿<div *ngIf="this.authorized">
+  <h1>Overview</h1>
 
-<form id="form">
-  <h2>Filter Options</h2>
-  <div class="filter">
+  <app-filter-options></app-filter-options>
 
-    <div class="card-type">
-      <h3>Card Type(s):</h3>
-      <div class="card-type-checkboxes">
-        <div class="product">
-          <div>
-            <input type="checkbox" name="strategic-product" id="product" checked>
-            <label for="product">Product</label>
+  <div *ngIf="!this.overviewData">Loading...</div>
+  <div *ngIf="this.overviewData">
+    <h2>Results:</h2>
+    <h3><strong>From:</strong> {{startDate}} <strong>to</strong> {{finishDate}}</h3>
+
+    <div class="cumulative-flow-diagram">
+      <app-cumulative-flow-diagram></app-cumulative-flow-diagram>
+    </div>
+
+    <h4>{{overviewData.totalCards}} Work Item Cards</h4>
+    <div class="lead-time">
+      <div class="lead-time-results">
+        <p><strong>Shortest Lead Time:</strong> {{overviewData.shortestLeadTime}} Hours of Work</p>
+        <p><strong>Average Lead Time:</strong> {{overviewData.averageLeadTime}} Hours of Work</p>
+        <p><strong>Longest Lead Time:</strong> {{overviewData.longestLeadTime}} Hours of Work</p>
+      </div>
+      <div class="lead-time-charts">
+        <div class="scatter-plot">
+          <app-lead-time-scatter-plot></app-lead-time-scatter-plot>
+        </div>
+        <div class="right-column">
+          <div class="lead-time-box-graph">
+            <app-lead-time-box-graph></app-lead-time-box-graph>
           </div>
-          <div>
-            <input type="checkbox" name="strategic-engineering" id="engineering" checked>
-            <label for="engineering">Engineering</label>
-          </div>
-          <div>
-            <input type="checkbox" name="unanticipated" id="unanticipated" checked>
-            <label for="unanticipated">Unanticipated</label>
-          </div>
         </div>
       </div>
     </div>
 
-    <div class="date-range">
-      <h3>Date Range:</h3>
-      <div>
-        <div class="from-date">
-          <label for="start-date">From:</label>
-          <input id="start-date" name="start-date" type="date" dataformatas="yyyy/MM/dd"/>
-        </div>
-        <div class="to-date">
-          <label for="finish-date">To:</label>
-          <input id="finish-date" name="finish-date" type="date" dataformatas="yyyy/MM/dd"/>
-        </div>
+    <h4>{{overviewData.totalDeploys}} Deploys</h4>
+    <div class="deployment-frequency">
+      <div class="scatter-plot">Scatter Plot goes here...</div>
+      <div class="deployment-frequency-results">
+        <p><strong>Successful Deploys:</strong> {{overviewData.successfulDeploys}}</p>
+        <p><strong>Rolled-Back Deploys:</strong> {{overviewData.rolledBackDeploys}}</p>
+        <p><strong>Frequency:</strong> {{overviewData.deployFrequency}} deploys per week</p>
+        <p><strong>Time to Restore:</strong> {{overviewData.meanTimeToRestore}} hours</p>
+        <p><strong>Change Fail Percentage:</strong> {{overviewData.changeFailPercentage}}%</p>
       </div>
-    </div>
-
-    <div class="submit">
-      <button class="btn btn-primary" (click)="submit()">Submit</button>
-    </div>
-  </div>
-  <hr>
-</form>
-
-<div>
-  <h2>Results:</h2>
-  <h3><strong>From:</strong> {{startDate}} <strong>to</strong> {{finishDate}}</h3>
-
-  <div class="cumulative-flow-diagram">
-    <app-cumulative-flow-diagram></app-cumulative-flow-diagram>
-  </div>
-
-  <h4>{{overviewData.totalCards}} Work Item Cards</h4>
-  <div class="lead-time">
-    <div class="lead-time-results">
-      <p><strong>Shortest Lead Time:</strong> {{overviewData.shortestLeadTime}} Hours of Work</p>
-      <p><strong>Average Lead Time:</strong> {{overviewData.averageLeadTime}} Hours of Work</p>
-      <p><strong>Longest Lead Time:</strong> {{overviewData.longestLeadTime}} Hours of Work</p>
-    </div>
-    <div class="lead-time-charts">
-      <div class="scatter-plot">
-        <app-lead-time-scatter-plot></app-lead-time-scatter-plot>
-      </div>
-      <div class="right-column">
-        <div class="lead-time-box-graph">
-          <app-lead-time-box-graph></app-lead-time-box-graph>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <h4>{{overviewData.totalDeploys}} Deploys</h4>
-  <div class="deployment-frequency">
-    <div class="scatter-plot">Scatter Plot goes here...</div>
-    <div class="deployment-frequency-results">
-      <p><strong>Successful Deploys:</strong> {{overviewData.successfulDeploys}}</p>
-      <p><strong>Rolled-Back Deploys:</strong> {{overviewData.rolledBackDeploys}}</p>
-      <p><strong>Frequency:</strong> {{overviewData.deployFrequency}} deploys per week</p>
-      <p><strong>Time to Restore:</strong> {{overviewData.meanTimeToRestore}} hours</p>
-      <p><strong>Change Fail Percentage:</strong> {{overviewData.changeFailPercentage}}%</p>
     </div>
   </div>
 </div>

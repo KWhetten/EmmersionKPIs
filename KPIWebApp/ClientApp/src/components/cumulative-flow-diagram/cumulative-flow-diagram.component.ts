@@ -1,6 +1,8 @@
-﻿import {Component, Inject, OnInit} from '@angular/core';
+﻿import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import {HttpClient} from '@angular/common/http';
+import {MessageService} from '../../app/_services/message.service';
+import {Subscription} from 'rxjs';
 
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
@@ -17,12 +19,12 @@ noData(Highcharts);
   templateUrl: './cumulative-flow-diagram.component.html',
   styleUrls: ['./cumulative-flow-diagram.component.css']
 })
-export class CumulativeFlowDiagramComponent implements OnInit {
+export class CumulativeFlowDiagramComponent implements OnInit, OnDestroy {
 
   private http: HttpClient;
   private baseUrl: string;
-  private startDate: string;
-  private finishDate: string;
+  private subscription: Subscription;
+  private messages: any[] = [];
 
   public cumulativeFlowOptions: any = {
     chart: {
@@ -62,30 +64,35 @@ export class CumulativeFlowDiagramComponent implements OnInit {
     series: []
   }
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: MessageService) {
     this.http = http;
     this.baseUrl = baseUrl;
-    this.startDate = 'The Beginning of Time';
-    this.finishDate = 'The Present Day';
+
+    this.subscription = this.messageService.onMessage().subscribe(message => {
+      if(message){
+        this.reloadData(message.startDate, message.finishDate, message.product, message.engineering, message.unanticipated);
+      } else {
+        this.messages = [];
+      }
+    });
   }
 
   ngOnInit() {
-    this.reloadData(this.startDate, this.finishDate);
+    this.reloadData("", "", true, true, true);
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
-  reloadData(startDate, finishDate) {
-    const productElement = <HTMLInputElement>document.getElementById('product');
-    const engineeringElement = <HTMLInputElement>document.getElementById('engineering');
-    const unanticipatedElement = <HTMLInputElement>document.getElementById('unanticipated');
-
+  reloadData(startDate, finishDate, product, engineering, unanticipated) {
     this.http.get(this.baseUrl + 'cumulative-flow', {
       params:
         {
           startDateString: startDate,
           finishDateString: finishDate,
-          product: String(productElement.checked),
-          engineering: String(engineeringElement.checked.valueOf()),
-          unanticipated: String(unanticipatedElement.checked.valueOf())
+          product: String(product),
+          engineering: String(engineering),
+          unanticipated: String(unanticipated)
         }
     })
       .subscribe(x => {

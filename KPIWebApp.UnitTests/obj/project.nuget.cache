@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "gYju5m93ZkPnXhhPayeVfx6XIvVdOlD5AA+9YKWg+q0Gy0rL8AH1UIssAoHgujfQrLvmikJ+yYsqn3+rGtjATg==",
+  "dgSpecHash": "aksVXQq9w+qPOHeFrt1wSj56bC7CmFKj+1bs/EiHSoNNCfia9Tmf8IT+OCMhk5zx+VnepPCFqh4+nGwAsSG4Yg==",
   "success": true,
   "projectFilePath": "C:\\Code\\EmmersionKPIs\\KPIWebApp.UnitTests\\KPIWebApp.UnitTests.csproj",
   "expectedPackageFiles": [
@@ -54,6 +54,7 @@
     "C:\\Users\\krwhe\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\krwhe\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\krwhe\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\krwhe\\.nuget\\packages\\rxjs-main\\4.0.7\\rxjs-main.4.0.7.nupkg.sha512",
     "C:\\Users\\krwhe\\.nuget\\packages\\system.appcontext\\4.1.0\\system.appcontext.4.1.0.nupkg.sha512",
     "C:\\Users\\krwhe\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\krwhe\\.nuget\\packages\\system.collections.nongeneric\\4.3.0\\system.collections.nongeneric.4.3.0.nupkg.sha512",

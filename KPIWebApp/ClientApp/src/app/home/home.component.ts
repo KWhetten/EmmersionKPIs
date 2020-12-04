@@ -1,9 +1,11 @@
-﻿import {Component, EventEmitter, Inject, OnInit, Output, ViewChild} from '@angular/core';
+﻿import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
 import {getCookie} from '../app.component';
 import * as Highcharts from 'highcharts';
+import {MessageService} from '../_services/message.service';
+import {Subscription} from 'rxjs';
 
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
@@ -26,11 +28,11 @@ export class HomeComponent implements OnInit {
   protected http: HttpClient;
   protected baseUrl: string;
   private datePipe: DatePipe;
-  startDate: string = 'The Beginning of Time';
-  finishDate: string = 'The Present Day';
   startTimer: any;
   @Output() submitted = new EventEmitter<any>();
   isExpanded = false;
+  private subscription: Subscription;
+  private messages: any[] = [];
 
   public cumulativeFlowOptions: any = {
     chart: {
@@ -73,68 +75,58 @@ export class HomeComponent implements OnInit {
     },
     series: []
   }
-  constructor(protected router: Router, datepipe: DatePipe, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.startDate = 'The Beginning of Time';
-    this.finishDate = 'The Present Day';
+  authorized: boolean = false;
+
+  constructor(protected router: Router, datepipe: DatePipe, http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: MessageService) {
     this.datePipe = datepipe;
     this.http = http;
     this.baseUrl = baseUrl;
     const formData: FormData = new FormData();
     formData.append('startDateString', '');
     formData.append('finishDateString', '');
+
+    this.subscription = this.messageService.onMessage().subscribe(message => {
+      if(message){
+        this.reloadData(message.startDate, message.finishDate, message.product, message.engineering, message.unanticipated);
+      } else {
+        this.messages = [];
+      }
+    });
   }
 
   ngOnInit() {
-    this.reloadData();
+    let cookieValue = getCookie();
+    this.http.get<boolean>(this.baseUrl + 'authorize-user', {
+      params: {guid: cookieValue}
+    })
+      .subscribe((result) => {
+        this.authorized = result;
+        if (cookieValue == undefined || !this.authorized) {
+          this.router.navigate(['/login']);
+        }
+        this.reloadData("", "", true, true, true);
+      });
   }
 
-  reloadData() {
+  reloadData(startDate, finishDate, product, engineering, unanticipated) {
     this.overviewData = null;
-    this.cumulativeFlowOptions.series = [];
 
-    const productElement = <HTMLInputElement>document.getElementById('product');
-    const engineeringElement = <HTMLInputElement>document.getElementById('engineering');
-    const unanticipatedElement = <HTMLInputElement>document.getElementById('unanticipated');
-    // Check for login
-    this.timeStart();
-    let cookieValue = getCookie();
-    if (cookieValue == undefined) {
-      this.router.navigate(['/login']);
-    }
     // Overview Data
+    this.timeStart();
     this.http.get<OverviewData>(this.baseUrl + 'overview', {
       params:
         {
-          startDateString: this.startDate,
-          finishDateString: this.finishDate,
-          product: String(productElement.checked),
-          engineering: String(engineeringElement.checked.valueOf()),
-          unanticipated: String(unanticipatedElement.checked.valueOf())
+          startDateString: startDate,
+          finishDateString: finishDate,
+          product: product,
+          engineering: engineering,
+          unanticipated: unanticipated
         }
     })
       .subscribe(x => {
         this.overviewData = x;
         this.timeStop();
       });
-  }
-
-  submit() {
-    this.startTimer = this.timeStart();
-
-    this.overviewData = null;
-
-    let dateValue = (document.getElementById('start-date') as HTMLInputElement).value
-    if (dateValue != '') {
-      let date = new Date(dateValue);
-      this.startDate = this.datePipe.transform(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1), 'MMMM d, yyyy');
-    }
-    dateValue = (document.getElementById('finish-date') as HTMLInputElement).value;
-    if (dateValue != '') {
-      let date = new Date(dateValue);
-      this.finishDate = this.datePipe.transform(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1), 'MMMM d, yyyy');
-    }
-
-    this.reloadData();
   }
 
   timeStart() {

@@ -24,6 +24,7 @@ export class ChangePasswordComponent implements OnInit {
   error: string;
   private email: string;
   oldPasswordError: string;
+  authorized: boolean = false;
 
   constructor(private router:Router, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
@@ -32,9 +33,15 @@ export class ChangePasswordComponent implements OnInit {
 
   ngOnInit() {
     let cookieValue = getCookie();
-    if (cookieValue == undefined) {
-      this.router.navigate(['/login']);
-    }
+    this.http.get<boolean>(this.baseUrl + 'authorize-user', {
+      params: {guid: cookieValue}
+    })
+      .subscribe((result) => {
+        this.authorized = result;
+        if (cookieValue == undefined || !this.authorized) {
+          this.router.navigate(['/login']);
+        }
+      });
   }
 
   async submit() {

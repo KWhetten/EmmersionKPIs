@@ -10,6 +10,8 @@ namespace KPIWebApp.Helpers
     {
         public OverviewData PopulateOverviewData(OverviewData overviewData, List<Release> releaseList, DateTimeOffset finishDate)
         {
+            var rolledBackReleases = new List<Release>();
+            var lastRelease = releaseList.First();
             DateTimeOffset? earliestReleaseFinishTime = null;
             foreach (var item in releaseList)
             {
@@ -17,12 +19,19 @@ namespace KPIWebApp.Helpers
                 {
                     earliestReleaseFinishTime = item.FinishTime;
                 }
+
+                if (item.Attempts > 1 && lastRelease.Name != item.Name)
+                {
+                    rolledBackReleases.Add(item);
+                }
+
+                lastRelease = item;
             }
             var releaseWeeks = (finishDate - earliestReleaseFinishTime)?.Days / 7m;
 
             overviewData.TotalDeploys = releaseList.Count;
-            overviewData.SuccessfulDeploys = 0;
-            overviewData.RolledBackDeploys = 0;
+            overviewData.SuccessfulDeploys = releaseList.Count - rolledBackReleases.Count;
+            overviewData.RolledBackDeploys = rolledBackReleases.Count;
             overviewData.DeployFrequency = decimal.Round(decimal.Parse((overviewData.TotalDeploys / releaseWeeks)
                 ?.ToString("0.##") ?? ""), 2, MidpointRounding.AwayFromZero);
             overviewData.MeanTimeToRestore = 0;

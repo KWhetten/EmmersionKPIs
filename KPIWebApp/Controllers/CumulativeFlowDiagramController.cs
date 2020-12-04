@@ -12,7 +12,7 @@ namespace KPIWebApp.Controllers
         public async Task<CumulativeFlowData> Get(string startDateString, string finishDateString, bool product, bool engineering, bool unanticipated)
         {
             var startDate = DateHelper.GetStartDate(startDateString).Date;
-            var finishDate = DateHelper.GetFinishDate(finishDateString).AddDays(1).Date;
+            var finishDate = DateHelper.GetFinishDate(finishDateString).Date;
 
             var cumulativeFlowDiagramHelper = new CumulativeFlowDiagramHelper();
 

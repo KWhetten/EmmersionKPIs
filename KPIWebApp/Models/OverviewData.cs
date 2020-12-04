@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DataAccess.Objects;
-
-namespace KPIWebApp.Models
+﻿namespace KPIWebApp.Models
 {
     public class OverviewData
     {

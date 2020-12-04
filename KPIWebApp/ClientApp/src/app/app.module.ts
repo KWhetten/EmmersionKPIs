@@ -17,6 +17,8 @@ import {ForgotPasswordComponent} from './forgot-password/forgot-password.compone
 import {CumulativeFlowDiagramComponent} from '../components/cumulative-flow-diagram/cumulative-flow-diagram.component'
 import {LeadTimeScatterPlotComponent} from '../components/lead-time-scatter-plot/lead-time-scatter-plot.component';
 import {LeadTimeBoxGraphComponent} from '../components/lead-time-box-graph/lead-time-box-graph.component';
+import {MultinomialLogisticRegressionAnalysisComponent} from '../components/multinomial-logistic-regression-analysis/multinomial-logistic-regression-analysis.component';
+import {MultipleLinearRegressionAnalysisComponent} from '../components/multiple-linear-regression-analysis/multiple-linear-regression-analysis.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import {LeadTimeBoxGraphComponent} from '../components/lead-time-box-graph/lead-
     ForgotPasswordComponent,
     CumulativeFlowDiagramComponent,
     LeadTimeScatterPlotComponent,
-    LeadTimeBoxGraphComponent
+    LeadTimeBoxGraphComponent,
+    MultinomialLogisticRegressionAnalysisComponent,
+    MultipleLinearRegressionAnalysisComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),

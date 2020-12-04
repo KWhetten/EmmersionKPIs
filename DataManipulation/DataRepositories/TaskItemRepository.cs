@@ -128,9 +128,7 @@ namespace DataAccess.DataRepositories
                 var lastChangedBy = !taskItem.LastChangedBy.IsNullOrEmpty()
                     ? taskItem.LastChangedBy
                     : null;
-                var currentBoardColumn = !taskItem.CurrentBoardColumn.IsNullOrEmpty()
-                    ? taskItem.CurrentBoardColumn
-                    : null;
+                var currentBoardColumn = taskItem.CurrentBoardColumn;
                 var state = (int) taskItem.State;
                 var numRevisions = taskItem.NumRevisions;
                 var releaseId = taskItem.Release != null && taskItem.Release.Id != 0
@@ -180,11 +178,11 @@ namespace DataAccess.DataRepositories
 
                 await InsertHistoryEventsAsync(taskItem);
 
-                Console.WriteLine($"Inserted or Updated Task: {taskItem.Id}");
+                Console.WriteLine($"Updated Task: {taskItem.Id}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Unable to insert task: {taskItem.Id} - " + ex.Message);
+                Console.WriteLine($"Unable to update task: {taskItem.Id} - " + ex.Message);
             }
         }
 
@@ -222,11 +220,11 @@ namespace DataAccess.DataRepositories
                             historyEventId, eventDate, taskItemColumn, taskItemState, eventType, taskItemId, author
                         });
 
-                    Console.WriteLine($"Inserted History Event {historyEventId} for Task {taskItemId}");
+                    Console.WriteLine($"Updated History Event {historyEventId} for Task {taskItemId}");
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Unable to insert or update HistoryEvent #{historyEvent.Id} for Task: #{taskItem.Id}: {ex.Message}");
+                    Console.WriteLine($"Unable to update HistoryEvent #{historyEvent.Id} for Task: #{taskItem.Id}: {ex.Message}");
                 }
             }
         }
@@ -271,13 +269,13 @@ namespace DataAccess.DataRepositories
             }
         }
 
-        public bool TaskItemHasAlreadyBeenReleasedAsync(int id)
+        public bool TaskItemHasBeenReleasedAsync(int id)
         {
             try
             {
                 var sql = $"SELECT * FROM TaskItem WHERE Id = @id AND State = 3";
                 var result = databaseConnection.DbConnection.Query<TaskItem>(sql, new {id}).First();
-                return result != null;
+                return true;
             }
             catch (Exception ex)
             {
@@ -384,7 +382,7 @@ namespace DataAccess.DataRepositories
         public string CreatedBy { get; set; }
         public DateTimeOffset LastChangedOn { get; set; }
         public string LastChangedBy { get; set; }
-        public string CurrentBoardColumn { get; set; }
+        public BoardColumn CurrentBoardColumn { get; set; }
         public TaskItemState State { get; set; }
         public int NumRevisions { get; set; }
         public int ReleaseId { get; set; }

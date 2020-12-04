@@ -127,5 +127,23 @@ namespace DataAccess.DataRepositories
             var password = await GetUserPasswordAsync(userInfo);
             return userInfo.Password == password;
         }
+
+        public bool SessionIsAuthorized(Guid guid)
+        {
+            databaseConnection.GetNewConnection();
+            using (databaseConnection.DbConnection)
+            {
+                try
+                {
+                    var sql = $"SELECT * FROM AuthorizedUsers WHERE Guid = @guid";
+                    var result = databaseConnection.DbConnection.Query(sql, new {guid});
+                    return result.Any();
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+        }
     }
 }

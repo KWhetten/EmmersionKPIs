@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DataAccess.DataRepositories;
 using DataAccess.Deserialize.Kanbanize;
 using DataAccess.Objects;
 using KPIDataExtractor.UnitTests.TestObjects.Kanbanize;
@@ -8,9 +9,6 @@ using Moq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
-using RestSharp;
-using RestSharp.Serialization.Json;
-using JsonSerializer = RestSharp.Serialization.Json.JsonSerializer;
 
 namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
 {
@@ -44,7 +42,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                         Id = 1,
                         Title = "Task1",
                         Type = TaskItemType.Engineering,
-                        CurrentBoardColumn = "In Process.Working On",
+                        CurrentBoardColumn = BoardColumn.InProcessWorking,
                         HistoryEvents = new List<HistoryEvent>()
                     }
                 },
@@ -54,7 +52,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                         Id = 2,
                         Title = "Task2",
                         Type = TaskItemType.Product,
-                        CurrentBoardColumn = "Released to Prod this Week",
+                        CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
                         HistoryEvents = new List<HistoryEvent>()
                     }
                 }
@@ -76,12 +74,12 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
             Assert.That(result[0].Id, Is.EqualTo(1));
             Assert.That(result[0].Title, Is.EqualTo("Task1"));
             Assert.That(result[0].Type, Is.EqualTo(TaskItemType.Engineering));
-            Assert.That(result[0].CurrentBoardColumn, Is.EqualTo("In Process.Working On"));
+            Assert.That(result[0].CurrentBoardColumn, Is.EqualTo(BoardColumn.InProcessWorking));
 
             Assert.That(result[1].Id, Is.EqualTo(2));
             Assert.That(result[1].Title, Is.EqualTo("Task2"));
             Assert.That(result[1].Type, Is.EqualTo(TaskItemType.Product));
-            Assert.That(result[1].CurrentBoardColumn, Is.EqualTo("Released to Prod this Week"));
+            Assert.That(result[1].CurrentBoardColumn, Is.EqualTo(BoardColumn.ReleasedToProdThisWeek));
         }
 
         [Test]
@@ -125,6 +123,11 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
 
             var kanbanizeTaskItemDeserializer = new KanbanizeTaskItemDeserializer();
             var result = new TaskItem();
+
+            var mockReleaseRepository = new Mock<ReleaseRepository>();
+            mockReleaseRepository.Setup(x => x.GetFirstReleaseBeforeDateAsync(It.IsAny<DateTimeOffset?>()))
+                .ReturnsAsync((Release)null);
+
             foreach (var historyEvent in historyEventList)
             {
                 result = await kanbanizeTaskItemDeserializer.FillInTaskItemStateDetailsAsync(historyEvent, taskItem);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.Objects;
 using Newtonsoft.Json.Linq;
@@ -12,7 +13,7 @@ namespace DataAccess.Deserialize.Kanbanize
             Dictionary<int, TaskItem> taskItems);
 
         HistoryEvent DeserializeHistoryEvent(JToken jsonHistoryEvent);
-        string GetCardColumn(string details);
+        BoardColumn GetTaskItemBoardColumn(string details);
     }
 
     public class KanbanizeHistoryEventDeserializer : IKanbanizeHistoryEventDeserializer
@@ -23,44 +24,36 @@ namespace DataAccess.Deserialize.Kanbanize
             foreach (var jsonTaskItem in jsonTaskList)
             {
                 var historyEventList = new List<HistoryEvent>();
-                if ((int) jsonTaskItem["taskid"] == 540)
-                {
-                    Console.WriteLine();
-                }
-                foreach (var jsonHistoryEvent in jsonTaskItem["historydetails"]["item"])
+
+                foreach (var jsonHistoryEvent in GetJTokenHistoryEventList(jsonTaskItem))
                 {
                     try
                     {
-                        if ((jsonHistoryEvent["historyevent"].ToString() == "Task moved"
-                             || jsonHistoryEvent["historyevent"].ToString() == "Task created")
-                            && !jsonHistoryEvent["details"].ToString().Contains("reordered"))
+                        if ((jsonHistoryEvent["historyevent"].ToString() != "Task moved" &&
+                             jsonHistoryEvent["historyevent"].ToString() != "Task created") ||
+                            jsonHistoryEvent["details"].ToString().Contains("reordered")) continue;
+
+                        var historyEvent = DeserializeHistoryEvent(jsonHistoryEvent);
+                        historyEventList.Add(historyEvent);
+
+                        var taskItem = taskItems[(int) jsonTaskItem["taskid"]];
+                        var taskItemDeserializer = new KanbanizeTaskItemDeserializer();
+                        taskItem = await taskItemDeserializer.FillInTaskItemStateDetailsAsync(historyEvent, taskItem);
+
+                        if (taskItem.LastChangedOn < historyEvent.EventDate || taskItem.LastChangedOn == null)
                         {
-                            var historyEvent = DeserializeHistoryEvent(jsonHistoryEvent);
-                            historyEventList.Add(historyEvent);
-
-                            var taskItem = taskItems[(int) jsonTaskItem["taskid"]];
-                            var taskItemDeserializer = new KanbanizeTaskItemDeserializer();
-                            taskItem = await taskItemDeserializer.FillInTaskItemStateDetailsAsync(historyEvent, taskItem);
-
-                            if (taskItem.LastChangedOn < historyEvent.EventDate || taskItem.LastChangedOn == null)
-                            {
-                                taskItem.LastChangedOn = historyEvent.EventDate;
-                                taskItem.LastChangedBy = historyEvent.Author;
-                            }
-
-                            taskItem.NumRevisions++;
-                            if (taskItem.StartTime == null && taskItem.State != TaskItemState.Backlog)
-                            {
-                                taskItem.StartTime = taskItem.CreatedOn;
-                            }
-
-                            taskItems[historyEvent.TaskId] = taskItem;
+                            taskItem.LastChangedOn = historyEvent.EventDate;
+                            taskItem.LastChangedBy = historyEvent.Author;
                         }
+
+                        taskItem.NumRevisions++;
+
+                        taskItems[historyEvent.TaskId] = taskItem;
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine(
-                            $"Unable to process History Event for task: {jsonTaskItem["taskid"]}\nJson: {jsonTaskItem["historydetails"]["item"]}");
+                            $"Unable to process History Event for task: {jsonTaskItem["taskid"]}\nJson: {jsonTaskItem["historydetails"]["item"]} - {ex.Message}");
                     }
                 }
 
@@ -68,6 +61,26 @@ namespace DataAccess.Deserialize.Kanbanize
             }
 
             return taskItems;
+        }
+
+        private static IEnumerable<JToken> GetJTokenHistoryEventList(JToken jsonTaskItem)
+        {
+            List<JToken> jTokenHistoryEventList;
+            try
+            {
+                var temp = jsonTaskItem["historydetails"]["item"][0]["taskid"];
+                jTokenHistoryEventList = jsonTaskItem["historydetails"]["item"].ToList();
+            }
+            catch (Exception ex)
+            {
+                jTokenHistoryEventList = new List<JToken>
+                {
+                    jsonTaskItem["historydetails"]["item"]
+                };
+            }
+            jTokenHistoryEventList.Reverse();
+
+            return jTokenHistoryEventList;
         }
 
         public virtual HistoryEvent DeserializeHistoryEvent(JToken jsonHistoryEvent)
@@ -79,8 +92,8 @@ namespace DataAccess.Deserialize.Kanbanize
             historyEvent.EventType = jsonHistoryEvent["historyevent"].ToString();
             historyEvent.EventDate = (DateTimeOffset) jsonHistoryEvent["entrydate"];
             historyEvent.TaskItemColumn = historyEvent.EventType == "Task moved"
-                ? GetCardColumn(jsonHistoryEvent["details"].ToString())
-                : "Backlog";
+                ? GetTaskItemBoardColumn(jsonHistoryEvent["details"].ToString())
+                : BoardColumn.Backlog;
             historyEvent.TaskItemState = taskItemDeserializer.GetTaskItemState(historyEvent.TaskItemColumn);
             historyEvent.Author = jsonHistoryEvent["author"].ToString();
             historyEvent.TaskId = (int) jsonHistoryEvent["taskid"];
@@ -88,12 +101,13 @@ namespace DataAccess.Deserialize.Kanbanize
             return historyEvent;
         }
 
-        public string GetCardColumn(string details)
+        public BoardColumn GetTaskItemBoardColumn(string details)
         {
             var column = details.Substring(details.IndexOf("to '", StringComparison.Ordinal) + 4);
             column = column.Substring(0, column.Length - 1);
 
-            return column;
+            var kanbanizeTaskItemDeserializer = new KanbanizeTaskItemDeserializer();
+            return kanbanizeTaskItemDeserializer.GetBoardColumn(column);
         }
     }
 }

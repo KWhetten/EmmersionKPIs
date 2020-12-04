@@ -1,6 +1,8 @@
 ﻿import {Component, Inject, OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import {HttpClient} from '@angular/common/http';
+import {Subscription} from 'rxjs';
+import {MessageService} from '../../app/_services/message.service';
 
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
@@ -21,8 +23,8 @@ export class LeadTimeBoxGraphComponent implements OnInit {
 
   private http: HttpClient;
   private baseUrl: string;
-  private startDate: string;
-  private finishDate: string;
+  private subscription: Subscription;
+  private messages: any[] = [];
 
   public boxGraphOptions: any = {
     chart: {
@@ -74,30 +76,32 @@ export class LeadTimeBoxGraphComponent implements OnInit {
       }]
   }
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: MessageService) {
     this.http = http;
     this.baseUrl = baseUrl;
-    this.startDate = "The Beginning of Time";
-    this.finishDate = "The Present";
+
+    this.subscription = this.messageService.onMessage().subscribe(message => {
+      if(message){
+        this.reloadData(message.startDate, message.finishDate, message.product, message.engineering, message.unanticipatedn);
+      } else {
+        this.messages = [];
+      }
+    });
   }
 
   ngOnInit() {
-    this.reloadData(this.startDate, this.finishDate);
+    this.reloadData("", "", true, true, true);
   }
 
-  reloadData(startDate, finishDate) {
-    const productElement = <HTMLInputElement>document.getElementById('product');
-    const engineeringElement = <HTMLInputElement>document.getElementById('engineering');
-    const unanticipatedElement = <HTMLInputElement>document.getElementById('unanticipated');
-
+  reloadData(startDate, finishDate, product, engineering, unanticipated) {
     this.http.get<BoxGraphData>(this.baseUrl + 'lead-time-box', {
       params:
         {
           startDateString: startDate,
           finishDateString: finishDate,
-          product: String(productElement.checked),
-          engineering: String(engineeringElement.checked),
-          unanticipated: String(unanticipatedElement.checked)
+          product: product,
+          engineering: engineering,
+          unanticipated: unanticipated
         }
     })
       .subscribe(x => {

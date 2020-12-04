@@ -86,7 +86,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                 Is.EqualTo(historyEventList[0].historydetails.item[0].historyid));
             Assert.That(result[1].HistoryEvents[0].TaskId,
                 Is.EqualTo(historyEventList[0].historydetails.item[0].taskid));
-            Assert.That(result[1].HistoryEvents[0].TaskItemColumn, Is.EqualTo("Top Priority"));
+            Assert.That(result[1].HistoryEvents[0].TaskItemColumn, Is.EqualTo(BoardColumn.TopPriority));
             Assert.That(result[1].HistoryEvents[0].TaskItemState, Is.EqualTo(TaskItemState.TopPriority));
 
             Assert.That(result[1].HistoryEvents[1].Author,
@@ -99,7 +99,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                 Is.EqualTo(historyEventList[0].historydetails.item[1].historyid));
             Assert.That(result[1].HistoryEvents[1].TaskId,
                 Is.EqualTo(historyEventList[0].historydetails.item[1].taskid));
-            Assert.That(result[1].HistoryEvents[1].TaskItemColumn, Is.EqualTo("Released to Prod this week"));
+            Assert.That(result[1].HistoryEvents[1].TaskItemColumn, Is.EqualTo(BoardColumn.ReleasedToProdThisWeek));
             Assert.That(result[1].HistoryEvents[1].TaskItemState, Is.EqualTo(TaskItemState.Released));
         }
 
@@ -192,7 +192,7 @@ var historyEventList = new List<JsonTaskItem>
             {
                 Id = 1,
                 CreatedOn = DateTimeOffset.Now.Date.AddDays(-5),
-                CurrentBoardColumn = "In Process.Working"
+                CurrentBoardColumn = BoardColumn.InProcessWorking
             };
 
             var taskItemDictionary = new Dictionary<int, TaskItem>
@@ -229,7 +229,7 @@ var historyEventList = new List<JsonTaskItem>
                 Is.EqualTo(historyEventList[0].historydetails.item[0].historyid));
             Assert.That(result[1].HistoryEvents[0].TaskId,
                 Is.EqualTo(historyEventList[0].historydetails.item[0].taskid));
-            Assert.That(result[1].HistoryEvents[0].TaskItemColumn, Is.EqualTo("In Process.Working"));
+            Assert.That(result[1].HistoryEvents[0].TaskItemColumn, Is.EqualTo(BoardColumn.InProcessWorking));
             Assert.That(result[1].HistoryEvents[0].TaskItemState, Is.EqualTo(TaskItemState.InProcess));
 
             Assert.That(result[1].HistoryEvents[1].Author,
@@ -242,7 +242,7 @@ var historyEventList = new List<JsonTaskItem>
                 Is.EqualTo(historyEventList[0].historydetails.item[1].historyid));
             Assert.That(result[1].HistoryEvents[1].TaskId,
                 Is.EqualTo(historyEventList[0].historydetails.item[1].taskid));
-            Assert.That(result[1].HistoryEvents[1].TaskItemColumn, Is.EqualTo("Released to Prod this week"));
+            Assert.That(result[1].HistoryEvents[1].TaskItemColumn, Is.EqualTo(BoardColumn.ReleasedToProdThisWeek));
             Assert.That(result[1].HistoryEvents[1].TaskItemState, Is.EqualTo(TaskItemState.Released));
         }
     }

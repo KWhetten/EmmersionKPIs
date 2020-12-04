@@ -887,6 +887,9 @@
           }
         }
       },
+      "RxJS-Main/4.0.7": {
+        "type": "package"
+      },
       "System.AppContext/4.1.0": {
         "type": "package",
         "dependencies": {
@@ -1820,7 +1823,8 @@
           "Accord": "3.8.0",
           "Accord.MachineLearning": "3.8.0",
           "DataManipulation": "1.0.0",
-          "Microsoft.AspNetCore.SpaServices.Extensions": "3.1.2"
+          "Microsoft.AspNetCore.SpaServices.Extensions": "3.1.2",
+          "RxJS-Main": "4.0.7"
         },
         "compile": {
           "bin/placeholder/KPIWebApp.dll": {}
@@ -3268,6 +3272,25 @@
         "runtimes/win-x86/native/sni.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "RxJS-Main/4.0.7": {
+      "sha512": "k0wl51h7kbl46VEmB5hAGLFH+Mu05kl271nE4uOXMPHKb5YjqjaXgzQyQ3maOjgyTxf7J8A7Mj4evVo5xOukRA==",
+      "type": "package",
+      "path": "rxjs-main/4.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/Scripts/rx.compat.js",
+        "content/Scripts/rx.compat.min.js",
+        "content/Scripts/rx.d.ts",
+        "content/Scripts/rx.es6.d.ts",
+        "content/Scripts/rx.js",
+        "content/Scripts/rx.lite.d.ts",
+        "content/Scripts/rx.lite.es6.d.ts",
+        "content/Scripts/rx.min.js",
+        "rxjs-main.4.0.7.nupkg.sha512",
+        "rxjs-main.nuspec"
       ]
     },
     "System.AppContext/4.1.0": {

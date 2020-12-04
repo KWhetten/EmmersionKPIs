@@ -14,9 +14,18 @@ namespace DataAccess.Deserialize
 
     public class DevOpsDeserializer : IDevOpsDeserializer
     {
+        private readonly IReleaseRepository releaseRepository;
+
+        public DevOpsDeserializer()
+        {
+            releaseRepository = new ReleaseRepository();
+        }
+        public DevOpsDeserializer(IReleaseRepository releaseRepository)
+        {
+            this.releaseRepository = releaseRepository;
+        }
         public List<Release> DeserializeReleases(JToken jsonObjects)
         {
-            var releaseRepository = new ReleaseRepository();
             return (from item in jsonObjects
                 where (item["releaseDefinition"]["name"].ToString().Contains("TrueNorthTest")
                        || item["releaseDefinition"]["name"].ToString().Contains("Assessments")

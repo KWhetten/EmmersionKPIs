@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Xml;
 using DataAccess.DataRepositories;
 using Newtonsoft.Json;
@@ -14,7 +13,7 @@ namespace DataAccess.Api
     {
         string GetInformation(string uri, string body);
         JToken GetTaskItemList(int boardId);
-        Task<JToken> GetHistoryEventsAsync(List<int> taskItemIds, int boardId);
+        JToken GetHistoryEvents(List<int> taskItemIds, int boardId);
     }
 
     public class KanbanizeApi : IKanbanizeApi
@@ -63,7 +62,7 @@ namespace DataAccess.Api
             {
                 var taskItemRepository = new TaskItemRepository();
                 if (item["workflow_name"].ToString().Contains("Delivery")
-                    && !taskItemRepository.TaskItemHasAlreadyBeenReleasedAsync((int) item["taskid"]))
+                    && !taskItemRepository.TaskItemHasBeenReleasedAsync((int) item["taskid"]))
                 {
                     result.Add(item);
                 }
@@ -82,38 +81,48 @@ namespace DataAccess.Api
 
         public JArray AddArchivedTaskItemList(JArray result, int boardId)
         {
-            try
+            var uri =
+                $"http://{Subdomain}.kanbanize.com/index.php/api/kanbanize/get_all_tasks/";
+            var body = "{\"boardid\":\"" + boardId + "\", \"comments\": \"yes\", \"container\": \"archive\"}";
+
+            var xmlTaskItemList = GetInformation(uri, body);
+
+            var doc = new XmlDocument();
+            doc.LoadXml(xmlTaskItemList);
+
+            var json = JObject.Parse(JsonConvert.SerializeXmlNode(doc));
+            var jsonList = json["xml"]["task"]["item"];
+
+            foreach (var item in jsonList)
             {
-                var uri =
-                    $"http://{Subdomain}.kanbanize.com/index.php/api/kanbanize/get_all_tasks/";
-                var body = "{\"boardid\":\"" + boardId + "\", \"comments\": \"yes\", \"container\": \"archive\"}";
-
-                var xmlTaskItemList = GetInformation(uri, body);
-
-                var doc = new XmlDocument();
-                doc.LoadXml(xmlTaskItemList);
-
-                var json = JObject.Parse(JsonConvert.SerializeXmlNode(doc));
-                var jsonList = json["xml"]["task"]["item"];
-
-                foreach (var item in jsonList)
+                try
                 {
-                    if ((boardId == 4 && (int) item["workflow_id"] == 19)
-                        || (boardId == 5 && (int) item["workflow_id"] == 8))
+                    var taskItemRepository = new TaskItemRepository();
+                    if (((int)item["workflow_id"] == 19 && boardId == 4)
+                        ||((int)item["workflow_id"] == 8 && boardId == 5)
+                        && !taskItemRepository.TaskItemHasBeenReleasedAsync((int) item["taskid"]))
                     {
                         result.Add(item);
                     }
+                    else
+                    {
+                        if (item["workflow_name"].ToString().Contains("Delivery"))
+                        {
+                            Console.WriteLine(
+                                $"Task {item["taskid"]} has already been released. No more updates are needed.");
+                        }
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.Write("");
+                catch (Exception ex)
+                {
+                    Console.Write("");
+                }
             }
 
             return result;
         }
 
-        public async Task<JToken> GetHistoryEventsAsync(List<int> taskItemIds, int boardId)
+        public JToken GetHistoryEvents(List<int> taskItemIds, int boardId)
         {
             var taskItemIdsString = taskItemIds.Aggregate("", (current, taskItemId) => current + $"{taskItemId},");
             taskItemIdsString = taskItemIdsString.Substring(0, taskItemIdsString.Length - 1);

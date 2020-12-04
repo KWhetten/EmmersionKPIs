@@ -42,7 +42,8 @@ namespace KPIWebApp.Helpers
             this.taskItemRepository = taskItemRepository;
         }
 
-        public async Task<CumulativeFlowData> GetCumulativeFlowDataAsync(DateTime startTime, DateTime finishTime, bool product, bool engineering, bool unanticipated)
+        public async Task<CumulativeFlowData> GetCumulativeFlowDataAsync(DateTime startTime, DateTime finishTime,
+            bool product, bool engineering, bool unanticipated)
         {
             var data = new OrderedDictionary<DateTime, List<int>>();
 
@@ -72,7 +73,6 @@ namespace KPIWebApp.Helpers
 
         private static DateTime GetFinishDate(List<TaskItem> taskList)
         {
-
             return taskList.Last().HistoryEvents.Last().EventDate.Date;
         }
 
@@ -173,7 +173,7 @@ namespace KPIWebApp.Helpers
             OrderedDictionary<DateTime, List<int>> data)
         {
             if (historyEvent.EventDate < data.Keys.First()) return data.Keys.First();
-            if(historyEvent.EventDate > data.Keys.Last()) return data.Keys.Last();
+            if (historyEvent.EventDate > data.Keys.Last()) return data.Keys.Last();
 
             if (historyEvent.EventType == "Task created")
             {
@@ -181,10 +181,13 @@ namespace KPIWebApp.Helpers
                 return historyEvent.EventDate.Date;
             }
 
+            if (historyEvent.TaskItemState == TaskItemState.None) return lastResultDate;
+
             if (historyEvent.EventDate.Date == lastResultDate)
             {
                 data[historyEvent.EventDate.Date][(int) historyEvent.TaskItemState]--;
             }
+
             data[historyEvent.EventDate.Date][(int) historyEvent.TaskItemState]++;
 
             var checkDate = historyEvent.EventDate.AddDays(-1).Date;

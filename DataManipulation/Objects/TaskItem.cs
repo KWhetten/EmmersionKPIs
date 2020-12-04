@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.TeamFoundation.Work.WebApi;
 
 namespace DataAccess.Objects
 {
@@ -16,7 +17,7 @@ namespace DataAccess.Objects
         public string CreatedBy { get; set; }
         public DateTimeOffset? LastChangedOn { get; set; }
         public string LastChangedBy { get; set; }
-        public string CurrentBoardColumn { get; set; }
+        public BoardColumn CurrentBoardColumn { get; set; }
         public TaskItemState State { get; set; }
         public int NumRevisions { get; set; }
         public Release Release { get; set; }

@@ -1,6 +1,8 @@
 using System;
+using DataAccess.DataRepositories;
 using DataAccess.Deserialize;
 using KPIDataExtractor.UnitTests.TestObjects.DevOps;
+using Moq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -68,7 +70,11 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                 release2JToken
             };
 
-            var deserializer = new DevOpsDeserializer();
+            var mockReleaseRepository = new Mock<ReleaseRepository>();
+            mockReleaseRepository.Setup(x => x.ReleaseIsFinishedInDatabase(It.IsAny<int>()))
+                .Returns(false);
+
+            var deserializer = new DevOpsDeserializer(mockReleaseRepository.Object);
             var result = deserializer.DeserializeReleases(jsonReleases);
 
             Assert.That(result.Count, Is.EqualTo(2));

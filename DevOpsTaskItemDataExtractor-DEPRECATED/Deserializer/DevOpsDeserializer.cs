@@ -57,7 +57,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                 CreatedBy = jsonTaskItem["fields"]["System.CreatedBy"]["displayName"].ToString(),
                 LastChangedOn = (DateTimeOffset) jsonTaskItem["fields"]["System.ChangedDate"],
                 LastChangedBy = jsonTaskItem["fields"]["System.ChangedBy"]["displayName"].ToString(),
-                CurrentBoardColumn = jsonTaskItem["fields"]["System.BoardColumn"].ToString(),
+                CurrentBoardColumn = GetBoardColumn(jsonTaskItem["fields"]["System.BoardColumn"].ToString()),
                 State = GetTaskItemState(jsonTaskItem["fields"]["System.State"].ToString()),
                 NumRevisions = (int) jsonTaskItem["rev"],
                 Release = new Release(),
@@ -93,7 +93,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                         case "Product Backlog":
                         {
                             historyEvent.EventType = "Task created";
-                            historyEvent.TaskItemColumn = "Backlog";
+                            historyEvent.TaskItemColumn = BoardColumn.Backlog;
                             historyEvent.TaskItemState = TaskItemState.Backlog;
                             if (taskItem.CreatedOn == minStartTime || taskItem.CreatedOn > historyEvent.EventDate)
                             {
@@ -104,14 +104,14 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                         }
                         case "Top Priority":
                             historyEvent.EventType = "Task moved";
-                            historyEvent.TaskItemColumn = "Top Priority";
+                            historyEvent.TaskItemColumn = BoardColumn.TopPriority;
                             historyEvent.TaskItemState = TaskItemState.TopPriority;
                             taskItem.StartTime = historyEvent.EventDate;
                             break;
                         case "Working On":
                         {
                             historyEvent.EventType = "Task moved";
-                            historyEvent.TaskItemColumn = "In Process.Working";
+                            historyEvent.TaskItemColumn = BoardColumn.InProcessWorking;
                             historyEvent.TaskItemState = TaskItemState.InProcess;
                             if (taskItem.CreatedOn == minStartTime)
                             {
@@ -124,7 +124,7 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                         case "Merged into Master":
                         {
                             historyEvent.EventType = "Task moved";
-                            historyEvent.TaskItemColumn = "In Process.Ready for Prod Deploy";
+                            historyEvent.TaskItemColumn = BoardColumn.InProcessReadyForProdDeploy;
                             historyEvent.TaskItemState = TaskItemState.InProcess;
                             if (taskItem.StartTime == minStartTime)
                             {
@@ -135,14 +135,14 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
                         }
                         case "Released To Production This week":
                             historyEvent.EventType = "Task moved";
-                            historyEvent.TaskItemColumn = "Released to Prod this week";
+                            historyEvent.TaskItemColumn = BoardColumn.ReleasedToProdThisWeek;
                             historyEvent.TaskItemState = TaskItemState.Released;
                             taskItem.FinishTime = historyEvent.EventDate;
                             break;
                         case "In Production":
                         {
                             historyEvent.EventType = "Task moved";
-                            historyEvent.TaskItemColumn = "Archive";
+                            historyEvent.TaskItemColumn = BoardColumn.Archive;
                             historyEvent.TaskItemState = TaskItemState.Released;
                             if (taskItem.FinishTime > historyEvent.EventDate)
                             {
@@ -192,6 +192,28 @@ namespace KPIDevOpsDataExtractor_DEPRECATED.Deserializer
             }
 
             return TaskItemState.None;
+        }
+
+        public BoardColumn GetBoardColumn(string columnString)
+        {
+            return columnString switch
+            {
+                "Backlog" => BoardColumn.Backlog,
+                "Engineering Backlog" => BoardColumn.EngineeringBacklog,
+                "Engineering" => BoardColumn.Engineering,
+                "Product Backlog" => BoardColumn.ProductBacklog,
+                "Product" => BoardColumn.Product,
+                "Top Priority" => BoardColumn.TopPriority,
+                "In Process.Working" => BoardColumn.InProcessWorking,
+                "In Process" => BoardColumn.InProcess,
+                "Working" => BoardColumn.Working,
+                "Ready for Prod deploy" => BoardColumn.ReadyForProdDeploy,
+                "In Process.Ready for Prod deploy" => BoardColumn.InProcessReadyForProdDeploy,
+                "Released to Prod this week" => BoardColumn.ReleasedToProdThisWeek,
+                "Ready to Archive" => BoardColumn.ReadyToArchive,
+                "Archive" => BoardColumn.Archive,
+                _ => BoardColumn.None
+            };
         }
     }
 }

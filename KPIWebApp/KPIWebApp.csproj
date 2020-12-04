@@ -16,6 +16,7 @@
         <PackageReference Include="Accord" Version="3.8.0" />
         <PackageReference Include="Accord.MachineLearning" Version="3.8.0" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.2" />
+        <PackageReference Include="RxJS-Main" Version="4.0.7" />
     </ItemGroup>
 
     <ItemGroup>
@@ -27,6 +28,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DataManipulation\DataManipulation.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="ClientApp\src\components\overview-release-data" />
+      <Folder Include="ClientApp\src\components\overview-task-item-data" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

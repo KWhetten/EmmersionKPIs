@@ -1,7 +1,7 @@
-﻿import {Component, Inject, ViewChild} from '@angular/core';
-import {DatePipe} from "@angular/common";
-import {HomeComponent} from '../../app/home/home.component';
+﻿import {Component, Inject} from '@angular/core';
+import {DatePipe} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
+import {MessageService} from '../../app/_services/message.service';
 
 @Component({
   selector: 'app-filter-options',
@@ -12,11 +12,11 @@ import {HttpClient} from '@angular/common/http';
 export class FilterOptionsComponent {
   isExpanded = false;
   private datePipe: DatePipe;
-  private startDate: string;
-  private finishDate: string;
+  private startDate: any;
+  private finishDate: any;
+  today = Date.now().toString();
 
-
-  constructor(datepipe: DatePipe, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(datepipe: DatePipe, http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: MessageService) {
     this.datePipe = datepipe;
   }
 
@@ -24,10 +24,41 @@ export class FilterOptionsComponent {
     this.reloadData();
   }
 
+  sendDates() {
+    this.messageService.sendMessage(this.startDate, this.finishDate, (document.getElementById('product') as HTMLInputElement).checked,
+      (document.getElementById('engineering') as HTMLInputElement).checked, (document.getElementById('unanticipated') as HTMLInputElement).checked );
+  }
+
+  private clearMessages() {
+    this.messageService.clearMessages();
+  }
+
   reloadData() {
-    let date = new Date((document.getElementById("start-date") as HTMLInputElement).value);
-    this.startDate = this.datePipe.transform(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1) , 'MMMM d, yyyy');
-    date = new Date((document.getElementById("end-date") as HTMLInputElement).value);
-    this.finishDate = this.datePipe.transform(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1) , 'MMMM d, yyyy');
+    let date = new Date((document.getElementById('start-date') as HTMLInputElement).value);
+    this.startDate = this.datePipe.transform(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1), 'MMMM d, yyyy');
+    date = new Date((document.getElementById('finish-date') as HTMLInputElement).value);
+    this.finishDate = this.datePipe.transform(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1), 'MMMM d, yyyy');
+
+    this.sendDates();
+    this.clearMessages();
+  }
+
+  getToday() {
+    const today = new Date();
+    let day = today.getDate();
+    let month = today.getMonth() + 1;
+    const year = today.getFullYear();
+
+    let dayString = day.toString();
+    let monthString = month.toString();
+
+    if(day<10){
+      dayString = '0' + day;
+    }
+    if(month<10){
+      monthString = '0' + month;
+    }
+
+    return year + '-' + monthString + '-' + dayString;
   }
 }

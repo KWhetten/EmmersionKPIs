@@ -32,13 +32,13 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
                 CreatedBy = "CreatedBy1",
                 LastChangedOn = DateTime.Today,
                 LastChangedBy = "ChangedBy1",
-                CurrentBoardColumn = "CurrentColumn1",
+                CurrentBoardColumn = BoardColumn.Backlog,
                 HistoryEvents = new List<HistoryEvent>
                 {
                     new HistoryEvent
                     {
                         Id = 0,
-                        TaskItemColumn = "In Process.Working",
+                        TaskItemColumn = BoardColumn.InProcessWorking,
                         EventDate = new DateTimeOffset(new DateTime(2020, 10, 27)),
                         EventType = "Task moved"
                     }
@@ -148,11 +148,11 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
         [Test]
         public void When_task_item_has_already_been_released()
         {
-            var result = taskItemRepository.TaskItemHasAlreadyBeenReleasedAsync(1);
+            var result = taskItemRepository.TaskItemHasBeenReleasedAsync(1);
 
             Assert.False(result);
 
-            result = taskItemRepository.TaskItemHasAlreadyBeenReleasedAsync(356);
+            result = taskItemRepository.TaskItemHasBeenReleasedAsync(361);
 
             Assert.True(result);
         }
@@ -160,7 +160,7 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
         [Test]
         public async Task When_getting_history_events_by_task_item_id()
         {
-            var result = await taskItemRepository.GetHistoryEventsByTaskIdAsync(356);
+            var result = await taskItemRepository.GetHistoryEventsByTaskIdAsync(361);
 
             Assert.That(result.Count, Is.EqualTo(4));
         }

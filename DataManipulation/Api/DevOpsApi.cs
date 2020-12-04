@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using DataAccess.DataRepositories;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
@@ -37,7 +36,7 @@ namespace DataAccess.Api
             {
                 if (header.Name == "x-ms-continuationtoken")
                 {
-                    var newValue = int.Parse((string) header.Value);
+                    var newValue = int.Parse((string) header.Value ?? throw new Exception());
                     if (ContinuationToken != newValue)
                     {
                         ContinuationToken = newValue;
@@ -67,12 +66,12 @@ namespace DataAccess.Api
                 try
                 {
                     var temp = GetInformation(uri);
-                    var newResult = JObject.Parse(temp)["value"] as JArray;
 
-                    foreach (var item in newResult)
-                    {
-                        resultList?.Add(item);
-                    }
+                    if (JObject.Parse(temp)["value"] is JArray newResult)
+                        foreach (var item in newResult)
+                        {
+                            resultList?.Add(item);
+                        }
                 }
                 catch (Exception ex)
                 {

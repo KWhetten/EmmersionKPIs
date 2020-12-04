@@ -58,7 +58,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 CreatedBy = "CreatedBy1",
                 LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
                 LastChangedBy = "ChangedBy1",
-                CurrentBoardColumn = "BoardColumn1",
+                CurrentBoardColumn = BoardColumn.Backlog,
                 State = TaskItemState.Backlog,
                 NumRevisions = 1,
                 Release = releaseList.First()
@@ -75,7 +75,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 CreatedBy = "CreatedBy2",
                 LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
                 LastChangedBy = "ChangedBy2",
-                CurrentBoardColumn = "BoardColumn2",
+                CurrentBoardColumn = BoardColumn.TopPriority,
                 State = TaskItemState.TopPriority,
                 NumRevisions = 2,
                 Release = releaseList.Last()
@@ -92,7 +92,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 CreatedBy = "CreatedBy3",
                 LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
                 LastChangedBy = "ChangedBy3",
-                CurrentBoardColumn = "BoardColumn3",
+                CurrentBoardColumn = BoardColumn.InProcessWorking,
                 State = TaskItemState.InProcess,
                 NumRevisions = 3,
                 Release = releaseList.Last()
@@ -109,7 +109,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 CreatedBy = "CreatedBy4",
                 LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
                 LastChangedBy = "ChangedBy4",
-                CurrentBoardColumn = "BoardColumn4",
+                CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
                 State = TaskItemState.Released,
                 NumRevisions = 4,
                 Release = releaseList.Last()
@@ -126,7 +126,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 CreatedBy = "CreatedBy5",
                 LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
                 LastChangedBy = "ChangedBy5",
-                CurrentBoardColumn = "BoardColumn5",
+                CurrentBoardColumn = BoardColumn.Backlog,
                 State = TaskItemState.Backlog,
                 NumRevisions = 5,
                 Release = releaseList.Last()
@@ -143,7 +143,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 CreatedBy = "CreatedBy6",
                 LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
                 LastChangedBy = "ChangedBy6",
-                CurrentBoardColumn = "BoardColumn6",
+                CurrentBoardColumn = BoardColumn.TopPriority,
                 State = TaskItemState.TopPriority,
                 NumRevisions = 6,
                 Release = releaseList.Last()

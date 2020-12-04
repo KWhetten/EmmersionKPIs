@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Accord.Collections;
 using DataAccess.DataRepositories;
+using DataAccess.Deserialize.Kanbanize;
 using DataAccess.Objects;
 using KPIWebApp.Helpers;
 using Moq;
@@ -71,7 +72,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                         Id = 1,
                         EventDate = new DateTimeOffset(new DateTime(2020, 11, 9)),
                         EventType = "Task created",
-                        TaskItemColumn = "Backlog",
+                        TaskItemColumn = BoardColumn.Backlog,
                         TaskItemState = TaskItemState.Backlog,
                         Author = "Author1",
                         TaskId = 1
@@ -81,7 +82,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                         Id = 2,
                         EventDate = new DateTimeOffset(new DateTime(2020, 11, 13)),
                         EventType = "Task moved",
-                        TaskItemColumn = "Top Priority",
+                        TaskItemColumn = BoardColumn.TopPriority,
                         TaskItemState = TaskItemState.TopPriority,
                         Author = "Author2",
                         TaskId = 1
@@ -91,7 +92,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                         Id = 3,
                         EventDate = new DateTimeOffset(new DateTime(2020, 11, 17)),
                         EventType = "Task moved",
-                        TaskItemColumn = "In Process.Working",
+                        TaskItemColumn = BoardColumn.InProcessWorking,
                         TaskItemState = TaskItemState.InProcess,
                         Author = "Author3",
                         TaskId = 1
@@ -101,7 +102,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                         Id = 4,
                         EventDate = new DateTimeOffset(new DateTime(2020, 11, 22)),
                         EventType = "Task moved",
-                        TaskItemColumn = "Ready to Archive",
+                        TaskItemColumn = BoardColumn.ReadyToArchive,
                         TaskItemState = TaskItemState.Released,
                         Author = "Author4",
                         TaskId = 1
@@ -128,7 +129,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 Id = 1,
                 EventDate = new DateTimeOffset(new DateTime(2020, 11, 20)),
                 EventType = "Task moved",
-                TaskItemColumn = "In Process.Working",
+                TaskItemColumn = BoardColumn.InProcessWorking,
                 TaskItemState = TaskItemState.InProcess,
                 Author = "Author1",
                 TaskId = 1,
@@ -137,7 +138,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
             var result =
                 cumulativeFlowDiagramHelper.UpdateCumulativeFlowData(historyEvent, new DateTime(2020, 11, 9), data);
 
-            Assert.That(result, Is.EqualTo(historyEvent.EventDate));
+            Assert.That(result, Is.EqualTo(historyEvent.EventDate.Date));
         }
 
         [Test]
@@ -158,7 +159,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 1,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 9)),
                             EventType = "Task created",
-                            TaskItemColumn = "Backlog",
+                            TaskItemColumn = BoardColumn.Backlog,
                             TaskItemState = TaskItemState.Backlog,
                             Author = "Author1",
                             TaskId = 1
@@ -168,7 +169,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 2,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 10)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Top Priority",
+                            TaskItemColumn = BoardColumn.TopPriority,
                             TaskItemState = TaskItemState.TopPriority,
                             Author = "Author2",
                             TaskId = 1
@@ -178,7 +179,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 3,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 11)),
                             EventType = "Task moved",
-                            TaskItemColumn = "In Process.Working",
+                            TaskItemColumn = BoardColumn.InProcessWorking,
                             TaskItemState = TaskItemState.InProcess,
                             Author = "Author3",
                             TaskId = 1
@@ -188,7 +189,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 4,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 12)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Released to Prod this week",
+                            TaskItemColumn = BoardColumn.ReleasedToProdThisWeek,
                             TaskItemState = TaskItemState.Released,
                             Author = "Author4",
                             TaskId = 1
@@ -208,7 +209,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 5,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 10)),
                             EventType = "Task created",
-                            TaskItemColumn = "Backlog",
+                            TaskItemColumn = BoardColumn.Backlog,
                             TaskItemState = TaskItemState.Backlog,
                             Author = "Author5",
                             TaskId = 2
@@ -218,7 +219,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 6,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 11)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Top Priority",
+                            TaskItemColumn = BoardColumn.TopPriority,
                             TaskItemState = TaskItemState.TopPriority,
                             Author = "Author6",
                             TaskId = 2
@@ -228,7 +229,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 7,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 12)),
                             EventType = "Task moved",
-                            TaskItemColumn = "In Process.Working",
+                            TaskItemColumn = BoardColumn.InProcessWorking,
                             TaskItemState = TaskItemState.InProcess,
                             Author = "Author7",
                             TaskId = 2
@@ -238,7 +239,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 8,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 13)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Released to Prod this week",
+                            TaskItemColumn = BoardColumn.ReleasedToProdThisWeek,
                             TaskItemState = TaskItemState.Released,
                             Author = "Author8",
                             TaskId = 2
@@ -258,7 +259,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 9,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 11)),
                             EventType = "Task created",
-                            TaskItemColumn = "Backlog",
+                            TaskItemColumn = BoardColumn.Backlog,
                             TaskItemState = TaskItemState.Backlog,
                             Author = "Author9",
                             TaskId = 3
@@ -268,7 +269,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 10,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 12)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Top Priority",
+                            TaskItemColumn = BoardColumn.TopPriority,
                             TaskItemState = TaskItemState.TopPriority,
                             Author = "Author0",
                             TaskId = 3
@@ -278,7 +279,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 11,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 13)),
                             EventType = "Task moved",
-                            TaskItemColumn = "In Process.Working",
+                            TaskItemColumn = BoardColumn.InProcessWorking,
                             TaskItemState = TaskItemState.InProcess,
                             Author = "Author1",
                             TaskId = 3
@@ -288,7 +289,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 12,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 16)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Released to Prod this week",
+                            TaskItemColumn = BoardColumn.ReleasedToProdThisWeek,
                             TaskItemState = TaskItemState.Released,
                             Author = "Author2",
                             TaskId = 3
@@ -308,7 +309,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 13,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 12)),
                             EventType = "Task created",
-                            TaskItemColumn = "Backlog",
+                            TaskItemColumn = BoardColumn.Backlog,
                             TaskItemState = TaskItemState.Backlog,
                             Author = "Author3",
                             TaskId = 4
@@ -318,7 +319,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 14,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 13)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Top Priority",
+                            TaskItemColumn = BoardColumn.TopPriority,
                             TaskItemState = TaskItemState.TopPriority,
                             Author = "Author4",
                             TaskId = 4
@@ -328,7 +329,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 15,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 16)),
                             EventType = "Task moved",
-                            TaskItemColumn = "In Process.Working",
+                            TaskItemColumn = BoardColumn.InProcessWorking,
                             TaskItemState = TaskItemState.InProcess,
                             Author = "Author5",
                             TaskId = 4
@@ -338,7 +339,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 16,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 17)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Released to Prod this week",
+                            TaskItemColumn = BoardColumn.ReleasedToProdThisWeek,
                             TaskItemState = TaskItemState.Released,
                             Author = "Author6",
                             TaskId = 4
@@ -358,7 +359,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 17,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 13)),
                             EventType = "Task created",
-                            TaskItemColumn = "Backlog",
+                            TaskItemColumn = BoardColumn.Backlog,
                             TaskItemState = TaskItemState.Backlog,
                             Author = "Author7",
                             TaskId = 5
@@ -368,7 +369,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 18,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 16)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Top Priority",
+                            TaskItemColumn = BoardColumn.TopPriority,
                             TaskItemState = TaskItemState.TopPriority,
                             Author = "Author8",
                             TaskId = 5
@@ -378,7 +379,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 19,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 17)),
                             EventType = "Task moved",
-                            TaskItemColumn = "In Process.Working",
+                            TaskItemColumn = BoardColumn.InProcessWorking,
                             TaskItemState = TaskItemState.InProcess,
                             Author = "Author9",
                             TaskId = 5
@@ -388,7 +389,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 20,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 18)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Released to Prod this week",
+                            TaskItemColumn = BoardColumn.ReleasedToProdThisWeek,
                             TaskItemState = TaskItemState.Released,
                             Author = "Author0",
                             TaskId = 5
@@ -408,7 +409,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 21,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 16)),
                             EventType = "Task created",
-                            TaskItemColumn = "Backlog",
+                            TaskItemColumn = BoardColumn.Backlog,
                             TaskItemState = TaskItemState.Backlog,
                             Author = "Author1",
                             TaskId = 6
@@ -418,7 +419,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 22,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 17)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Top Priority",
+                            TaskItemColumn = BoardColumn.TopPriority,
                             TaskItemState = TaskItemState.TopPriority,
                             Author = "Author2",
                             TaskId = 6
@@ -428,7 +429,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 23,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 18)),
                             EventType = "Task moved",
-                            TaskItemColumn = "In Process.Working",
+                            TaskItemColumn = BoardColumn.InProcessWorking,
                             TaskItemState = TaskItemState.InProcess,
                             Author = "Author3",
                             TaskId = 6
@@ -438,7 +439,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 24,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 19)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Released to Prod this week",
+                            TaskItemColumn = BoardColumn.ReleasedToProdThisWeek,
                             TaskItemState = TaskItemState.Released,
                             Author = "Author4",
                             TaskId = 6
@@ -458,7 +459,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 25,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 17)),
                             EventType = "Task created",
-                            TaskItemColumn = "Backlog",
+                            TaskItemColumn = BoardColumn.Backlog,
                             TaskItemState = TaskItemState.Backlog,
                             Author = "Author5",
                             TaskId = 7
@@ -468,7 +469,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 26,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 18)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Top Priority",
+                            TaskItemColumn = BoardColumn.TopPriority,
                             TaskItemState = TaskItemState.TopPriority,
                             Author = "Author6",
                             TaskId = 7
@@ -478,7 +479,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 27,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 19)),
                             EventType = "Task moved",
-                            TaskItemColumn = "In Process.Working",
+                            TaskItemColumn = BoardColumn.InProcessWorking,
                             TaskItemState = TaskItemState.InProcess,
                             Author = "Author7",
                             TaskId = 7
@@ -488,7 +489,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 28,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 20)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Released to Prod this week",
+                            TaskItemColumn = BoardColumn.ReleasedToProdThisWeek,
                             TaskItemState = TaskItemState.Released,
                             Author = "Author8",
                             TaskId = 7
@@ -508,7 +509,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 29,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 18)),
                             EventType = "Task created",
-                            TaskItemColumn = "Backlog",
+                            TaskItemColumn = BoardColumn.Backlog,
                             TaskItemState = TaskItemState.Backlog,
                             Author = "Author9",
                             TaskId = 8
@@ -518,7 +519,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 30,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 19)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Top Priority",
+                            TaskItemColumn = BoardColumn.TopPriority,
                             TaskItemState = TaskItemState.TopPriority,
                             Author = "Author0",
                             TaskId = 8
@@ -528,7 +529,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 31,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 20)),
                             EventType = "Task moved",
-                            TaskItemColumn = "In Process.Working",
+                            TaskItemColumn = BoardColumn.InProcessWorking,
                             TaskItemState = TaskItemState.InProcess,
                             Author = "Author1",
                             TaskId = 8
@@ -538,7 +539,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 32,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 23)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Released to Prod this week",
+                            TaskItemColumn = BoardColumn.ReleasedToProdThisWeek,
                             TaskItemState = TaskItemState.Released,
                             Author = "Author2",
                             TaskId = 8
@@ -558,7 +559,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 33,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 19)),
                             EventType = "Task created",
-                            TaskItemColumn = "Backlog",
+                            TaskItemColumn = BoardColumn.Backlog,
                             TaskItemState = TaskItemState.Backlog,
                             Author = "Author3",
                             TaskId = 9
@@ -568,7 +569,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 34,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 20)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Top Priority",
+                            TaskItemColumn = BoardColumn.TopPriority,
                             TaskItemState = TaskItemState.TopPriority,
                             Author = "Author4",
                             TaskId = 9
@@ -578,7 +579,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 35,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 23)),
                             EventType = "Task moved",
-                            TaskItemColumn = "In Process.Working",
+                            TaskItemColumn = BoardColumn.InProcessWorking,
                             TaskItemState = TaskItemState.InProcess,
                             Author = "Author5",
                             TaskId = 9
@@ -588,7 +589,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 36,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 24)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Released to Prod this week",
+                            TaskItemColumn = BoardColumn.ReleasedToProdThisWeek,
                             TaskItemState = TaskItemState.Released,
                             Author = "Author6",
                             TaskId = 9
@@ -608,7 +609,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 37,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 20)),
                             EventType = "Task created",
-                            TaskItemColumn = "Backlog",
+                            TaskItemColumn = BoardColumn.Backlog,
                             TaskItemState = TaskItemState.Backlog,
                             Author = "Author7",
                             TaskId = 10
@@ -618,7 +619,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 38,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 23)),
                             EventType = "Task moved",
-                            TaskItemColumn = "Top Priority",
+                            TaskItemColumn = BoardColumn.TopPriority,
                             TaskItemState = TaskItemState.TopPriority,
                             Author = "Author8",
                             TaskId = 10
@@ -628,7 +629,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                             Id = 39,
                             EventDate = new DateTimeOffset(new DateTime(2020, 11, 24)),
                             EventType = "Task moved",
-                            TaskItemColumn = "In Process.Working",
+                            TaskItemColumn = BoardColumn.InProcessWorking,
                             TaskItemState = TaskItemState.InProcess,
                             Author = "Author9",
                             TaskId = 10
@@ -695,7 +696,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                         Id = 1,
                         EventDate = new DateTimeOffset(new DateTime(2020, 11, 9)),
                         EventType = "Task created",
-                        TaskItemColumn = "Backlog",
+                        TaskItemColumn = BoardColumn.Backlog,
                         TaskItemState = TaskItemState.Backlog,
                         Author = "Author1",
                         TaskId = 1
@@ -705,7 +706,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                         Id = 2,
                         EventDate = new DateTimeOffset(new DateTime(2020, 11, 10)),
                         EventType = "Task moved",
-                        TaskItemColumn = "Top Priority",
+                        TaskItemColumn = BoardColumn.TopPriority,
                         TaskItemState = TaskItemState.TopPriority,
                         Author = "Author2",
                         TaskId = 1
@@ -715,7 +716,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                         Id = 3,
                         EventDate = new DateTimeOffset(new DateTime(2020, 11, 11)),
                         EventType = "Task moved",
-                        TaskItemColumn = "In Process.Working",
+                        TaskItemColumn = BoardColumn.InProcessWorking,
                         TaskItemState = TaskItemState.InProcess,
                         Author = "Author3",
                         TaskId = 1
@@ -725,7 +726,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                         Id = 4,
                         EventDate = new DateTimeOffset(new DateTime(2020, 11, 12)),
                         EventType = "Task moved",
-                        TaskItemColumn = "In Process.Waiting for Prod deploy",
+                        TaskItemColumn = BoardColumn.InProcessReadyForProdDeploy,
                         TaskItemState = TaskItemState.InProcess,
                         Author = "Author4",
                         TaskId = 1
@@ -735,7 +736,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                         Id = 5,
                         EventDate = new DateTimeOffset(new DateTime(2020, 11, 13)),
                         EventType = "Task moved",
-                        TaskItemColumn = "Released to Prod this week",
+                        TaskItemColumn = BoardColumn.ReleasedToProdThisWeek,
                         TaskItemState = TaskItemState.Released,
                         Author = "Author5",
                         TaskId = 1
@@ -746,7 +747,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
             var mockTaskItemRepository = new Mock<ITaskItemRepository>();
             mockTaskItemRepository.Setup(x
                     => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
-                .ReturnsAsync(new List<TaskItem>{taskItem});
+                .ReturnsAsync(new List<TaskItem> {taskItem});
             mockTaskItemRepository.SetupSequence(x => x.GetHistoryEventsByTaskIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(taskItem.HistoryEvents);
 
@@ -774,6 +775,67 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 Is.EqualTo(new List<int> {0, 0, 1, 1, 0}));
             Assert.That(result.data[3].data,
                 Is.EqualTo(new List<int> {0, 0, 0, 0, 1}));
+        }
+
+        [Test]
+        public async Task When_getting_cumulative_flow_data_and_task_item_moves_multiple_states_on_the_same_date()
+        {
+            var taskItem = new TaskItem
+            {
+                StartTime = DateTimeOffset.Now.Date.AddDays(-1),
+                Type = TaskItemType.Engineering,
+                HistoryEvents = new List<HistoryEvent>
+                {
+                    new HistoryEvent
+                    {
+                        Author = "Author1",
+                        EventDate = DateTimeOffset.Now.Date.AddDays(-1),
+                        EventType = "Task created",
+                        Id = 1,
+                        TaskId = 1,
+                        TaskItemColumn = BoardColumn.Backlog,
+                        TaskItemState = TaskItemState.Backlog
+                    },
+                    new HistoryEvent
+                    {
+                        Author = "Author2",
+                        EventDate = DateTimeOffset.Now.Date,
+                        EventType = "Task moved",
+                        Id = 2,
+                        TaskId = 1,
+                        TaskItemColumn = BoardColumn.TopPriority,
+                        TaskItemState = TaskItemState.TopPriority
+                    },
+                    new HistoryEvent
+                    {
+                        Author = "Author3",
+                        EventDate = DateTimeOffset.Now.Date,
+                        EventType = "Task moved",
+                        Id = 3,
+                        TaskId = 1,
+                        TaskItemColumn = BoardColumn.InProcessWorking,
+                        TaskItemState = TaskItemState.InProcess
+                    }
+                }
+            };
+
+            var mockTaskItemRepository = new Mock<ITaskItemRepository>();
+            mockTaskItemRepository.Setup(x =>
+                    x.GetTaskItemListAsync(It.IsAny<DateTimeOffset?>(), It.IsAny<DateTimeOffset?>()))
+                .ReturnsAsync(new List<TaskItem> {taskItem});
+            mockTaskItemRepository.Setup(x => x.GetHistoryEventsByTaskIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(taskItem.HistoryEvents);
+
+            cumulativeFlowDiagramHelper = new CumulativeFlowDiagramHelper(mockTaskItemRepository.Object);
+
+            var result = await cumulativeFlowDiagramHelper.GetCumulativeFlowDataAsync(DateTime.MinValue, DateTime.Now,
+                    true, true, true);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.data[0].data, Is.EqualTo(new List<int>{1,0}));
+            Assert.That(result.data[1].data, Is.EqualTo(new List<int>{0,1}));
+            Assert.That(result.data[2].data, Is.EqualTo(new List<int>{0,0}));
+            Assert.That(result.data[3].data, Is.EqualTo(new List<int>{0,0}));
         }
     }
 }

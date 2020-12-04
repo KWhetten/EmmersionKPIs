@@ -43,7 +43,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
         }
 
         [Test]
-        public async Task When_getting_overview_data()
+        public async Task When_getting_overview_data() // TODO: Add in explicit dates
         {
             var overviewData = new OverviewData();
             var taskItemList = new List<TaskItem>
@@ -60,7 +60,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                     CreatedBy = "User1",
                     LastChangedOn = DateTimeOffset.Now.Date,
                     LastChangedBy = "User1",
-                    CurrentBoardColumn = "Released to Prod this week",
+                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
                     State = TaskItemState.Released,
                     NumRevisions = 1,
                     Release = new Release(),
@@ -79,7 +79,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                     CreatedBy = "User2",
                     LastChangedOn = DateTimeOffset.Now.Date,
                     LastChangedBy = "User2",
-                    CurrentBoardColumn = "Released to Prod this week",
+                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
                     State = TaskItemState.Released,
                     NumRevisions = 2,
                     Release = new Release(),
@@ -98,7 +98,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                     CreatedBy = "User3",
                     LastChangedOn = DateTimeOffset.Now.Date,
                     LastChangedBy = "User3",
-                    CurrentBoardColumn = "Released to Prod this week",
+                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
                     State = TaskItemState.Released,
                     NumRevisions = 3,
                     Release = new Release(),
@@ -117,7 +117,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                     CreatedBy = "User4",
                     LastChangedOn = DateTimeOffset.Now.Date,
                     LastChangedBy = "User4",
-                    CurrentBoardColumn = "Released to Prod this week",
+                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
                     State = TaskItemState.Released,
                     NumRevisions = 4,
                     Release = new Release(),
@@ -136,7 +136,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                     CreatedBy = "User5",
                     LastChangedOn = DateTimeOffset.Now.Date,
                     LastChangedBy = "User5",
-                    CurrentBoardColumn = "Released to Prod this week",
+                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
                     State = TaskItemState.Released,
                     NumRevisions = 5,
                     Release = new Release(),
@@ -151,7 +151,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
 
             var expected = new OverviewData
             {
-                AverageLeadTime = 16m,
+                AverageLeadTime = 12.8m,
                 LongestLeadTime = 24m,
                 ShortestLeadTime = 8m,
                 TotalCards = 5
@@ -181,7 +181,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                     CreatedBy = "User1",
                     LastChangedOn = DateTimeOffset.Now.Date,
                     LastChangedBy = "User1",
-                    CurrentBoardColumn = "Released to Prod this week",
+                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
                     State = TaskItemState.Released,
                     NumRevisions = 1,
                     Release = new Release(),
@@ -200,7 +200,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                     CreatedBy = "User2",
                     LastChangedOn = DateTimeOffset.Now.Date,
                     LastChangedBy = "User2",
-                    CurrentBoardColumn = "Released to Prod this week",
+                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
                     State = TaskItemState.Released,
                     NumRevisions = 2,
                     Release = new Release(),
@@ -219,7 +219,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                     CreatedBy = "User3",
                     LastChangedOn = DateTimeOffset.Now.Date,
                     LastChangedBy = "User3",
-                    CurrentBoardColumn = "Released to Prod this week",
+                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
                     State = TaskItemState.Released,
                     NumRevisions = 3,
                     Release = new Release(),
@@ -238,7 +238,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                     CreatedBy = "User4",
                     LastChangedOn = DateTimeOffset.Now.Date,
                     LastChangedBy = "User4",
-                    CurrentBoardColumn = "Released to Prod this week",
+                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
                     State = TaskItemState.Released,
                     NumRevisions = 4,
                     Release = new Release(),
@@ -257,7 +257,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                     CreatedBy = "User5",
                     LastChangedOn = DateTimeOffset.Now.Date,
                     LastChangedBy = "User5",
-                    CurrentBoardColumn = "Released to Prod this week",
+                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
                     State = TaskItemState.Released,
                     NumRevisions = 5,
                     Release = new Release(),

@@ -7,34 +7,16 @@
       <div class="card-type-checkboxes">
         <div class="product">
           <div>
-            <input type="checkbox" name="strategic-product" id="strategic-product" checked>
-            <label for="strategic-product">Strategic Product</label>
+            <input type="checkbox" name="strategic-product" id="product" checked>
+            <label for="product">Product</label>
           </div>
           <div>
-            <input type="checkbox" name="tactical-product" id="tactical-product" checked>
-            <label for="tactical-product">Tactical Product</label>
-          </div>
-          <div>
-            <input type="checkbox" name="unanticipated-product" id="unanticipated-product" checked>
-            <label for="unanticipated-product">Unanticipated Product</label>
+            <input type="checkbox" name="strategic-engineering" id="engineering" checked>
+            <label for="engineering">Engineering</label>
           </div>
           <div>
             <input type="checkbox" name="unanticipated" id="unanticipated" checked>
             <label for="unanticipated">Unanticipated</label>
-          </div>
-        </div>
-        <div class="engineering">
-          <div>
-            <input type="checkbox" name="strategic-engineering" id="strategic-engineering" checked>
-            <label for="strategic-engineering">Strategic Engineering</label>
-          </div>
-          <div>
-            <input type="checkbox" name="tactical-engineering" id="tactical-engineering" checked>
-            <label for="tactical-engineering">Tactical Engineering</label>
-          </div>
-          <div>
-            <input type="checkbox" name="unanticipated-engineering" id="unanticipated-engineering" checked>
-            <label for="unanticipated-engineering">Unanticipated Engineering</label>
           </div>
         </div>
       </div>
@@ -45,17 +27,17 @@
       <div>
         <div class="from-date">
           <label for="start-date">From:</label>
-          <input id="start-date" name="start-date" type="date" dataformatas="yyyy/MM/dd"/>
+          <input id="start-date" name="start-date" type="date" dataformatas="yyyy/MM/dd" min= "2020-10-19" max="{{this.getToday()}}" value="2020-10-19"/>
         </div>
         <div class="to-date">
-          <label for="end-date">To:</label>
-          <input id="end-date" name="end-date" type="date" dataformatas="yyyy/MM/dd"/>
+          <label for="finish-date">To:</label>
+          <input id="finish-date" name="finish-date" type="date" dataformatas="yyyy/MM/dd" min= "2020-10-19" max="{{this.getToday()}}" value="{{this.getToday()}}"/>
         </div>
       </div>
     </div>
 
     <div class="submit">
-      <button class="btn btn-primary" (click)="submit()">Submit</button>
+      <button id="submit-btn" class="btn btn-primary" (click)="submit()" >Submit</button>
     </div>
   </div>
   <hr>

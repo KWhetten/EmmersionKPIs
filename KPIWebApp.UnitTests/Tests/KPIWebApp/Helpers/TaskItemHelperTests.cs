@@ -26,7 +26,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 CreatedBy = "CreatedBy1",
                 LastChangedOn = DateTimeOffset.Now.Date,
                 LastChangedBy = "LastChangedBy1",
-                CurrentBoardColumn = "CurrentBoardColumn1",
+                CurrentBoardColumn = BoardColumn.Backlog,
                 State = TaskItemState.Backlog,
                 NumRevisions = 3,
                 Release = new Release
@@ -56,7 +56,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 CreatedBy = "CreatedBy2",
                 LastChangedOn = DateTimeOffset.Now.Date,
                 LastChangedBy = "LastChangedBy2",
-                CurrentBoardColumn = "CurrentBoardColumn2",
+                CurrentBoardColumn = BoardColumn.TopPriority,
                 State = TaskItemState.TopPriority,
                 NumRevisions = 3,
                 Release = new Release
@@ -107,7 +107,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 CreatedBy = "CreatedBy1",
                 LastChangedOn = DateTimeOffset.Now.Date,
                 LastChangedBy = "LastChangedBy1",
-                CurrentBoardColumn = "CurrentBoardColumn1",
+                CurrentBoardColumn = BoardColumn.Backlog,
                 State = TaskItemState.Backlog,
                 NumRevisions = 3,
                 Release = new Release
@@ -137,7 +137,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 CreatedBy = "CreatedBy2",
                 LastChangedOn = DateTimeOffset.Now.Date,
                 LastChangedBy = "LastChangedBy2",
-                CurrentBoardColumn = "CurrentBoardColumn2",
+                CurrentBoardColumn = BoardColumn.InProcess,
                 State = TaskItemState.InProcess,
                 NumRevisions = 3,
                 Release = new Release

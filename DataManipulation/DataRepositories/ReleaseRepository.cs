@@ -60,7 +60,8 @@ namespace DataAccess.DataRepositories
                           "r.Name, " +
                           "r.Attempts " +
                           "FROM Release r JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
-                          "WHERE FinishTime > @startDateString AND FinishTime < @endDateString";
+                          "WHERE FinishTime > @startDateString AND FinishTime < @endDateString " +
+                          "ORDER BY r.StartTime";
                 var releases = (await databaseConnection.DbConnection
                     .QueryAsync<ReleaseInfo>(sql, new {startDateString, endDateString})).ToList();
 
@@ -100,18 +101,18 @@ namespace DataAccess.DataRepositories
                 id = release.Id, state = release.State, releaseEnvironmentId, startTime = release.StartTime,
                 finishTime, name = release.Name, attempts = release.Attempts
             });
-            Console.WriteLine($"Inserted or Updated Release: {release.Id}");
+            Console.WriteLine($"Updated Release: {release.Id}");
         }
 
-        public async Task<Release> GetFirstReleaseBeforeDateAsync(DateTimeOffset? finishTime)
+        public virtual async Task<Release> GetFirstReleaseBeforeDateAsync(DateTimeOffset? finishTime)
         {
             if (finishTime == null)
                 return new Release();
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
             {
-                var startTimeString = finishTime?.AddDays(-30).ToString("yyyy'-'MM'-'dd HH':'mm':'ss'.'fff");
-                var finishTimeString = finishTime?.ToString("yyyy'-'MM'-'dd HH':'mm':'ss'.'fff");
+                var startTimeString = finishTime.Value.AddDays(-30).ToString("yyyy'-'MM'-'dd HH':'mm':'ss'.'fff");
+                var finishTimeString = finishTime.Value.ToString("yyyy'-'MM'-'dd HH':'mm':'ss'.'fff");
                 var sql = $"SELECT r.Id, " +
                           "r.state, " +
                           "r.ReleaseEnvironmentId, " +
@@ -197,7 +198,7 @@ namespace DataAccess.DataRepositories
             }
         }
 
-        public bool ReleaseIsFinishedInDatabase(int id)
+        public virtual bool ReleaseIsFinishedInDatabase(int id)
         {
             databaseConnection.GetNewConnection();
             using (databaseConnection.DbConnection)

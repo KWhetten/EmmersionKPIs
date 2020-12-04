@@ -24,14 +24,14 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.ApiWrapper
         }
 
         [Test]
-        public async Task When_getting_task_item_history()
+        public void When_getting_task_item_history()
         {
             var taskItemIds = new List<int>
             {
                 120, 121, 122, 123
             };
             var kanbanizeApiWrapper = new KanbanizeApi();
-            var result = await kanbanizeApiWrapper.GetHistoryEventsAsync(taskItemIds, 5);
+            var result = kanbanizeApiWrapper.GetHistoryEvents(taskItemIds, 5);
 
             Assert.That(result.First["historydetails"]["item"].First["eventtype"].ToString(), Is.EqualTo("Transitions"));
             Assert.That(result.First["historydetails"]["item"].First["historyevent"].ToString(), Is.EqualTo("Task archived"));
@@ -42,7 +42,7 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.ApiWrapper
         }
 
         [Test]
-        public async Task When_getting_task_item_history_with_invalid_history()
+        public void When_getting_task_item_history_with_invalid_history()
         {
             var workItemId = new JsonTaskItem
             {
@@ -59,7 +59,7 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.ApiWrapper
             });
 
             var kanbanizeApiWrapper = new KanbanizeApi(mockRestClient.Object);
-            var result = await kanbanizeApiWrapper.GetHistoryEventsAsync(new List<int>{workItemId.taskid}, 5);
+            var result = kanbanizeApiWrapper.GetHistoryEvents(new List<int>{workItemId.taskid}, 5);
 
             Assert.That(result, Is.EqualTo(""));
         }
