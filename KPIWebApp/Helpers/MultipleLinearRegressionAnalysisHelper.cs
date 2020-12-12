@@ -6,24 +6,51 @@ using Accord.Math.Optimization.Losses;
 using Accord.Statistics.Models.Regression.Linear;
 using DataAccess.DataRepositories;
 using DataAccess.Objects;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.TeamFoundation.SourceControl.WebApi;
 
 namespace KPIWebApp.Helpers
 {
     public class MultipleLinearRegressionAnalysisHelper
     {
-        public async Task<double> GetMultipleLinearRegressionAnalysisData(MultipleLinearRegressionTaskItem item)
+        public async Task<string> GetEstimation(MultipleLinearRegressionTaskItem item)
         {
-            var multipleLinearRegressionAnalysisData = new MultipleLinearRegressionAnalysisData();
-
-            var taskItemRepository = new TaskItemRepository();
-            var taskItemList = await taskItemRepository.GetTaskItemListAsync(new DateTimeOffset(new DateTime(2020, 1, 1)), DateTimeOffset.Now);
+            var multipleLinearRegressionAnalysisData = await GetMultipleLinearRegressionAnalysisData(item);
 
             var ols = new OrdinaryLeastSquares()
             {
                 UseIntercept = true
             };
+
+            var regression = ols.Learn(multipleLinearRegressionAnalysisData.Inputs,
+                multipleLinearRegressionAnalysisData.Outputs);
+
+            /* Consider getting rid of a Type and Team variable, if you do, intercept actually means something */
+            var backlogTimeCoefficient = regression.Weights[0];
+            var productCoefficient = regression.Weights[1];
+            var engineeringCoefficient = regression.Weights[2];
+            var unanticipatedCoefficient = regression.Weights[3];
+            var assessmentsTeamCoefficient = regression.Weights[4];
+            var enterpriseTeamCoefficient = regression.Weights[5];
+            double intercept = regression.Intercept;
+
+            multipleLinearRegressionAnalysisData.Predicted = regression.Transform(multipleLinearRegressionAnalysisData.Inputs);
+
+            multipleLinearRegressionAnalysisData.Error =
+                new SquareLoss(multipleLinearRegressionAnalysisData.Outputs).Loss(
+                    multipleLinearRegressionAnalysisData.Predicted);
+
+            multipleLinearRegressionAnalysisData.R2 = regression.CoefficientOfDetermination(
+                multipleLinearRegressionAnalysisData.Inputs, multipleLinearRegressionAnalysisData.Outputs, adjust: false);
+
+            return (multipleLinearRegressionAnalysisData.Predicted.Last() * 8).ToString("F2");
+        }
+
+        private async Task<MultipleLinearRegressionAnalysisData> GetMultipleLinearRegressionAnalysisData(MultipleLinearRegressionTaskItem item)
+        {
+            var multipleLinearRegressionAnalysisData = new MultipleLinearRegressionAnalysisData();
+
+            var taskItemRepository = new TaskItemRepository();
+            var taskItemList =
+                await taskItemRepository.GetTaskItemListAsync(new DateTimeOffset(new DateTime(2020, 1, 1)), DateTimeOffset.Now);
 
             foreach (var taskItem in taskItemList.Where(taskItem =>
                 !multipleLinearRegressionAnalysisData.Users.Contains(taskItem.CreatedBy)))
@@ -76,54 +103,7 @@ namespace KPIWebApp.Helpers
 
             multipleLinearRegressionAnalysisData.Inputs = inputs.Select(input => input.ToArray()).ToArray();
             multipleLinearRegressionAnalysisData.Outputs = outputList.ToArray();
-
-            var regression = ols.Learn(multipleLinearRegressionAnalysisData.Inputs,
-                multipleLinearRegressionAnalysisData.Outputs);
-
-            /* Consider getting rid of a Type and Team variable, if you do, intercept actually means something */
-            var backlogTimeCoefficient = regression.Weights[0];
-            var productCoefficient = regression.Weights[1];
-            var engineeringCoefficient = regression.Weights[2];
-            var unanticipatedCoefficient = regression.Weights[3];
-            var assessmentsTeamCoefficient = regression.Weights[4];
-            var enterpriseTeamCoefficient = regression.Weights[5];
-            double intercept = regression.Intercept;
-
-            multipleLinearRegressionAnalysisData.Predicted = regression.Transform(multipleLinearRegressionAnalysisData.Inputs);
-
-            multipleLinearRegressionAnalysisData.Error =
-                new SquareLoss(multipleLinearRegressionAnalysisData.Outputs).Loss(
-                    multipleLinearRegressionAnalysisData.Predicted);
-
-            multipleLinearRegressionAnalysisData.R2 = regression.CoefficientOfDetermination(
-                multipleLinearRegressionAnalysisData.Inputs, multipleLinearRegressionAnalysisData.Outputs, adjust: false);
-
-            Console.Write(
-                "Id,TimeSpentInBacklog," +
-                "TypeIsProduct,TypeIsEngineering,TypeIsUnanticipated," +
-                "DevTeamIsAssessments,DevTeamInEnterprise,");
-            foreach(var user in multipleLinearRegressionAnalysisData.Users)
-            {
-                Console.Write($"CreatedBy({user}),");
-            };
-            Console.Write("Output,Predicted\n");
-
-            for (var i = 0; i < multipleLinearRegressionAnalysisData.Ids.Count; i++)
-            {
-                Console.Write($"{multipleLinearRegressionAnalysisData.Ids[i]},");
-
-                foreach (var input in multipleLinearRegressionAnalysisData.Inputs[i])
-                {
-                    Console.Write($"{input},");
-                }
-
-                Console.Write($"{multipleLinearRegressionAnalysisData.Outputs[i]},{multipleLinearRegressionAnalysisData.Predicted[i]}\n");
-            }
-
-            Console.WriteLine($"Error: {multipleLinearRegressionAnalysisData.Error}");
-            Console.WriteLine($"R2: {multipleLinearRegressionAnalysisData.R2}");
-
-            return multipleLinearRegressionAnalysisData.Predicted.Last();
+            return multipleLinearRegressionAnalysisData;
         }
 
         private LogisticRegressionTaskItem GetLogisticRegressionTaskItem(TaskItem taskItem)

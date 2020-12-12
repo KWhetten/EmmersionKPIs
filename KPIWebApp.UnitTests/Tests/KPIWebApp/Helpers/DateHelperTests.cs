@@ -44,7 +44,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
         {
             var result = DateHelper.GetStartDate("This is not a date!");
 
-            Assert.That(result, Is.EqualTo(new DateTimeOffset(new DateTime(2015, 1 ,1))));
+            Assert.That(result, Is.EqualTo(new DateTimeOffset(new DateTime(2020, 10, 1))));
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
         {
             var result = DateHelper.GetStartDate(null);
 
-            Assert.That(result, Is.EqualTo(new DateTimeOffset(new DateTime(2015, 1 ,1))));
+            Assert.That(result, Is.EqualTo(new DateTimeOffset(new DateTime(2020, 10, 1))));
         }
     }
 }

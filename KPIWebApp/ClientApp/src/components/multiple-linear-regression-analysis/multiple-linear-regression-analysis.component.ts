@@ -10,58 +10,49 @@ export class MultipleLinearRegressionAnalysisComponent implements OnInit {
 
   private http: HttpClient;
   private baseUrl: string;
-  private readonly startDate: string;
-  private readonly finishDate: string;
-  analysisData: MultinomialLogisticRegressionAnalysisItemList;
-  item: MultinomialLogisticRegressionAnalysisItem[];
+  estimation: number;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.http = http;
     this.baseUrl = baseUrl;
-    this.startDate = 'The Beginning of Time';
-    this.finishDate = 'The Present';
   }
 
   ngOnInit() {
-    this.reloadData(this.startDate, this.finishDate);
+    this.reloadData();
   }
 
-  reloadData(startDate, finishDate) {
-    this.http.get<MultinomialLogisticRegressionAnalysisItemList>(this.baseUrl + 'multiple-linear-regression-analysis', {
+  submit() {
+    this.reloadData();
+  }
+
+  reloadData() {
+    let timeSpentInBacklog = (document.getElementById('time-spent-in-backlog') as HTMLInputElement).value;
+    let type = (document.getElementById('task-item-type') as HTMLSelectElement).value;
+    let devTeam = (document.getElementById('dev-team') as HTMLSelectElement).value;
+    let createdBy = (document.getElementById('created-by') as HTMLSelectElement).value;
+    this.http.get<number>(this.baseUrl + 'multiple-linear-regression-analysis', {
       params:
         {
-
+          timeSpentInBacklog,
+          type,
+          devTeam,
+          createdBy
         }
     })
       .subscribe(x => {
-        this.analysisData = x;
+        this.estimation = x;
       });
   }
 
   getType(TypeId: number) {
-    if(TypeId == 1){
-      return "Product";
+    if (TypeId == 1) {
+      return 'Product';
     }
-    if(TypeId == 2){
-      return "Engineering";
+    if (TypeId == 2) {
+      return 'Engineering';
     }
-    if(TypeId == 3){
-      return "Unanticipated";
+    if (TypeId == 3) {
+      return 'Unanticipated';
     }
   }
-}
-
-class MultinomialLogisticRegressionAnalysisItem {
-  id: number;
-  title: string;
-  output: number;
-  answer: number;
-  probability: number;
-  inputs: number[];
-}
-
-class MultinomialLogisticRegressionAnalysisItemList {
-  items: MultinomialLogisticRegressionAnalysisItem[];
-  users: string[];
-  error: number;
 }

@@ -27,11 +27,11 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 CreatedBy = "neil.sorensen"
             };
 
-            var result = await multipleLinearRegressionAnalysis.GetMultipleLinearRegressionAnalysisData(item);
+            var result = await multipleLinearRegressionAnalysis.GetEstimation(item);
 
             Console.WriteLine($"Prediction: {result}");
 
-            Assert.That(result, Is.EqualTo(1.25));
+            Assert.That(result, Is.EqualTo("12.44"));
         }
     }
 }

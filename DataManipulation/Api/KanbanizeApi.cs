@@ -81,6 +81,8 @@ namespace DataAccess.Api
 
         public JArray AddArchivedTaskItemList(JArray result, int boardId)
         {
+            JObject json;
+            JToken jsonList;
             var uri =
                 $"http://{Subdomain}.kanbanize.com/index.php/api/kanbanize/get_all_tasks/";
             var body = "{\"boardid\":\"" + boardId + "\", \"comments\": \"yes\", \"container\": \"archive\"}";
@@ -90,16 +92,23 @@ namespace DataAccess.Api
             var doc = new XmlDocument();
             doc.LoadXml(xmlTaskItemList);
 
-            var json = JObject.Parse(JsonConvert.SerializeXmlNode(doc));
-            var jsonList = json["xml"]["task"]["item"];
+            try
+            {
+                json = JObject.Parse(JsonConvert.SerializeXmlNode(doc));
+                jsonList = json["xml"]["task"]["item"];
+            }
+            catch (InvalidOperationException ex)
+            {
+                return new JArray();
+            }
 
             foreach (var item in jsonList)
             {
                 try
                 {
                     var taskItemRepository = new TaskItemRepository();
-                    if (((int)item["workflow_id"] == 19 && boardId == 4)
-                        ||((int)item["workflow_id"] == 8 && boardId == 5)
+                    if (((int) item["workflow_id"] == 19 && boardId == 4)
+                        || ((int) item["workflow_id"] == 8 && boardId == 5)
                         && !taskItemRepository.TaskItemHasBeenReleasedAsync((int) item["taskid"]))
                     {
                         result.Add(item);

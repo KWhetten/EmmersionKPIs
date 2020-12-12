@@ -75,11 +75,6 @@ namespace DataAccess.DataRepositories
             if (!releaseEnvironmentName.Contains("Production") || release.Name.Contains("MeritBucks") ||
                 release.Name.Contains("Insights")) return;
 
-            if (release.Attempts > 1)
-            {
-                Console.WriteLine();
-            }
-
             var releaseEnvironmentId = release.ReleaseEnvironment.Id;
             var sql = "IF NOT EXISTS (SELECT * FROM ReleaseEnvironment WHERE Id = @releaseEnvironmentId) " +
                       $"INSERT INTO ReleaseEnvironment VALUES (@releaseEnvironmentId, @releaseEnvironmentName)";

@@ -151,7 +151,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
 
             var expected = new OverviewData
             {
-                AverageLeadTime = 12.8m,
+                AverageLeadTime = 19.2m,
                 LongestLeadTime = 24m,
                 ShortestLeadTime = 8m,
                 TotalCards = 5
@@ -272,8 +272,8 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
 
             var expected = new OverviewData
             {
-                AverageLeadTime = 4.8m,
-                LongestLeadTime = 16m,
+                AverageLeadTime = 6.4m,
+                LongestLeadTime = 24m,
                 ShortestLeadTime = 8m,
                 TotalCards = 2
             };

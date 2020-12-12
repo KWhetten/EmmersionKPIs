@@ -115,7 +115,6 @@ C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\runtime
 C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\DataManipulation.dll
 C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\DataManipulation.pdb
-C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\DataManipulation.dll.config
 C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\obj\Debug\netcoreapp3.1\KPIWebApp.IntegrationTests.csprojAssemblyReference.cache
 C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\obj\Debug\netcoreapp3.1\KPIWebApp.IntegrationTests.AssemblyInfoInputs.cache
 C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\obj\Debug\netcoreapp3.1\KPIWebApp.IntegrationTests.AssemblyInfo.cs
@@ -172,3 +171,10 @@ C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\Accord.
 C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\Accord.Math.Core.dll
 C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\Accord.Math.dll
 C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\Accord.Statistics.dll
+C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.CommandLine.dll
+C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.EnvironmentVariables.dll
+C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Json.dll
+C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.UserSecrets.dll
+C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
+C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\bin\Debug\netcoreapp3.1\System.Text.Json.dll

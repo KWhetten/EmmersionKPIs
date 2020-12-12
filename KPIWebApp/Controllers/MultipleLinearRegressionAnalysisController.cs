@@ -12,7 +12,7 @@ namespace KPIWebApp.Controllers
     public class MultipleLinearRegressionAnalysisController
     {
         [HttpGet]
-        public async Task<double> GetAsync(double timeSpentInBacklog, string type, string devTeam, string createdBy)
+        public async Task<string> GetAsync(double timeSpentInBacklog, string type, string devTeam, string createdBy)
         {
             var helper = new MultipleLinearRegressionAnalysisHelper();
             var taskItemType = GetTaskItemType(type);
@@ -25,13 +25,13 @@ namespace KPIWebApp.Controllers
                 TypeIsEngineering = taskItemType == TaskItemType.Engineering,
                 TypeIsUnanticipated = taskItemType == TaskItemType.Unanticipated,
 
-                DevTeamIsAssessments = devTeam == "Assessments",
-                DevTeamIsEnterprise = devTeam == "Enterprise",
+                DevTeamIsAssessments = devTeam == "Assessments Team",
+                DevTeamIsEnterprise = devTeam == "Enterprise Team",
 
                 CreatedBy = createdBy
             };
 
-            return await helper.GetMultipleLinearRegressionAnalysisData(taskItem);
+            return await helper.GetEstimation(taskItem);
         }
 
         private TaskItemType GetTaskItemType(string type)

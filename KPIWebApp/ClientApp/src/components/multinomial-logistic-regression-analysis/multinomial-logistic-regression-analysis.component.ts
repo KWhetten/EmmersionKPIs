@@ -65,7 +65,7 @@ class MultinomialLogisticRegressionAnalysisItem {
   id: number;
   title: string;
   output: number;
-  answer: number;
+  prediction: number;
   probability: number;
   inputs: number[];
 }

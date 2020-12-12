@@ -15,4 +15,8 @@
       <ProjectReference Include="..\DevOpsTaskItemDataExtractor-DEPRECATED\DevOpsTaskItemDataExtractor-DEPRECATED.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="launchSettings.json" />
+    </ItemGroup>
+
 </Project>

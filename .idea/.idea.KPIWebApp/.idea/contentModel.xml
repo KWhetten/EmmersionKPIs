@@ -20,7 +20,6 @@
           <e p="DevOpsApi.cs" t="Include" />
           <e p="KanbanizeApi.cs" t="Include" />
         </e>
-        <e p="App.config" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="DatabaseScema" t="Include">
           <e p="database-schema.sql" t="Include" />

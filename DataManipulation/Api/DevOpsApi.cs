@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Configuration;
+using System.IO;
+using System.Linq;
 using System.Text;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -13,12 +16,13 @@ namespace DataAccess.Api
     public class DevOpsApi : IDevOpsApi
     {
         private readonly IRestClient client;
-        private const string PersonalAccessToken = "";
+        private readonly string personalAccessToken = File.ReadLines($"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/EmmersionKPI/apiKey.txt").First();
         private const string Organization = "emmersionlearning";
         private const string Project = "EmmersionLearning";
 
         public DevOpsApi(IRestClient client)
         {
+
             this.client = client;
         }
 
@@ -29,7 +33,7 @@ namespace DataAccess.Api
             var request = new RestRequest(uri, Method.GET);
             request.AddHeader("Accept", "application/json");
             request.AddHeader("Authorization",
-                $"Basic {Convert.ToBase64String(Encoding.ASCII.GetBytes($":{PersonalAccessToken}"))}");
+                $"Basic {Convert.ToBase64String(Encoding.ASCII.GetBytes($":{personalAccessToken}"))}");
             var response = client.Execute(request);
 
             foreach (var header in response.Headers)
@@ -54,14 +58,12 @@ namespace DataAccess.Api
         {
             const string deploymentStatus = "succeeded,failed";
 
-            var uri =
-                $"https://vsrm.dev.azure.com/{Organization}/{Project}/_apis/release/deployments?deploymentStatus={deploymentStatus}&api-version=5.1";
+            var uri = $"https://vsrm.dev.azure.com/{Organization}/{Project}/_apis/release/deployments?deploymentStatus={deploymentStatus}&api-version=5.1";
 
             var resultList = JObject.Parse(GetInformation(uri))["value"] as JArray;
             while (ContinuationToken != null)
             {
-                uri =
-                    $"https://vsrm.dev.azure.com/{Organization}/{Project}/_apis/release/deployments?deploymentStatus={deploymentStatus}&continuationToken={ContinuationToken}&api-version=5.1";
+                uri = $"https://vsrm.dev.azure.com/{Organization}/{Project}/_apis/release/deployments?deploymentStatus={deploymentStatus}&continuationToken={ContinuationToken}&api-version=5.1";
 
                 try
                 {

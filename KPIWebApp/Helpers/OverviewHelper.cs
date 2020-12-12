@@ -13,9 +13,9 @@ namespace KPIWebApp.Helpers
         private readonly ITaskItemRepository taskItemRepository = new TaskItemRepository();
         private readonly IReleaseRepository releaseRepository = new ReleaseRepository();
         private readonly ILeadTimeHelper leadTimeHelper = new LeadTimeHelper();
-        public bool Product { get; set; } = true;
-        public bool Engineering { get; set; } = true;
-        public bool Unanticipated { get; set; } = true;
+        private bool Product { get; set; } = true;
+        private bool Engineering { get; set; } = true;
+        private bool Unanticipated { get; set; } = true;
 
         public OverviewHelper(){ }
 

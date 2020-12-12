@@ -152,7 +152,7 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
 
             Assert.False(result);
 
-            result = taskItemRepository.TaskItemHasBeenReleasedAsync(361);
+            result = taskItemRepository.TaskItemHasBeenReleasedAsync(462);
 
             Assert.True(result);
         }
@@ -162,7 +162,7 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
         {
             var result = await taskItemRepository.GetHistoryEventsByTaskIdAsync(361);
 
-            Assert.That(result.Count, Is.EqualTo(4));
+            Assert.That(result.Count, Is.EqualTo(0));
         }
     }
 }

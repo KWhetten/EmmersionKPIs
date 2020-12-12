@@ -71,7 +71,7 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.ApiWrapper
             mockRestClient.Setup(x => x.Execute(It.IsAny<RestRequest>())).Returns(new RestResponse
             {
                 Headers = {new Parameter("x-ms-continuationtoken", "358", ParameterType.HttpHeader)},
-                Content = "<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<xml></xml>"
+                Content = "<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<xml> </xml>"
             });
             var kanbanizeApiWrapper = new KanbanizeApi(mockRestClient.Object);
             var result = kanbanizeApiWrapper.AddArchivedTaskItemList(new JArray(), 4);
