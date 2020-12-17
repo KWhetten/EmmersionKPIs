@@ -48,7 +48,6 @@ C:\Code\EmmersionKPIs\DataExtractor\obj\Debug\netcoreapp3.1\DataExtractor.csproj
 C:\Code\EmmersionKPIs\DataExtractor\obj\Debug\netcoreapp3.1\DataExtractor.dll
 C:\Code\EmmersionKPIs\DataExtractor\obj\Debug\netcoreapp3.1\DataExtractor.pdb
 C:\Code\EmmersionKPIs\DataExtractor\obj\Debug\netcoreapp3.1\DataExtractor.genruntimeconfig.cache
-C:\Code\EmmersionKPIs\DataExtractor\bin\Debug\netcoreapp3.1\DataManipulation.dll.config
 C:\Code\EmmersionKPIs\DataExtractor\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
 C:\Code\EmmersionKPIs\DataExtractor\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
 C:\Code\EmmersionKPIs\DataExtractor\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll

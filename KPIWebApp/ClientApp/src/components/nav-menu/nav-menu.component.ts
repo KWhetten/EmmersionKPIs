@@ -1,6 +1,8 @@
 ﻿import {Component, Inject, OnInit} from '@angular/core';
 import {getCookie} from '../../app/app.component';
 import {HttpClient} from '@angular/common/http';
+import {LoginMessageService} from '../../app/_services/loginMessage.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-nav-menu',
@@ -10,9 +12,18 @@ import {HttpClient} from '@angular/common/http';
 
 export class NavMenuComponent implements OnInit {
   public isExpanded = false;
+  private subscription: Subscription;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: LoginMessageService) {
+    this.subscription = this.messageService.onMessage().subscribe(message => {
+      if(message.isLoggedIn){
+        this.expand();
+        this.reloadData();
+      } else {
+        this.collapse();
+        this.reloadData();
+      }
+    });
   }
 
   ngOnInit() {

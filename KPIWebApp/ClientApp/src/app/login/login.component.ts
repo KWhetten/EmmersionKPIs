@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import * as bcrypt from 'bcryptjs';
 import {Router} from '@angular/router';
 import {NavMenuComponent} from '../../components/nav-menu/nav-menu.component';
+import {LoginMessageService} from '../_services/loginMessage.service';
 
 @Component({
   selector: 'app-login-component',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   baseUrl: string;
   error: string;
 
-  constructor(private router: Router, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private router: Router, http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: LoginMessageService) {
     this.baseUrl = baseUrl;
     this.http = http;
   }
@@ -72,6 +73,8 @@ export class LoginComponent implements OnInit {
 
     // Set it
     document.cookie = name+"="+value+"; expires="+date.toUTCString()+"; path=/";
+
+    this.messageService.sendMessage(true);
   }
 
   private noBlankFields() {

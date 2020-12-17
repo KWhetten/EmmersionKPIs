@@ -1,7 +1,7 @@
 ﻿import {Component, Inject} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
-import {MessageService} from '../../app/_services/message.service';
+import {FilterMessageService} from '../../app/_services/filterMessage.service';
 
 @Component({
   selector: 'app-filter-options',
@@ -16,7 +16,7 @@ export class FilterOptionsComponent {
   private finishDate: any;
   today = Date.now().toString();
 
-  constructor(datepipe: DatePipe, http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: MessageService) {
+  constructor(datepipe: DatePipe, http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: FilterMessageService) {
     this.datePipe = datepipe;
   }
 

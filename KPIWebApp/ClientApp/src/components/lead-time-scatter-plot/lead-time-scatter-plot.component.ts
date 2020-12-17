@@ -1,7 +1,7 @@
 ﻿import {Component, Inject, OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import {HttpClient} from '@angular/common/http';
-import {MessageService} from '../../app/_services/message.service';
+import {FilterMessageService} from '../../app/_services/filterMessage.service';
 import {Subscription} from 'rxjs';
 
 declare var require: any;
@@ -67,7 +67,7 @@ export class LeadTimeScatterPlotComponent implements OnInit {
     series: []
   }
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: MessageService){
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: FilterMessageService){
     this.http = http;
     this.baseUrl = baseUrl;
 

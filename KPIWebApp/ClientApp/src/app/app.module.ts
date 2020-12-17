@@ -19,6 +19,7 @@ import {LeadTimeScatterPlotComponent} from '../components/lead-time-scatter-plot
 import {LeadTimeBoxGraphComponent} from '../components/lead-time-box-graph/lead-time-box-graph.component';
 import {MultinomialLogisticRegressionAnalysisComponent} from '../components/multinomial-logistic-regression-analysis/multinomial-logistic-regression-analysis.component';
 import {MultipleLinearRegressionAnalysisComponent} from '../components/multiple-linear-regression-analysis/multiple-linear-regression-analysis.component';
+import {ReleasesComponent} from './releases/releases.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {MultipleLinearRegressionAnalysisComponent} from '../components/multiple-
     LeadTimeScatterPlotComponent,
     LeadTimeBoxGraphComponent,
     MultinomialLogisticRegressionAnalysisComponent,
-    MultipleLinearRegressionAnalysisComponent
+    MultipleLinearRegressionAnalysisComponent,
+    ReleasesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),

@@ -27,6 +27,8 @@
         <e p="DataManipulation.csproj" t="IncludeRecursive" />
         <e p="DataRepositories" t="Include">
           <e p="DatabaseConnection.cs" t="Include" />
+          <e p="DeveloperRepository.cs" t="Include" />
+          <e p="DevelopmentTeamsRepository.cs" t="Include" />
           <e p="Helper.cs" t="Include" />
           <e p="ReleaseRepository.cs" t="Include" />
           <e p="TaskItemRepository.cs" t="Include" />
@@ -237,7 +239,8 @@
           <e p="src" t="Include">
             <e p="app" t="Include">
               <e p="_services" t="Include">
-                <e p="message.service.ts" t="Include" />
+                <e p="filterMessage.service.ts" t="Include" />
+                <e p="loginMessage.service.ts" t="Include" />
               </e>
               <e p="app.component.html" t="Include" />
               <e p="app.component.ts" t="Include" />
@@ -272,6 +275,11 @@
                 <e p="login.component.css" t="Include" />
                 <e p="login.component.html" t="Include" />
                 <e p="login.component.ts" t="Include" />
+              </e>
+              <e p="releases" t="Include">
+                <e p="releases.component.css" t="Include" />
+                <e p="releases.component.html" t="Include" />
+                <e p="releases.component.ts" t="Include" />
               </e>
               <e p="task-items" t="Include">
                 <e p="task-items.component.css" t="Include" />
@@ -319,8 +327,6 @@
                 <e p="nav-menu.component.html" t="Include" />
                 <e p="nav-menu.component.ts" t="Include" />
               </e>
-              <e p="overview-release-data" t="Include" />
-              <e p="overview-task-item-data" t="Include" />
             </e>
             <e p="environments" t="Include">
               <e p="environment.prod.ts" t="Include" />
@@ -424,6 +430,8 @@
             </e>
             <e p="DataRepositories" t="Include">
               <e p="AuthorizationRepositoryTests.cs" t="Include" />
+              <e p="DeveloperRepositoryTests.cs" t="Include" />
+              <e p="DevelopmentTeamsRepositoryTests.cs" t="Include" />
               <e p="ReleaseRepositoryTests.cs" t="Include" />
               <e p="TaskItemRepositoryTests.cs" t="Include" />
             </e>

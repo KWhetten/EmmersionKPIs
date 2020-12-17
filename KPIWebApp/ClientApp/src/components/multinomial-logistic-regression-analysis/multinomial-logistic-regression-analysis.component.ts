@@ -1,6 +1,6 @@
 ﻿import {Component, Inject, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {MessageService} from '../../app/_services/message.service';
+import {FilterMessageService} from '../../app/_services/filterMessage.service';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -17,7 +17,7 @@ export class MultinomialLogisticRegressionAnalysisComponent implements OnInit {
   analysisData: MultinomialLogisticRegressionAnalysisItemList;
   item: MultinomialLogisticRegressionAnalysisItem[];
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: MessageService) {
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: FilterMessageService) {
     this.http = http;
     this.baseUrl = baseUrl;
 

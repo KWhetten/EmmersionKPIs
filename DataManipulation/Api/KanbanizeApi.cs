@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml;
 using DataAccess.DataRepositories;
 using Newtonsoft.Json;
@@ -14,6 +15,8 @@ namespace DataAccess.Api
         string GetInformation(string uri, string body);
         JToken GetTaskItemList(int boardId);
         JToken GetHistoryEvents(List<int> taskItemIds, int boardId);
+        public Task<List<int>> GetBoardIdsAsync();
+        public void UpdateBoardUsers(int boardId);
     }
 
     public class KanbanizeApi : IKanbanizeApi
@@ -21,6 +24,7 @@ namespace DataAccess.Api
         private readonly IRestClient client;
         private const string ApiKey = "TUilAxpp68ooVyExDLxkwNfQpVt8TTO7ZMWk1Mif";
         private const string Subdomain = "emmersion";
+        private readonly DevelopmentTeamsRepository developmentTeamsRepository = new DevelopmentTeamsRepository();
 
         public KanbanizeApi()
         {
@@ -156,6 +160,57 @@ namespace DataAccess.Api
                 Console.WriteLine(
                     $"Unable to get history for Task {taskItemIds}.\nException: {ex.Message}\nJson:{json}");
                 return new JArray();
+            }
+        }
+
+        public async Task<List<int>> GetBoardIdsAsync()
+        {
+            var uri = $"https://{Subdomain}.kanbanize.com/index.php/api/kanbanize/get_projects_and_boards/";
+            var body = "{}";
+            var xmlTaskItemList = GetInformation(uri, body);
+
+            var doc = new XmlDocument();
+            doc.LoadXml(xmlTaskItemList);
+
+            var json = JObject.Parse(JsonConvert.SerializeXmlNode(doc));
+
+            var jsonInformation = json["xml"]["projects"]["item"];
+
+            foreach (var boardGroup in jsonInformation)
+            {
+                if (boardGroup["name"].ToString() != "Product Development") continue;
+                jsonInformation = boardGroup;
+                break;
+            }
+
+            jsonInformation = jsonInformation["boards"]["item"];
+            var boardIds = new List<int>();
+
+            foreach (var apple in jsonInformation)
+            {
+                await developmentTeamsRepository.SaveTeamAsync((int) apple["id"], apple["name"].ToString());
+                boardIds.Add((int) apple["id"]);
+            }
+
+            return boardIds;
+        }
+
+        public void UpdateBoardUsers(int boardId)
+        {
+            var uri = $"https://{Subdomain}.kanbanize.com/index.php/api/kanbanize/get_board_settings/";
+            var body = $"{{\"boardid\":\"{boardId}\"}}";
+            var xmlTaskItemList = GetInformation(uri, body);
+
+            var doc = new XmlDocument();
+            doc.LoadXml(xmlTaskItemList);
+
+            var json = JObject.Parse(JsonConvert.SerializeXmlNode(doc));
+            var usernames = json["xml"]["usernames"]["item"];
+
+            var developerRepository = new DeveloperRepository();
+            foreach (var username in usernames)
+            {
+                developerRepository.SaveDeveloperAsync(username.ToString());
             }
         }
     }

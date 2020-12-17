@@ -4,7 +4,7 @@ import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
 import {getCookie} from '../app.component';
 import * as Highcharts from 'highcharts';
-import {MessageService} from '../_services/message.service';
+import {FilterMessageService} from '../_services/filterMessage.service';
 import {Subscription} from 'rxjs';
 
 declare var require: any;
@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit {
   }
   authorized: boolean = false;
 
-  constructor(protected router: Router, datepipe: DatePipe, http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: MessageService) {
+  constructor(protected router: Router, datepipe: DatePipe, http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: FilterMessageService) {
     this.datePipe = datepipe;
     this.http = http;
     this.baseUrl = baseUrl;

@@ -38,11 +38,13 @@ namespace KPIDataExtractor
 
         private static async Task InsertTaskItemsIntoDatabaseFromApiAsync()
         {
-            const int enterpriseTeamBoardId = 4;
-            const int assessmentsTeamBoardId = 5;
+            var ids = await KanbanizeApi.GetBoardIdsAsync();
 
-            await InsertKanbanizeTaskItemsAsync(enterpriseTeamBoardId);
-            await InsertKanbanizeTaskItemsAsync(assessmentsTeamBoardId);
+            foreach (var id in ids)
+            {
+                KanbanizeApi.UpdateBoardUsers(id);
+                await InsertKanbanizeTaskItemsAsync(id);
+            }
         }
 
         private static async Task InsertKanbanizeTaskItemsAsync(int boardId)

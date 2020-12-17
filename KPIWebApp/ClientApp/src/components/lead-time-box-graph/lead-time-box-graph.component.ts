@@ -2,7 +2,7 @@
 import * as Highcharts from 'highcharts';
 import {HttpClient} from '@angular/common/http';
 import {Subscription} from 'rxjs';
-import {MessageService} from '../../app/_services/message.service';
+import {FilterMessageService} from '../../app/_services/filterMessage.service';
 
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
@@ -76,7 +76,7 @@ export class LeadTimeBoxGraphComponent implements OnInit {
       }]
   }
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: MessageService) {
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: FilterMessageService) {
     this.http = http;
     this.baseUrl = baseUrl;
 

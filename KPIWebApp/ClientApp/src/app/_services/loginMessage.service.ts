@@ -2,11 +2,11 @@
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class MessageService {
+export class LoginMessageService {
   private subject = new Subject<any>();
 
-  sendMessage(startDate: any, finishDate: any, product, engineering, unanticipated) {
-    this.subject.next({ startDate, finishDate, product, engineering, unanticipated });
+  sendMessage(isLoggedIn: boolean) {
+    this.subject.next({ isLoggedIn });
   }
 
   clearMessages() {
