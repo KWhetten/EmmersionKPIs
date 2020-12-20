@@ -13,10 +13,8 @@ namespace DataAccess.DataRepositories
         Task<IEnumerable<Release>> GetReleaseListAsync(DateTimeOffset startDate, DateTimeOffset endDate);
         Task InsertReleaseAsync(Release release);
         Task<Release> GetFirstReleaseBeforeDateAsync(DateTimeOffset? finishTime);
-        Task<ReleaseEnvironment> GetReleaseEnvironmentByIdAsync(int releaseEnvironmentId);
         Task<Release> GetReleaseByIdAsync(int releaseId);
         Task RemoveReleaseByIdAsync(int releaseId);
-        Task RemoveReleaseEnvironmentById(int releaseEnvironmentId);
         bool ReleaseIsFinishedInDatabase(int id);
     }
 
@@ -130,14 +128,6 @@ namespace DataAccess.DataRepositories
             }
         }
 
-        public async Task<ReleaseEnvironment> GetReleaseEnvironmentByIdAsync(int releaseEnvironmentId)
-        {
-            var sql = $"SELECT * FROM ReleaseEnvironment WHERE Id = @releaseEnvironmentId;";
-            var releaseEnvironment = await databaseConnection.DbConnection
-                .QueryAsync<ReleaseEnvironment>(sql, new {releaseEnvironmentId});
-            return releaseEnvironment.First();
-        }
-
         public async Task<Release> GetReleaseByIdAsync(int releaseId)
         {
             databaseConnection.GetNewConnection();
@@ -180,16 +170,6 @@ namespace DataAccess.DataRepositories
             {
                 var sql = $"DELETE FROM Release WHERE Id = @releaseId";
                 await databaseConnection.DbConnection.ExecuteAsync(sql, new {releaseId});
-            }
-        }
-
-        public async Task RemoveReleaseEnvironmentById(int releaseEnvironmentId)
-        {
-            databaseConnection.GetNewConnection();
-            await using (databaseConnection.DbConnection)
-            {
-                var sql = $"DELETE FROM ReleaseEnvironment WHERE Id = @releaseEnvironmentId";
-                await databaseConnection.DbConnection.ExecuteAsync(sql, new {releaseEnvironmentId});
             }
         }
 

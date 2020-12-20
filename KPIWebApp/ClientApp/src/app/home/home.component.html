@@ -3,8 +3,7 @@
 
   <app-filter-options></app-filter-options>
 
-  <div *ngIf="!this.overviewData">Loading...</div>
-  <div *ngIf="this.overviewData">
+  <div>
     <h2>Results:</h2>
     <h3><strong>From:</strong> {{startDate}} <strong>to</strong> {{finishDate}}</h3>
 
@@ -12,13 +11,8 @@
       <app-cumulative-flow-diagram></app-cumulative-flow-diagram>
     </div>
 
-    <h4>{{overviewData.totalCards}} Work Item Cards</h4>
     <div class="lead-time">
-      <div class="lead-time-results">
-        <p><strong>Shortest Lead Time:</strong> {{overviewData.shortestLeadTime}} Hours of Work</p>
-        <p><strong>Average Lead Time:</strong> {{overviewData.averageLeadTime}} Hours of Work</p>
-        <p><strong>Longest Lead Time:</strong> {{overviewData.longestLeadTime}} Hours of Work</p>
-      </div>
+      <app-task-item-overview-component></app-task-item-overview-component>
       <div class="lead-time-charts">
         <div class="scatter-plot">
           <app-lead-time-scatter-plot></app-lead-time-scatter-plot>
@@ -31,16 +25,9 @@
       </div>
     </div>
 
-    <h4>{{overviewData.totalDeploys}} Deploys</h4>
     <div class="deployment-frequency">
+      <app-release-overview-component></app-release-overview-component>
       <div class="scatter-plot">Scatter Plot goes here...</div>
-      <div class="deployment-frequency-results">
-        <p><strong>Successful Deploys:</strong> {{overviewData.successfulDeploys}}</p>
-        <p><strong>Rolled-Back Deploys:</strong> {{overviewData.rolledBackDeploys}}</p>
-        <p><strong>Frequency:</strong> {{overviewData.deployFrequency}} deploys per week</p>
-        <p><strong>Mean Time to Restore:</strong> {{overviewData.meanTimeToRestore}} minutes</p>
-        <p><strong>Change Fail Percentage:</strong> {{overviewData.changeFailPercentage}}%</p>
-      </div>
     </div>
   </div>
 </div>

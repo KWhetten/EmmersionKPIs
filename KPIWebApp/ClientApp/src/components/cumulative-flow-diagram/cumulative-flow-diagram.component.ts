@@ -85,6 +85,7 @@ export class CumulativeFlowDiagramComponent implements OnInit, OnDestroy {
   }
 
   reloadData(startDate, finishDate, product, engineering, unanticipated) {
+    this.timeStart();
     this.http.get(this.baseUrl + 'cumulative-flow', {
       params:
         {
@@ -99,6 +100,15 @@ export class CumulativeFlowDiagramComponent implements OnInit, OnDestroy {
         this.cumulativeFlowOptions.series = x['data'];
         this.cumulativeFlowOptions.xAxis.categories = x['dates'];
         Highcharts.chart('cumulative-flow-diagram-container', this.cumulativeFlowOptions);
+        this.timeStop();
       });
+  }
+
+  timeStart() {
+    console.time('Cumulative Flow Diagram Load')
+  }
+
+  timeStop() {
+    console.timeEnd('Cumulative Flow Diagram Load')
   }
 }

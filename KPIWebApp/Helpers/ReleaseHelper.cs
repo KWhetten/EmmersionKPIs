@@ -8,7 +8,7 @@ namespace KPIWebApp.Helpers
 {
     public class ReleaseHelper
     {
-        public OverviewData PopulateOverviewData(OverviewData overviewData, List<Release> releaseList, DateTimeOffset finishDate)
+        public ReleaseOverviewData PopulateOverviewData(ReleaseOverviewData releaseOverviewData, List<Release> releaseList, DateTimeOffset finishDate)
         {
             var lastReleaseByEnvironment = new Dictionary<int, Release>();
             var rolledBackReleases = new List<List<Release>>();
@@ -41,20 +41,20 @@ namespace KPIWebApp.Helpers
             }
             var releaseWeeks = (finishDate - earliestReleaseFinishTime)?.Days / 7m;
 
-            overviewData.TotalDeploys = releaseList.Count;
-            overviewData.SuccessfulDeploys = releaseList.Count - rolledBackReleases.Count;
-            overviewData.RolledBackDeploys = rolledBackReleases.Count;
-            overviewData.DeployFrequency = releaseWeeks != 0
-                ? decimal.Round(decimal.Parse((overviewData.TotalDeploys / releaseWeeks)?.ToString("0.##")!), 2, MidpointRounding.AwayFromZero)
+            releaseOverviewData.TotalDeploys = releaseList.Count;
+            releaseOverviewData.SuccessfulDeploys = releaseList.Count - rolledBackReleases.Count;
+            releaseOverviewData.RolledBackDeploys = rolledBackReleases.Count;
+            releaseOverviewData.DeployFrequency = releaseWeeks != 0
+                ? decimal.Round(decimal.Parse((releaseOverviewData.TotalDeploys / releaseWeeks)?.ToString("0.##")!), 2, MidpointRounding.AwayFromZero)
                 : 0;
-            overviewData.MeanTimeToRestore = rolledBackReleases.Count != 0
+            releaseOverviewData.MeanTimeToRestore = rolledBackReleases.Count != 0
                 ? decimal.Round(decimal.Parse((sumTimeToRestore / rolledBackReleases.Count).ToString("0.##")!), 2, MidpointRounding.AwayFromZero)
                 : 0;
-            overviewData.ChangeFailPercentage = releaseList.Count != 0
+            releaseOverviewData.ChangeFailPercentage = releaseList.Count != 0
                 ? decimal.Round(decimal.Parse(((decimal) rolledBackReleases.Count / releaseList.Count * 100).ToString("0.##")!), 2, MidpointRounding.AwayFromZero)
                 : 0;
 
-            return overviewData;
+            return releaseOverviewData;
         }
 
 

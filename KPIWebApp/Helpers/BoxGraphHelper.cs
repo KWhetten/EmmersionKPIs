@@ -25,7 +25,8 @@ namespace KPIWebApp.Helpers
             this.taskItemRepository = taskItemRepository;
         }
 
-        public async Task<BoxGraphData> GetLeadTimeBoxGraphData(DateTimeOffset startDate, DateTimeOffset finishDate, bool product, bool engineering, bool unanticipated)
+        public async Task<BoxGraphData> GetLeadTimeBoxGraphData(DateTimeOffset startDate, DateTimeOffset finishDate,
+            bool product, bool engineering, bool unanticipated)
         {
             Product = product;
             Engineering = engineering;
@@ -103,7 +104,8 @@ namespace KPIWebApp.Helpers
 
             var outliers = boxGraphData.Outliers;
             (boxGraphDataEntry.Minimum, outliers) = GetMinimumAndOutliers(itemList, minWhiskerValue, outliers, index);
-            (boxGraphDataEntry.Maximum, outliers) = GetMaximumAndSetOutliers(itemList, maxWhiskerValue, outliers, index);
+            (boxGraphDataEntry.Maximum, outliers) =
+                GetMaximumAndSetOutliers(itemList, maxWhiskerValue, outliers, index);
 
             boxGraphData.Outliers = outliers;
 
@@ -147,14 +149,11 @@ namespace KPIWebApp.Helpers
                 var leadTimeHours = itemList[^i].LeadTimeHours;
                 if (itemList[^i].LeadTimeHours > maxWhiskerValue)
                 {
-                    if (leadTimeHours < 150)
+                    outliers.Add(new object[]
                     {
-                        outliers.Add(new object[]
-                        {
-                            index,
-                            leadTimeHours
-                        });
-                    }
+                        index,
+                        leadTimeHours
+                    });
 
                     continue;
                 }

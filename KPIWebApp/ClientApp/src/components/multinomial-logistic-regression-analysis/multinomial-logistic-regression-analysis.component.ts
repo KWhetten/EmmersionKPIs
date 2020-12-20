@@ -35,6 +35,7 @@ export class MultinomialLogisticRegressionAnalysisComponent implements OnInit {
   }
 
   reloadData(startDate, finishDate) {
+    this.timeStart();
     this.analysisData = null;
     this.http.get<MultinomialLogisticRegressionAnalysisItemList>(this.baseUrl + 'multinomial-logistic-regression-analysis', {
       params:
@@ -45,6 +46,7 @@ export class MultinomialLogisticRegressionAnalysisComponent implements OnInit {
     })
       .subscribe(x => {
         this.analysisData = x;
+        this.timeStop();
       });
   }
 
@@ -58,6 +60,14 @@ export class MultinomialLogisticRegressionAnalysisComponent implements OnInit {
     if(TypeId == 3){
       return "Unanticipated";
     }
+  }
+
+  timeStart() {
+    console.time('Multinomial Logistic Regression Analysis Load')
+  }
+
+  timeStop() {
+    console.timeEnd('Multinomial Logistic Regression Analysis Load')
   }
 }
 

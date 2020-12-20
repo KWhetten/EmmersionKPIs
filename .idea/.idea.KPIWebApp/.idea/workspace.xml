@@ -35,36 +35,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d529bac-8a91-4cec-a847-4545868e1a59" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/DataManipulation/DataRepositories/DeveloperRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataManipulation/DataRepositories/DevelopmentTeamsRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/Tests/DataManipulation/DataRepositories/DeveloperRepositoryTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/Tests/DataManipulation/DataRepositories/DevelopmentTeamsRepositoryTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_services/loginMessage.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataManipulation/DataRepositories/ReleaseEnvironmentRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/release-overview/release-overview.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/release-overview/release-overview.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/release-overview/release-overview.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/task-item-overview/task-item-overview.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/task-item-overview/task-item-overview.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/task-item-overview/task-item-overview.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/KPIWebApp/Controllers/ReleaseOverviewController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.Binder.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.CommandLine.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.EnvironmentVariables.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.FileExtensions.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.Json.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.UserSecrets.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.DependencyInjection.Abstractions.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.DependencyInjection.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileProviders.Physical.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileSystemGlobbing.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Logging.Abstractions.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Logging.Configuration.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Logging.Console.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Logging.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Options.ConfigurationExtensions.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Options.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Primitives.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/System.Diagnostics.DiagnosticSource.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/System.Text.Json.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.KPIWebApp/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.KPIWebApp/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.KPIWebApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.KPIWebApp/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataExtractor/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataExtractor/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataExtractor/bin/Debug/netcoreapp3.1/DataExtractor.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataExtractor/bin/Debug/netcoreapp3.1/DataExtractor.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataExtractor/bin/Debug/netcoreapp3.1/DataExtractor.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataExtractor/bin/Debug/netcoreapp3.1/DataExtractor.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataExtractor/bin/Debug/netcoreapp3.1/DataManipulation.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataExtractor/bin/Debug/netcoreapp3.1/DataManipulation.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataExtractor/bin/Debug/netcoreapp3.1/DataManipulation.dll.config" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DataExtractor/bin/Debug/netcoreapp3.1/DataManipulation.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataExtractor/bin/Debug/netcoreapp3.1/DataManipulation.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataExtractor/obj/Debug/netcoreapp3.1/DataExtractor.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DataExtractor/obj/Debug/netcoreapp3.1/DataExtractor.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataExtractor/obj/Debug/netcoreapp3.1/DataExtractor.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataExtractor/obj/Debug/netcoreapp3.1/DataExtractor.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataExtractor/obj/Debug/netcoreapp3.1/DataExtractor.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataExtractor/obj/Debug/netcoreapp3.1/DataExtractor.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataExtractor/obj/Debug/netcoreapp3.1/DataExtractor.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataExtractor/obj/Debug/netcoreapp3.1/DataExtractor.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataManipulation/Api/KanbanizeApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataManipulation/Api/KanbanizeApi.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataManipulation/DataRepositories/ReleaseRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataManipulation/DataRepositories/ReleaseRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataManipulation/Deserialize/DevOpsDeserializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataManipulation/Deserialize/DevOpsDeserializer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataManipulation/bin/Debug/netcoreapp3.1/DataManipulation.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataManipulation/bin/Debug/netcoreapp3.1/DataManipulation.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataManipulation/bin/Debug/netcoreapp3.1/DataManipulation.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataManipulation/bin/Debug/netcoreapp3.1/DataManipulation.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataManipulation/obj/Debug/netcoreapp3.1/DataManipulation.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataManipulation/obj/Debug/netcoreapp3.1/DataManipulation.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataManipulation/obj/Debug/netcoreapp3.1/DataManipulation.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataManipulation/obj/Debug/netcoreapp3.1/DataManipulation.csprojAssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataManipulation/obj/Debug/netcoreapp3.1/DataManipulation.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataManipulation/obj/Debug/netcoreapp3.1/DataManipulation.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataManipulation/obj/Debug/netcoreapp3.1/DataManipulation.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataManipulation/obj/Debug/netcoreapp3.1/DataManipulation.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DevOpsTaskItemDataExtractor-DEPRECATED/bin/Debug/netcoreapp3.1/DataManipulation.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DevOpsTaskItemDataExtractor-DEPRECATED/bin/Debug/netcoreapp3.1/DataManipulation.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DevOpsTaskItemDataExtractor-DEPRECATED/bin/Debug/netcoreapp3.1/DataManipulation.dll.config" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DevOpsTaskItemDataExtractor-DEPRECATED/bin/Debug/netcoreapp3.1/DataManipulation.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DevOpsTaskItemDataExtractor-DEPRECATED/bin/Debug/netcoreapp3.1/DataManipulation.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DevOpsTaskItemDataExtractor-DEPRECATED/obj/Debug/netcoreapp3.1/DevOpsTaskItemDataExtractor-DEPRECATED.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DevOpsTaskItemDataExtractor-DEPRECATED/obj/Debug/netcoreapp3.1/DevOpsTaskItemDataExtractor-DEPRECATED.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DevOpsTaskItemDataExtractor-DEPRECATED/obj/Debug/netcoreapp3.1/DevOpsTaskItemDataExtractor-DEPRECATED.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DevOpsTaskItemDataExtractor-DEPRECATED/obj/Debug/netcoreapp3.1/DevOpsTaskItemDataExtractor-DEPRECATED.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/bin/Debug/netcoreapp3.1/DataExtractor.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/bin/Debug/netcoreapp3.1/DataExtractor.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/bin/Debug/netcoreapp3.1/DataExtractor.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/bin/Debug/netcoreapp3.1/DataExtractor.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/Tests/DataManipulation/DataRepositories/ReleaseRepositoryTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/Tests/DataManipulation/DataRepositories/ReleaseRepositoryTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/Tests/DataManipulation/DataRepositories/TaskItemRepositoryTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/Tests/DataManipulation/DataRepositories/TaskItemRepositoryTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/bin/Debug/netcoreapp3.1/DataManipulation.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/bin/Debug/netcoreapp3.1/DataManipulation.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/bin/Debug/netcoreapp3.1/DataManipulation.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/bin/Debug/netcoreapp3.1/DataManipulation.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/bin/Debug/netcoreapp3.1/KPIWebApp.IntegrationTests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/bin/Debug/netcoreapp3.1/KPIWebApp.IntegrationTests.dll" afterDir="false" />
@@ -73,29 +91,44 @@
       <change beforePath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/bin/Debug/netcoreapp3.1/KPIWebApp.UnitTests.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/bin/Debug/netcoreapp3.1/KPIWebApp.UnitTests.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/bin/Debug/netcoreapp3.1/KPIWebApp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/bin/Debug/netcoreapp3.1/KPIWebApp.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/bin/Debug/netcoreapp3.1/KPIWebApp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/bin/Debug/netcoreapp3.1/KPIWebApp.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/obj/Debug/netcoreapp3.1/KPIWebApp.IntegrationTests.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/obj/Debug/netcoreapp3.1/KPIWebApp.IntegrationTests.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/obj/Debug/netcoreapp3.1/KPIWebApp.IntegrationTests.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/obj/Debug/netcoreapp3.1/KPIWebApp.IntegrationTests.csprojAssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/obj/Debug/netcoreapp3.1/KPIWebApp.IntegrationTests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/obj/Debug/netcoreapp3.1/KPIWebApp.IntegrationTests.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/obj/Debug/netcoreapp3.1/KPIWebApp.IntegrationTests.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.IntegrationTests/obj/Debug/netcoreapp3.1/KPIWebApp.IntegrationTests.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataExtractor.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataExtractor.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataExtractor.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataExtractor.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/Tests/KPIWebApp/Helpers/LeadTimeHelperTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/Tests/KPIWebApp/Helpers/LeadTimeHelperTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/Tests/KPIWebApp/Helpers/OverviewHelperTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/Tests/KPIWebApp/Helpers/OverviewHelperTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataManipulation.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataManipulation.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataManipulation.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/DataManipulation.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.UnitTests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.UnitTests.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.UnitTests.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.UnitTests.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/bin/Debug/netcoreapp3.1/KPIWebApp.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.csprojAssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.UnitTests/obj/Debug/netcoreapp3.1/KPIWebApp.UnitTests.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_services/message.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_services/filterMessage.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/home/home.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/home/home.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/home/home.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/home/home.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/login/login.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/cumulative-flow-diagram/cumulative-flow-diagram.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/cumulative-flow-diagram/cumulative-flow-diagram.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/lead-time-box-graph/lead-time-box-graph.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/lead-time-box-graph/lead-time-box-graph.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/lead-time-scatter-plot/lead-time-scatter-plot.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/lead-time-scatter-plot/lead-time-scatter-plot.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/multinomial-logistic-regression-analysis/multinomial-logistic-regression-analysis.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/multinomial-logistic-regression-analysis/multinomial-logistic-regression-analysis.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/nav-menu/nav-menu.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/nav-menu/nav-menu.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KPIWebApp/KPIWebApp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/KPIWebApp.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/multiple-linear-regression-analysis/multiple-linear-regression-analysis.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/multiple-linear-regression-analysis/multiple-linear-regression-analysis.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/Controllers/OverviewController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/Controllers/TaskItemOverviewController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/Helpers/BoxGraphHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/Helpers/BoxGraphHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/Helpers/CumulativeFlowDiagramHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/Helpers/CumulativeFlowDiagramHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/Helpers/OverviewHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/Helpers/OverviewHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/Helpers/ReleaseHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/Helpers/ReleaseHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KPIWebApp/Models/OverviewData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KPIWebApp/Models/TaskItemOverviewData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/DataManipulation.dll" beforeDir="false" afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/DataManipulation.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/DataManipulation.dll.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/DataManipulation.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/DataManipulation.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/UpdateReleaseDataForAllTasks.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/bin/Debug/netcoreapp3.1/UpdateReleaseDataForAllTasks.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/obj/Debug/netcoreapp3.1/UpdateReleaseDataForAllTasks.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/obj/Debug/netcoreapp3.1/UpdateReleaseDataForAllTasks.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/obj/Debug/netcoreapp3.1/UpdateReleaseDataForAllTasks.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/obj/Debug/netcoreapp3.1/UpdateReleaseDataForAllTasks.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/obj/Debug/netcoreapp3.1/UpdateReleaseDataForAllTasks.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/UpdateReleaseDataForAllTasks/obj/Debug/netcoreapp3.1/UpdateReleaseDataForAllTasks.csprojAssemblyReference.cache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +201,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/A3637BAD-11F4-439B-8B7C-3529F8239F0A/5A/HttpProtocol.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/D32DB49E-5E34-4072-9DA3-1845C03DDC3A/ed/2f7f674f/JObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0E721F56-4FFA-49E6-B1D9-7AD7B9FDA1F2/9e/afef3e2c/IInternalConfigSystem.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIWebApp/Controllers/OverviewController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp/Controllers/TaskItemOverviewController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9CD23B5E-3B0C-4F80-A807-33BCFD1D82E1/80/Guid.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/F2ACE85F-6C10-49DB-8CAC-F03079CCDA72/FE/ControllerActionInvoker.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0E721F56-4FFA-49E6-B1D9-7AD7B9FDA1F2/5f/2dcdaf21/ConnectionStringSettings.cs" root0="SKIP_HIGHLIGHTING" />
@@ -181,7 +214,7 @@
     <setting file="file://$PROJECT_DIR$/KPIWebApp/ClientApp/package-lock.json" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/nunit/nunit/c933a883ea25263ec575a654dae69fa38000edd9/src/NUnitFramework/framework/Internal/Execution/WorkItem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/F2ACE85F-6C10-49DB-8CAC-F03079CCDA72/11C/ResourceInvoker.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/KPIWebApp/Models/OverviewData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KPIWebApp/Models/TaskItemOverviewData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2845C3BC-527A-40C9-B3DC-CA0CA1296D20/8f/ddbf765b/WorkItemTrackingHttpClient.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/13AC81B1-A9B3-4D2D-9D05-6FEB05F6A1F7/32/SmtpClient.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9CD23B5E-3B0C-4F80-A807-33BCFD1D82E1/6D/DateTimeOffset.cs" root0="SKIP_HIGHLIGHTING" />
@@ -203,31 +236,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/KPIWebApp/Helpers/DateHelper.cs" />
-        <option value="$PROJECT_DIR$/DataManipulation/Objects/LogisticRegressionTaskItem.cs" />
-        <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/Tests/KPIWebApp/Helpers/MultinomialLogisticRegressionAnalysisTests.cs" />
-        <option value="$PROJECT_DIR$/DataManipulation/Deserialize/Kanbanize/KanbanizeTaskItemDeserializer.cs" />
-        <option value="$PROJECT_DIR$/DataManipulation/Deserialize/Kanbanize/KanbanizeHistoryEventDeserializer.cs" />
-        <option value="$PROJECT_DIR$/KPIWebApp/Helpers/MultinomialLogisticRegressionAnalysisHelper.cs" />
-        <option value="$PROJECT_DIR$/KPIWebApp/Controllers/MultinomialLogisticRegressionAnalysisController.cs" />
-        <option value="$PROJECT_DIR$/DataManipulation/Objects/MultipleLinearRegressionTaskItem.cs" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/observer.ts" />
-        <option value="$PROJECT_DIR$/KPIWebApp/Controllers/CumulativeFlowDiagramController.cs" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/nav-menu/nav-menu.component.css" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_services/message.service.ts" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.html" />
-        <option value="$PROJECT_DIR$/DataManipulation/DataRepositories/DatabaseConnection.cs" />
-        <option value="$PROJECT_DIR$/DataManipulation/App.config" />
-        <option value="$PROJECT_DIR$/DataManipulation/apiKey.txt" />
-        <option value="$PROJECT_DIR$/DataManipulation/Api/DevOpsApi.cs" />
-        <option value="$PROJECT_DIR$/DataManipulation/DataRepositories/ReleaseRepository.cs" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/multinomial-logistic-regression-analysis/multinomial-logistic-regression-analysis.component.html" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/home/home.component.html" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/multiple-linear-regression-analysis/multiple-linear-regression-analysis.component.ts" />
-        <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/Tests/DataManipulation/Deserializer/KanbanizeHistoryEventDeserializerTests.cs" />
-        <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/Tests/KPIWebApp/Helpers/DateHelperTests.cs" />
         <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/Tests/KPIWebApp/Helpers/OverviewHelperTests.cs" />
-        <option value="$PROJECT_DIR$/KPIWebApp.IntegrationTests/Tests/DataManipulation/DataRepositories/TaskItemRepositoryTests.cs" />
         <option value="$PROJECT_DIR$/KPIWebApp.IntegrationTests/Tests/DataManipulation/ApiWrapper/KanbanizeApiTests.cs" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/task-items/task-items.component.html" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/multiple-linear-regression-analysis/multiple-linear-regression-analysis.component.css" />
@@ -235,17 +244,10 @@
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/multiple-linear-regression-analysis/multiple-linear-regression-analysis.component.html" />
         <option value="$PROJECT_DIR$/KPIWebApp/Helpers/MultipleLinearRegressionAnalysisHelper.cs" />
         <option value="$PROJECT_DIR$/KPIWebApp.UnitTests/Tests/KPIWebApp/Helpers/MultipleLinearRegressionAnalysisTests.cs" />
-        <option value="$PROJECT_DIR$/KPIWebApp/Helpers/ReleaseHelper.cs" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/app.module.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_services/filterMessage.service.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/_services/loginMessage.service.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/login/login.component.ts" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/lead-time-scatter-plot/lead-time-scatter-plot.component.ts" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/lead-time-box-graph/lead-time-box-graph.component.ts" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/cumulative-flow-diagram/cumulative-flow-diagram.component.ts" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/multinomial-logistic-regression-analysis/multinomial-logistic-regression-analysis.component.ts" />
-        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/home/home.component.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/releases/releases.component.ts" />
         <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/nav-menu/nav-menu.component.ts" />
         <option value="$PROJECT_DIR$/DataManipulation/DataRepositories/DevelopmentTeamsRepository.cs" />
@@ -254,6 +256,37 @@
         <option value="$PROJECT_DIR$/DataManipulation/Api/KanbanizeApi.cs" />
         <option value="$PROJECT_DIR$/KPIWebApp.IntegrationTests/Tests/DataManipulation/DataRepositories/DeveloperRepositoryTests.cs" />
         <option value="$PROJECT_DIR$/DataManipulation/DataRepositories/DeveloperRepository.cs" />
+        <option value="$PROJECT_DIR$/DataManipulation/DataRepositories/ReleaseRepository.cs" />
+        <option value="$PROJECT_DIR$/KPIWebApp.IntegrationTests/Tests/DataManipulation/DataRepositories/ReleaseRepositoryTests.cs" />
+        <option value="$PROJECT_DIR$/KPIWebApp.IntegrationTests/Tests/DataManipulation/DataRepositories/TaskItemRepositoryTests.cs" />
+        <option value="$PROJECT_DIR$/DataManipulation/Deserialize/DevOpsDeserializer.cs" />
+        <option value="$PROJECT_DIR$/DataManipulation/DataRepositories/ReleaseEnvironmentRepository.cs" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/task-item-overview/task-item-overview.component.css" />
+        <option value="$PROJECT_DIR$/KPIWebApp/Helpers/BoxGraphHelper.cs" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/release-overview.cs" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/app.module.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/release-overview/release-overview.component.css" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/cumulative-flow-diagram/cumulative-flow-diagram.component.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/lead-time-scatter-plot/lead-time-scatter-plot.component.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/multinomial-logistic-regression-analysis/multinomial-logistic-regression-analysis.component.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/multiple-linear-regression-analysis/multiple-linear-regression-analysis.component.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/Controllers/OverviewController.cs" />
+        <option value="$PROJECT_DIR$/KPIWebApp/Models/OverviewData.cs" />
+        <option value="$PROJECT_DIR$/KPIWebApp/Models/TaskItemOverviewData.cs" />
+        <option value="$PROJECT_DIR$/KPIWebApp/Helpers/ReleaseHelper.cs" />
+        <option value="$PROJECT_DIR$/KPIWebApp/Helpers/OverviewHelper.cs" />
+        <option value="$PROJECT_DIR$/KPIWebApp/Controllers/TaskItemOverviewController.cs" />
+        <option value="$PROJECT_DIR$/KPIWebApp/Controllers/ReleaseOverviewController.cs" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/task-item-overview/task-item-overview.component.html" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/home/home.component.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/home/home.component.html" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/home/home.component.css" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/release-overview/release-overview.component.html" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/lead-time-box-graph/lead-time-box-graph.component.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/task-item-overview/task-item-overview.component.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/release-overview/release-overview.component.ts" />
+        <option value="$PROJECT_DIR$/KPIWebApp/ClientApp/src/components/filter-options/filter-options.component.html" />
+        <option value="$PROJECT_DIR$/KPIWebApp/Helpers/CumulativeFlowDiagramHelper.cs" />
       </list>
     </option>
   </component>
@@ -267,8 +300,8 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.3434453" />
-    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.10238353" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34615386" />
+    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.10346696" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="Rider.SolutionExplorerActivator" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -281,7 +314,7 @@
     <property name="ts.external.directory.path" value="C:\Code\EmmersionKPIs\KPIWebApp\ClientApp\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected=".NET Project.KPIDataExtractor">
+  <component name="RunManager" selected=".NET Launch Settings Profile.KPIWebApp">
     <configuration name="AdHocs" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -534,6 +567,7 @@
       <workItem from="1607384323553" duration="12722000" />
       <workItem from="1607450070041" duration="6720000" />
       <workItem from="1607679055467" duration="13129000" />
+      <workItem from="1608413610918" duration="14210000" />
     </task>
     <task id="LOCAL-00001" summary="Yay!">
       <created>1599602510590</created>
@@ -761,14 +795,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="317" y="227" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1606878620647" />
-    <state x="707" y="376" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1" timestamp="1599598562609">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="493" height="464" key="DebuggerActiveHint" timestamp="1608424187852">
+      <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state x="707" y="376" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1/0.0.1920.1040@0.0.1920.1040" timestamp="1599598562609" />
-    <state width="493" height="464" key="DebuggerActiveHint" timestamp="1607722561174">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="493" height="464" key="DebuggerActiveHint/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1607572233279" />
+    <state width="493" height="464" key="DebuggerActiveHint/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608424187852" />
     <state width="493" height="464" key="DebuggerActiveHint/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607722561174" />
     <state width="493" height="464" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1606878935742" />
     <state width="1371" height="218" key="GridCell.Tab.-1.bottom" timestamp="1603582499318">
@@ -787,116 +817,116 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1371" height="218" key="GridCell.Tab.-1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603582499318" />
-    <state width="1877" height="288" key="GridCell.Tab.0.bottom" timestamp="1608177860025">
+    <state width="1877" height="292" key="GridCell.Tab.0.bottom" timestamp="1608437279109">
       <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state width="1877" height="288" key="GridCell.Tab.0.bottom/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608177860025" />
-    <state width="1877" height="388" key="GridCell.Tab.0.bottom/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607731681042" />
+    <state width="1877" height="292" key="GridCell.Tab.0.bottom/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608437279109" />
+    <state width="1877" height="284" key="GridCell.Tab.0.bottom/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608264296147" />
     <state width="1421" height="392" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606966401537" />
     <state width="1877" height="362" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606889303373" />
-    <state width="1877" height="288" key="GridCell.Tab.0.center" timestamp="1608177860025">
+    <state width="1877" height="292" key="GridCell.Tab.0.center" timestamp="1608437279109">
       <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state width="1877" height="288" key="GridCell.Tab.0.center/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608177860025" />
-    <state width="1877" height="388" key="GridCell.Tab.0.center/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607731681042" />
+    <state width="1877" height="292" key="GridCell.Tab.0.center/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608437279109" />
+    <state width="1877" height="284" key="GridCell.Tab.0.center/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608264296147" />
     <state width="1421" height="392" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606966401536" />
     <state width="1877" height="362" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606889303373" />
-    <state width="1877" height="288" key="GridCell.Tab.0.left" timestamp="1608177860025">
+    <state width="1877" height="292" key="GridCell.Tab.0.left" timestamp="1608437279108">
       <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state width="1877" height="288" key="GridCell.Tab.0.left/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608177860025" />
-    <state width="1877" height="388" key="GridCell.Tab.0.left/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607731681042" />
+    <state width="1877" height="292" key="GridCell.Tab.0.left/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608437279108" />
+    <state width="1877" height="284" key="GridCell.Tab.0.left/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608264296147" />
     <state width="1421" height="392" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606966401536" />
     <state width="1877" height="362" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606889303373" />
-    <state width="1877" height="288" key="GridCell.Tab.0.right" timestamp="1608177860025">
+    <state width="1877" height="292" key="GridCell.Tab.0.right" timestamp="1608437279109">
       <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state width="1877" height="288" key="GridCell.Tab.0.right/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608177860025" />
-    <state width="1877" height="388" key="GridCell.Tab.0.right/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607731681042" />
+    <state width="1877" height="292" key="GridCell.Tab.0.right/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608437279109" />
+    <state width="1877" height="284" key="GridCell.Tab.0.right/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608264296147" />
     <state width="1421" height="392" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606966401536" />
     <state width="1877" height="362" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606889303373" />
-    <state width="1877" height="288" key="GridCell.Tab.1.bottom" timestamp="1608177860026">
+    <state width="1877" height="292" key="GridCell.Tab.1.bottom" timestamp="1608437279109">
       <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state width="1877" height="288" key="GridCell.Tab.1.bottom/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608177860026" />
-    <state width="1877" height="388" key="GridCell.Tab.1.bottom/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607731681042" />
+    <state width="1877" height="292" key="GridCell.Tab.1.bottom/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608437279109" />
+    <state width="1877" height="288" key="GridCell.Tab.1.bottom/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608264296147" />
     <state width="1421" height="392" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606966401537" />
     <state width="1877" height="362" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606889303373" />
-    <state width="1877" height="288" key="GridCell.Tab.1.center" timestamp="1608177860025">
+    <state width="1877" height="292" key="GridCell.Tab.1.center" timestamp="1608437279109">
       <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state width="1877" height="288" key="GridCell.Tab.1.center/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608177860025" />
-    <state width="1877" height="388" key="GridCell.Tab.1.center/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607731681042" />
+    <state width="1877" height="292" key="GridCell.Tab.1.center/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608437279109" />
+    <state width="1877" height="288" key="GridCell.Tab.1.center/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608264296147" />
     <state width="1421" height="392" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606966401537" />
     <state width="1877" height="362" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606889303373" />
-    <state width="1877" height="288" key="GridCell.Tab.1.left" timestamp="1608177860025">
+    <state width="1877" height="292" key="GridCell.Tab.1.left" timestamp="1608437279109">
       <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state width="1877" height="288" key="GridCell.Tab.1.left/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608177860025" />
-    <state width="1877" height="388" key="GridCell.Tab.1.left/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607731681042" />
+    <state width="1877" height="292" key="GridCell.Tab.1.left/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608437279109" />
+    <state width="1877" height="288" key="GridCell.Tab.1.left/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608264296147" />
     <state width="1421" height="392" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606966401537" />
     <state width="1877" height="362" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606889303373" />
-    <state width="1877" height="288" key="GridCell.Tab.1.right" timestamp="1608177860025">
+    <state width="1877" height="292" key="GridCell.Tab.1.right" timestamp="1608437279109">
       <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state width="1877" height="288" key="GridCell.Tab.1.right/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608177860025" />
-    <state width="1877" height="388" key="GridCell.Tab.1.right/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607731681042" />
+    <state width="1877" height="292" key="GridCell.Tab.1.right/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608437279109" />
+    <state width="1877" height="288" key="GridCell.Tab.1.right/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608264296147" />
     <state width="1421" height="392" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606966401537" />
     <state width="1877" height="362" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606889303373" />
-    <state width="1877" height="288" key="GridCell.Tab.2.bottom" timestamp="1608177860026">
+    <state width="1877" height="292" key="GridCell.Tab.2.bottom" timestamp="1608437279109">
       <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state width="1877" height="288" key="GridCell.Tab.2.bottom/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608177860026" />
-    <state width="1877" height="388" key="GridCell.Tab.2.bottom/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607731681043" />
+    <state width="1877" height="292" key="GridCell.Tab.2.bottom/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608437279109" />
+    <state width="1877" height="288" key="GridCell.Tab.2.bottom/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608264296147" />
     <state width="1421" height="392" key="GridCell.Tab.2.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606966401537" />
     <state width="1877" height="362" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606889303373" />
-    <state width="1877" height="288" key="GridCell.Tab.2.center" timestamp="1608177860026">
+    <state width="1877" height="292" key="GridCell.Tab.2.center" timestamp="1608437279109">
       <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state width="1877" height="288" key="GridCell.Tab.2.center/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608177860026" />
-    <state width="1877" height="388" key="GridCell.Tab.2.center/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607731681043" />
+    <state width="1877" height="292" key="GridCell.Tab.2.center/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608437279109" />
+    <state width="1877" height="288" key="GridCell.Tab.2.center/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608264296147" />
     <state width="1421" height="392" key="GridCell.Tab.2.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606966401537" />
     <state width="1877" height="362" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606889303373" />
-    <state width="1877" height="288" key="GridCell.Tab.2.left" timestamp="1608177860026">
+    <state width="1877" height="292" key="GridCell.Tab.2.left" timestamp="1608437279109">
       <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state width="1877" height="288" key="GridCell.Tab.2.left/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608177860026" />
-    <state width="1877" height="388" key="GridCell.Tab.2.left/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607731681042" />
+    <state width="1877" height="292" key="GridCell.Tab.2.left/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608437279109" />
+    <state width="1877" height="288" key="GridCell.Tab.2.left/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608264296147" />
     <state width="1421" height="392" key="GridCell.Tab.2.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606966401537" />
     <state width="1877" height="362" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606889303373" />
-    <state width="1877" height="288" key="GridCell.Tab.2.right" timestamp="1608177860026">
+    <state width="1877" height="292" key="GridCell.Tab.2.right" timestamp="1608437279109">
       <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state width="1877" height="288" key="GridCell.Tab.2.right/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608177860026" />
-    <state width="1877" height="388" key="GridCell.Tab.2.right/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607731681043" />
+    <state width="1877" height="292" key="GridCell.Tab.2.right/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608437279109" />
+    <state width="1877" height="288" key="GridCell.Tab.2.right/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608264296147" />
     <state width="1421" height="392" key="GridCell.Tab.2.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606966401537" />
     <state width="1877" height="362" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606889303373" />
-    <state width="1877" height="288" key="GridCell.Tab.3.bottom" timestamp="1608177860026">
+    <state width="1877" height="292" key="GridCell.Tab.3.bottom" timestamp="1608437279110">
       <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state width="1877" height="288" key="GridCell.Tab.3.bottom/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608177860026" />
-    <state width="1877" height="388" key="GridCell.Tab.3.bottom/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607731681043" />
+    <state width="1877" height="292" key="GridCell.Tab.3.bottom/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608437279110" />
+    <state width="1877" height="288" key="GridCell.Tab.3.bottom/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608264296147" />
     <state width="1421" height="392" key="GridCell.Tab.3.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606966401537" />
     <state width="1877" height="362" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606889303373" />
-    <state width="1877" height="288" key="GridCell.Tab.3.center" timestamp="1608177860026">
+    <state width="1877" height="292" key="GridCell.Tab.3.center" timestamp="1608437279109">
       <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state width="1877" height="288" key="GridCell.Tab.3.center/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608177860026" />
-    <state width="1877" height="388" key="GridCell.Tab.3.center/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607731681043" />
+    <state width="1877" height="292" key="GridCell.Tab.3.center/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608437279109" />
+    <state width="1877" height="288" key="GridCell.Tab.3.center/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608264296147" />
     <state width="1421" height="392" key="GridCell.Tab.3.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606966401537" />
     <state width="1877" height="362" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606889303373" />
-    <state width="1877" height="288" key="GridCell.Tab.3.left" timestamp="1608177860026">
+    <state width="1877" height="292" key="GridCell.Tab.3.left" timestamp="1608437279109">
       <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state width="1877" height="288" key="GridCell.Tab.3.left/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608177860026" />
-    <state width="1877" height="388" key="GridCell.Tab.3.left/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607731681043" />
+    <state width="1877" height="292" key="GridCell.Tab.3.left/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608437279109" />
+    <state width="1877" height="288" key="GridCell.Tab.3.left/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608264296147" />
     <state width="1421" height="392" key="GridCell.Tab.3.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606966401537" />
     <state width="1877" height="362" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606889303373" />
-    <state width="1877" height="288" key="GridCell.Tab.3.right" timestamp="1608177860026">
+    <state width="1877" height="292" key="GridCell.Tab.3.right" timestamp="1608437279110">
       <screen x="-1920" y="69" width="1920" height="1040" />
     </state>
-    <state width="1877" height="288" key="GridCell.Tab.3.right/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608177860026" />
-    <state width="1877" height="388" key="GridCell.Tab.3.right/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1607731681043" />
+    <state width="1877" height="292" key="GridCell.Tab.3.right/-1920.69.1920.1040/0.0.1920.1040@-1920.69.1920.1040" timestamp="1608437279110" />
+    <state width="1877" height="288" key="GridCell.Tab.3.right/-1920.69.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608264296147" />
     <state width="1421" height="392" key="GridCell.Tab.3.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606966401537" />
     <state width="1877" height="362" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606889303373" />
     <state width="1371" height="245" key="GridCell.Tab.4.bottom" timestamp="1603591919373">
@@ -1005,13 +1035,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/KPIWebApp.IntegrationTests/Tests/DataManipulation/DataRepositories/ReleaseRepositoryTests.cs</url>
-          <line>27</line>
+          <line>28</line>
           <properties documentPath="C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\Tests\DataManipulation\DataRepositories\ReleaseRepositoryTests.cs" initialLine="27">
             <startOffsets>
-              <option value="807" />
+              <option value="952" />
             </startOffsets>
             <endOffsets>
-              <option value="818" />
+              <option value="963" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="425" />
@@ -1094,32 +1124,6 @@
           <option name="timeStamp" value="683" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/DataManipulation/DataRepositories/TaskItemRepository.cs</url>
-          <line>86</line>
-          <properties documentPath="C:\Code\EmmersionKPIs\DataManipulation\DataRepositories\TaskItemRepository.cs" initialLine="86">
-            <startOffsets>
-              <option value="3728" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3748" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="736" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/KPIWebApp.UnitTests/Tests/KPIWebApp/Helpers/CumulativeFlowDiagramHelperTests.cs</url>
-          <line>833</line>
-          <properties documentPath="C:\Code\EmmersionKPIs\KPIWebApp.UnitTests\Tests\KPIWebApp\Helpers\CumulativeFlowDiagramHelperTests.cs" initialLine="817">
-            <startOffsets>
-              <option value="39457" />
-            </startOffsets>
-            <endOffsets>
-              <option value="39458" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="755" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/KPIWebApp.IntegrationTests/Tests/DataManipulation/ApiWrapper/KanbanizeApiTests.cs</url>
           <line>76</line>
           <properties documentPath="C:\Code\EmmersionKPIs\KPIWebApp.IntegrationTests\Tests\DataManipulation\ApiWrapper\KanbanizeApiTests.cs" initialLine="76">
@@ -1185,30 +1189,30 @@
           <option name="timeStamp" value="825" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/DataManipulation/Api/KanbanizeApi.cs</url>
-          <line>199</line>
-          <properties documentPath="C:\Code\EmmersionKPIs\DataManipulation\Api\KanbanizeApi.cs" initialLine="198">
+          <url>file://$PROJECT_DIR$/KPIWebApp/Helpers/CumulativeFlowDiagramHelper.cs</url>
+          <line>176</line>
+          <properties documentPath="C:\Code\EmmersionKPIs\KPIWebApp\Helpers\CumulativeFlowDiagramHelper.cs" initialLine="176">
             <startOffsets>
-              <option value="6997" />
+              <option value="6292" />
             </startOffsets>
             <endOffsets>
-              <option value="7088" />
+              <option value="6312" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="827" />
+          <option name="timeStamp" value="833" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/DataManipulation/Api/KanbanizeApi.cs</url>
-          <line>209</line>
-          <properties documentPath="C:\Code\EmmersionKPIs\DataManipulation\Api\KanbanizeApi.cs" initialLine="209">
+          <url>file://$PROJECT_DIR$/KPIWebApp/Helpers/CumulativeFlowDiagramHelper.cs</url>
+          <line>47</line>
+          <properties documentPath="C:\Code\EmmersionKPIs\KPIWebApp\Helpers\CumulativeFlowDiagramHelper.cs" initialLine="47">
             <startOffsets>
-              <option value="7440" />
+              <option value="1753" />
             </startOffsets>
             <endOffsets>
-              <option value="7492" />
+              <option value="1809" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="829" />
+          <option name="timeStamp" value="834" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/KPIWebApp/ClientApp/src/app/overview/wtheck.ts</url>

@@ -13,6 +13,7 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
     {
         private readonly TaskItemRepository taskItemRepository = new TaskItemRepository(new DatabaseConnection());
         private readonly ReleaseRepository releaseRepository = new ReleaseRepository(new DatabaseConnection());
+        private readonly ReleaseEnvironmentRepository releaseEnvironmentRepository = new ReleaseEnvironmentRepository(new DatabaseConnection());
 
         [Test]
         public async Task When_inserting_work_item_card_list()
@@ -110,7 +111,7 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
                 await taskItemRepository.RemoveHistoryItemByIdAsync(card1.HistoryEvents[0].Id);
                 await taskItemRepository.RemoveTaskItemByIdAsync(card1.Id);
                 await releaseRepository.RemoveReleaseByIdAsync(card1.Release.Id);
-                await releaseRepository.RemoveReleaseEnvironmentById(card1.Release.ReleaseEnvironment.Id);
+                await releaseEnvironmentRepository.RemoveReleaseEnvironmentById(card1.Release.ReleaseEnvironment.Id);
                 if (flag)
                 {
                     Assert.False(true, message);

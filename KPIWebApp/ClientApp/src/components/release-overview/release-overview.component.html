@@ -1,0 +1,9 @@
+﻿<div *ngIf="!this.releaseOverviewData">Loading...</div>
+<div class="deployment-frequency-results" *ngIf="this.releaseOverviewData">
+<h4>{{releaseOverviewData.totalDeploys}} Releases</h4>
+  <p><strong>Successful Deploys:</strong> {{releaseOverviewData.successfulDeploys}}</p>
+  <p><strong>Rolled-Back Deploys:</strong> {{releaseOverviewData.rolledBackDeploys}}</p>
+  <p><strong>Frequency:</strong> {{releaseOverviewData.deployFrequency}} deploys per week</p>
+  <p><strong>Mean Time to Restore:</strong> {{releaseOverviewData.meanTimeToRestore}} minutes</p>
+  <p><strong>Change Fail Percentage:</strong> {{releaseOverviewData.changeFailPercentage}}%</p>
+</div>

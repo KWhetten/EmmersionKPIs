@@ -85,6 +85,7 @@ export class LeadTimeScatterPlotComponent implements OnInit {
   }
 
   reloadData(startDate, finishDate, product, engineering, unanticipated) {
+    this.timeStart();
     this.http.get<ScatterPlotData[]>(this.baseUrl + 'lead-time-scatter', {
       params:
         {
@@ -103,7 +104,16 @@ export class LeadTimeScatterPlotComponent implements OnInit {
           });
         });
         Highcharts.chart('lead-time-scatter-plot-container', this.scatterPlotOptions);
+        this.timeStop();
       });
+  }
+
+  timeStart() {
+    console.time('Lead Time Scatter Plot Load')
+  }
+
+  timeStop() {
+    console.timeEnd('Lead Time Scatter Plot Load')
   }
 }
 

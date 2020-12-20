@@ -118,11 +118,9 @@ form {
   flex-direction: row;
   width: 100%;
   margin-bottom: 64px;
+  height: 100%;
 }
 
-.deployment-frequency-results {
-  display: flex;
-  flex-direction: column;
-  width: 45%;
-  justify-content: space-between;
+app-release-overview-component{
+  width: 50%;
 }

@@ -20,6 +20,8 @@ import {LeadTimeBoxGraphComponent} from '../components/lead-time-box-graph/lead-
 import {MultinomialLogisticRegressionAnalysisComponent} from '../components/multinomial-logistic-regression-analysis/multinomial-logistic-regression-analysis.component';
 import {MultipleLinearRegressionAnalysisComponent} from '../components/multiple-linear-regression-analysis/multiple-linear-regression-analysis.component';
 import {ReleasesComponent} from './releases/releases.component';
+import {TaskItemOverviewComponent} from '../components/task-item-overview/task-item-overview.component';
+import {ReleaseOverviewComponent} from '../components/release-overview/release-overview.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import {ReleasesComponent} from './releases/releases.component';
     LeadTimeBoxGraphComponent,
     MultinomialLogisticRegressionAnalysisComponent,
     MultipleLinearRegressionAnalysisComponent,
-    ReleasesComponent
+    ReleasesComponent,
+    TaskItemOverviewComponent,
+    ReleaseOverviewComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),

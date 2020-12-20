@@ -30,6 +30,7 @@
           <e p="DeveloperRepository.cs" t="Include" />
           <e p="DevelopmentTeamsRepository.cs" t="Include" />
           <e p="Helper.cs" t="Include" />
+          <e p="ReleaseEnvironmentRepository.cs" t="Include" />
           <e p="ReleaseRepository.cs" t="Include" />
           <e p="TaskItemRepository.cs" t="Include" />
           <e p="UserRepository.cs" t="Include" />
@@ -327,6 +328,16 @@
                 <e p="nav-menu.component.html" t="Include" />
                 <e p="nav-menu.component.ts" t="Include" />
               </e>
+              <e p="release-overview" t="Include">
+                <e p="release-overview.component.css" t="Include" />
+                <e p="release-overview.component.html" t="Include" />
+                <e p="release-overview.component.ts" t="Include" />
+              </e>
+              <e p="task-item-overview" t="Include">
+                <e p="task-item-overview.component.css" t="Include" />
+                <e p="task-item-overview.component.html" t="Include" />
+                <e p="task-item-overview.component.ts" t="Include" />
+              </e>
             </e>
             <e p="environments" t="Include">
               <e p="environment.prod.ts" t="Include" />
@@ -355,11 +366,12 @@
           <e p="LoginUserController.cs" t="Include" />
           <e p="MultinomialLogisticRegressionAnalysisController.cs" t="Include" />
           <e p="MultipleLinearRegressionAnalysisController.cs" t="Include" />
-          <e p="OverviewController.cs" t="Include" />
           <e p="PasswordChangeController.cs" t="Include" />
           <e p="RegisterController.cs" t="Include" />
+          <e p="ReleaseOverviewController.cs" t="Include" />
           <e p="ReleaseScatterPlotController.cs" t="Include" />
           <e p="TaskItemController.cs" t="Include" />
+          <e p="TaskItemOverviewController.cs" t="Include" />
         </e>
         <e p="Helpers" t="Include">
           <e p="BoxGraphHelper.cs" t="Include" />
@@ -380,7 +392,7 @@
         </e>
         <e p="KPIWebApp.csproj" t="IncludeRecursive" />
         <e p="Models" t="Include">
-          <e p="OverviewData.cs" t="Include" />
+          <e p="TaskItemOverviewData.cs" t="Include" />
         </e>
         <e p="node_modules\highcharts" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">

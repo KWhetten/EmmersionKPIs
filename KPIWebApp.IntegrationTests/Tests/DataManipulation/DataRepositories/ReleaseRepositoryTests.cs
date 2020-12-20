@@ -10,14 +10,15 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
     [TestFixture]
     public class ReleaseRepositoryTests
     {
-        private readonly ReleaseRepository accessReleaseData = new ReleaseRepository(new DatabaseConnection());
+        private readonly ReleaseRepository releaseRepository = new ReleaseRepository(new DatabaseConnection());
+        private readonly ReleaseEnvironmentRepository releaseEnvironmentRepository = new ReleaseEnvironmentRepository(new DatabaseConnection());
 
         [Test]
         public async Task When_getting_releases_before_date()
         {
             var date = DateTimeOffset.Now;
 
-            var result = await accessReleaseData.GetFirstReleaseBeforeDateAsync(date);
+            var result = await releaseRepository.GetFirstReleaseBeforeDateAsync(date);
 
             Assert.That(result != null);
         }
@@ -27,7 +28,7 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
         {
             DateTimeOffset? date = null;
 
-            var result = await accessReleaseData.GetFirstReleaseBeforeDateAsync(date);
+            var result = await releaseRepository.GetFirstReleaseBeforeDateAsync(date);
 
             Assert.That(result.Attempts, Is.EqualTo(0));
             Assert.That(result.FinishTime, Is.EqualTo(null));
@@ -91,13 +92,13 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
                 release2,
                 release3
             };
-            await accessReleaseData.InsertReleaseListAsync(releaseList);
+            await releaseRepository.InsertReleaseListAsync(releaseList);
 
-            var result1 = await accessReleaseData.GetReleaseByIdAsync(release1.Id);
+            var result1 = await releaseRepository.GetReleaseByIdAsync(release1.Id);
 
-            var result2 = await accessReleaseData.GetReleaseByIdAsync(release2.Id);
+            var result2 = await releaseRepository.GetReleaseByIdAsync(release2.Id);
 
-            var ex = Assert.ThrowsAsync<InvalidOperationException>(async () => await accessReleaseData.GetReleaseByIdAsync(release3.Id));
+            var ex = Assert.ThrowsAsync<InvalidOperationException>(async () => await releaseRepository.GetReleaseByIdAsync(release3.Id));
             Assert.That(ex.Message, Is.EqualTo("Sequence contains no elements"));
 
             Assert.That(release1.Id, Is.EqualTo(result1.Id));
@@ -118,22 +119,22 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
             Assert.That(release2.Name, Is.EqualTo(result2.Name));
             Assert.That(release2.Attempts, Is.EqualTo(result2.Attempts));
 
-            await accessReleaseData.RemoveReleaseByIdAsync(release1.Id);
-            await accessReleaseData.RemoveReleaseByIdAsync(release2.Id);
-            await accessReleaseData.RemoveReleaseEnvironmentById(release1.ReleaseEnvironment.Id);
+            await releaseRepository.RemoveReleaseByIdAsync(release1.Id);
+            await releaseRepository.RemoveReleaseByIdAsync(release2.Id);
+            await releaseEnvironmentRepository.RemoveReleaseEnvironmentById(release1.ReleaseEnvironment.Id);
         }
 
         [Test]
         public async Task When_inserting_release_list_null()
         {
-            await accessReleaseData.InsertReleaseListAsync(null);
+            await releaseRepository.InsertReleaseListAsync(null);
         }
 
         [Test]
         public async Task When_getting_release_environment_by_id()
         {
             var releaseRepository = new ReleaseRepository(new DatabaseConnection());
-            var result = await releaseRepository.GetReleaseEnvironmentByIdAsync(33);
+            var result = await releaseEnvironmentRepository.GetReleaseEnvironmentByIdAsync(33);
 
             Assert.That(result.Id, Is.EqualTo(33));
             Assert.That(result.Name, Is.EqualTo("Production"));

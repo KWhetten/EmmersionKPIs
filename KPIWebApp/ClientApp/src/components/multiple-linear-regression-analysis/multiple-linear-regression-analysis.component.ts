@@ -26,6 +26,8 @@ export class MultipleLinearRegressionAnalysisComponent implements OnInit {
   }
 
   reloadData() {
+    this.timeStart();
+
     let timeSpentInBacklog = (document.getElementById('time-spent-in-backlog') as HTMLInputElement).value;
     let type = (document.getElementById('task-item-type') as HTMLSelectElement).value;
     let devTeam = (document.getElementById('dev-team') as HTMLSelectElement).value;
@@ -41,6 +43,7 @@ export class MultipleLinearRegressionAnalysisComponent implements OnInit {
     })
       .subscribe(x => {
         this.estimation = x;
+        this.timeStop();
       });
   }
 
@@ -54,5 +57,13 @@ export class MultipleLinearRegressionAnalysisComponent implements OnInit {
     if (TypeId == 3) {
       return 'Unanticipated';
     }
+  }
+
+  timeStart() {
+    console.time('Multiple Linear Regression Analysis Load')
+  }
+
+  timeStop() {
+    console.timeEnd('Multiple Linear Regression Analysis Load')
   }
 }

@@ -46,7 +46,7 @@ namespace KPIWebApp.Helpers
             return (await releaseRepository.GetReleaseListAsync(startDate, finishDate)).ToList();
         }
 
-        public async Task<OverviewData> GetOverviewDataAsync(DateTimeOffset startDate, DateTimeOffset finishDate,
+        public async Task<TaskItemOverviewData> GetTaskItemOverviewDataAsync(DateTimeOffset startDate, DateTimeOffset finishDate,
             bool product, bool engineering, bool unanticipated)
         {
             Product = product;
@@ -54,24 +54,38 @@ namespace KPIWebApp.Helpers
             Unanticipated = unanticipated;
 
             var taskItemList = await GetTaskItemData(startDate, finishDate);
+
+            var overviewData = new TaskItemOverviewData();
+
+            overviewData = PopulateOverviewData(overviewData, taskItemList);
+
+            return overviewData;
+        }
+
+        public async Task<ReleaseOverviewData> GetReleaseOverviewDataAsync(DateTimeOffset startDate, DateTimeOffset finishDate,
+            bool product, bool engineering, bool unanticipated)
+        {
+            Product = product;
+            Engineering = engineering;
+            Unanticipated = unanticipated;
+
             var releaseList = await GetReleaseData(startDate, finishDate);
 
             var releaseHelper = new ReleaseHelper();
-            var overviewData = new OverviewData();
+            var overviewData = new ReleaseOverviewData();
 
-            overviewData = PopulateOverviewData(overviewData, taskItemList);
             overviewData = releaseHelper.PopulateOverviewData(overviewData, releaseList, finishDate);
 
             return overviewData;
         }
 
-        public virtual OverviewData PopulateOverviewData(OverviewData overviewData, List<TaskItem> taskItemList)
+        public virtual TaskItemOverviewData PopulateOverviewData(TaskItemOverviewData taskItemOverviewData, List<TaskItem> taskItemList)
         {
             var count = 0;
 
             if (taskItemList.Count == 0)
             {
-                return overviewData;
+                return taskItemOverviewData;
             }
 
             foreach (var item in taskItemList.Where(
@@ -84,19 +98,19 @@ namespace KPIWebApp.Helpers
                     item.LeadTimeHours = leadTimeHelper.CalculateLeadTimeHours(item);
                 }
 
-                if (item.LeadTimeHours > overviewData.LongestLeadTime
+                if (item.LeadTimeHours > taskItemOverviewData.LongestLeadTime
                     && item.StartTime != null &&
                     item.FinishTime != null)
                 {
-                    overviewData.LongestLeadTime = item.LeadTimeHours;
+                    taskItemOverviewData.LongestLeadTime = item.LeadTimeHours;
                 }
 
-                if (item.LeadTimeHours < overviewData.ShortestLeadTime
+                if (item.LeadTimeHours < taskItemOverviewData.ShortestLeadTime
                     && item.StartTime != null
                     && item.FinishTime != null
                     && item.LeadTimeHours > 0)
                 {
-                    overviewData.ShortestLeadTime = item.LeadTimeHours;
+                    taskItemOverviewData.ShortestLeadTime = item.LeadTimeHours;
                 }
 
                 count++;
@@ -105,18 +119,18 @@ namespace KPIWebApp.Helpers
             var averageLeadTimeTaskItems = taskItemList.Where(taskItem =>
                 taskItem.StartTime != null && taskItem.FinishTime != null).ToList();
 
-            overviewData.AverageLeadTime = (averageLeadTimeTaskItems.Sum(item => item.LeadTimeHours) /
+            taskItemOverviewData.AverageLeadTime = (averageLeadTimeTaskItems.Sum(item => item.LeadTimeHours) /
                                             averageLeadTimeTaskItems.Count);
 
-            overviewData.TotalCards = count;
-            overviewData.AverageLeadTime =
-                decimal.Round(overviewData.AverageLeadTime, 2, MidpointRounding.AwayFromZero);
-            overviewData.LongestLeadTime =
-                decimal.Round(overviewData.LongestLeadTime, 2, MidpointRounding.AwayFromZero);
-            overviewData.ShortestLeadTime =
-                decimal.Round(overviewData.ShortestLeadTime, 2, MidpointRounding.AwayFromZero);
+            taskItemOverviewData.TotalCards = count;
+            taskItemOverviewData.AverageLeadTime =
+                decimal.Round(taskItemOverviewData.AverageLeadTime, 2, MidpointRounding.AwayFromZero);
+            taskItemOverviewData.LongestLeadTime =
+                decimal.Round(taskItemOverviewData.LongestLeadTime, 2, MidpointRounding.AwayFromZero);
+            taskItemOverviewData.ShortestLeadTime =
+                decimal.Round(taskItemOverviewData.ShortestLeadTime, 2, MidpointRounding.AwayFromZero);
 
-            return overviewData;
+            return taskItemOverviewData;
         }
     }
 }

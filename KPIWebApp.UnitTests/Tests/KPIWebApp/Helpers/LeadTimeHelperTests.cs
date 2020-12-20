@@ -14,7 +14,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
         public void When_getting_lead_time_and_the_task_list_is_empty()
         {
             var overviewHelper = new OverviewHelper();
-            var overviewData = new OverviewData();
+            var overviewData = new TaskItemOverviewData();
             var result = overviewHelper.PopulateOverviewData(overviewData, new List<TaskItem>());
 
             Assert.That(result, Is.EqualTo(overviewData));

@@ -45,7 +45,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
         [Test]
         public async Task When_getting_overview_data() // TODO: Add in explicit dates
         {
-            var overviewData = new OverviewData();
+            var overviewData = new TaskItemOverviewData();
             var taskItemList = new List<TaskItem>
             {
                 new TaskItem
@@ -149,7 +149,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
             var overviewHelper = new OverviewHelper();
             var result = overviewHelper.PopulateOverviewData(overviewData, taskItemList);
 
-            var expected = new OverviewData
+            var expected = new TaskItemOverviewData
             {
                 AverageLeadTime = 19.2m,
                 LongestLeadTime = 24m,
@@ -166,7 +166,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
         [Test]
         public async Task When_getting_only_product_overview_data()
         {
-            var overviewData = new OverviewData();
+            var overviewData = new TaskItemOverviewData();
             var taskItemList = new List<TaskItem>
             {
                 new TaskItem
@@ -270,7 +270,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
             var overviewHelper = new OverviewHelper(true, false, false);
             var result = overviewHelper.PopulateOverviewData(overviewData, taskItemList);
 
-            var expected = new OverviewData
+            var expected = new TaskItemOverviewData
             {
                 AverageLeadTime = 6.4m,
                 LongestLeadTime = 24m,

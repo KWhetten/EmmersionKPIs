@@ -172,8 +172,20 @@ namespace KPIWebApp.Helpers
         public DateTime UpdateCumulativeFlowData(HistoryEvent historyEvent, DateTime lastResultDate,
             OrderedDictionary<DateTime, List<int>> data)
         {
-            if (historyEvent.EventDate < data.Keys.First()) return data.Keys.First();
-            if (historyEvent.EventDate > data.Keys.Last()) return data.Keys.Last();
+            if (historyEvent.Id == 4158)
+            {
+                Console.WriteLine();
+            }
+
+            if (historyEvent.EventDate < data.Keys.First())
+            {
+                return data.Keys.First();
+            }
+
+            if (historyEvent.EventDate > data.Keys.Last())
+            {
+                return data.Keys.Last();
+            }
 
             if (historyEvent.EventType == "Task created")
             {
@@ -181,7 +193,10 @@ namespace KPIWebApp.Helpers
                 return historyEvent.EventDate.Date;
             }
 
-            if (historyEvent.TaskItemState == TaskItemState.None) return lastResultDate;
+            if (historyEvent.TaskItemState == TaskItemState.None)
+            {
+                return lastResultDate;
+            }
 
             if (historyEvent.EventDate.Date == lastResultDate)
             {
@@ -191,13 +206,16 @@ namespace KPIWebApp.Helpers
             data[historyEvent.EventDate.Date][(int) historyEvent.TaskItemState]++;
 
             var checkDate = historyEvent.EventDate.AddDays(-1).Date;
-            while (checkDate > lastResultDate)
+            while (checkDate < lastResultDate)
             {
                 data[checkDate][(int) historyEvent.TaskItemState - 1]++;
                 checkDate = checkDate.AddDays(-1);
             }
 
-            if (historyEvent.TaskItemState != TaskItemState.Released) return historyEvent.EventDate!.Date;
+            if (historyEvent.TaskItemState != TaskItemState.Released)
+            {
+                return historyEvent.EventDate!.Date;
+            }
 
             checkDate = historyEvent.EventDate.AddDays(1).Date;
             while (checkDate <= data.Keys.Last())

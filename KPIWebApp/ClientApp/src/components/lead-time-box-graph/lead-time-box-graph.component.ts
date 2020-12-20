@@ -82,7 +82,7 @@ export class LeadTimeBoxGraphComponent implements OnInit {
 
     this.subscription = this.messageService.onMessage().subscribe(message => {
       if(message){
-        this.reloadData(message.startDate, message.finishDate, message.product, message.engineering, message.unanticipatedn);
+        this.reloadData(message.startDate, message.finishDate, message.product, message.engineering, message.unanticipated);
       } else {
         this.messages = [];
       }
@@ -94,6 +94,7 @@ export class LeadTimeBoxGraphComponent implements OnInit {
   }
 
   reloadData(startDate, finishDate, product, engineering, unanticipated) {
+    this.timeStart();
     this.http.get<BoxGraphData>(this.baseUrl + 'lead-time-box', {
       params:
         {
@@ -117,7 +118,16 @@ export class LeadTimeBoxGraphComponent implements OnInit {
         this.boxGraphOptions.series[0].data = boxGraphDataArray;
         this.boxGraphOptions.series[1].data = x['outliers'];
         Highcharts.chart('lead-time-box-graph-container', this.boxGraphOptions);
+        this.timeStop();
       });
+  }
+
+  timeStart() {
+    console.time('Box Graph Load')
+  }
+
+  timeStop() {
+    console.timeEnd('Box Graph Load')
   }
 }
 
