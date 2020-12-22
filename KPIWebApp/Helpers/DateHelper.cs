@@ -8,7 +8,7 @@ namespace KPIWebApp.Helpers
         {
             if (startDateString == null)
             {
-                return new DateTimeOffset(new DateTime(2020, 10, 1));
+                return new DateTimeOffset(new DateTime(2020, 10, 19));
             }
 
             try
@@ -21,7 +21,7 @@ namespace KPIWebApp.Helpers
             }
             catch (Exception ex)
             {
-                return new DateTimeOffset(new DateTime(2020, 10, 1));
+                return new DateTimeOffset(new DateTime(2020, 10, 19));
             }
         }
 

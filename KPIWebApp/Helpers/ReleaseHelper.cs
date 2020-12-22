@@ -11,7 +11,6 @@ namespace KPIWebApp.Helpers
         public ReleaseOverviewData PopulateOverviewData(ReleaseOverviewData releaseOverviewData, List<Release> releaseList, DateTimeOffset finishDate)
         {
             var lastReleaseByEnvironment = new Dictionary<int, Release>();
-            var rolledBackReleases = new List<List<Release>>();
             DateTimeOffset? earliestReleaseFinishTime = null;
             var sumTimeToRestore = 0.0m;
             foreach (var item in releaseList)
@@ -29,17 +28,13 @@ namespace KPIWebApp.Helpers
                 if (item.Attempts > 1 && lastReleaseByEnvironment[item.ReleaseEnvironment.Id].Name != item.Name && ReleaseVersionIsLater(item.Name, lastReleaseByEnvironment[item.ReleaseEnvironment.Id].Name))
                 {
                     sumTimeToRestore = (decimal)(item.FinishTime - lastReleaseByEnvironment[item.ReleaseEnvironment.Id].FinishTime).Value.TotalMinutes;
-                    var rolledBackList = new List<Release>
-                    {
-                        item,
-                        lastReleaseByEnvironment[item.ReleaseEnvironment.Id]
-                    };
-                    rolledBackReleases.Add(rolledBackList);
                 }
 
                 lastReleaseByEnvironment[item.ReleaseEnvironment.Id] = item;
             }
             var releaseWeeks = (finishDate - earliestReleaseFinishTime)?.Days / 7m;
+
+            var rolledBackReleases = GetRolledBackReleases(releaseList);
 
             releaseOverviewData.TotalDeploys = releaseList.Count;
             releaseOverviewData.SuccessfulDeploys = releaseList.Count - rolledBackReleases.Count;
@@ -55,6 +50,28 @@ namespace KPIWebApp.Helpers
                 : 0;
 
             return releaseOverviewData;
+        }
+
+        public List<Release> GetRolledBackReleases(List<Release> releases)
+        {
+            var lastReleaseByEnvironment = new Dictionary<int, Release>();
+            var rolledBackReleases = new List<Release>();
+            foreach (var item in releases)
+            {
+                if (!lastReleaseByEnvironment.ContainsKey(item.ReleaseEnvironment.Id))
+                {
+                    lastReleaseByEnvironment.Add(item.ReleaseEnvironment.Id, new Release());
+                }
+
+                if (item.Attempts > 1 && lastReleaseByEnvironment[item.ReleaseEnvironment.Id].Name != item.Name &&
+                    ReleaseVersionIsLater(item.Name, lastReleaseByEnvironment[item.ReleaseEnvironment.Id].Name))
+                {
+                    rolledBackReleases.Add(lastReleaseByEnvironment[item.ReleaseEnvironment.Id]);
+                }
+                lastReleaseByEnvironment[item.ReleaseEnvironment.Id] = item;
+            }
+
+            return rolledBackReleases;
         }
 
 

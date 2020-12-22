@@ -22,6 +22,7 @@ import {MultipleLinearRegressionAnalysisComponent} from '../components/multiple-
 import {ReleasesComponent} from './releases/releases.component';
 import {TaskItemOverviewComponent} from '../components/task-item-overview/task-item-overview.component';
 import {ReleaseOverviewComponent} from '../components/release-overview/release-overview.component';
+import {ReleasesBarGraphComponent} from '../components/releases-bar-graph/releases-bar-graph.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {ReleaseOverviewComponent} from '../components/release-overview/release-o
     MultipleLinearRegressionAnalysisComponent,
     ReleasesComponent,
     TaskItemOverviewComponent,
-    ReleaseOverviewComponent
+    ReleaseOverviewComponent,
+    ReleasesBarGraphComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -51,6 +53,7 @@ import {ReleaseOverviewComponent} from '../components/release-overview/release-o
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},
       {path: 'task-items', component: TaskItemsComponent},
+      {path: 'releases', component: ReleasesComponent},
       {path: 'login', component: LoginComponent},
       {path: 'invite-user', component: InviteUserComponent},
       {path: 'create-password', component: CreatePasswordComponent},

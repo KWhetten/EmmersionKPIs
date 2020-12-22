@@ -333,6 +333,11 @@
                 <e p="release-overview.component.html" t="Include" />
                 <e p="release-overview.component.ts" t="Include" />
               </e>
+              <e p="releases-bar-graph" t="Include">
+                <e p="releases-bar-graph.component.css" t="Include" />
+                <e p="releases-bar-graph.component.html" t="Include" />
+                <e p="releases-bar-graph.component.ts" t="Include" />
+              </e>
               <e p="task-item-overview" t="Include">
                 <e p="task-item-overview.component.css" t="Include" />
                 <e p="task-item-overview.component.html" t="Include" />
@@ -369,11 +374,12 @@
           <e p="PasswordChangeController.cs" t="Include" />
           <e p="RegisterController.cs" t="Include" />
           <e p="ReleaseOverviewController.cs" t="Include" />
-          <e p="ReleaseScatterPlotController.cs" t="Include" />
+          <e p="ReleasesBarGraphController.cs" t="Include" />
           <e p="TaskItemController.cs" t="Include" />
           <e p="TaskItemOverviewController.cs" t="Include" />
         </e>
         <e p="Helpers" t="Include">
+          <e p="BarGraphHelper.cs" t="Include" />
           <e p="BoxGraphHelper.cs" t="Include" />
           <e p="CumulativeFlowDiagramHelper.cs" t="Include" />
           <e p="DateHelper.cs" t="Include" />

@@ -122,5 +122,9 @@ form {
 }
 
 app-release-overview-component{
-  width: 50%;
+  width: 33%;
+}
+
+app-releases-bar-graph {
+  width: 66%;
 }
