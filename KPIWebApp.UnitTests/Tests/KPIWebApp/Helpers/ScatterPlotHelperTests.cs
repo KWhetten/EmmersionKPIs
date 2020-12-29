@@ -159,7 +159,9 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
             };
 
             var mockTaskItemRepository = new Mock<ITaskItemRepository>();
-            mockTaskItemRepository.Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
+            mockTaskItemRepository.Setup(x =>
+                    x.GetTaskItemListAsync(It.IsAny<DateTimeOffset>(),
+                        It.IsAny<DateTimeOffset>()))
                 .ReturnsAsync(taskItemList);
             mockTaskItemRepository.Setup(x => x.GetTaskItemTypes()).Returns(new []
             {
@@ -169,7 +171,10 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
             });
 
             var scatterPlotHelper = new ScatterPlotHelper(mockTaskItemRepository.Object);
-            var result = await scatterPlotHelper.GetLeadTimeScatterPlotData(new DateTimeOffset(new DateTime(2020, 10, 12), TimeSpan.Zero), new DateTimeOffset(new DateTime(2020, 10, 24), TimeSpan.Zero), true, true, true);
+            var result = await scatterPlotHelper
+                .GetLeadTimeScatterPlotData(new DateTimeOffset(new DateTime(2020, 10, 12), TimeSpan.Zero),
+                    new DateTimeOffset(new DateTime(2020, 10, 24), TimeSpan.Zero),
+                    true, true, true, true, true);
 
             Console.Write("");
 

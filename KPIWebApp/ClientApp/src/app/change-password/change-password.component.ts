@@ -1,8 +1,10 @@
-﻿import {HttpClient} from '@angular/common/http';
+﻿import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Component, Inject, OnInit} from '@angular/core';
 import * as bcrypt from 'bcryptjs';
-import {getCookie} from '../app.component';
+import {getAuthorizedCookie} from '../app.component';
+import {getEmailCookie} from '../app.component';
 import {Router} from '@angular/router';
+import {catchError} from 'rxjs/operators';
 
 @Component({
   selector: 'app-change-password-component',
@@ -25,14 +27,20 @@ export class ChangePasswordComponent implements OnInit {
   private email: string;
   oldPasswordError: string;
   authorized: boolean = false;
+  httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json'
+  })}
+  private data: any;
+  private url: string;
 
-  constructor(private router:Router, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private router: Router, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
     this.http = http;
   }
 
   ngOnInit() {
-    let cookieValue = getCookie();
+    let cookieValue = getAuthorizedCookie();
     this.http.get<boolean>(this.baseUrl + 'authorize-user', {
       params: {guid: cookieValue}
     })
@@ -45,26 +53,16 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   async submit() {
-    //this.email = (document.getElementById('email') as HTMLInputElement).value;
     this.oldPassword = await bcrypt.hash((document.getElementById('old-password') as HTMLInputElement).value, 10);
     this.password = await bcrypt.hash((document.getElementById('password') as HTMLInputElement).value, 10);
     this.confirmPassword = await bcrypt.hash((document.getElementById('password') as HTMLInputElement).value, 10);
-    let data = { email: this.email, password: this.password };
+    this.email = getEmailCookie();
+    this.url = this.baseUrl + 'change-password';
 
     if (this.NoFieldsAreBlank() && this.PasswordValid() && await this.PasswordsMatch()) {
-      this.http.post<any>(this.baseUrl + 'change-password', data).subscribe(
-        (result) => {
-          console.log('Result: ' + result);
-          (document.getElementById('general-error') as HTMLElement).hidden = true;
-          (document.getElementById('success') as HTMLElement).hidden = false;
-          result.body;
-        },
-        (error) => {
-          this.error = error.error;
-          (document.getElementById('general-error') as HTMLElement).hidden = false;
-          (document.getElementById('success') as HTMLElement).hidden = true;
-        }
-      );
+      return this.http.post<any>(this.url, { email: this.email, password: this.password }).subscribe(data => {
+        this.data = data;
+      })
     }
   }
 
@@ -93,9 +91,6 @@ export class ChangePasswordComponent implements OnInit {
 
   NoFieldsAreBlank() {
     let flag = true;
-    this.oldPassword = (document.getElementById('old-password-error') as HTMLInputElement).value;
-    this.password = (document.getElementById('password-error') as HTMLInputElement).value;
-    this.confirmPassword = (document.getElementById('confirm-password-error') as HTMLInputElement).value;
 
     if (this.oldPassword == undefined) {
       (document.getElementById('old-password-error') as HTMLElement).hidden = false;

@@ -11,9 +11,11 @@ namespace KPIWebApp.Helpers
     public class BoxGraphHelper
     {
         private readonly ITaskItemRepository taskItemRepository;
-        public bool Product { get; set; }
-        public bool Engineering { get; set; }
-        public bool Unanticipated { get; set; }
+        private bool Product { get; set; }
+        private bool Engineering { get; set; }
+        private bool Unanticipated { get; set; }
+        private bool AssessmentsTeam { get; set; }
+        private bool EnterpriseTeam { get; set; }
 
         public BoxGraphHelper()
         {
@@ -26,11 +28,15 @@ namespace KPIWebApp.Helpers
         }
 
         public async Task<BoxGraphData> GetLeadTimeBoxGraphData(DateTimeOffset startDate, DateTimeOffset finishDate,
-            bool product, bool engineering, bool unanticipated)
+            bool product, bool engineering, bool unanticipated, bool assessmentsTeam, bool enterpriseTeam)
         {
             Product = product;
             Engineering = engineering;
             Unanticipated = unanticipated;
+            AssessmentsTeam = assessmentsTeam;
+            EnterpriseTeam = enterpriseTeam;
+
+            var taskItemHelper = new TaskItemHelper();
 
             var boxGraphData = new BoxGraphData
             {
@@ -54,12 +60,11 @@ namespace KPIWebApp.Helpers
 
             var finalTaskItemList = new List<TaskItem>();
 
-            foreach (var item in taskItems)
+            foreach (var item in taskItems
+                .Where(item => taskItemHelper.TaskItemDevTeamIsSelected(AssessmentsTeam, EnterpriseTeam, item)))
             {
                 taskItemsByType[(int) item.Type - 1].Add(item);
-                if ((item.Type == TaskItemType.Product && Product)
-                    || (item.Type == TaskItemType.Engineering && Engineering)
-                    || (item.Type == TaskItemType.Unanticipated && Unanticipated))
+                if (taskItemHelper.TaskItemTypeIsSelected(Product, Engineering, Unanticipated, item))
                 {
                     finalTaskItemList.Add(item);
                 }
@@ -67,9 +72,12 @@ namespace KPIWebApp.Helpers
 
             foreach (var itemList in taskItemsByType)
             {
-                var sortedItemList = SortByLeadTime(itemList);
-                var index = (int) itemList[0].Type - 1;
-                boxGraphData = CalculateBoxGraphData(sortedItemList, boxGraphData, index);
+                if (itemList.Count > 0)
+                {
+                    var sortedItemList = SortByLeadTime(itemList);
+                    var index = (int) itemList[0].Type - 1;
+                    boxGraphData = CalculateBoxGraphData(sortedItemList, boxGraphData, index);
+                }
             }
 
             boxGraphData = CalculateBoxGraphData(SortByLeadTime(finalTaskItemList), boxGraphData, 3);

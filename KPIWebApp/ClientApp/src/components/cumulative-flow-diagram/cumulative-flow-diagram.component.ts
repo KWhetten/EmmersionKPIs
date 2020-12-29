@@ -70,7 +70,7 @@ export class CumulativeFlowDiagramComponent implements OnInit, OnDestroy {
 
     this.subscription = this.messageService.onMessage().subscribe(message => {
       if(message){
-        this.reloadData(message.startDate, message.finishDate, message.product, message.engineering, message.unanticipated);
+        this.reloadData(message.startDate, message.finishDate, message.product, message.engineering, message.unanticipated, message.assessmentsTeam, message.enterpriseTeam);
       } else {
         this.messages = [];
       }
@@ -78,13 +78,13 @@ export class CumulativeFlowDiagramComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.reloadData("", "", true, true, true);
+    this.reloadData("", "", true, true, true, true, true);
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  reloadData(startDate, finishDate, product, engineering, unanticipated) {
+  reloadData(startDate, finishDate, product, engineering, unanticipated, assessmentsTeam, enterpriseTeam) {
     this.timeStart();
     this.http.get(this.baseUrl + 'cumulative-flow', {
       params:
@@ -93,7 +93,9 @@ export class CumulativeFlowDiagramComponent implements OnInit, OnDestroy {
           finishDateString: finishDate,
           product: String(product),
           engineering: String(engineering),
-          unanticipated: String(unanticipated)
+          unanticipated: String(unanticipated),
+          assessmentsTeam: String(assessmentsTeam),
+          enterpriseTeam: String(enterpriseTeam)
         }
     })
       .subscribe(x => {

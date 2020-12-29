@@ -23,35 +23,17 @@ namespace KPIWebApp.Helpers
 
             var releases = (await releaseRepository.GetReleaseListAsync(startDate, finishDate)).ToList();
 
-            DateTimeOffset? earliestDate = finishDate;
-            DateTimeOffset? latestDate = startDate;
-
-            foreach (var release in releases)
-            {
-                if (release.FinishTime != null && release.FinishTime.Value.Date != startDate
-                                               && release.FinishTime.Value.Date < earliestDate)
-                {
-                    earliestDate = release.FinishTime.Value.Date;
-                }
-
-                if (release.FinishTime != null && release.FinishTime.Value.Date != finishDate
-                                               && release.FinishTime.Value.Date > latestDate)
-                {
-                    latestDate = release.FinishTime.Value.Date;
-                }
-            }
-
             var rawReleaseData = new Dictionary<DateTimeOffset, int>();
             var rawRolledBackData = new Dictionary<DateTimeOffset, int>();
-            var currentDate = earliestDate.Value.Date;
+            var currentDate = startDate.Date;
             var dateStrings = new List<string>();
 
-            while (currentDate <= latestDate)
+            while (currentDate <= finishDate)
             {
                 rawReleaseData.Add(currentDate.Date, 0);
                 rawRolledBackData.Add(currentDate.Date, 0);
-                currentDate = currentDate.AddDays(1);
                 dateStrings.Add(currentDate.ToString("MMMM dd"));
+                currentDate = currentDate.AddDays(1);
             }
 
             var releaseHelper = new ReleaseHelper();
@@ -63,16 +45,16 @@ namespace KPIWebApp.Helpers
                 rawRolledBackData[release.FinishTime.Value.Date]++;
             }
 
-            foreach (var release in releases.Where(release => release.FinishTime.Value.Date > earliestDate && release.FinishTime.Value.Date < latestDate))
+            foreach (var release in releases.Where(release => release.FinishTime.Value.Date > startDate && release.FinishTime.Value.Date < finishDate))
             {
                 rawReleaseData[release.FinishTime.Value.Date]++;
             }
 
-            data.Rows[0].Name = "Rolled Back Releases";
-            data.Rows[0].Data = rawRolledBackData.Values.ToList();
+            data.Rows[0].Name = "Releases";
+            data.Rows[0].Data = rawReleaseData.Values.ToList();
 
-            data.Rows[1].Name = "Releases";
-            data.Rows[1].Data = rawReleaseData.Values.ToList();
+            data.Rows[1].Name = "Rolled Back Releases";
+            data.Rows[1].Data = rawRolledBackData.Values.ToList();
 
             data.Dates = dateStrings;
 

@@ -26,7 +26,8 @@ export class FilterOptionsComponent {
 
   sendDates() {
     this.messageService.sendMessage(this.startDate, this.finishDate, (document.getElementById('product') as HTMLInputElement).checked,
-      (document.getElementById('engineering') as HTMLInputElement).checked, (document.getElementById('unanticipated') as HTMLInputElement).checked );
+      (document.getElementById('engineering') as HTMLInputElement).checked, (document.getElementById('unanticipated') as HTMLInputElement).checked,
+      (document.getElementById('assessments-team') as HTMLInputElement).checked, (document.getElementById('enterprise-team') as HTMLInputElement).checked);
   }
 
   private clearMessages() {

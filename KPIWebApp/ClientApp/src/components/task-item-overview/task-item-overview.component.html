@@ -1,6 +1,6 @@
-﻿<h4>{{taskItemOverviewData.totalCards}} Work Item Cards</h4>
-<div *ngIf="!this.taskItemOverviewData">Loading...</div>
-<div class="lead-time-results" *ngIf="this.taskItemOverviewData">
+﻿<div *ngIf="!this.taskItemOverviewData">Loading...</div>
+  <h4>{{taskItemOverviewData.totalCards}} Work Item Cards</h4>
+  <div class="lead-time-results" *ngIf="this.taskItemOverviewData">
   <p><strong>Shortest Lead Time:</strong> {{taskItemOverviewData.shortestLeadTime}} Hours of Work</p>
   <p><strong>Average Lead Time:</strong> {{taskItemOverviewData.averageLeadTime}} Hours of Work</p>
   <p><strong>Longest Lead Time:</strong> {{taskItemOverviewData.longestLeadTime}} Hours of Work</p>

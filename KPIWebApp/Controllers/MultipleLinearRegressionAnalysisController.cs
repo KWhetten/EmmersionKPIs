@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DataAccess.Deserialize.Kanbanize;
 using DataAccess.Objects;
 using KPIWebApp.Helpers;

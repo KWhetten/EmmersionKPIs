@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
@@ -22,7 +23,7 @@ namespace DataAccess.Api
     public class KanbanizeApi : IKanbanizeApi
     {
         private readonly IRestClient client;
-        private const string ApiKey = "TUilAxpp68ooVyExDLxkwNfQpVt8TTO7ZMWk1Mif";
+        private readonly string apiKey = File.ReadLines($"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/EmmersionKPI/kanbanizeApiKey.txt").First();
         private const string Subdomain = "emmersion";
         private readonly DevelopmentTeamsRepository developmentTeamsRepository = new DevelopmentTeamsRepository();
 
@@ -39,7 +40,7 @@ namespace DataAccess.Api
         public string GetInformation(string uri, string body)
         {
             var request = new RestRequest(uri, Method.POST);
-            request.AddHeader("ApiKey", ApiKey);
+            request.AddHeader("ApiKey", apiKey);
             request.AddParameter("application/json", body, ParameterType.RequestBody);
             var response = client.Execute(request);
 

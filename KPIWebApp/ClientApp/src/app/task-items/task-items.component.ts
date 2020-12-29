@@ -1,7 +1,7 @@
 ﻿import {Component, Inject, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
-import {getCookie} from '../app.component';
+import {getAuthorizedCookie} from '../app.component';
 import {HttpClient} from '@angular/common/http';
 
 @Component({
@@ -23,7 +23,7 @@ export class TaskItemsComponent implements OnInit {
   }
 
   ngOnInit() {
-    let cookieValue = getCookie();
+    let cookieValue = getAuthorizedCookie();
     this.http.get<boolean>(this.baseUrl + 'authorize-user', {
       params: {guid: cookieValue}
     })

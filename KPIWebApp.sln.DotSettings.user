@@ -1,10 +1,16 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2f727f58_002Dcb78_002D4331_002Dbce1_002D6c472eb07b8d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Solution /&gt;&#xD;
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=67b47f43_002D5093_002D429e_002Db100_002D366347425a62/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="When_tasks_are_unfinished_after_date_range_ends" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::052EA7EC-9978-4345-9254-F2A3A7E7411C::.NETCoreApp,Version=v3.1::KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers.CumulativeFlowDiagramHelperTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f325df0e_002Daea5_002D4763_002Da2eb_002D52bae4575aee/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Solution /&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6be48293_002Db595_002D46fe_002D89c6_002Dec6d8516ebb9/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CumulativeFlowDiagramHelperTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::052EA7EC-9978-4345-9254-F2A3A7E7411C::.NETCoreApp,Version=v3.1::KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers.CumulativeFlowDiagramHelperTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	
 	
 	
 	

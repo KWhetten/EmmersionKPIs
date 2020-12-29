@@ -12,7 +12,7 @@ namespace KPIWebApp.Controllers
         public async Task<BarGraphData> Get(string startDateString, string finishDateString)
         {
             var startDate = DateHelper.GetStartDate(startDateString);
-            var finishDate = DateHelper.GetFinishDate(finishDateString).AddDays(1);
+            var finishDate = DateHelper.GetFinishDate(finishDateString);
 
             var barGraphHelper = new BarGraphHelper();
             return await barGraphHelper.GetReleaseBarGraphData(startDate, finishDate);

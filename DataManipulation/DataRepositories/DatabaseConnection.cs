@@ -1,5 +1,8 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
 
 namespace DataAccess.DataRepositories
 {
@@ -13,12 +16,12 @@ namespace DataAccess.DataRepositories
 
         public DatabaseConnection()
         {
-            DbConnection = new SqlConnection("Server=localhost,14330;Database=EmmersionMetrics;User Id=sa;Password=truenorth123!;MultipleActiveResultSets=True;");
+            GetNewConnection();
         }
 
         public void GetNewConnection()
         {
-            DbConnection = new SqlConnection("Server=localhost,14330;Database=EmmersionMetrics;User Id=sa;Password=truenorth123!;MultipleActiveResultSets=True;");
+            DbConnection = new SqlConnection(File.ReadLines($"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/EmmersionKPI/databaseConnectionString.txt").First());
         }
     }
 }

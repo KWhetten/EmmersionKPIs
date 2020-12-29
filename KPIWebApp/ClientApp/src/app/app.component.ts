@@ -8,9 +8,18 @@ export class AppComponent {
   title = 'app';
 }
 
-export function getCookie() {
+export function getAuthorizedCookie() {
   const value = '; ' + document.cookie;
-  const parts = value.split('; Authorized=');
+  const parts = value.split('; EmmersionAuthorized=');
+
+  if (parts.length == 2) {
+    return parts.pop().split(';').shift();
+  }
+}
+
+export function getEmailCookie() {
+  const value = '; ' + document.cookie;
+  const parts = value.split('; EmmersionEmail=');
 
   if (parts.length == 2) {
     return parts.pop().split(';').shift();

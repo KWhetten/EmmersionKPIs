@@ -15,15 +15,9 @@ namespace KPIWebApp.Helpers
         {
             this.userRepository = userRepository;
         }
-        public async Task<int> UpdatePassword(ChangePasswordData data)
+        public async Task<int> UpdatePassword(string email, string password)
         {
-            return await userRepository.InsertPasswordAsync(data.Email, data.Password);
-        }
-
-        public class ChangePasswordData
-        {
-            public string Email { get; set; }
-            public string Password { get; set; }
+            return await userRepository.InsertPasswordAsync(email, password);
         }
     }
 }

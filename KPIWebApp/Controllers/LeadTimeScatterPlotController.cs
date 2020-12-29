@@ -10,13 +10,16 @@ namespace KPIWebApp.Controllers
     public class LeadTimeController : ControllerBase
     {
         [HttpGet]
-        public async Task<ScatterPlotData[]> Get(string startDateString, string finishDateString, bool product, bool engineering, bool unanticipated)
+        public async Task<ScatterPlotData[]> Get(string startDateString, string finishDateString,
+            bool product, bool engineering, bool unanticipated,
+            bool assessmentsTeam, bool enterpriseTeam)
         {
             var startDate = DateHelper.GetStartDate(startDateString);
             var finishDate = DateHelper.GetFinishDate(finishDateString).AddDays(1);
 
             var scatterPlotHelper = new ScatterPlotHelper();
-            var result = await scatterPlotHelper.GetLeadTimeScatterPlotData(startDate, finishDate, product, engineering, unanticipated);
+            var result = await scatterPlotHelper
+                .GetLeadTimeScatterPlotData(startDate, finishDate, product, engineering, unanticipated, assessmentsTeam, enterpriseTeam);
 
             var returning = new ScatterPlotData[result.Count];
 

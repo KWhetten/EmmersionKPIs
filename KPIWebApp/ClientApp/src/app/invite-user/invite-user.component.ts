@@ -1,7 +1,7 @@
 ﻿import {Component, Inject, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {getCookie} from '../app.component';
+import {getAuthorizedCookie} from '../app.component';
 
 @Component({
   selector: 'app-invite-user-component',
@@ -29,7 +29,7 @@ export class InviteUserComponent implements OnInit {
   }
 
   ngOnInit() {
-    let cookieValue = getCookie();
+    let cookieValue = getAuthorizedCookie();
     this.http.get<boolean>(this.baseUrl + 'authorize-user', {
       params: {guid: cookieValue}
     })
@@ -75,7 +75,7 @@ export class InviteUserComponent implements OnInit {
       this.emailError = 'Invalid email.';
       return false;
     }
-    if (this.email.indexOf('@emmersion.ai') >= 0) {
+    if (this.email.indexOf('@emmersion.ai') >= 0 || this.email == 'krwhetten@gmail.com') {
       (document.getElementById('email-error') as HTMLElement).hidden = true;
     } else {
       (document.getElementById('email-error') as HTMLElement).hidden = false;

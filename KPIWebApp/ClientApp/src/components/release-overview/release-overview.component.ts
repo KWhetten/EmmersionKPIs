@@ -27,7 +27,7 @@ export class ReleaseOverviewComponent implements OnInit {
 
     this.subscription = this.messageService.onMessage().subscribe(message => {
       if(message){
-        this.reloadData(message.startDate, message.finishDate, message.product, message.engineering, message.unanticipated);
+        this.reloadData(message.startDate, message.finishDate, message.product, message.engineering, message.unanticipated, message.assessmentsTeam, message.enterpriseTeam);
       } else {
         this.messages = [];
       }
@@ -36,10 +36,10 @@ export class ReleaseOverviewComponent implements OnInit {
 
 
   ngOnInit() {
-    this.reloadData("", "", true, true, true);
+    this.reloadData("", "", true, true, true, true, true);
   }
 
-  reloadData(startDate, finishDate, product, engineering, unanticipated) {
+  reloadData(startDate, finishDate, product, engineering, unanticipated, assessmentsTeam, enterpriseTeam) {
     this.releaseOverviewData = null;
     this.timeStart();
 
@@ -50,7 +50,9 @@ export class ReleaseOverviewComponent implements OnInit {
           finishDateString: finishDate,
           product: product,
           engineering: engineering,
-          unanticipated: unanticipated
+          unanticipated: unanticipated,
+          assessmentsTeam: assessmentsTeam,
+          enterpriseTeam: enterpriseTeam
         }
     })
       .subscribe(x => {

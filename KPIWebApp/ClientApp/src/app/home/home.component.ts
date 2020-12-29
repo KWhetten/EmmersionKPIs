@@ -1,9 +1,8 @@
-﻿import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
+﻿import {Component, Inject, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
-import {getCookie} from '../app.component';
-import {FilterMessageService} from '../_services/filterMessage.service';
+import {getAuthorizedCookie} from '../app.component';
 
 @Component({
   selector: 'app-home-component',
@@ -28,7 +27,7 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit() {
-    let cookieValue = getCookie();
+    let cookieValue = getAuthorizedCookie();
     this.http.get<boolean>(this.baseUrl + 'authorize-user', {
       params: {guid: cookieValue}
     })

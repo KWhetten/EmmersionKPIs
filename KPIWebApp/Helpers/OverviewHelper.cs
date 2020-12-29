@@ -16,6 +16,8 @@ namespace KPIWebApp.Helpers
         private bool Product { get; set; } = true;
         private bool Engineering { get; set; } = true;
         private bool Unanticipated { get; set; } = true;
+        private bool EnterpriseTeam { get; set; } = true;
+        private bool AssessmentsTeam { get; set; } = true;
 
         public OverviewHelper(){ }
 
@@ -47,11 +49,13 @@ namespace KPIWebApp.Helpers
         }
 
         public async Task<TaskItemOverviewData> GetTaskItemOverviewDataAsync(DateTimeOffset startDate, DateTimeOffset finishDate,
-            bool product, bool engineering, bool unanticipated)
+            bool product, bool engineering, bool unanticipated, bool assessmentsTeam, bool enterpriseTeam)
         {
             Product = product;
             Engineering = engineering;
             Unanticipated = unanticipated;
+            AssessmentsTeam = assessmentsTeam;
+            EnterpriseTeam = enterpriseTeam;
 
             var taskItemList = await GetTaskItemData(startDate, finishDate);
 
@@ -61,6 +65,7 @@ namespace KPIWebApp.Helpers
 
             return overviewData;
         }
+
 
         public async Task<ReleaseOverviewData> GetReleaseOverviewDataAsync(DateTimeOffset startDate, DateTimeOffset finishDate,
             bool product, bool engineering, bool unanticipated)
@@ -88,10 +93,11 @@ namespace KPIWebApp.Helpers
                 return taskItemOverviewData;
             }
 
+            var taskItemHelper = new TaskItemHelper();
+
             foreach (var item in taskItemList.Where(
-                item => (item.Type == TaskItemType.Product && Product)
-                        || (item.Type == TaskItemType.Engineering && Engineering)
-                        || (item.Type == TaskItemType.Unanticipated && Unanticipated)))
+                item => taskItemHelper.TaskItemTypeIsSelected(Product, Engineering, Unanticipated, item)
+                        && taskItemHelper.TaskItemDevTeamIsSelected(AssessmentsTeam, EnterpriseTeam, item)))
             {
                 if (item.StartTime != null && item.FinishTime != null)
                 {

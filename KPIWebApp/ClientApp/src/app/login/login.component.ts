@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         (result) => {
           bcrypt.compare((document.getElementById('password') as HTMLInputElement).value, result['password'], (err, bcryptResult) => {
             if(bcryptResult) {
-              this.setCookie("Authorized", result["guid"])
+              this.setCookie(result["guid"], this.email);
               this.router.navigateByUrl('');
             } else if (result['email'] == '' || result['password'] == '') {
               this.emailError = 'That user does not exist in our system. Please contact your supervisor';
@@ -64,15 +64,13 @@ export class LoginComponent implements OnInit {
       );
     }
   }
-  setCookie(name: string, val: string) {
+  setCookie(guid: string, email: string) {
     const date = new Date();
-    const value = val;
 
-    // Set it expire in 2 hours
     date.setTime(date.getTime() + (2 * 60 * 60 * 1000));
 
-    // Set it
-    document.cookie = name+"="+value+"; expires="+date.toUTCString()+"; path=/";
+    document.cookie = "EmmersionAuthorized="+guid+"; expires="+date.toUTCString()+"; path=/";
+    document.cookie = "EmmersionEmail="+email+"; expires="+date.toUTCString()+"; path=/";
 
     this.messageService.sendMessage(true);
   }

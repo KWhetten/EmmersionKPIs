@@ -142,7 +142,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
             var result = await boxGraphHelper.GetLeadTimeBoxGraphData(
                 new DateTimeOffset(new DateTime(2020, 10, 12), TimeSpan.Zero),
                 new DateTimeOffset(new DateTime(2020, 10, 24), TimeSpan.Zero),
-                true, true, true);
+                true, true, true, true, true);
 
             Assert.IsNotNull(result);
             Assert.That(result.Entries.Count, Is.EqualTo(4));
@@ -309,7 +309,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
             var result = await boxGraphHelper.GetLeadTimeBoxGraphData(
                 new DateTimeOffset(new DateTime(2020, 10, 12), TimeSpan.Zero),
                 new DateTimeOffset(new DateTime(2020, 10, 24), TimeSpan.Zero),
-                true, false, false);
+                true, false, false, true, true);
 
             Assert.IsNotNull(result);
             Assert.That(result.Entries.Count, Is.EqualTo(4));

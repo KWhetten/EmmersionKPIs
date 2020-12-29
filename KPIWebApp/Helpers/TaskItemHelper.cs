@@ -33,5 +33,19 @@ namespace KPIWebApp.Helpers
 
             return taskItems;
         }
+
+        public bool TaskItemDevTeamIsSelected(bool assessmentsTeam, bool enterpriseTeam, TaskItem item)
+        {
+            return item.DevelopmentTeam == "Assessments Team" && assessmentsTeam
+                   || item.DevelopmentTeam == "Enterprise Team" && enterpriseTeam;
+        }
+
+        public bool TaskItemTypeIsSelected(bool product, bool engineering, bool unanticipated, TaskItem item)
+        {
+            var result = item.Type == TaskItemType.Product && product
+                         || item.Type == TaskItemType.Engineering && engineering
+                         || item.Type == TaskItemType.Unanticipated && unanticipated;
+            return result;
+        }
     }
 }

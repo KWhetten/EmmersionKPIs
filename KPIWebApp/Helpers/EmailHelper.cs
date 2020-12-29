@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using DataAccess.Objects;
@@ -16,7 +18,7 @@ namespace KPIWebApp.Helpers
             var smtpClient = new SmtpClient(config["Smtp:Host"])
             {
                 Port = int.Parse(config["Smtp:Port"]),
-                Credentials = new NetworkCredential(config["Smtp:Username"], config["Smtp:Password"]),
+                Credentials = new NetworkCredential(File.ReadLines($"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/EmmersionKPI/emailCredentials.txt").First(), File.ReadLines($"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/EmmersionKPI/emailCredentials.txt").Last()),
                 EnableSsl = true,
             };
 
@@ -44,7 +46,7 @@ namespace KPIWebApp.Helpers
             var smtpClient = new SmtpClient(config["Smtp:Host"])
             {
                 Port = int.Parse(config["Smtp:Port"]),
-                Credentials = new NetworkCredential(config["Smtp:Username"], config["Smtp:Password"]),
+                Credentials = new NetworkCredential(File.ReadLines($"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/EmmersionKPI/emailCredentials.txt").First(), File.ReadLines($"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/EmmersionKPI/emailCredentials.txt").Last()),
                 EnableSsl = true,
             };
             try

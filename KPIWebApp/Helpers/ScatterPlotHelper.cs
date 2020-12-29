@@ -12,9 +12,11 @@ namespace KPIWebApp.Helpers
     {
         private readonly IReleaseRepository releaseRepository;
         private readonly ITaskItemRepository taskItemRepository;
-        public bool Product { get; set; }
-        public bool Engineering { get; set; }
-        public bool Unanticipated { get; set; }
+        private bool Product { get; set; }
+        private bool Engineering { get; set; }
+        private bool Unanticipated { get; set; }
+        private bool AssessmentsTeam { get; set; }
+        private bool EnterpriseTeam { get; set; }
 
         public ScatterPlotHelper()
         {
@@ -31,11 +33,13 @@ namespace KPIWebApp.Helpers
             this.releaseRepository = releaseRepository;
         }
 
-        public async Task<Dictionary<TaskItemType, ScatterPlotData>> GetLeadTimeScatterPlotData(DateTimeOffset startDate, DateTimeOffset finishDate, bool product, bool engineering, bool unanticipated)
+        public async Task<Dictionary<TaskItemType, ScatterPlotData>> GetLeadTimeScatterPlotData(DateTimeOffset startDate, DateTimeOffset finishDate, bool product, bool engineering, bool unanticipated, bool assessmentsTeam, bool enterpriseTeam)
         {
             Product = product;
             Engineering = engineering;
             Unanticipated = unanticipated;
+            AssessmentsTeam = assessmentsTeam;
+            EnterpriseTeam = enterpriseTeam;
             var rawData = await taskItemRepository.GetTaskItemListAsync(startDate, finishDate);
 
             var taskItemTypes = GetTaskItemTypes();
@@ -73,27 +77,27 @@ namespace KPIWebApp.Helpers
 
         private Dictionary<TaskItemType, ScatterPlotData> PopulateScatterPlotLeadTimeInfo(TaskItem[] rawData, Dictionary<TaskItemType, ScatterPlotData> scatterPlotData)
         {
-            foreach (var datum in rawData)
+            var taskItemHelper = new TaskItemHelper();
+            foreach (var taskItem in rawData)
             {
                 try
                 {
-                    if ((datum.Type == TaskItemType.Product && Product)
-                        || (datum.Type == TaskItemType.Engineering && Engineering)
-                        || (datum.Type == TaskItemType.Unanticipated && Unanticipated))
+                    if (taskItemHelper.TaskItemTypeIsSelected(Product, Engineering, Unanticipated, taskItem)
+                    && taskItemHelper.TaskItemDevTeamIsSelected(AssessmentsTeam, EnterpriseTeam, taskItem))
                     {
-                        var typeIndex = (int) datum.Type - 1;
+                        var typeIndex = (int) taskItem.Type - 1;
 
                         var newData = new Datum
                         {
-                            x = datum.FinishTime,
-                            y = datum.CalculateLeadTimeHours()
+                            x = taskItem.FinishTime,
+                            y = taskItem.CalculateLeadTimeHours()
                         };
                         if (newData.x < new DateTimeOffset(DateTime.Now.AddYears(-1)))
                         {
                             continue;
                         }
 
-                        scatterPlotData[datum.Type].data.Add(newData);
+                        scatterPlotData[taskItem.Type].data.Add(newData);
                     }
                 }
                 catch (Exception ex)

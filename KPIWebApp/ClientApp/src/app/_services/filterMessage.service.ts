@@ -5,8 +5,8 @@ import { Observable, Subject } from 'rxjs';
 export class FilterMessageService {
   private subject = new Subject<any>();
 
-  sendMessage(startDate: any, finishDate: any, product, engineering, unanticipated) {
-    this.subject.next({ startDate, finishDate, product, engineering, unanticipated });
+  sendMessage(startDate: any, finishDate: any, product, engineering, unanticipated, assessmentsTeam, enterpriseTeam) {
+    this.subject.next({ startDate, finishDate, product, engineering, unanticipated, assessmentsTeam, enterpriseTeam });
   }
 
   clearMessages() {
