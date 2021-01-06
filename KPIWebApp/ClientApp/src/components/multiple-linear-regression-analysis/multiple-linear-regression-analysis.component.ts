@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
   templateUrl: './multiple-linear-regression-analysis.component.html',
   styleUrls: ['./multiple-linear-regression-analysis.component.css']
 })
-export class MultipleLinearRegressionAnalysisComponent implements OnInit {
+export class MultipleLinearRegressionAnalysisComponent {
 
   private http: HttpClient;
   private baseUrl: string;
@@ -17,10 +17,6 @@ export class MultipleLinearRegressionAnalysisComponent implements OnInit {
     this.baseUrl = baseUrl;
   }
 
-  ngOnInit() {
-    this.reloadData();
-  }
-
   submit() {
     this.reloadData();
   }
@@ -28,23 +24,49 @@ export class MultipleLinearRegressionAnalysisComponent implements OnInit {
   reloadData() {
     this.timeStart();
 
-    let timeSpentInBacklog = (document.getElementById('time-spent-in-backlog') as HTMLInputElement).value;
+    let timeSpentInBacklog = +(document.getElementById('time-spent-in-backlog') as HTMLInputElement).value;
     let type = (document.getElementById('task-item-type') as HTMLSelectElement).value;
     let devTeam = (document.getElementById('dev-team') as HTMLSelectElement).value;
     let createdBy = (document.getElementById('created-by') as HTMLSelectElement).value;
-    this.http.get<number>(this.baseUrl + 'multiple-linear-regression-analysis', {
-      params:
-        {
-          timeSpentInBacklog,
-          type,
-          devTeam,
-          createdBy
-        }
-    })
-      .subscribe(x => {
-        this.estimation = x;
-        this.timeStop();
-      });
+
+    if(!Number.isNaN(timeSpentInBacklog) && type != 'select' && devTeam != 'select' && createdBy != 'select') {
+      (document.getElementById('time-spent-in-backlog-error') as HTMLSelectElement).hidden = true;
+      (document.getElementById('task-type-error') as HTMLSelectElement).hidden = true;
+      (document.getElementById('dev-team-error') as HTMLSelectElement).hidden = true;
+      (document.getElementById('created-by-error') as HTMLSelectElement).hidden = true;
+
+      this.http.get<number>(this.baseUrl + 'multiple-linear-regression-analysis', {
+        params:
+          {
+            timeSpentInBacklog: timeSpentInBacklog.toString(),
+            type,
+            devTeam,
+            createdBy
+          }
+      })
+        .subscribe(x => {
+          if(x >= 0) {
+            (document.getElementById('result-error') as HTMLSelectElement).hidden = true;
+            this.estimation = x;
+          } else {
+            this.estimation = null;
+            (document.getElementById('result-error') as HTMLSelectElement).hidden = false;
+          }
+          this.timeStop();
+        });
+    }
+    if(Number.isNaN(timeSpentInBacklog)){
+      (document.getElementById('time-spent-in-backlog-error') as HTMLSelectElement).hidden = false;
+    }
+    if(type == 'select'){
+      (document.getElementById('task-type-error') as HTMLSelectElement).hidden = false;
+    }
+    if(devTeam == 'select'){
+      (document.getElementById('dev-team-error') as HTMLSelectElement).hidden = false;
+    }
+    if(createdBy == 'select'){
+      (document.getElementById('created-by-error') as HTMLSelectElement).hidden = false;
+    }
   }
 
   getType(TypeId: number) {
@@ -65,5 +87,15 @@ export class MultipleLinearRegressionAnalysisComponent implements OnInit {
 
   timeStop() {
     console.timeEnd('Multiple Linear Regression Analysis Load')
+  }
+
+  OnlyNumbers($event: KeyboardEvent) {
+    let regex: RegExp = new RegExp(/^[\d.]$/g);
+    let specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', 'ArrowRight','ArrowLeft'];
+    if (specialKeys.indexOf($event.key) !== -1) {
+      return;
+    } else {
+      return regex.test($event.key);
+    }
   }
 }

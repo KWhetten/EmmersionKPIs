@@ -22,7 +22,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 Password = "Password1"
             };
 
-            var result = await passwordChangeHelper.UpdatePassword(changePasswordData);
+            var result = await passwordChangeHelper.UpdatePassword(changePasswordData.Email, changePasswordData.Password);
 
             Assert.That(result, Is.EqualTo(1));
         }
@@ -41,7 +41,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 Password = "Password1"
             };
 
-            var result = await passwordChangeHelper.UpdatePassword(changePasswordData);
+            var result = await passwordChangeHelper.UpdatePassword(changePasswordData.Email, changePasswordData.Password);
 
             Assert.That(result, Is.EqualTo(-1));
         }
@@ -60,7 +60,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 Password = "Password1"
             };
 
-            var result = await passwordChangeHelper.UpdatePassword(changePasswordData);
+            var result = await passwordChangeHelper.UpdatePassword(changePasswordData.Email, changePasswordData.Password);
 
             Assert.That(result, Is.EqualTo(0));
         }

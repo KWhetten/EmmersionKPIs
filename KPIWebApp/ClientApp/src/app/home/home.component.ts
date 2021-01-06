@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
 import {getAuthorizedCookie} from '../app.component';
+import {FilterMessageService} from '../_services/filterMessage.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-home-component',
@@ -16,13 +18,24 @@ export class HomeComponent implements OnInit {
   public startDate;
   public finishDate;
   authorized: boolean = false;
+  private subscription: Subscription;
+  private messages: any[] = [];
 
-  constructor(protected router: Router, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(protected router: Router, http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: FilterMessageService) {
     this.http = http;
     this.baseUrl = baseUrl;
     const formData: FormData = new FormData();
     formData.append('startDateString', '');
     formData.append('finishDateString', '');
+
+    this.subscription = this.messageService.onMessage().subscribe(message => {
+      if(message){
+        this.startDate = message.startDate;
+        this.finishDate = message.finishDate;
+      } else {
+        this.messages = [];
+      }
+    });
   }
 
 

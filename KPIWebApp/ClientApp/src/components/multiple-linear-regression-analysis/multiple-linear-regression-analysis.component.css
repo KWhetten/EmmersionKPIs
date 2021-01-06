@@ -82,11 +82,16 @@ button {
   width: 20%;
 }
 
+.result-container {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+}
+
 .result {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 20%;
 }
 
 .result h4 {
@@ -112,4 +117,11 @@ button {
 .estimation {
   font-size: 20pt;
   font-weight: bold;
+}
+
+.error, .result-error {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  color: red;
 }

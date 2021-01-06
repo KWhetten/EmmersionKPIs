@@ -4,7 +4,7 @@ public class MultinomialLogisticRegressionAnalysisItem
 {
     public int Id { get; set; }
     public string Title { get; set; }
-    public int Output { get; set; }
+    public int Actual { get; set; }
     public int Prediction { get; set; }
     public double Probability { get; set; }
     public List<double> Inputs { get; set; }

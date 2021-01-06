@@ -52,7 +52,7 @@ export class LeadTimeScatterPlotComponent implements OnInit {
       },
       labels: {
         formatter: function () {
-          return Highcharts.dateFormat('%b %y', this.value);
+          return Highcharts.dateFormat('%B %e', this.value);
         }
       }
     },

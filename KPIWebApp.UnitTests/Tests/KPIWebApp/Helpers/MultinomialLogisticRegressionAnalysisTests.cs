@@ -13,7 +13,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
         {
             var helper = new MultinomialLogisticRegressionAnalysisHelper();
             var result = await helper.GetLogisticRegressionAnalysisData((new DateTimeOffset(new DateTime(2020, 1, 1))),
-                new DateTimeOffset(DateTime.Today));
+                new DateTimeOffset(DateTime.Today), true, true, true, true, true);
 
             Console.Write(
                 "Id,Lifetime,LeadTime,TimeSpentInBacklog,DevTeamIsAssessments,DevTeamInEnterprise,NumRevisions,");
@@ -36,7 +36,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                     Console.Write($"{input},");
                 }
 
-                Console.Write($"{item.Probability},{item.Output},{item.Prediction}\n");
+                Console.Write($"{item.Probability},{item.Actual},{item.Prediction}\n");
             }
 
             Console.WriteLine($"Error: {result.Error}");

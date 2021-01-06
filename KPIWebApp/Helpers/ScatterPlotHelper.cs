@@ -33,7 +33,8 @@ namespace KPIWebApp.Helpers
             this.releaseRepository = releaseRepository;
         }
 
-        public async Task<Dictionary<TaskItemType, ScatterPlotData>> GetLeadTimeScatterPlotData(DateTimeOffset startDate, DateTimeOffset finishDate, bool product, bool engineering, bool unanticipated, bool assessmentsTeam, bool enterpriseTeam)
+        public async Task<Dictionary<TaskItemType, ScatterPlotData>> GetLeadTimeScatterPlotData(DateTimeOffset startDate, DateTimeOffset finishDate
+            , bool product, bool engineering, bool unanticipated, bool assessmentsTeam, bool enterpriseTeam)
         {
             Product = product;
             Engineering = engineering;

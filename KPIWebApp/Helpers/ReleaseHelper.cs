@@ -8,11 +8,13 @@ namespace KPIWebApp.Helpers
 {
     public class ReleaseHelper
     {
-        public ReleaseOverviewData PopulateOverviewData(ReleaseOverviewData releaseOverviewData, List<Release> releaseList, DateTimeOffset finishDate)
+        public ReleaseOverviewData PopulateOverviewData(ReleaseOverviewData releaseOverviewData,
+            List<Release> releaseList, DateTimeOffset finishDate, bool assessmentsTeam, bool enterpriseTeam)
         {
             var lastReleaseByEnvironment = new Dictionary<int, Release>();
             DateTimeOffset? earliestReleaseFinishTime = null;
             var sumTimeToRestore = 0.0m;
+
             foreach (var item in releaseList)
             {
                 if (!lastReleaseByEnvironment.ContainsKey(item.ReleaseEnvironment.Id))
@@ -25,13 +27,18 @@ namespace KPIWebApp.Helpers
                     earliestReleaseFinishTime = item.FinishTime;
                 }
 
-                if (item.Attempts > 1 && lastReleaseByEnvironment[item.ReleaseEnvironment.Id].Name != item.Name && ReleaseVersionIsLater(item.Name, lastReleaseByEnvironment[item.ReleaseEnvironment.Id].Name))
+                if (item.Attempts > 1 && lastReleaseByEnvironment[item.ReleaseEnvironment.Id].Name != item.Name &&
+                    ReleaseVersionIsLater(item.Name, lastReleaseByEnvironment[item.ReleaseEnvironment.Id].Name))
                 {
-                    sumTimeToRestore = (decimal)(item.FinishTime - lastReleaseByEnvironment[item.ReleaseEnvironment.Id].FinishTime).Value.TotalMinutes;
+                    sumTimeToRestore =
+                        (decimal) (item.FinishTime -
+                                   lastReleaseByEnvironment[item.ReleaseEnvironment.Id].FinishTime).Value
+                        .TotalMinutes;
                 }
 
                 lastReleaseByEnvironment[item.ReleaseEnvironment.Id] = item;
             }
+
             var releaseWeeks = (finishDate - earliestReleaseFinishTime)?.Days / 7m;
 
             var rolledBackReleases = GetRolledBackReleases(releaseList);
@@ -40,13 +47,17 @@ namespace KPIWebApp.Helpers
             releaseOverviewData.SuccessfulDeploys = releaseList.Count - rolledBackReleases.Count;
             releaseOverviewData.RolledBackDeploys = rolledBackReleases.Count;
             releaseOverviewData.DeployFrequency = releaseWeeks != 0
-                ? decimal.Round(decimal.Parse((releaseOverviewData.TotalDeploys / releaseWeeks)?.ToString("0.##")!), 2, MidpointRounding.AwayFromZero)
+                ? decimal.Round(decimal.Parse((releaseOverviewData.TotalDeploys / releaseWeeks)?.ToString("0.##")!), 2,
+                    MidpointRounding.AwayFromZero)
                 : 0;
             releaseOverviewData.MeanTimeToRestore = rolledBackReleases.Count != 0
-                ? decimal.Round(decimal.Parse((sumTimeToRestore / rolledBackReleases.Count).ToString("0.##")!), 2, MidpointRounding.AwayFromZero)
+                ? decimal.Round(decimal.Parse((sumTimeToRestore / rolledBackReleases.Count).ToString("0.##")!), 2,
+                    MidpointRounding.AwayFromZero)
                 : 0;
             releaseOverviewData.ChangeFailPercentage = releaseList.Count != 0
-                ? decimal.Round(decimal.Parse(((decimal) rolledBackReleases.Count / releaseList.Count * 100).ToString("0.##")!), 2, MidpointRounding.AwayFromZero)
+                ? decimal.Round(
+                    decimal.Parse(((decimal) rolledBackReleases.Count / releaseList.Count * 100).ToString("0.##")!), 2,
+                    MidpointRounding.AwayFromZero)
                 : 0;
 
             return releaseOverviewData;
@@ -68,6 +79,7 @@ namespace KPIWebApp.Helpers
                 {
                     rolledBackReleases.Add(lastReleaseByEnvironment[item.ReleaseEnvironment.Id]);
                 }
+
                 lastReleaseByEnvironment[item.ReleaseEnvironment.Id] = item;
             }
 
@@ -86,10 +98,28 @@ namespace KPIWebApp.Helpers
             }
             else
             {
-                var currentItemNumber = decimal.Parse(string.Join(".", currentItemName.Split('.').Reverse().Take(2).Reverse()));
-                var lastItemNumber = decimal.Parse(string.Join(".", lastItemName.Split('.').Reverse().Take(2).Reverse()));
+                var currentItemNumber =
+                    decimal.Parse(string.Join(".", currentItemName.Split('.').Reverse().Take(2).Reverse()));
+                var lastItemNumber =
+                    decimal.Parse(string.Join(".", lastItemName.Split('.').Reverse().Take(2).Reverse()));
                 return currentItemNumber < lastItemNumber;
             }
+        }
+
+        public static bool DevTeamForReleaseIsSelected(bool assessmentsTeam, bool enterpriseTeam, Release release)
+        {
+            if (release.ReleaseEnvironment.Id == 15 && assessmentsTeam)
+            {
+                return true;
+            }
+
+            if ((release.ReleaseEnvironment.Id == 4 || release.ReleaseEnvironment.Id == 19
+                || release.ReleaseEnvironment.Id == 43 || release.ReleaseEnvironment.Id == 33) && enterpriseTeam)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

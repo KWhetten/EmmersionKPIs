@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Accord.Statistics.Kernels;
 using DataAccess.DataRepositories;
+using DataAccess.Objects;
 
 namespace KPIWebApp.Helpers
 {
     public class BarGraphHelper
     {
-        public async Task<BarGraphData> GetReleaseBarGraphData(DateTimeOffset startDate, DateTimeOffset finishDate)
+        public async Task<BarGraphData> GetReleaseBarGraphData(DateTimeOffset startDate, DateTimeOffset finishDate,
+            bool assessmentsTeam, bool enterpriseTeam)
         {
             var data = new BarGraphData
             {
@@ -22,6 +24,27 @@ namespace KPIWebApp.Helpers
             var releaseRepository = new ReleaseRepository();
 
             var releases = (await releaseRepository.GetReleaseListAsync(startDate, finishDate)).ToList();
+            var removeList = new List<Release>();
+
+            foreach (var release in releases)
+            {
+                if (release.ReleaseEnvironment.Name.Contains("Assessments") && !assessmentsTeam)
+                {
+                    removeList.Add(release);
+                }
+
+                if ((release.ReleaseEnvironment.Name.Contains("TrueNorthTest Release")
+                    || release.ReleaseEnvironment.Name.Contains("Production"))
+                    && !enterpriseTeam)
+                {
+                    removeList.Add(release);
+                }
+            }
+
+            foreach (var release in removeList)
+            {
+                releases.Remove(release);
+            }
 
             var rawReleaseData = new Dictionary<DateTimeOffset, int>();
             var rawRolledBackData = new Dictionary<DateTimeOffset, int>();
@@ -45,7 +68,9 @@ namespace KPIWebApp.Helpers
                 rawRolledBackData[release.FinishTime.Value.Date]++;
             }
 
-            foreach (var release in releases.Where(release => release.FinishTime.Value.Date > startDate && release.FinishTime.Value.Date < finishDate))
+            foreach (var release in releases
+                .Where(release => release.FinishTime.Value.Date >= startDate
+                                  && release.FinishTime.Value.Date < finishDate))
             {
                 rawReleaseData[release.FinishTime.Value.Date]++;
             }

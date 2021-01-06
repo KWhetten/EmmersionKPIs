@@ -23,7 +23,7 @@ export class MultinomialLogisticRegressionAnalysisComponent implements OnInit {
 
     this.subscription = this.messageService.onMessage().subscribe(message => {
       if(message){
-        this.reloadData(message.startDate, message.finishDate);
+        this.reloadData(message.startDate, message.finishDate, message.product, message.engineering, message.unanticipated, message.assessmentsTeam, message.enterpriseTeam);
       } else {
         this.messages = [];
       }
@@ -31,17 +31,22 @@ export class MultinomialLogisticRegressionAnalysisComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reloadData("", "");
+    this.reloadData("", "", true, true, true, true, true);
   }
 
-  reloadData(startDate, finishDate) {
+  reloadData(startDate, finishDate, product, engineering, unanticipated, assessmentsTeam, enterpriseTeam) {
     this.timeStart();
     this.analysisData = null;
     this.http.get<MultinomialLogisticRegressionAnalysisItemList>(this.baseUrl + 'multinomial-logistic-regression-analysis', {
       params:
         {
           startDateString: startDate,
-          finishDateString: finishDate
+          finishDateString: finishDate,
+          product: product,
+          engineering: engineering,
+          unanticipated: unanticipated,
+          assessmentsTeam: assessmentsTeam,
+          enterpriseTeam: enterpriseTeam
         }
     })
       .subscribe(x => {
@@ -74,7 +79,7 @@ export class MultinomialLogisticRegressionAnalysisComponent implements OnInit {
 class MultinomialLogisticRegressionAnalysisItem {
   id: number;
   title: string;
-  output: number;
+  actual: number;
   prediction: number;
   probability: number;
   inputs: number[];

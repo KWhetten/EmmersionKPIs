@@ -11,14 +11,14 @@ namespace KPIWebApp.Controllers
     public class MultinomialLogisticRegressionAnalysisController
     {
         [HttpGet]
-        public async Task<MultinomialLogisticRegressionAnalysisItemList> GetAsync(string startTime, string finishTime)
+        public async Task<MultinomialLogisticRegressionAnalysisItemList> GetAsync(string startTime, string finishTime, bool product, bool engineering, bool unanticipated, bool assessmentsTeam, bool enterpriseTeam)
         {
-            var startDate = DateHelper.GetStartDate(startTime).Date;
-            var finishDate = DateHelper.GetFinishDate(finishTime).AddDays(1).Date;
+            var startDate = DateHelper.GetStartDate(startTime);
+            var finishDate = DateHelper.GetFinishDate(finishTime);
 
             var helper = new MultinomialLogisticRegressionAnalysisHelper();
 
-            return await helper.GetLogisticRegressionAnalysisData(startDate, finishDate);
+            return await helper.GetLogisticRegressionAnalysisData(startDate, finishDate, product, engineering, unanticipated, assessmentsTeam, enterpriseTeam);
         }
     }
 }

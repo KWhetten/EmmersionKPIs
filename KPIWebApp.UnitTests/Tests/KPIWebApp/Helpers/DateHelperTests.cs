@@ -23,9 +23,9 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
         }
 
         [Test]
-        public void When_getting_finish_date_from_null_string()
+        public void When_getting_finish_date_from_empty_string()
         {
-            var result = DateHelper.GetFinishDate(null);
+            var result = DateHelper.GetFinishDate("");
 
             Assert.That(result, Is.EqualTo(new DateTimeOffset(DateTime.Today.AddDays(1))));
         }
@@ -48,9 +48,9 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
         }
 
         [Test]
-        public void When_getting_start_date_from_null_string()
+        public void When_getting_start_date_from_empty_string()
         {
-            var result = DateHelper.GetStartDate(null);
+            var result = DateHelper.GetStartDate("");
 
             Assert.That(result, Is.EqualTo(new DateTimeOffset(new DateTime(2020, 10, 1))));
         }

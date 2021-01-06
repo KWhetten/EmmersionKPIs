@@ -1,4 +1,6 @@
-﻿namespace KPIWebApp.Models
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace KPIWebApp.Models
 {
     public class TaskItemOverviewData
     {
@@ -17,5 +19,14 @@
         public decimal MeanTimeToRestore { get; set; }
         public decimal ChangeFailPercentage { get; set; }
 
+        public ReleaseOverviewData()
+        {
+            TotalDeploys = 0;
+            SuccessfulDeploys = 0;
+            RolledBackDeploys = 0;
+            DeployFrequency = 0;
+            MeanTimeToRestore = 0;
+            ChangeFailPercentage = 0;
+        }
     }
 }

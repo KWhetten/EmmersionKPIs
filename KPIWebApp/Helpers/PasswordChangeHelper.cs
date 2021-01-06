@@ -19,5 +19,10 @@ namespace KPIWebApp.Helpers
         {
             return await userRepository.InsertPasswordAsync(email, password);
         }
+
+        public class ChangePasswordData {
+            public string Email { get; set; }
+            public string Password { get; set; }
+        }
     }
 }

@@ -7,17 +7,24 @@
       <div class="column1">
         <div class="time-spent-in-backlog-container">
           <label for="time-spent-in-backlog">Time Spent in Backlog (in Days): </label>
-          <input id="time-spent-in-backlog" name="created-by" type="text" placeholder="Time Spent in Backlog"/>
+          <input id="time-spent-in-backlog" name="created-by" type="text" placeholder="Time Spent in Backlog" (keypress)="OnlyNumbers($event)"/>
+        </div>
+        <div id="time-spent-in-backlog-error" hidden>
+          <p class="error">Please enter a valid number.</p>
         </div>
 
         <div class="task-item-type-container">
           <label for="task-item-type">Task Type:</label>
           <select id="task-item-type" name="task-item-type">
+            <option value="select">- Select One -</option>
             <option value="Product">Product</option>
             <option value="Engineering">Engineering</option>
             <option value="Unanticipated">Unanticipated</option>
             <option value="Unknown">Unknown/Other</option>
           </select>
+        </div>
+        <div id="task-type-error" hidden>
+          <p class="error">Field cannot be empty.</p>
         </div>
       </div>
 
@@ -25,25 +32,33 @@
         <div class="dev-team-container">
           <label for="dev-team">Development Team:</label>
           <select id="dev-team" name="dev-team">
+            <option value="select">- Select One -</option>
             <option value="Assessments Team">Assessments Team</option>
             <option value="Enterprise Team">Enterprise Team</option>
           </select>
+        </div>
+        <div id="dev-team-error" hidden>
+          <p class="error">Field cannot be empty.</p>
         </div>
 
         <div class="created-by-container">
           <label for="created-by">Created By:</label>
           <select id="created-by" name="task-item-type">
+            <option value="select">- Select One -</option>
             <option value="neil.sorensen">neil.sorensen</option>
             <option value="Ryan">Ryan</option>
             <option value="dani.houston">dani.houston</option>
             <option value="emandres">emandres</option>
             <option value="Judson">Judson</option>
-            <option value=">Charles">Charles</option>
+            <option value="Charles">Charles</option>
             <option value="mike.clement">mike.clement</option>
             <option value="nate.llewellyn">nate.llewellyn</option>
             <option value="allan">allan</option>
             <option value="dannydwarren">dannydwarren</option>
           </select>
+        </div>
+        <div id="created-by-error" hidden>
+          <p class="error">Field cannot be empty.</p>
         </div>
       </div>
     </div>
@@ -51,8 +66,13 @@
     <button class="btn btn-primary" (click)="submit()">Submit</button>
   </form>
 
-  <div class="result">
-    <h4>Estimation</h4>
-    <p><span class="estimation">{{estimation}}</span><br/>hours</p>
+  <div class="result-container">
+    <div class="result">
+      <h4>Estimation</h4>
+      <p><span class="estimation">{{estimation}}</span><br/>hours</p>
+    </div>
+    <div id="result-error" hidden>
+      <p class="result-error">There is not enough data to give an accurate prediction.</p>
+    </div>
   </div>
 </div>

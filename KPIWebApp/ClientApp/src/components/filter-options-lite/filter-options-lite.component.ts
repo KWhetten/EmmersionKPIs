@@ -4,18 +4,17 @@ import {HttpClient} from '@angular/common/http';
 import {FilterMessageService} from '../../app/_services/filterMessage.service';
 
 @Component({
-  selector: 'app-filter-options',
-  templateUrl: './filter-options.component.html',
-  styleUrls: ['./filter-options.component.css'],
+  selector: 'app-filter-options-lite',
+  templateUrl: './filter-options-lite.component.html',
+  styleUrls: ['./filter-options-lite.component.css'],
   providers: [DatePipe]
 })
-export class FilterOptionsComponent {
+export class FilterOptionsLiteComponent {
   isExpanded = false;
   private datePipe: DatePipe;
   private startDateString: any;
   private finishDateString: any;
   today = Date.now().toString();
-  displayCardTypes: boolean = true;
 
   constructor(datepipe: DatePipe, http: HttpClient, @Inject('BASE_URL') baseUrl: string, private messageService: FilterMessageService) {
     this.datePipe = datepipe;
@@ -26,8 +25,8 @@ export class FilterOptionsComponent {
   }
 
   sendInfo() {
-    this.messageService.sendMessage(this.startDateString, this.finishDateString, (document.getElementById('product') as HTMLInputElement).checked,
-      (document.getElementById('engineering') as HTMLInputElement).checked, (document.getElementById('unanticipated') as HTMLInputElement).checked,
+    this.messageService.sendMessage(this.startDateString, this.finishDateString,
+      true, true, true,
       (document.getElementById('assessments-team') as HTMLInputElement).checked, (document.getElementById('enterprise-team') as HTMLInputElement).checked);
   }
 

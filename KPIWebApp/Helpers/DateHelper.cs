@@ -25,23 +25,41 @@ namespace KPIWebApp.Helpers
             }
         }
 
+        public static DateTimeOffset GetStartDate(DateTimeOffset startDate)
+        {
+            return startDate.Date;
+        }
+
+        public static DateTimeOffset? GetStartDate(DateTimeOffset? startDate)
+        {
+            return startDate?.Date;
+        }
+
         public static DateTimeOffset GetFinishDate(string endDateString)
         {
             if (endDateString == null)
             {
-                return new DateTimeOffset(DateTime.Now.AddDays(1).Date);
+                return new DateTimeOffset(DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59));
             }
-
             try
             {
-                var finishDate = new DateTimeOffset(Convert.ToDateTime(endDateString).Date);
-
+                var finishDate = new DateTimeOffset(Convert.ToDateTime(endDateString).Date.AddHours(23).AddMinutes(59).AddSeconds(59));
                 return finishDate;
             }
             catch (Exception ex)
             {
-                return new DateTimeOffset(DateTime.Today);
+                return new DateTimeOffset(DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59));
             }
+        }
+
+        public static DateTimeOffset GetFinishDate(DateTimeOffset finishDate)
+        {
+            return finishDate.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+        }
+
+        public static DateTimeOffset? GetFinishDate(DateTimeOffset? finishDate)
+        {
+            return finishDate?.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
         }
     }
 }

@@ -9,13 +9,14 @@ namespace KPIWebApp.Controllers
     public class ReleasesBarGraphController : ControllerBase
     {
         [HttpGet]
-        public async Task<BarGraphData> Get(string startDateString, string finishDateString)
+        public async Task<BarGraphData> Get(string startDateString, string finishDateString,
+            bool assessmentsTeam, bool enterpriseTeam)
         {
             var startDate = DateHelper.GetStartDate(startDateString);
             var finishDate = DateHelper.GetFinishDate(finishDateString);
 
             var barGraphHelper = new BarGraphHelper();
-            return await barGraphHelper.GetReleaseBarGraphData(startDate, finishDate);
+            return await barGraphHelper.GetReleaseBarGraphData(startDate, finishDate, assessmentsTeam, enterpriseTeam);
         }
     }
 }

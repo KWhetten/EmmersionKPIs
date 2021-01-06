@@ -41,10 +41,12 @@ namespace KPIWebApp.Helpers
             var finishDate = GetFinishDate(taskList, finishTime);
             var currentDate = startDate;
             var rawData = new Dictionary<DateTimeOffset, Dictionary<TaskItemState, int>>();
+            var dates = new List<DateTimeOffset>();
 
             while (currentDate <= finishDate)
             {
-                cumulativeFlowData.dates.Add(currentDate.ToString("d"));
+                dates.Add(currentDate);
+                cumulativeFlowData.dates.Add(currentDate.ToString("M"));
                 rawData.Add(currentDate, new Dictionary<TaskItemState, int>
                 {
                     {TaskItemState.Backlog, 0},
@@ -95,12 +97,12 @@ namespace KPIWebApp.Helpers
             var inProcessData = new List<int>();
             var releasedData = new List<int>();
 
-            foreach (var date in cumulativeFlowData.dates)
+            foreach (var date in dates)
             {
-                backlogData.Add(rawData[DateTimeOffset.Parse(date)][TaskItemState.Backlog]);
-                topPriorityData.Add(rawData[DateTimeOffset.Parse(date)][TaskItemState.TopPriority]);
-                inProcessData.Add(rawData[DateTimeOffset.Parse(date)][TaskItemState.InProcess]);
-                releasedData.Add(rawData[DateTimeOffset.Parse(date)][TaskItemState.Released]);
+                backlogData.Add(rawData[date][TaskItemState.Backlog]);
+                topPriorityData.Add(rawData[date][TaskItemState.TopPriority]);
+                inProcessData.Add(rawData[date][TaskItemState.InProcess]);
+                releasedData.Add(rawData[date][TaskItemState.Released]);
             }
 
             cumulativeFlowData.data.Add(new CumulativeFlowDataRow{
@@ -123,11 +125,11 @@ namespace KPIWebApp.Helpers
             return cumulativeFlowData;
         }
 
-        private static DateTime GetFinishDate(List<TaskItem> taskList, DateTimeOffset finishTime)
+        private static DateTimeOffset GetFinishDate(List<TaskItem> taskList, DateTimeOffset finishTime)
         {
             return taskList.Last().HistoryEvents.Last().EventDate.Date < finishTime
-                ? taskList.Last().HistoryEvents.Last().EventDate.Date
-                : finishTime.Date;
+                ? taskList.Last().HistoryEvents.Last().EventDate
+                : finishTime;
         }
 
         private static DateTime GetStartDate(List<TaskItem> taskList, DateTimeOffset startTime)

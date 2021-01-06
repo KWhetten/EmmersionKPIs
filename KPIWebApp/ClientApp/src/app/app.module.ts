@@ -23,12 +23,14 @@ import {ReleasesComponent} from './releases/releases.component';
 import {TaskItemOverviewComponent} from '../components/task-item-overview/task-item-overview.component';
 import {ReleaseOverviewComponent} from '../components/release-overview/release-overview.component';
 import {ReleasesBarGraphComponent} from '../components/releases-bar-graph/releases-bar-graph.component';
+import {FilterOptionsLiteComponent} from '../components/filter-options-lite/filter-options-lite.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     FilterOptionsComponent,
+    FilterOptionsLiteComponent,
     HomeComponent,
     TaskItemsComponent,
     LoginComponent,

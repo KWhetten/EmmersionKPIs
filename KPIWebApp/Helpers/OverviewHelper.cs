@@ -68,18 +68,23 @@ namespace KPIWebApp.Helpers
 
 
         public async Task<ReleaseOverviewData> GetReleaseOverviewDataAsync(DateTimeOffset startDate, DateTimeOffset finishDate,
-            bool product, bool engineering, bool unanticipated)
+            bool assessmentsTeam, bool enterpriseTeam)
         {
-            Product = product;
-            Engineering = engineering;
-            Unanticipated = unanticipated;
+            AssessmentsTeam = assessmentsTeam;
+            EnterpriseTeam = enterpriseTeam;
 
             var releaseList = await GetReleaseData(startDate, finishDate);
+
+            var selectedReleases = releaseList.Where(release => ReleaseHelper.DevTeamForReleaseIsSelected(assessmentsTeam, enterpriseTeam, release)).ToList();
 
             var releaseHelper = new ReleaseHelper();
             var overviewData = new ReleaseOverviewData();
 
-            overviewData = releaseHelper.PopulateOverviewData(overviewData, releaseList, finishDate);
+            if (selectedReleases.Count != 0)
+            {
+                overviewData = releaseHelper.PopulateOverviewData(overviewData, selectedReleases, finishDate,
+                    assessmentsTeam, enterpriseTeam);
+            }
 
             return overviewData;
         }

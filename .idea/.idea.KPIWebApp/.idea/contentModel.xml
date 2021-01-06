@@ -303,6 +303,11 @@
                 <e p="filter-options.component.html" t="Include" />
                 <e p="filter-options.component.ts" t="Include" />
               </e>
+              <e p="filter-options-lite" t="Include">
+                <e p="filter-options-lite.component.css" t="Include" />
+                <e p="filter-options-lite.component.html" t="Include" />
+                <e p="filter-options-lite.component.ts" t="Include" />
+              </e>
               <e p="lead-time-box-graph" t="Include">
                 <e p="lead-time-box-graph.component.css" t="Include" />
                 <e p="lead-time-box-graph.component.html" t="Include" />

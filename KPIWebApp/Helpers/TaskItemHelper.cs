@@ -36,8 +36,8 @@ namespace KPIWebApp.Helpers
 
         public bool TaskItemDevTeamIsSelected(bool assessmentsTeam, bool enterpriseTeam, TaskItem item)
         {
-            return item.DevelopmentTeam == "Assessments Team" && assessmentsTeam
-                   || item.DevelopmentTeam == "Enterprise Team" && enterpriseTeam;
+            return (item.DevelopmentTeam == "Assessments Team" && assessmentsTeam)
+                   || (item.DevelopmentTeam == "Enterprise Team" && enterpriseTeam);
         }
 
         public bool TaskItemTypeIsSelected(bool product, bool engineering, bool unanticipated, TaskItem item)
@@ -45,6 +45,14 @@ namespace KPIWebApp.Helpers
             var result = item.Type == TaskItemType.Product && product
                          || item.Type == TaskItemType.Engineering && engineering
                          || item.Type == TaskItemType.Unanticipated && unanticipated;
+            return result;
+        }
+
+        public bool TaskItemTypeIsSelected(bool product, bool engineering, bool unanticipated, int typeId)
+        {
+            var result = typeId == (int)TaskItemType.Product && product
+                         || typeId == (int)TaskItemType.Engineering && engineering
+                         || typeId == (int)TaskItemType.Unanticipated && unanticipated;
             return result;
         }
     }

@@ -23,14 +23,12 @@ namespace KPIWebApp.Helpers
             var regression = ols.Learn(multipleLinearRegressionAnalysisData.Inputs,
                 multipleLinearRegressionAnalysisData.Outputs);
 
-            /* Consider getting rid of a Type and Team variable, if you do, intercept actually means something */
             var backlogTimeCoefficient = regression.Weights[0];
             var productCoefficient = regression.Weights[1];
             var engineeringCoefficient = regression.Weights[2];
             var unanticipatedCoefficient = regression.Weights[3];
             var assessmentsTeamCoefficient = regression.Weights[4];
             var enterpriseTeamCoefficient = regression.Weights[5];
-            double intercept = regression.Intercept;
 
             multipleLinearRegressionAnalysisData.Predicted = regression.Transform(multipleLinearRegressionAnalysisData.Inputs);
 
@@ -71,9 +69,6 @@ namespace KPIWebApp.Helpers
                 inputs.Add(new List<double>
                 {
                     logisticRegressionTaskItem.TimeSpentInBacklog.TotalDays,
-                    (logisticRegressionTaskItem.TypeIsProduct ? 1.0 : 0.0),
-                    (logisticRegressionTaskItem.TypeIsEngineering ? 1.0 : 0.0),
-                    (logisticRegressionTaskItem.TypeIsUnanticipated ? 1.0 : 0.0),
                     (logisticRegressionTaskItem.DevTeamIsAssessments ? 1.0 : 0.0),
                     (logisticRegressionTaskItem.DevTeamIsEnterprise ? 1.0 : 0.0)
                 });
@@ -118,9 +113,6 @@ namespace KPIWebApp.Helpers
                 DevTeamIsAssessments = taskItem.DevelopmentTeam == "Assessments Team",
                 DevTeamIsEnterprise = taskItem.DevelopmentTeam == "Enterprise Team",
                 NumRevisions = taskItem.NumRevisions,
-                TypeIsProduct = taskItem.Type == TaskItemType.Product,
-                TypeIsEngineering = taskItem.Type == TaskItemType.Engineering,
-                TypeIsUnanticipated = taskItem.Type == TaskItemType.Unanticipated,
                 CreatedBy = taskItem.CreatedBy
             };
         }

@@ -60,9 +60,17 @@ export class ChangePasswordComponent implements OnInit {
     this.url = this.baseUrl + 'change-password';
 
     if (this.NoFieldsAreBlank() && this.PasswordValid() && await this.PasswordsMatch()) {
-      return this.http.post<any>(this.url, { email: this.email, password: this.password }).subscribe(data => {
-        this.data = data;
-      })
+      return this.http.post<any>(this.baseUrl + 'change-password', {email: this.email, password: this.password}).subscribe(
+        (result) => {
+          (document.getElementById('success') as HTMLElement).hidden = false;
+          (document.getElementById('general-error') as HTMLElement).hidden = true;
+        },
+        (error) => {
+          this.error = error.error;
+          (document.getElementById('general-error') as HTMLElement).hidden = false;
+          (document.getElementById('success') as HTMLElement).hidden = true;
+        }
+      );
     }
   }
 

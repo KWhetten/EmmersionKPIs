@@ -14,7 +14,7 @@ namespace KPIWebApp.Controllers
             bool assessmentsTeam, bool enterpriseTeam)
         {
             var startDate = DateHelper.GetStartDate(startDateString);
-            var finishDate = DateHelper.GetFinishDate(finishDateString).AddDays(1);
+            var finishDate = DateHelper.GetFinishDate(finishDateString);
 
             var boxGraphHelper = new BoxGraphHelper();
             return await boxGraphHelper.GetLeadTimeBoxGraphData(startDate, finishDate, product, engineering, unanticipated, assessmentsTeam, enterpriseTeam);

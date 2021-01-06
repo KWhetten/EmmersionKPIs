@@ -13,7 +13,8 @@ namespace KPIWebApp.Helpers
     public class MultinomialLogisticRegressionAnalysisHelper
     {
         public async Task<MultinomialLogisticRegressionAnalysisItemList> GetLogisticRegressionAnalysisData(
-            DateTimeOffset? startDate, DateTimeOffset? finishDate)
+            DateTimeOffset? startDate, DateTimeOffset? finishDate,
+            bool product, bool engineering, bool unanticipated, bool assessmentsTeam, bool enterpriseTeam)
         {
             var logisticRegressionData = new MultinomialLogisticRegressionAnalysisItemList();
 
@@ -37,11 +38,13 @@ namespace KPIWebApp.Helpers
             var outputList = new List<int>();
             var ids = new List<int>();
             var titles = new List<string>();
+            var taskItemHelper = new TaskItemHelper();
 
             foreach (var logisticRegressionTaskItem
                 in from taskItem in taskItemList
                 where taskItem.StartTime != null
                       && taskItem.FinishTime != null
+                      && taskItemHelper.TaskItemDevTeamIsSelected(assessmentsTeam, enterpriseTeam, taskItem)
                 select GetLogisticRegressionTaskItem(taskItem))
             {
                 ids.Add(logisticRegressionTaskItem.Id);
@@ -70,7 +73,7 @@ namespace KPIWebApp.Helpers
             }
 
             var inputArray = inputs.Select(inputList => inputList.ToArray()).ToArray();
-            var outputArray = outputList.ToArray();
+            var actualResults = outputList.ToArray();
 
             var lbnr = new LowerBoundNewtonRaphson()
             {
@@ -78,31 +81,34 @@ namespace KPIWebApp.Helpers
                 Tolerance = 1e-6
             };
 
-            var mlr = lbnr.Learn(inputArray, outputArray);
+            var mlr = lbnr.Learn(inputArray, actualResults);
 
-            var answers = mlr.Decide(inputArray);
+            var predictions = mlr.Decide(inputArray);
 
             var probabilities = mlr.Probabilities(inputArray);
 
-            logisticRegressionData.Error = new ZeroOneLoss(outputArray).Loss(answers);
+            logisticRegressionData.Error = new ZeroOneLoss(actualResults).Loss(predictions);
 
             for (var i = 0; i < ids.Count; i++)
             {
-                var probability = probabilities[i].Max();
-
-                var logisticRegressionItem = new MultinomialLogisticRegressionAnalysisItem
+                if (taskItemHelper.TaskItemTypeIsSelected(product, engineering, unanticipated, actualResults[i]))
                 {
-                    Id = ids[i],
-                    Inputs = inputs[i],
-                    Title = titles[i],
-                    Output = outputArray[i],
-                    Prediction = answers[i],
-                    Probability = probability
-                };
+                    var probability = probabilities[i].Max();
 
-                if (logisticRegressionItem.Output != logisticRegressionItem.Prediction)
-                {
-                    logisticRegressionData.Items.Add(logisticRegressionItem);
+                    var logisticRegressionItem = new MultinomialLogisticRegressionAnalysisItem
+                    {
+                        Id = ids[i],
+                        Inputs = inputs[i],
+                        Title = titles[i],
+                        Actual = actualResults[i],
+                        Prediction = predictions[i],
+                        Probability = probability
+                    };
+
+                    if (logisticRegressionItem.Actual != logisticRegressionItem.Prediction)
+                    {
+                        logisticRegressionData.Items.Add(logisticRegressionItem);
+                    }
                 }
             }
 

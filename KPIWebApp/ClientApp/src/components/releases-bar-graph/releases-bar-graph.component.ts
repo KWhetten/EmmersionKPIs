@@ -38,7 +38,7 @@ export class ReleasesBarGraphComponent implements OnInit {
     yAxis: {
       min: 0,
       title: {
-        text: 'Total fruit consumption'
+        text: 'Total Releases'
       },
       stackLabels: {
         enabled: false
@@ -77,7 +77,7 @@ export class ReleasesBarGraphComponent implements OnInit {
 
     this.subscription = this.messageService.onMessage().subscribe(message => {
       if(message){
-        this.reloadData(message.startDate, message.finishDate);
+        this.reloadData(message.startDate, message.finishDate, message.assessmentsTeam, message.enterpriseTeam);
       } else {
         this.messages = [];
       }
@@ -85,15 +85,17 @@ export class ReleasesBarGraphComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reloadData("", "");
+    this.reloadData("", "", true, true);
   }
 
-  reloadData(startDate, finishDate) {
+  reloadData(startDate, finishDate, assessmentsTeam, enterpriseTeam) {
     this.timeStart();this.http.get<ReleaseBarGraphData[]>(this.baseUrl + 'releases-bar-graph', {
       params:
         {
           startDateString: startDate,
-          finishDateString: finishDate
+          finishDateString: finishDate,
+          assessmentsTeam: assessmentsTeam,
+          enterpriseTeam: enterpriseTeam
         }
     })
       .subscribe(x => {

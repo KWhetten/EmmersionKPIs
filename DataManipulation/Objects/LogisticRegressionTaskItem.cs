@@ -14,10 +14,6 @@ namespace DataAccess.Objects
 
         public TaskItemType TaskItemType { get; set; }
 
-        public bool TypeIsProduct { get; set; }
-        public bool TypeIsEngineering { get; set; }
-        public bool TypeIsUnanticipated { get; set; }
-
         public bool DevTeamIsAssessments { get; set; }
         public bool DevTeamIsEnterprise { get; set; }
 

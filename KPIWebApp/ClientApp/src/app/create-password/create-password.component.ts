@@ -41,7 +41,7 @@ export class CreatePasswordComponent implements OnInit {
 
     if (await this.NoFieldsAreBlank() && this.PasswordValid() && await this.PasswordsMatch()) {
 
-      this.http.post<any>(this.baseUrl + 'password-change', data).subscribe(
+      this.http.post<any>(this.baseUrl + 'change-password', data).subscribe(
         (result) => {
           (document.getElementById('success') as HTMLElement).hidden = false;
           (document.getElementById('general-error') as HTMLElement).hidden = true;

@@ -15,7 +15,7 @@ namespace KPIWebApp.Controllers
             bool assessmentsTeam, bool enterpriseTeam)
         {
             var startDate = DateHelper.GetStartDate(startDateString);
-            var finishDate = DateHelper.GetFinishDate(finishDateString).AddDays(1);
+            var finishDate = DateHelper.GetFinishDate(finishDateString);
 
             var scatterPlotHelper = new ScatterPlotHelper();
             var result = await scatterPlotHelper
