@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.Api;
+using DataAccess.DataRepositories;
 using Moq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -15,10 +16,10 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.ApiWrapper
     public class KanbanizeApiTests
     {
         [Test]
-        public void When_getting_task_item_list()
+        public async Task When_getting_task_item_list()
         {
             var kanbanizeApi = new KanbanizeApi();
-            var result = kanbanizeApi.GetTaskItemList(4);
+            var result = await kanbanizeApi.GetTaskItemListAsync(4);
 
             Assert.That(result.Count, Is.GreaterThan(0));
         }
@@ -58,25 +59,19 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.ApiWrapper
                     "<note>\n<to>Tove</to>\n<from>Jani</from>\n<heading>Reminder</heading>\n<body>Don't forget me this weekend!</body>\n</note>"
             });
 
-            var kanbanizeApiWrapper = new KanbanizeApi(mockRestClient.Object);
+            var kanbanizeApiWrapper = new KanbanizeApi(mockRestClient.Object, new TaskItemRepository(), new DatabaseConnection());
             var result = kanbanizeApiWrapper.GetHistoryEvents(new List<int>{workItemId.taskid}, 5);
 
             Assert.That(result, Is.EqualTo(""));
         }
 
         [Test]
-        public void When_adding_archived_task_item_list_with_no_items()
+        public async Task When_getting_board_ids()
         {
-            var mockRestClient = new Mock<RestClient>();
-            mockRestClient.Setup(x => x.Execute(It.IsAny<RestRequest>())).Returns(new RestResponse
-            {
-                Headers = {new Parameter("x-ms-continuationtoken", "358", ParameterType.HttpHeader)},
-                Content = "<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<xml> </xml>"
-            });
-            var kanbanizeApiWrapper = new KanbanizeApi(mockRestClient.Object);
-            var result = kanbanizeApiWrapper.AddArchivedTaskItemList(new JArray(), 4);
+            var kanbanizeApi = new KanbanizeApi();
+            var result = await kanbanizeApi.GetBoardIdsAsync();
 
-            Assert.That(result, Is.EqualTo(new JArray()));
+            Assert.That(result, Is.EqualTo(new List<int>{4, 5}));
         }
     }
 }

@@ -21,18 +21,7 @@ namespace KPIWebApp.Helpers
             var taskItemRepository = new TaskItemRepository();
             var taskItemList = await taskItemRepository.GetTaskItemListAsync(startDate, finishDate);
 
-            foreach (var taskItem in taskItemList)
-            {
-                if (!logisticRegressionData.Users.Contains(taskItem.CreatedBy))
-                {
-                    logisticRegressionData.Users.Add(taskItem.CreatedBy);
-                }
-
-                if (!logisticRegressionData.Users.Contains(taskItem.LastChangedBy))
-                {
-                    logisticRegressionData.Users.Add(taskItem.LastChangedBy);
-                }
-            }
+            logisticRegressionData.UserIds = GetUserIds(taskItemList);
 
             var inputs = new List<List<double>>();
             var outputList = new List<int>();
@@ -59,14 +48,14 @@ namespace KPIWebApp.Helpers
                     logisticRegressionTaskItem.NumRevisions
                 });
 
-                foreach (var user in logisticRegressionData.Users)
+                foreach (var user in logisticRegressionData.UserIds)
                 {
-                    inputs.Last().Add(logisticRegressionTaskItem.CreatedBy == user ? 1.0 : 0.0);
+                    inputs.Last().Add(logisticRegressionTaskItem.CreatedById == user ? 1.0 : 0.0);
                 }
 
-                foreach (var user in logisticRegressionData.Users)
+                foreach (var user in logisticRegressionData.UserIds)
                 {
-                    inputs.Last().Add(logisticRegressionTaskItem.LastChangedBy == user ? 1.0 : 0.0);
+                    inputs.Last().Add(logisticRegressionTaskItem.LastChangedBy.Id == user ? 1.0 : 0.0);
                 }
 
                 outputList.Add((int) logisticRegressionTaskItem.TaskItemType);
@@ -115,9 +104,28 @@ namespace KPIWebApp.Helpers
             return logisticRegressionData;
         }
 
-        private LogisticRegressionTaskItem GetLogisticRegressionTaskItem(TaskItem taskItem)
+        private static List<int> GetUserIds(List<TaskItem> taskItemList)
         {
-            return new LogisticRegressionTaskItem
+            var ids = new List<int>();
+            foreach (var taskItem in taskItemList)
+            {
+                if (!ids.Contains(taskItem.CreatedBy.Id))
+                {
+                    ids.Add(taskItem.CreatedBy.Id);
+                }
+
+                if (!ids.Contains(taskItem.LastChangedBy.Id))
+                {
+                    ids.Add(taskItem.LastChangedBy.Id);
+                }
+            }
+
+            return ids;
+        }
+
+        private RegressionAnalysisTaskItem GetLogisticRegressionTaskItem(TaskItem taskItem)
+        {
+            return new RegressionAnalysisTaskItem
             {
                 Id = taskItem.Id,
                 Title = taskItem.Title,
@@ -125,10 +133,10 @@ namespace KPIWebApp.Helpers
                 LeadTime = (taskItem.FinishTime - taskItem.StartTime).GetValueOrDefault(),
                 TimeSpentInBacklog = (taskItem.StartTime - taskItem.CreatedOn).GetValueOrDefault(),
                 TaskItemType = taskItem.Type,
-                DevTeamIsAssessments = taskItem.DevelopmentTeam == "Assessments Team",
-                DevTeamIsEnterprise = taskItem.DevelopmentTeam == "Enterprise Team",
+                DevTeamIsAssessments = taskItem.DevelopmentTeam.Name == "Assessments",
+                DevTeamIsEnterprise = taskItem.DevelopmentTeam.Name == "Enterprise",
                 NumRevisions = taskItem.NumRevisions,
-                CreatedBy = taskItem.CreatedBy,
+                CreatedById = taskItem.CreatedBy.Id,
                 LastChangedBy = taskItem.LastChangedBy
             };
         }

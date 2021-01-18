@@ -2,7 +2,6 @@
 import {HttpClient} from '@angular/common/http';
 import * as bcrypt from 'bcryptjs';
 import {Router} from '@angular/router';
-import {NavMenuComponent} from '../../components/nav-menu/nav-menu.component';
 import {LoginMessageService} from '../_services/loginMessage.service';
 
 @Component({
@@ -29,10 +28,6 @@ export class LoginComponent implements OnInit {
     date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000));
 
     document.cookie = "Authorized=; expires="+date.toUTCString()+"; path=/";
-
-    this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['NavMenuComponent']);
-    });
   }
 
   async submit() {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using DataAccess.DataRepositories;
 using DataAccess.Objects;
@@ -19,15 +18,18 @@ namespace KPIWebApp.Helpers
     public class CumulativeFlowDiagramHelper : ICumulativeFlowDiagramHelper
     {
         private readonly ITaskItemRepository taskItemRepository;
+        private readonly IHistoryEventRepository historyEventRepository;
 
         public CumulativeFlowDiagramHelper()
         {
             taskItemRepository = new TaskItemRepository();
+            historyEventRepository = new HistoryEventRepository();
         }
 
-        public CumulativeFlowDiagramHelper(ITaskItemRepository taskItemRepository)
+        public CumulativeFlowDiagramHelper(ITaskItemRepository taskItemRepository, IHistoryEventRepository historyEventRepository)
         {
             this.taskItemRepository = taskItemRepository;
+            this.historyEventRepository = historyEventRepository;
         }
 
         public async Task<CumulativeFlowData> GetCumulativeFlowDataAsync(DateTimeOffset startTime, DateTimeOffset finishTime,
@@ -145,7 +147,7 @@ namespace KPIWebApp.Helpers
 
             foreach (var task in taskList)
             {
-                task.HistoryEvents = await taskItemRepository.GetHistoryEventsByTaskIdAsync(task.Id);
+                task.HistoryEvents = await historyEventRepository.GetHistoryEventsByTaskIdAsync(task.Id);
             }
 
             var removeList = taskList.Where(taskItem => taskItem.StartTime == null).ToList();

@@ -11,10 +11,10 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
         private const string Name = "Team1";
 
         [Test]
-        public async Task When_saving_a_new_development_team()
+        public async Task When_inserting_a_new_development_team()
         {
-            await developmentTeamsRepository.SaveTeamAsync(Id, Name);
-            var result = await developmentTeamsRepository.GetTeam(Id);
+            await developmentTeamsRepository.InsertDevTeamAsync(Id, Name);
+            var result = await developmentTeamsRepository.GetTeamAsync(Id);
 
             Assert.That(result.Id, Is.EqualTo(Id));
             Assert.That(result.Name, Is.EqualTo(Name));

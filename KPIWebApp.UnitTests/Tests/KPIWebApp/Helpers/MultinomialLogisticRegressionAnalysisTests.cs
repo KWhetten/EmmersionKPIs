@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using KPIWebApp.Controllers;
 using KPIWebApp.Helpers;
 using NUnit.Framework;
 
@@ -17,11 +16,11 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
 
             Console.Write(
                 "Id,Lifetime,LeadTime,TimeSpentInBacklog,DevTeamIsAssessments,DevTeamInEnterprise,NumRevisions,");
-            foreach (var user in result.Users)
+            foreach (var user in result.UserIds)
             {
                 Console.Write($"CreatedBy({user}),");
             }
-            foreach (var user in result.Users)
+            foreach (var user in result.UserIds)
             {
                 Console.Write($"LastChangedBy({user}),");
             }

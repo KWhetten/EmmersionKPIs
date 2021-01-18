@@ -25,11 +25,6 @@ namespace KPIWebApp.Helpers
             }
         }
 
-        public static DateTimeOffset GetStartDate(DateTimeOffset startDate)
-        {
-            return startDate.Date;
-        }
-
         public static DateTimeOffset? GetStartDate(DateTimeOffset? startDate)
         {
             return startDate?.Date;
@@ -50,11 +45,6 @@ namespace KPIWebApp.Helpers
             {
                 return new DateTimeOffset(DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59));
             }
-        }
-
-        public static DateTimeOffset GetFinishDate(DateTimeOffset finishDate)
-        {
-            return finishDate.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
         }
 
         public static DateTimeOffset? GetFinishDate(DateTimeOffset? finishDate)

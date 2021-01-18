@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using DataAccess.Objects;
 
 namespace DataAccess.DataRepositories
 {
@@ -13,7 +14,7 @@ namespace DataAccess.DataRepositories
             databaseConnection = new DatabaseConnection();
         }
 
-        public async Task SaveDeveloperAsync(string developerName)
+        public async Task InsertDeveloperAsync(string developerName)
         {
             var sql = @"IF NOT EXISTS(SELECT * FROM Developers WHERE Name = @developerName)
                             INSERT INTO Developers (Name)
@@ -23,13 +24,17 @@ namespace DataAccess.DataRepositories
             await databaseConnection.DbConnection.ExecuteAsync(sql, new {developerName});
         }
 
-        public async Task<string> GetDeveloperByNameAsync(string name)
+        public async Task<Developer> GetDeveloperByNameAsync(string name)
         {
             var sql = "SELECT * FROM Developers WHERE Name = @name";
 
             databaseConnection.GetNewConnection();
             var result = await databaseConnection.DbConnection.QueryAsync(sql, new {name});
-            return result.First().Name;
+            return new Developer
+            {
+                Id = result.First().Id,
+                Name = result.First().Name
+            };
         }
 
         public async Task RemoveDeveloperByNameAsync(string name)
@@ -38,6 +43,19 @@ namespace DataAccess.DataRepositories
 
             databaseConnection.GetNewConnection();
             await databaseConnection.DbConnection.ExecuteAsync(sql, new {name});
+        }
+
+        public async Task<Developer> GetDeveloperByIdAsync(int id)
+        {
+            var sql = "SELECT * FROM Developers WHERE Id = @id";
+
+            databaseConnection.GetNewConnection();
+            var result = await databaseConnection.DbConnection.QueryAsync(sql, new {id});
+            return new Developer
+            {
+                Id = result.First().Id,
+                Name = result.First().Name
+            };
         }
     }
 }

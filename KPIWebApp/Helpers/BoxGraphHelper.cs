@@ -11,6 +11,7 @@ namespace KPIWebApp.Helpers
     public class BoxGraphHelper
     {
         private readonly ITaskItemRepository taskItemRepository;
+        private readonly TaskItemHelper taskItemHelper;
         private bool Product { get; set; }
         private bool Engineering { get; set; }
         private bool Unanticipated { get; set; }
@@ -19,12 +20,14 @@ namespace KPIWebApp.Helpers
 
         public BoxGraphHelper()
         {
+            taskItemHelper = new TaskItemHelper();
             taskItemRepository = new TaskItemRepository();
         }
 
-        public BoxGraphHelper(ITaskItemRepository taskItemRepository)
+        public BoxGraphHelper(ITaskItemRepository taskItemRepository, TaskItemHelper taskItemHelper)
         {
             this.taskItemRepository = taskItemRepository;
+            this.taskItemHelper = taskItemHelper;
         }
 
         public async Task<BoxGraphData> GetLeadTimeBoxGraphData(DateTimeOffset startDate, DateTimeOffset finishDate,
@@ -35,8 +38,6 @@ namespace KPIWebApp.Helpers
             Unanticipated = unanticipated;
             AssessmentsTeam = assessmentsTeam;
             EnterpriseTeam = enterpriseTeam;
-
-            var taskItemHelper = new TaskItemHelper();
 
             var boxGraphData = new BoxGraphData
             {

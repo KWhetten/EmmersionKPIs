@@ -12,11 +12,11 @@ namespace DataAccess.Objects
         public DateTimeOffset? StartTime { get; set; }
         public DateTimeOffset? FinishTime { get; set; }
         public TaskItemType Type { get; set; }
-        public string DevelopmentTeam { get; set; }
+        public DevelopmentTeam DevelopmentTeam { get; set; }
         public DateTimeOffset? CreatedOn { get; set; }
-        public string CreatedBy { get; set; }
+        public Developer CreatedBy { get; set; }
         public DateTimeOffset? LastChangedOn { get; set; }
-        public string LastChangedBy { get; set; }
+        public Developer LastChangedBy { get; set; }
         public BoardColumn CurrentBoardColumn { get; set; }
         public TaskItemState State { get; set; }
         public int NumRevisions { get; set; }

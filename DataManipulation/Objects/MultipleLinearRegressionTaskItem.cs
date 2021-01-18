@@ -4,6 +4,7 @@ namespace DataAccess.Objects
 {
     public class MultipleLinearRegressionTaskItem
     {
+        public int Id { get; set; }
         public double TimeSpentInBacklog { get; set; }
 
         public bool TypeIsProduct { get; set; }
@@ -13,6 +14,6 @@ namespace DataAccess.Objects
         public bool DevTeamIsAssessments { get; set; }
         public bool DevTeamIsEnterprise { get; set; }
 
-        public string CreatedBy { get; set; }
+        public Developer CreatedBy { get; set; }
     }
 }

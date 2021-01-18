@@ -12,7 +12,7 @@ namespace KPIDataExtractor
     public static class Program
     {
         private static readonly IDevOpsApi DevOpsApi = new DevOpsApi(new RestClient());
-        private static readonly IKanbanizeApi KanbanizeApi = new KanbanizeApi(new RestClient());
+        private static readonly IKanbanizeApi KanbanizeApi = new KanbanizeApi();
         private static readonly ReleaseRepository ReleaseRepository = new ReleaseRepository();
         private static readonly IDevOpsDeserializer DevOpsDeserializer = new DevOpsDeserializer();
         private static readonly TaskItemRepository TaskItemRepository = new TaskItemRepository();
@@ -42,14 +42,14 @@ namespace KPIDataExtractor
 
             foreach (var id in ids)
             {
-                KanbanizeApi.UpdateBoardUsers(id);
+                await KanbanizeApi.UpdateBoardUsersAsync(id);
                 await InsertKanbanizeTaskItemsAsync(id);
             }
         }
 
         private static async Task InsertKanbanizeTaskItemsAsync(int boardId)
         {
-            var taskItemList = KanbanizeApi.GetTaskItemList(boardId);
+            var taskItemList = await KanbanizeApi.GetTaskItemListAsync(boardId);
             if (taskItemList.Any())
             {
                 var deserialized =

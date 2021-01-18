@@ -10,12 +10,12 @@ namespace DataAccess.Objects
         public double[] Predicted { get; set; }
         public double Error { get; set; }
         public double R2 { get; set; }
-        public List<string> Users { get; set; }
+        public List<int> UserIds { get; set; }
 
         public MultipleLinearRegressionAnalysisData()
         {
             Ids = new List<int>();
-            Users = new List<string>();
+            UserIds = new List<int>();
         }
     }
 }

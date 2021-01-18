@@ -16,7 +16,7 @@ namespace DataAccess.Deserialize.Kanbanize
         Task<List<TaskItem>> DeserializeTaskItemListAsync(IEnumerable<JToken> jsonTaskItems,
             int boardId);
 
-        TaskItem DeserializeTaskItem(JToken jsonTaskItem, int boardId);
+        Task<TaskItem> DeserializeTaskItemAsync(JToken jsonTaskItem, int boardId);
 
         Task<TaskItem> FillInTaskItemStateDetailsAsync(HistoryEvent historyEvent,
             TaskItem taskItem);
@@ -43,12 +43,16 @@ namespace DataAccess.Deserialize.Kanbanize
         public async Task<List<TaskItem>> DeserializeTaskItemListAsync(IEnumerable<JToken> jsonTaskItems,
             int boardId)
         {
-            var taskItems = jsonTaskItems.Select(taskItem => DeserializeTaskItem(taskItem, boardId))
-                .ToDictionary(task => task.Id);
+            var taskItems = new Dictionary<int, TaskItem>();
+            foreach (var taskItem in jsonTaskItems)
+            {
+                var newTaskItem = await DeserializeTaskItemAsync(taskItem, boardId);
+                taskItems.Add(newTaskItem.Id, newTaskItem);
+            }
 
             var taskIds = taskItems.Select(taskItem => taskItem.Key).ToList();
 
-            var kanbanizeApi = new KanbanizeApi(new RestClient());
+            var kanbanizeApi = new KanbanizeApi();
             var history = kanbanizeApi.GetHistoryEvents(taskIds, boardId);
 
             taskItems = await kanbanizeHistoryEventDeserializer.DeserializeHistoryEventsAsync(history, taskItems);
@@ -56,8 +60,9 @@ namespace DataAccess.Deserialize.Kanbanize
             return taskItems.Values.ToList();
         }
 
-        public TaskItem DeserializeTaskItem(JToken jsonTaskItem, int boardId)
+        public async Task<TaskItem> DeserializeTaskItemAsync(JToken jsonTaskItem, int boardId)
         {
+            var developmentTeamRepository = new DevelopmentTeamsRepository();
             var taskItem = new TaskItem
             {
                 Id = (int) jsonTaskItem["taskid"],
@@ -65,9 +70,7 @@ namespace DataAccess.Deserialize.Kanbanize
                 StartTime = null,
                 FinishTime = null,
                 Type = GetCardType(jsonTaskItem["type"].ToString()),
-                DevelopmentTeam = boardId == 4
-                    ? "Enterprise Team"
-                    : "Assessments Team",
+                DevelopmentTeam = await developmentTeamRepository.GetTeamAsync(boardId),
                 LastChangedOn = null,
                 CurrentBoardColumn = GetBoardColumn(jsonTaskItem["columnname"].ToString())
             };
@@ -80,11 +83,12 @@ namespace DataAccess.Deserialize.Kanbanize
         public virtual async Task<TaskItem> FillInTaskItemStateDetailsAsync(HistoryEvent historyEvent,
             TaskItem taskItem)
         {
+            var developerRepository = new DeveloperRepository();
             switch (historyEvent.EventType)
             {
                 case "Task created":
                     taskItem.CreatedOn = historyEvent.EventDate;
-                    taskItem.CreatedBy = historyEvent.Author;
+                    taskItem.CreatedBy = await developerRepository.GetDeveloperByNameAsync(historyEvent.Author);
                     break;
                 case "Task moved":
                 {

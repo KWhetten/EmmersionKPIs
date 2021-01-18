@@ -13,9 +13,9 @@ namespace KPIWebApp.Helpers
 
     public class LeadTimeHelper : ILeadTimeHelper
     {
+        const int hoursInAWorkDay = 8;
         public decimal CalculateLeadTimeHours(TaskItem item)
         {
-            const int hoursInAWorkDay = 8;
             var startOfDay = new TimeSpan(14, 30, 0);
             var endOfDay = new TimeSpan(22, 30, 0);
 
@@ -24,6 +24,17 @@ namespace KPIWebApp.Helpers
             if (totalDays == null) return 0m;
 
             var days = (decimal) totalDays;
+            var totalHours = GetHoursFromFullDays(item, days);
+
+            totalHours += GetHoursFromPartialDays(item, endOfDay, startOfDay);
+
+
+            return totalHours;
+
+        }
+
+        private static decimal GetHoursFromFullDays(TaskItem item, decimal days)
+        {
             var totalHours = 0m;
             if (days > 1)
             {
@@ -37,19 +48,24 @@ namespace KPIWebApp.Helpers
                 }
             }
 
-            var hours = (endOfDay - item.StartTime?.TimeOfDay)?.TotalHours;
-            if (hours != null)
+            return totalHours;
+        }
+
+        private static decimal GetHoursFromPartialDays(TaskItem item, TimeSpan endOfDay, TimeSpan startOfDay)
+        {
+            var totalPartialDayHours = 0m;
+
+            var firstDayEveningHours = (endOfDay - item.StartTime?.TimeOfDay)?.TotalHours;
+            if (firstDayEveningHours != null)
             {
-                totalHours += (decimal) hours;
+                totalPartialDayHours += (decimal) firstDayEveningHours;
             }
 
-            hours = (item.FinishTime?.TimeOfDay - startOfDay)?.TotalHours;
-            if (hours != null)
-                totalHours += (decimal) hours;
+            var lastDayMorningHours = (item.FinishTime?.TimeOfDay - startOfDay)?.TotalHours;
+            if (lastDayMorningHours != null)
+                totalPartialDayHours += (decimal) lastDayMorningHours;
 
-
-            return totalHours;
-
+            return totalPartialDayHours;
         }
     }
 }

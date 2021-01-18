@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.DataRepositories;
 using DataAccess.Objects;
@@ -10,7 +9,6 @@ namespace KPIWebApp.Helpers
 {
     public class ScatterPlotHelper
     {
-        private readonly IReleaseRepository releaseRepository;
         private readonly ITaskItemRepository taskItemRepository;
         private bool Product { get; set; }
         private bool Engineering { get; set; }
@@ -21,19 +19,14 @@ namespace KPIWebApp.Helpers
         public ScatterPlotHelper()
         {
             taskItemRepository = new TaskItemRepository();
-            releaseRepository = new ReleaseRepository();
+            new ReleaseRepository();
         }
         public ScatterPlotHelper(ITaskItemRepository taskItemRepository)
         {
             this.taskItemRepository = taskItemRepository;
         }
 
-        public ScatterPlotHelper(IReleaseRepository releaseRepository)
-        {
-            this.releaseRepository = releaseRepository;
-        }
-
-        public async Task<Dictionary<TaskItemType, ScatterPlotData>> GetLeadTimeScatterPlotData(DateTimeOffset startDate, DateTimeOffset finishDate
+        public async Task<Dictionary<TaskItemType, ScatterPlotData>> GetLeadTimeScatterPlotDataAsync(DateTimeOffset startDate, DateTimeOffset finishDate
             , bool product, bool engineering, bool unanticipated, bool assessmentsTeam, bool enterpriseTeam)
         {
             Product = product;

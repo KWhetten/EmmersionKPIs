@@ -8,11 +8,10 @@ namespace DataAccess.DataRepositories
 {
     public interface IUserRepository
     {
-        Task<int> InsertUserInfoAsync(string firstName, string lastName, string email);
+        Task<int> InsertUserAsync(string firstName, string lastName, string email);
         Task<int> InsertPasswordAsync(string email, string password);
-        public Task<bool> AuthorizeUserAsync(UserInfo userInfo);
-        public Task<UserInfo> GetUserInfoByEmailAsync(string email);
-        public Task RemoveUserInfoAsync(UserInfo userInfo);
+        public Task<UserInfo> GetUserByEmailAsync(string email);
+        public Task RemoveUserAsync(UserInfo userInfo);
         public Task<bool> VerifyPasswordAsync(UserInfo userInfo);
     }
 
@@ -28,20 +27,20 @@ namespace DataAccess.DataRepositories
         {
             this.databaseConnection = databaseConnection;
         }
-        public virtual async Task<int> InsertUserInfoAsync(string firstName, string lastName, string email)
+        public virtual async Task<int> InsertUserAsync(string firstName, string lastName, string email)
         {
             databaseConnection.GetNewConnection();
             const int duplicateEmailCode = -1;
             await using (databaseConnection.DbConnection)
             {
-                var sql = $"SELECT * FROM UserInfo WHERE Email = @email;";
+                var sql = $"SELECT * FROM Users WHERE Email = @email;";
                 var result = await databaseConnection.DbConnection.QueryAsync(sql, new {email});
                 if (result.Any())
                 {
                     return duplicateEmailCode;
                 }
 
-                sql = $"INSERT INTO UserInfo (FirstName, LastName, Email)" +
+                sql = $"INSERT INTO Users (FirstName, LastName, Email)" +
                       $"VALUES (@firstName, @lastName, @email)";
                 return await databaseConnection.DbConnection.ExecuteAsync(sql, new {firstName, lastName, email});
             }
@@ -52,43 +51,17 @@ namespace DataAccess.DataRepositories
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
             {
-                var sql = $"UPDATE UserInfo SET Password = @password WHERE email = @email";
+                var sql = $"UPDATE Users SET Password = @password WHERE email = @email";
                 return await databaseConnection.DbConnection.ExecuteAsync(sql, new {password, email});
             }
         }
 
-        public virtual async Task<bool> AuthorizeUserAsync(UserInfo userInfo)
+        public virtual async Task<UserInfo> GetUserByEmailAsync(string email)
         {
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
             {
-                try
-                {
-                    var sql = $"DELETE FROM AuthorizedUsers WHERE Expires < GETDATE();";
-                    await databaseConnection.DbConnection.ExecuteAsync(sql);
-
-                    var guid = userInfo.Guid.ToString();
-                    var email = userInfo.Email;
-                    var now = DateTimeOffset.Now.AddHours(2).ToString("yyyy'-'MM'-'dd HH':'mm':'ss'.'ff");
-                    sql = $"INSERT INTO AuthorizedUsers (Guid, Email, Expires) " +
-                          $"VALUES (@guid, @email, @now);";
-                    await databaseConnection.DbConnection.ExecuteAsync(sql, new {guid, email, now});
-
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    return false;
-                }
-            }
-        }
-
-        public virtual async Task<UserInfo> GetUserInfoByEmailAsync(string email)
-        {
-            databaseConnection.GetNewConnection();
-            await using (databaseConnection.DbConnection)
-            {
-                var sql = $"SELECT * FROM UserInfo WHERE email = @email;";
+                var sql = $"SELECT * FROM Users WHERE email = @email;";
                 var infos = await databaseConnection.DbConnection.QueryAsync<UserInfo>(sql, new {email});
                 var info = infos.First();
                 info.Guid = Guid.NewGuid();
@@ -96,28 +69,30 @@ namespace DataAccess.DataRepositories
             }
         }
 
-        private async Task<string> GetUserPasswordAsync(UserInfo userInfo)
+        public async Task<string> GetUserPasswordAsync(UserInfo userInfo)
         {
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
             {
                 var email = userInfo.Email;
-                var sql = $"SELECT Password FROM UserInfo WHERE email = @email;";
-                var passwords = await databaseConnection.DbConnection.QueryAsync<string>(sql, new {email});
+                var sql = $"SELECT Password FROM Users WHERE email = @email;";
+                var passwords = (await databaseConnection.DbConnection.QueryAsync<string>(sql, new {email})).ToList();
                 return passwords.First();
             }
         }
 
-        public async Task RemoveUserInfoAsync(UserInfo userInfo)
+        public async Task RemoveUserAsync(UserInfo userInfo)
         {
+            var authorizedUsersRepository = new SessionsRepository();
+
+            var email = userInfo.Email;
+
+            await authorizedUsersRepository.RemoveSessionAsync(email);
+
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
             {
-                var email = userInfo.Email;
-                var sql = $"DELETE FROM AuthorizedUsers WHERE email = @email;";
-                await databaseConnection.DbConnection.ExecuteAsync(sql, new {email});
-
-                sql = $"DELETE FROM UserInfo WHERE email = @email;";
+                var sql = $"DELETE FROM Users WHERE email = @email;";
                 await databaseConnection.DbConnection.ExecuteAsync(sql, new {email});
             }
         }
@@ -126,24 +101,6 @@ namespace DataAccess.DataRepositories
         {
             var password = await GetUserPasswordAsync(userInfo);
             return userInfo.Password == password;
-        }
-
-        public bool SessionIsAuthorized(Guid guid)
-        {
-            databaseConnection.GetNewConnection();
-            using (databaseConnection.DbConnection)
-            {
-                try
-                {
-                    var sql = $"SELECT * FROM AuthorizedUsers WHERE Guid = @guid";
-                    var result = databaseConnection.DbConnection.Query(sql, new {guid});
-                    return result.Any();
-                }
-                catch (Exception ex)
-                {
-                    return false;
-                }
-            }
         }
     }
 }

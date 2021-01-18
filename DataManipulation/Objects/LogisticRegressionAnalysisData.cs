@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DataAccess.Objects;
 
 public class MultinomialLogisticRegressionAnalysisItem
 {
@@ -18,12 +19,12 @@ public class MultinomialLogisticRegressionAnalysisItem
 public class MultinomialLogisticRegressionAnalysisItemList
 {
     public List<MultinomialLogisticRegressionAnalysisItem> Items { get; set; }
-    public List<string> Users { get; set; }
+    public List<int> UserIds { get; set; }
     public double Error { get; set; }
 
     public MultinomialLogisticRegressionAnalysisItemList()
     {
         Items = new List<MultinomialLogisticRegressionAnalysisItem>();
-        Users = new List<string>();
+        UserIds = new List<int>();
     }
 }

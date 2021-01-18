@@ -14,15 +14,17 @@ namespace DataAccess.Api
     public interface IKanbanizeApi
     {
         string GetInformation(string uri, string body);
-        JToken GetTaskItemList(int boardId);
+        Task<JToken> GetTaskItemListAsync(int boardId);
         JToken GetHistoryEvents(List<int> taskItemIds, int boardId);
         public Task<List<int>> GetBoardIdsAsync();
-        public void UpdateBoardUsers(int boardId);
+        public Task UpdateBoardUsersAsync(int boardId);
     }
 
     public class KanbanizeApi : IKanbanizeApi
     {
         private readonly IRestClient client;
+        private readonly ITaskItemRepository taskItemRepository;
+        private IDatabaseConnection databaseConnection;
         private readonly string apiKey = File.ReadLines($"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/EmmersionKPI/kanbanizeApiKey.txt").First();
         private const string Subdomain = "emmersion";
         private readonly DevelopmentTeamsRepository developmentTeamsRepository = new DevelopmentTeamsRepository();
@@ -30,11 +32,14 @@ namespace DataAccess.Api
         public KanbanizeApi()
         {
             client = new RestClient();
+            taskItemRepository = new TaskItemRepository();
         }
 
-        public KanbanizeApi(IRestClient client)
+        public KanbanizeApi(IRestClient client, ITaskItemRepository taskItemRepository, IDatabaseConnection databaseConnection)
         {
             this.client = client;
+            this.taskItemRepository = taskItemRepository;
+            this.databaseConnection = databaseConnection;
         }
 
         public string GetInformation(string uri, string body)
@@ -47,7 +52,7 @@ namespace DataAccess.Api
             return response.Content;
         }
 
-        public JToken GetTaskItemList(int boardId)
+        public async Task<JToken> GetTaskItemListAsync(int boardId)
         {
             var uri =
                 $"http://{Subdomain}.kanbanize.com/index.php/api/kanbanize/get_all_tasks/";
@@ -65,9 +70,8 @@ namespace DataAccess.Api
 
             foreach (var item in jsonList)
             {
-                var taskItemRepository = new TaskItemRepository();
                 if (item["workflow_name"].ToString().Contains("Delivery")
-                    && !taskItemRepository.TaskItemHasBeenReleasedAsync((int) item["taskid"]))
+                    && !await taskItemRepository.TaskItemHasBeenReleasedAsync((int) item["taskid"]))
                 {
                     result.Add(item);
                 }
@@ -81,10 +85,10 @@ namespace DataAccess.Api
                 }
             }
 
-            return AddArchivedTaskItemList(result, boardId);
+            return await AddArchivedTaskItemListAsync(result, boardId);
         }
 
-        public JArray AddArchivedTaskItemList(JArray result, int boardId)
+        public async Task<JArray> AddArchivedTaskItemListAsync(JArray result, int boardId)
         {
             JObject json;
             JToken jsonList;
@@ -114,7 +118,7 @@ namespace DataAccess.Api
                     var taskItemRepository = new TaskItemRepository();
                     if (((int) item["workflow_id"] == 19 && boardId == 4)
                         || ((int) item["workflow_id"] == 8 && boardId == 5)
-                        && !taskItemRepository.TaskItemHasBeenReleasedAsync((int) item["taskid"]))
+                        && !await taskItemRepository.TaskItemHasBeenReleasedAsync((int) item["taskid"]))
                     {
                         result.Add(item);
                     }
@@ -189,14 +193,14 @@ namespace DataAccess.Api
 
             foreach (var apple in jsonInformation)
             {
-                await developmentTeamsRepository.SaveTeamAsync((int) apple["id"], apple["name"].ToString());
+                await developmentTeamsRepository.InsertDevTeamAsync((int) apple["id"], apple["name"].ToString());
                 boardIds.Add((int) apple["id"]);
             }
 
             return boardIds;
         }
 
-        public void UpdateBoardUsers(int boardId)
+        public async Task UpdateBoardUsersAsync(int boardId)
         {
             var uri = $"https://{Subdomain}.kanbanize.com/index.php/api/kanbanize/get_board_settings/";
             var body = $"{{\"boardid\":\"{boardId}\"}}";
@@ -211,7 +215,7 @@ namespace DataAccess.Api
             var developerRepository = new DeveloperRepository();
             foreach (var username in usernames)
             {
-                developerRepository.SaveDeveloperAsync(username.ToString());
+                await developerRepository.InsertDeveloperAsync(username.ToString());
             }
         }
     }

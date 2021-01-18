@@ -22,9 +22,10 @@ namespace DataAccess.Deserialize
             releaseRepository = new ReleaseRepository();
             releaseEnvironmentRepository = new ReleaseEnvironmentRepository();
         }
-        public DevOpsDeserializer(IReleaseRepository releaseRepository)
+        public DevOpsDeserializer(IReleaseRepository releaseRepository, IReleaseEnvironmentRepository releaseEnvironmentRepository)
         {
             this.releaseRepository = releaseRepository;
+            this.releaseEnvironmentRepository = releaseEnvironmentRepository;
         }
         public List<Release> DeserializeReleases(JToken jsonObjects)
         {
@@ -36,8 +37,7 @@ namespace DataAccess.Deserialize
                      || item["releaseDefinition"]["name"].ToString().Contains("Production"))
                     && !releaseRepository.ReleaseIsFinishedInDatabase((int) item["id"]))
 
-                    releaseEnvironmentRepository.SaveReleaseEnvironmentAsync((int) item["releaseDefinition"]["id"],
-                        item["releaseDefinition"]["name"].ToString());
+                    releaseEnvironmentRepository.SaveReleaseEnvironmentAsync((int) item["releaseDefinition"]["id"], item["releaseDefinition"]["name"].ToString());
 
                     list.Add(new Release
                     {

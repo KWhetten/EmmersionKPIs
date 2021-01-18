@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataAccess.DataRepositories;
 using DataAccess.Objects;
 using Newtonsoft.Json.Linq;
 
@@ -38,12 +39,13 @@ namespace DataAccess.Deserialize.Kanbanize
 
                         var taskItem = taskItems[(int) jsonTaskItem["taskid"]];
                         var taskItemDeserializer = new KanbanizeTaskItemDeserializer();
+                        var developerRepository = new DeveloperRepository();
                         taskItem = await taskItemDeserializer.FillInTaskItemStateDetailsAsync(historyEvent, taskItem);
 
                         if (taskItem.LastChangedOn < historyEvent.EventDate || taskItem.LastChangedOn == null)
                         {
                             taskItem.LastChangedOn = historyEvent.EventDate;
-                            taskItem.LastChangedBy = historyEvent.Author;
+                            taskItem.LastChangedBy = await developerRepository.GetDeveloperByNameAsync(historyEvent.Author);
                         }
 
                         taskItem.NumRevisions++;

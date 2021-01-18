@@ -11,297 +11,241 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
 {
     public class CumulativeFlowDiagramHelperTests
     {
+        private List<TaskItem> taskItems = new List<TaskItem>();
+
+        [SetUp]
+        public void SetUp()
+        {
+            taskItems = new List<TaskItem>{
+                new TaskItem
+                {
+                    Id = 1,
+                    StartTime = new DateTimeOffset(new DateTime(2021, 1, 11)),
+                    Type = TaskItemType.Product,
+                    DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                },
+                    HistoryEvents = new List<HistoryEvent>
+                    {
+                        new HistoryEvent
+                        {
+                            EventType = "Created on",
+                            TaskItemState = TaskItemState.Backlog,
+                            EventDate = new DateTimeOffset(new DateTime(2021, 1, 11))
+                        },
+                        new HistoryEvent
+                        {
+                            EventType = "Task moved",
+                            TaskItemState = TaskItemState.TopPriority,
+                            EventDate = new DateTimeOffset(new DateTime(2021, 1, 12))
+                        },
+                        new HistoryEvent
+                        {
+                            EventType = "Task moved",
+                            TaskItemState = TaskItemState.InProcess,
+                            EventDate = new DateTimeOffset(new DateTime(2021, 1, 13))
+                        },
+                        new HistoryEvent
+                        {
+                            EventType = "Task moved",
+                            TaskItemState = TaskItemState.Released,
+                            EventDate = new DateTimeOffset(new DateTime(2021, 1, 15))
+                        }
+                    }
+                },
+                new TaskItem
+                {
+                    Id = 2,
+                    StartTime = new DateTimeOffset(new DateTime(2021, 1, 12)),
+                    Type = TaskItemType.Engineering,
+                    DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Enterprise"
+                },
+                    HistoryEvents = new List<HistoryEvent>
+                    {
+                        new HistoryEvent
+                        {
+                            EventType = "Created on",
+                            TaskItemState = TaskItemState.Backlog,
+                            EventDate = new DateTimeOffset(new DateTime(2021, 1, 12))
+                        },
+                        new HistoryEvent
+                        {
+                            EventType = "Task moved",
+                            TaskItemState = TaskItemState.TopPriority,
+                            EventDate = new DateTimeOffset(new DateTime(2021, 1, 13))
+                        },
+                        new HistoryEvent
+                        {
+                            EventType = "Task moved",
+                            TaskItemState = TaskItemState.InProcess,
+                            EventDate = new DateTimeOffset(new DateTime(2021, 1, 15))
+                        },
+                        new HistoryEvent
+                        {
+                            EventType = "Task moved",
+                            TaskItemState = TaskItemState.Released,
+                            EventDate = new DateTimeOffset(new DateTime(2021, 1, 17))
+                        }
+                    }
+                },
+                new TaskItem
+                {
+                    Id = 3,
+                    StartTime = new DateTimeOffset(new DateTime(2021, 1, 14)),
+                    Type = TaskItemType.Unanticipated,
+                    DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                },
+                    HistoryEvents = new List<HistoryEvent>
+                    {
+                        new HistoryEvent
+                        {
+                            EventType = "Created on",
+                            TaskItemState = TaskItemState.Backlog,
+                            EventDate = new DateTimeOffset(new DateTime(2021, 1, 14))
+                        },
+                        new HistoryEvent
+                        {
+                            EventType = "Task moved",
+                            TaskItemState = TaskItemState.TopPriority,
+                            EventDate = new DateTimeOffset(new DateTime(2021, 1, 14))
+                        },
+                        new HistoryEvent
+                        {
+                            EventType = "Task moved",
+                            TaskItemState = TaskItemState.InProcess,
+                            EventDate = new DateTimeOffset(new DateTime(2021, 1, 17))
+                        },
+                        new HistoryEvent
+                        {
+                            EventType = "Task moved",
+                            TaskItemState = TaskItemState.Released,
+                            EventDate = new DateTimeOffset(new DateTime(2021, 1, 18))
+                        }
+                    }
+                },
+                new TaskItem
+                {
+                    Id = 4,
+                    Type = TaskItemType.Unanticipated,
+                    DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                },
+                    HistoryEvents = new List<HistoryEvent>
+                    {
+                        new HistoryEvent
+                        {
+                            EventDate = new DateTimeOffset(new DateTime(2021, 1, 18))
+                        }
+                    }
+                }
+            }
+            ;
+        }
+
         [Test]
         public async Task When_getting_cumulative_flow_data()
         {
-            var taskItem = new TaskItem
-            {
-                Id = 1,
-                DevelopmentTeam = "Assessments",
-                StartTime = DateTimeOffset.Now.Date.AddDays(-4),
-                Type = TaskItemType.Product,
-                HistoryEvents = new List<HistoryEvent>
-                {
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-5),
-                        TaskItemState = TaskItemState.Backlog
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-4),
-                        TaskItemState = TaskItemState.TopPriority
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-3),
-                        TaskItemState = TaskItemState.InProcess
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-2),
-                        TaskItemState = TaskItemState.Released
-                    }
-                }
-            };
-
-            var mockTaskItemRepository = new Mock<ITaskItemRepository>();
+            var mockTaskItemRepository = new Mock<TaskItemRepository>();
             mockTaskItemRepository
-                .Setup(x
-                    => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
-                .ReturnsAsync(new List<TaskItem> {taskItem});
+                .Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset?>(), It.IsAny<DateTimeOffset?>()))
+                .ReturnsAsync(taskItems);
 
-            mockTaskItemRepository.Setup(x => x.GetHistoryEventsByTaskIdAsync(It.IsAny<int>()))
-                .ReturnsAsync(taskItem.HistoryEvents);
+            var mockHistoryEventRepository = new Mock<HistoryEventRepository>();
+            mockHistoryEventRepository.SetupSequence(x => x.GetHistoryEventsByTaskIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(taskItems[0].HistoryEvents)
+                .ReturnsAsync(taskItems[1].HistoryEvents)
+                .ReturnsAsync(taskItems[2].HistoryEvents)
+                .ReturnsAsync(taskItems[3].HistoryEvents);
 
-            var cumulativeFlowDiagramHelper = new CumulativeFlowDiagramHelper(mockTaskItemRepository.Object);
+            var cumulativeFlowDiagramHelper =
+                new CumulativeFlowDiagramHelper(mockTaskItemRepository.Object, mockHistoryEventRepository.Object);
 
-            var result = await cumulativeFlowDiagramHelper.GetCumulativeFlowDataAsync(DateTime.Now.Date.AddDays(-5), DateTime.Now.Date,
+            var result = await cumulativeFlowDiagramHelper.GetCumulativeFlowDataAsync(
+                new DateTimeOffset(new DateTime(2021, 1, 11)),
+                new DateTimeOffset(new DateTime(2021, 1, 17)),
                 true, true, true, true, true);
 
-            Assert.IsNotNull(result);
-            Assert.That(result.data[0].data, Is.EqualTo(new List<int>{1,0,0,0}));
-            Assert.That(result.data[1].data, Is.EqualTo(new List<int>{0,1,0,0}));
-            Assert.That(result.data[2].data, Is.EqualTo(new List<int>{0,0,1,0}));
-            Assert.That(result.data[3].data, Is.EqualTo(new List<int>{0,0,0,1}));
+            foreach (var res in result.data)
+            {
+                foreach (var datum in res.data)
+                {
+                    Console.Write($"{datum}, ");
+                }
+                Console.Write("\n");
+            }
+
+            Assert.That(result.data[0].data, Is.EqualTo(new List<int> {1, 1, 0, 0, 0, 0, 0}));
+            Assert.That(result.data[1].data, Is.EqualTo(new List<int> {0, 1, 1, 2, 1, 1, 0}));
+            Assert.That(result.data[2].data, Is.EqualTo(new List<int> {0, 0, 1, 1, 1, 1, 1}));
+            Assert.That(result.data[3].data, Is.EqualTo(new List<int> {0, 0, 0, 0, 1, 1, 2}));
         }
 
         [Test]
-        public async Task When_getting_cumulative_flow_data_with_specified_task_item_types()
+        public async Task When_getting_cumulative_flow_data_for_specific_task_items()
         {
-
-            var taskItem = new TaskItem
-            {
-                Id = 1,
-                DevelopmentTeam = "Assessments",
-                Type = TaskItemType.Product,
-                StartTime = DateTimeOffset.Now.Date.AddDays(-4),
-                HistoryEvents = new List<HistoryEvent>
-                {
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-5),
-                        TaskItemState = TaskItemState.Backlog
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-4),
-                        TaskItemState = TaskItemState.TopPriority
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-3),
-                        TaskItemState = TaskItemState.InProcess
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-2),
-                        TaskItemState = TaskItemState.Released
-                    }
-                }
-            };
-            var taskItem2 = new TaskItem
-            {
-                Id = 2,
-                DevelopmentTeam = "Assessments",
-                Type = TaskItemType.Engineering,
-                StartTime = DateTimeOffset.Now.Date.AddDays(-4),
-                HistoryEvents = new List<HistoryEvent>
-                {
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-4),
-                        TaskItemState = TaskItemState.Backlog
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-3),
-                        TaskItemState = TaskItemState.TopPriority
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-2),
-                        TaskItemState = TaskItemState.InProcess
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-1),
-                        TaskItemState = TaskItemState.Released
-                    }
-                }
-            };
-            var taskItem3 = new TaskItem
-            {
-                Id = 3,
-                DevelopmentTeam = "Assessments",
-                Type = TaskItemType.Unanticipated,
-                StartTime = DateTimeOffset.Now.Date.AddDays(-4),
-                HistoryEvents = new List<HistoryEvent>
-                {
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-3),
-                        TaskItemState = TaskItemState.Backlog
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-2),
-                        TaskItemState = TaskItemState.TopPriority
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-1),
-                        TaskItemState = TaskItemState.InProcess
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date,
-                        TaskItemState = TaskItemState.Released
-                    }
-                }
-            };
-
-
-            var mockTaskItemRepository = new Mock<ITaskItemRepository>();
+            var mockTaskItemRepository = new Mock<TaskItemRepository>();
             mockTaskItemRepository
-                .Setup(x
-                    => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
-                .ReturnsAsync(new List<TaskItem> {taskItem, taskItem2, taskItem3});
+                .Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset?>(), It.IsAny<DateTimeOffset?>()))
+                .ReturnsAsync(taskItems);
 
-            mockTaskItemRepository.SetupSequence(x => x.GetHistoryEventsByTaskIdAsync(It.IsAny<int>()))
-                .ReturnsAsync(taskItem.HistoryEvents)
-                .ReturnsAsync(taskItem2.HistoryEvents)
-                .ReturnsAsync(taskItem3.HistoryEvents);
+            var mockHistoryEventRepository = new Mock<HistoryEventRepository>();
+            mockHistoryEventRepository.SetupSequence(x => x.GetHistoryEventsByTaskIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(taskItems[0].HistoryEvents)
+                .ReturnsAsync(taskItems[1].HistoryEvents)
+                .ReturnsAsync(taskItems[2].HistoryEvents)
+                .ReturnsAsync(taskItems[3].HistoryEvents);
 
-            var cumulativeFlowDiagramHelper = new CumulativeFlowDiagramHelper(mockTaskItemRepository.Object);
+            var cumulativeFlowDiagramHelper =
+                new CumulativeFlowDiagramHelper(mockTaskItemRepository.Object, mockHistoryEventRepository.Object);
 
-            var result = await cumulativeFlowDiagramHelper.GetCumulativeFlowDataAsync(DateTime.Now.Date.AddDays(-5), DateTime.Now.Date,
-                true, true, false, true, true);
+            var result = await cumulativeFlowDiagramHelper.GetCumulativeFlowDataAsync(
+                new DateTimeOffset(new DateTime(2021, 1, 11)),
+                new DateTimeOffset(new DateTime(2021, 1, 17)),
+                true, false, false, true, true);
 
-            Assert.IsNotNull(result);
-            Assert.That(result.data[0].data, Is.EqualTo(new List<int>{1,1,0,0,0,0}));
-            Assert.That(result.data[1].data, Is.EqualTo(new List<int>{0,1,1,0,0,0}));
-            Assert.That(result.data[2].data, Is.EqualTo(new List<int>{0,0,1,1,0,0}));
-            Assert.That(result.data[3].data, Is.EqualTo(new List<int>{0,0,0,1,2,2}));
+            Assert.That(result.data[0].data, Is.EqualTo(new List<int> {1, 0, 0, 0, 0, 0, 0}));
+            Assert.That(result.data[1].data, Is.EqualTo(new List<int> {0, 1, 0, 0, 0, 0, 0}));
+            Assert.That(result.data[2].data, Is.EqualTo(new List<int> {0, 0, 1, 1, 0, 0, 0}));
+            Assert.That(result.data[3].data, Is.EqualTo(new List<int> {0, 0, 0, 0, 1, 1, 1}));
         }
 
         [Test]
-        public async Task When_getting_cumulative_flow_data_with_specified_development_teams()
+        public async Task When_getting_cumulative_flow_data_for_specific_development_teams()
         {
-
-            var taskItem = new TaskItem
-            {
-                Id = 1,
-                DevelopmentTeam = "Assessments",
-                Type = TaskItemType.Product,
-                StartTime = DateTimeOffset.Now.Date.AddDays(-4),
-                HistoryEvents = new List<HistoryEvent>
-                {
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-5),
-                        TaskItemState = TaskItemState.Backlog
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-4),
-                        TaskItemState = TaskItemState.TopPriority
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-3),
-                        TaskItemState = TaskItemState.InProcess
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-2),
-                        TaskItemState = TaskItemState.Released
-                    }
-                }
-            };
-            var taskItem2 = new TaskItem
-            {
-                Id = 2,
-                DevelopmentTeam = "Enterprise",
-                Type = TaskItemType.Engineering,
-                StartTime = DateTimeOffset.Now.Date.AddDays(-4),
-                HistoryEvents = new List<HistoryEvent>
-                {
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-4),
-                        TaskItemState = TaskItemState.Backlog
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-3),
-                        TaskItemState = TaskItemState.TopPriority
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-2),
-                        TaskItemState = TaskItemState.InProcess
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-1),
-                        TaskItemState = TaskItemState.Released
-                    }
-                }
-            };
-            var taskItem3 = new TaskItem
-            {
-                Id = 3,
-                DevelopmentTeam = "Assessments",
-                Type = TaskItemType.Unanticipated,
-                StartTime = DateTimeOffset.Now.Date.AddDays(-4),
-                HistoryEvents = new List<HistoryEvent>
-                {
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-3),
-                        TaskItemState = TaskItemState.Backlog
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-2),
-                        TaskItemState = TaskItemState.TopPriority
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date.AddDays(-1),
-                        TaskItemState = TaskItemState.InProcess
-                    },
-                    new HistoryEvent
-                    {
-                        EventDate = DateTimeOffset.Now.Date,
-                        TaskItemState = TaskItemState.Released
-                    }
-                }
-            };
-
-
-            var mockTaskItemRepository = new Mock<ITaskItemRepository>();
+            var mockTaskItemRepository = new Mock<TaskItemRepository>();
             mockTaskItemRepository
-                .Setup(x
-                    => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
-                .ReturnsAsync(new List<TaskItem> {taskItem, taskItem2, taskItem3});
+                .Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset?>(), It.IsAny<DateTimeOffset?>()))
+                .ReturnsAsync(taskItems);
 
-            mockTaskItemRepository.SetupSequence(x => x.GetHistoryEventsByTaskIdAsync(It.IsAny<int>()))
-                .ReturnsAsync(taskItem.HistoryEvents)
-                .ReturnsAsync(taskItem2.HistoryEvents)
-                .ReturnsAsync(taskItem3.HistoryEvents);
+            var mockHistoryEventRepository = new Mock<HistoryEventRepository>();
+            mockHistoryEventRepository.SetupSequence(x => x.GetHistoryEventsByTaskIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(taskItems[0].HistoryEvents)
+                .ReturnsAsync(taskItems[1].HistoryEvents)
+                .ReturnsAsync(taskItems[2].HistoryEvents)
+                .ReturnsAsync(taskItems[3].HistoryEvents);
 
-            var cumulativeFlowDiagramHelper = new CumulativeFlowDiagramHelper(mockTaskItemRepository.Object);
+            var cumulativeFlowDiagramHelper =
+                new CumulativeFlowDiagramHelper(mockTaskItemRepository.Object, mockHistoryEventRepository.Object);
 
-            var result = await cumulativeFlowDiagramHelper.GetCumulativeFlowDataAsync(DateTime.Now.Date.AddDays(-5), DateTime.Now.Date,
-                true, true, true, true, false);
+            var result = await cumulativeFlowDiagramHelper.GetCumulativeFlowDataAsync(
+                new DateTimeOffset(new DateTime(2021, 1, 11)),
+                new DateTimeOffset(new DateTime(2021, 1, 17)),
+                true, false, false, true, true);
 
-            Assert.IsNotNull(result);
-            Assert.That(result.data[0].data, Is.EqualTo(new List<int>{1,0,1,0,0,0}));
-            Assert.That(result.data[1].data, Is.EqualTo(new List<int>{0,1,0,1,0,0}));
-            Assert.That(result.data[2].data, Is.EqualTo(new List<int>{0,0,1,0,1,0}));
-            Assert.That(result.data[3].data, Is.EqualTo(new List<int>{0,0,0,1,1,2}));
+            Assert.That(result.data[0].data, Is.EqualTo(new List<int> {1, 0, 0, 0, 0, 0, 0}));
+            Assert.That(result.data[1].data, Is.EqualTo(new List<int> {0, 1, 0, 0, 0, 0, 0}));
+            Assert.That(result.data[2].data, Is.EqualTo(new List<int> {0, 0, 1, 1, 0, 0, 0}));
+            Assert.That(result.data[3].data, Is.EqualTo(new List<int> {0, 0, 0, 0, 1, 1, 1}));
         }
     }
 }

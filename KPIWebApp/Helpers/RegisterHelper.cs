@@ -18,7 +18,7 @@ namespace KPIWebApp.Helpers
 
         public async Task<int> RegisterUser(RegisterData data)
         {
-            return await userRepository.InsertUserInfoAsync(data.FirstName, data.LastName, data.Email);
+            return await userRepository.InsertUserAsync(data.FirstName, data.LastName, data.Email);
         }
 
         public class RegisterData

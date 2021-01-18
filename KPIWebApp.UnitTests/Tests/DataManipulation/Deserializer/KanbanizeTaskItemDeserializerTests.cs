@@ -92,7 +92,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                     Id = 1,
                     EventType = "Task created",
                     EventDate = DateTimeOffset.Now.Date.AddDays(-5),
-                    Author = "Author1"
+                    Author = "Charles"
                 },
                 new HistoryEvent
                 {
@@ -100,7 +100,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                     EventType = "Task moved",
                     TaskItemState = TaskItemState.TopPriority,
                     EventDate = DateTimeOffset.Now.Date.AddDays(-4),
-                    Author = "Author2"
+                    Author = "Dave"
                 },
                 new HistoryEvent
                 {
@@ -108,7 +108,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                     EventType = "Task moved",
                     TaskItemState = TaskItemState.InProcess,
                     EventDate = DateTimeOffset.Now.Date.AddDays(-3),
-                    Author = "Author3"
+                    Author = "Jon"
                 },
                 new HistoryEvent
                 {
@@ -116,7 +116,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                     EventType = "Task moved",
                     TaskItemState = TaskItemState.Released,
                     EventDate = DateTimeOffset.Now.Date.AddDays(-2),
-                    Author = "Author4"
+                    Author = "Ryan"
                 }
             };
             var taskItem = new TaskItem();
@@ -133,7 +133,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                 result = await kanbanizeTaskItemDeserializer.FillInTaskItemStateDetailsAsync(historyEvent, taskItem);
             }
 
-            Assert.That(result.CreatedBy, Is.EqualTo(historyEventList[0].Author));
+            Assert.That(result.CreatedBy.Name, Is.EqualTo(historyEventList[0].Author));
             Assert.That(result.CreatedOn, Is.EqualTo(historyEventList[0].EventDate));
             Assert.That(result.StartTime, Is.EqualTo(historyEventList[1].EventDate));
             Assert.That(result.FinishTime, Is.EqualTo(historyEventList[3].EventDate));

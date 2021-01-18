@@ -42,7 +42,7 @@ namespace DataAccess.DataRepositories
             }
         }
 
-        public async Task<IEnumerable<Release>> GetReleaseListAsync(DateTimeOffset startDate, DateTimeOffset endDate)
+        public virtual async Task<IEnumerable<Release>> GetReleaseListAsync(DateTimeOffset startDate, DateTimeOffset endDate)
         {
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
@@ -57,7 +57,7 @@ namespace DataAccess.DataRepositories
                           "r.FinishTime, " +
                           "r.Name, " +
                           "r.Attempts " +
-                          "FROM Release r JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
+                          "FROM Releases r JOIN ReleaseEnvironments re ON r.ReleaseEnvironmentId = re.Id " +
                           "WHERE FinishTime > @startDateString AND FinishTime < @endDateString " +
                           "ORDER BY r.StartTime";
                 var releases = (await databaseConnection.DbConnection
@@ -74,13 +74,13 @@ namespace DataAccess.DataRepositories
                 release.Name.Contains("Insights")) return;
 
             var releaseEnvironmentId = release.ReleaseEnvironment.Id;
-            var sql = "IF NOT EXISTS (SELECT * FROM ReleaseEnvironment WHERE Id = @releaseEnvironmentId) " +
-                      $"INSERT INTO ReleaseEnvironment VALUES (@releaseEnvironmentId, @releaseEnvironmentName)";
+            var sql = "IF NOT EXISTS (SELECT * FROM ReleaseEnvironments WHERE Id = @releaseEnvironmentId) " +
+                      $"INSERT INTO ReleaseEnvironments VALUES (@releaseEnvironmentId, @releaseEnvironmentName)";
             await databaseConnection.DbConnection.ExecuteAsync(sql, new {releaseEnvironmentId, releaseEnvironmentName});
 
             var finishTime = release.FinishTime;
-            sql = "IF EXISTS(SELECT * FROM Release WHERE ID = @id) " +
-                  $"UPDATE Release SET state = @state, " +
+            sql = "IF EXISTS(SELECT * FROM Releases WHERE ID = @id) " +
+                  $"UPDATE Releases SET state = @state, " +
                   "ReleaseEnvironmentId = @releaseEnvironmentId, " +
                   "StartTime = @startTime, " +
                   "FinishTime = @finishTime, " +
@@ -88,7 +88,7 @@ namespace DataAccess.DataRepositories
                   "Attempts = @attempts " +
                   "WHERE Id = @id " +
                   "ELSE " +
-                  $"INSERT INTO Release VALUES (@id, @state, @releaseEnvironmentId, @startTime, @finishTime, @name, @attempts);";
+                  $"INSERT INTO Releases VALUES (@id, @state, @releaseEnvironmentId, @startTime, @finishTime, @name, @attempts);";
             await databaseConnection.DbConnection.ExecuteAsync(sql, new
             {
                 id = release.Id, state = release.State, releaseEnvironmentId, startTime = release.StartTime,
@@ -114,7 +114,7 @@ namespace DataAccess.DataRepositories
                           "r.FinishTime, " +
                           "r.Name, " +
                           "r.Attempts " +
-                          "FROM Release r JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
+                          "FROM Releases r JOIN ReleaseEnvironments re ON r.ReleaseEnvironmentId = re.Id " +
                           "WHERE FinishTime " +
                           "BETWEEN @startTimeString " +
                           "AND @finishTimeString " +
@@ -142,7 +142,7 @@ namespace DataAccess.DataRepositories
                     "r.FinishTime, " +
                     "r.Name, " +
                     "r.Attempts " +
-                    "FROM Release r JOIN ReleaseEnvironment re ON r.ReleaseEnvironmentId = re.Id " +
+                    "FROM Releases r JOIN ReleaseEnvironments re ON r.ReleaseEnvironmentId = re.Id " +
                     "WHERE r.Id = @releaseId;";
                 var info = (await databaseConnection.DbConnection
                     .QueryAsync<ReleaseInfo>(sql, new {releaseId})).First();
@@ -168,7 +168,7 @@ namespace DataAccess.DataRepositories
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
             {
-                var sql = $"DELETE FROM Release WHERE Id = @releaseId";
+                var sql = $"DELETE FROM Releases WHERE Id = @releaseId";
                 await databaseConnection.DbConnection.ExecuteAsync(sql, new {releaseId});
             }
         }
@@ -178,7 +178,7 @@ namespace DataAccess.DataRepositories
             databaseConnection.GetNewConnection();
             using (databaseConnection.DbConnection)
             {
-                var sql = $"SELECT * FROM Release WHERE Id = @id";
+                var sql = $"SELECT * FROM Releases WHERE Id = @id";
                 var result = databaseConnection.DbConnection.Query(sql, new {id});
                 return result.Any();
             }

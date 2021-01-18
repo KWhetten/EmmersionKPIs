@@ -11,24 +11,30 @@ namespace KPIWebApp.Helpers
 {
     public class MultipleLinearRegressionAnalysisHelper
     {
+        private TaskItemRepository taskItemRepository;
+
+        public MultipleLinearRegressionAnalysisHelper()
+        {
+            taskItemRepository = new TaskItemRepository();
+        }
+
+        public MultipleLinearRegressionAnalysisHelper(TaskItemRepository taskItemRepository)
+        {
+            this.taskItemRepository = taskItemRepository;
+        }
+
         public async Task<string> GetEstimation(MultipleLinearRegressionTaskItem item)
         {
             var multipleLinearRegressionAnalysisData = await GetMultipleLinearRegressionAnalysisData(item);
 
             var ols = new OrdinaryLeastSquares()
             {
-                UseIntercept = true
+                UseIntercept = true,
+                IsRobust = true
             };
 
             var regression = ols.Learn(multipleLinearRegressionAnalysisData.Inputs,
                 multipleLinearRegressionAnalysisData.Outputs);
-
-            var backlogTimeCoefficient = regression.Weights[0];
-            var productCoefficient = regression.Weights[1];
-            var engineeringCoefficient = regression.Weights[2];
-            var unanticipatedCoefficient = regression.Weights[3];
-            var assessmentsTeamCoefficient = regression.Weights[4];
-            var enterpriseTeamCoefficient = regression.Weights[5];
 
             multipleLinearRegressionAnalysisData.Predicted = regression.Transform(multipleLinearRegressionAnalysisData.Inputs);
 
@@ -42,18 +48,17 @@ namespace KPIWebApp.Helpers
             return (multipleLinearRegressionAnalysisData.Predicted.Last() * 8).ToString("F2");
         }
 
-        private async Task<MultipleLinearRegressionAnalysisData> GetMultipleLinearRegressionAnalysisData(MultipleLinearRegressionTaskItem item)
+        public async Task<MultipleLinearRegressionAnalysisData> GetMultipleLinearRegressionAnalysisData(MultipleLinearRegressionTaskItem item)
         {
             var multipleLinearRegressionAnalysisData = new MultipleLinearRegressionAnalysisData();
 
-            var taskItemRepository = new TaskItemRepository();
             var taskItemList =
                 await taskItemRepository.GetTaskItemListAsync(new DateTimeOffset(new DateTime(2020, 1, 1)), DateTimeOffset.Now);
 
             foreach (var taskItem in taskItemList.Where(taskItem =>
-                !multipleLinearRegressionAnalysisData.Users.Contains(taskItem.CreatedBy)))
+                !multipleLinearRegressionAnalysisData.UserIds.Contains(taskItem.CreatedBy.Id)))
             {
-                multipleLinearRegressionAnalysisData.Users.Add(taskItem.CreatedBy);
+                multipleLinearRegressionAnalysisData.UserIds.Add(taskItem.CreatedBy.Id);
             }
 
             var inputs = new List<List<double>>();
@@ -63,19 +68,22 @@ namespace KPIWebApp.Helpers
                 in from taskItem in taskItemList
                 where taskItem.StartTime != null
                       && taskItem.FinishTime != null
-                select GetLogisticRegressionTaskItem(taskItem))
+                select GetRegressionAnalysisTaskItem(taskItem))
             {
                 multipleLinearRegressionAnalysisData.Ids.Add(logisticRegressionTaskItem.Id);
                 inputs.Add(new List<double>
                 {
                     logisticRegressionTaskItem.TimeSpentInBacklog.TotalDays,
+                    logisticRegressionTaskItem.TypeIsProduct ? 1.0 : 0.0,
+                    logisticRegressionTaskItem.TypeIsEngineering ? 1.0 : 0.0,
+                    logisticRegressionTaskItem.TypeIsUnanticipated ? 1.0 : 0.0,
                     (logisticRegressionTaskItem.DevTeamIsAssessments ? 1.0 : 0.0),
                     (logisticRegressionTaskItem.DevTeamIsEnterprise ? 1.0 : 0.0)
                 });
 
-                foreach (var user in multipleLinearRegressionAnalysisData.Users)
+                foreach (var userId in multipleLinearRegressionAnalysisData.UserIds)
                 {
-                    inputs.Last().Add(logisticRegressionTaskItem.CreatedBy == user ? 1.0 : 0.0);
+                    inputs.Last().Add(logisticRegressionTaskItem.CreatedById == userId ? 1.0 : 0.0);
                 }
 
                 outputList.Add(logisticRegressionTaskItem.LeadTime.TotalDays);
@@ -90,7 +98,11 @@ namespace KPIWebApp.Helpers
                 item.DevTeamIsAssessments ? 1.0 : 0.0,
                 item.DevTeamIsEnterprise ? 1.0 : 0.0
             };
-            itemInput.AddRange(multipleLinearRegressionAnalysisData.Users.Select(user => user == item.CreatedBy ? 1.0 : 0.0));
+
+            foreach (var userId in multipleLinearRegressionAnalysisData.UserIds)
+            {
+                itemInput.Add(item.CreatedBy.Id == userId ? 1.0 : 0.0);
+            }
 
             inputs.Add(itemInput);
             outputList.Add(-1.0);
@@ -101,19 +113,21 @@ namespace KPIWebApp.Helpers
             return multipleLinearRegressionAnalysisData;
         }
 
-        private LogisticRegressionTaskItem GetLogisticRegressionTaskItem(TaskItem taskItem)
+        private RegressionAnalysisTaskItem GetRegressionAnalysisTaskItem(TaskItem taskItem)
         {
-            return new LogisticRegressionTaskItem
+            return new RegressionAnalysisTaskItem
             {
                 Id = taskItem.Id,
                 Lifetime = (taskItem.LastChangedOn - taskItem.CreatedOn).GetValueOrDefault(),
                 LeadTime = (taskItem.FinishTime - taskItem.StartTime).GetValueOrDefault(),
                 TimeSpentInBacklog = (taskItem.StartTime - taskItem.CreatedOn).GetValueOrDefault(),
-                TaskItemType = taskItem.Type,
-                DevTeamIsAssessments = taskItem.DevelopmentTeam == "Assessments Team",
-                DevTeamIsEnterprise = taskItem.DevelopmentTeam == "Enterprise Team",
+                TypeIsProduct = taskItem.Type == TaskItemType.Product,
+                TypeIsEngineering = taskItem.Type == TaskItemType.Engineering,
+                TypeIsUnanticipated = taskItem.Type == TaskItemType.Unanticipated,
+                DevTeamIsAssessments = taskItem.DevelopmentTeam.Name == "Assessments",
+                DevTeamIsEnterprise = taskItem.DevelopmentTeam.Name == "Enterprise",
                 NumRevisions = taskItem.NumRevisions,
-                CreatedBy = taskItem.CreatedBy
+                CreatedById = taskItem.CreatedBy.Id
             };
         }
     }

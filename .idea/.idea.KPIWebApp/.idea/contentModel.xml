@@ -29,10 +29,12 @@
           <e p="DatabaseConnection.cs" t="Include" />
           <e p="DeveloperRepository.cs" t="Include" />
           <e p="DevelopmentTeamsRepository.cs" t="Include" />
-          <e p="Helper.cs" t="Include" />
+          <e p="HistoryEventRepository.cs" t="Include" />
           <e p="ReleaseEnvironmentRepository.cs" t="Include" />
           <e p="ReleaseRepository.cs" t="Include" />
+          <e p="SessionRepository.cs" t="Include" />
           <e p="TaskItemRepository.cs" t="Include" />
+          <e p="TaskItemTypeRepository.cs" t="Include" />
           <e p="UserRepository.cs" t="Include" />
         </e>
         <e p="Deserialize" t="Include">
@@ -50,37 +52,25 @@
           </e>
         </e>
         <e p="Objects" t="Include">
-          <e p="BoardColumn.cs" t="Include" />
+          <e p="Developer.cs" t="Include" />
+          <e p="DevelopmentTeam.cs" t="Include" />
+          <e p="Enums" t="Include">
+            <e p="BoardColumn.cs" t="Include" />
+            <e p="TaskItemState.cs" t="Include" />
+            <e p="TaskItemType.cs" t="Include" />
+          </e>
           <e p="HistoryEvent.cs" t="Include" />
           <e p="LogisticRegressionAnalysisData.cs" t="Include" />
           <e p="LogisticRegressionTaskItem.cs" t="Include" />
           <e p="MultipleLinearRegressionAnalysisData.cs" t="Include" />
           <e p="MultipleLinearRegressionTaskItem.cs" t="Include" />
+          <e p="RegressionAnalysisTaskItem.cs" t="Include" />
           <e p="Release.cs" t="Include" />
           <e p="ReleaseEnvironment.cs" t="Include" />
           <e p="TaskItem.cs" t="Include" />
-          <e p="TaskItemState.cs" t="Include" />
-          <e p="TaskItemType.cs" t="Include" />
+          <e p="TaskItemInfo.cs" t="Include" />
           <e p="UserInfo.cs" t="Include" />
         </e>
-      </e>
-      <e p="DevOpsTaskItemDataExtractor-DEPRECATED" t="IncludeRecursive">
-        <e p="ApiWrapper" t="Include">
-          <e p="DevOpsApiWrapper.cs" t="Include" />
-        </e>
-        <e p="bin" t="ExcludeRecursive" />
-        <e p="Deserializer" t="Include">
-          <e p="DevOpsDeserializer.cs" t="Include" />
-        </e>
-        <e p="DevOpsTaskItemDataExtractor-DEPRECATED.csproj" t="IncludeRecursive" />
-        <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
-            <e p="netcoreapp3.1" t="Include">
-              <e p="DevOpsTaskItemDataExtractor-DEPRECATED.AssemblyInfo.cs" t="Include" />
-            </e>
-          </e>
-        </e>
-        <e p="Program.cs" t="Include" />
       </e>
       <e p="KPIWebApp" t="IncludeRecursive">
         <e p=".gitignore" t="Include" />
@@ -368,7 +358,7 @@
           <e p="tslint.json" t="Include" />
         </e>
         <e p="Controllers" t="Include">
-          <e p="AuthorizeUserController.cs" t="Include" />
+          <e p="AuthorizeSessionController.cs" t="Include" />
           <e p="CumulativeFlowDiagramController.cs" t="Include" />
           <e p="ForgotPasswordController.cs" t="Include" />
           <e p="LeadTimeBoxGraphController.cs" t="Include" />
@@ -452,11 +442,15 @@
               <e p="KanbanizeApiTests.cs" t="Include" />
             </e>
             <e p="DataRepositories" t="Include">
-              <e p="AuthorizationRepositoryTests.cs" t="Include" />
               <e p="DeveloperRepositoryTests.cs" t="Include" />
               <e p="DevelopmentTeamsRepositoryTests.cs" t="Include" />
+              <e p="HistoryEventRepositoryTests.cs" t="Include" />
+              <e p="ReleaseEnvironmentRepositoryTests.cs" t="Include" />
               <e p="ReleaseRepositoryTests.cs" t="Include" />
+              <e p="SessionRepositoryTests.cs" t="Include" />
               <e p="TaskItemRepositoryTests.cs" t="Include" />
+              <e p="TaskItemTypeRepositoryTests.cs" t="Include" />
+              <e p="UserRepositoryTests.cs" t="Include" />
             </e>
           </e>
         </e>
@@ -492,10 +486,10 @@
           </e>
           <e p="KPIWebApp" t="Include">
             <e p="Helpers" t="Include">
+              <e p="BarGraphHelperTests.cs" t="Include" />
               <e p="BoxGraphHelperTests.cs" t="Include" />
               <e p="CumulativeFlowDiagramHelperTests.cs" t="Include" />
               <e p="DateHelperTests.cs" t="Include" />
-              <e p="EmailHelperTests.cs" t="Include" />
               <e p="ForgotPasswordHelperTests.cs" t="Include" />
               <e p="LeadTimeHelperTests.cs" t="Include" />
               <e p="LoginUserHelperTests.cs" t="Include" />
@@ -504,6 +498,7 @@
               <e p="OverviewHelperTests.cs" t="Include" />
               <e p="PasswordChangeHelperTests.cs" t="Include" />
               <e p="RegisterHelperTests.cs" t="Include" />
+              <e p="ReleaseHelperTests.cs" t="Include" />
               <e p="ScatterPlotHelperTests.cs" t="Include" />
               <e p="TaskItemHelperTests.cs" t="Include" />
             </e>

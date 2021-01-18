@@ -12,7 +12,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
         public async Task When_registering_new_user()
         {
             var mockUserDataAccess = new Mock<IUserRepository>();
-            mockUserDataAccess.Setup(x => x.InsertUserInfoAsync(
+            mockUserDataAccess.Setup(x => x.InsertUserAsync(
                     It.IsAny<string>(),
                     It.IsAny<string>(),
                     It.IsAny<string>()))
@@ -37,7 +37,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
         public async Task When_registering_new_user_with_duplicate_email()
         {
             var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(x => x.InsertUserInfoAsync(
+            mockUserRepository.Setup(x => x.InsertUserAsync(
                     It.IsAny<string>(),
                     It.IsAny<string>(),
                     It.IsAny<string>()))
@@ -62,7 +62,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
         public async Task When_registering_new_user_and_error_occurs()
         {
             var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(x => x.InsertUserInfoAsync(
+            mockUserRepository.Setup(x => x.InsertUserAsync(
                     It.IsAny<string>(),
                     It.IsAny<string>(),
                     It.IsAny<string>()))

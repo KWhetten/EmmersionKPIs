@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.DataRepositories;
 using DataAccess.Objects;
@@ -11,277 +10,326 @@ using NUnit.Framework;
 
 namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
 {
-    [TestFixture]
     public class OverviewHelperTests
     {
+        private readonly OverviewHelper overviewHelper = new OverviewHelper();
+
         [Test]
-        public async Task When_getting_task_item_data()
+        public async Task When_getting_lead_time_overview_data()
         {
+            var taskList = new List<TaskItem>
+            {
+                new TaskItem
+                {
+                    Id = 1,
+                    Title = "Task1"
+                }
+            };
+
             var mockTaskItemRepository = new Mock<ITaskItemRepository>();
-            var taskItemList = new List<TaskItem>();
-            mockTaskItemRepository.Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
-                .ReturnsAsync(taskItemList);
+            mockTaskItemRepository
+                .Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset?>(), It.IsAny<DateTimeOffset?>()))
+                .ReturnsAsync(taskList);
 
-            var overviewHelper = new OverviewHelper(mockTaskItemRepository.Object);
-            var result = await overviewHelper.GetTaskItemData(new DateTimeOffset(new DateTime(2020, 10, 28), TimeSpan.Zero), new DateTimeOffset(new DateTime(2020, 10, 28), TimeSpan.Zero));
+            var tempOverviewHelper = new OverviewHelper(mockTaskItemRepository.Object);
 
-            Assert.That(result, Is.EqualTo(taskItemList));
+            var result = await tempOverviewHelper.GetTaskItemData(DateTimeOffset.Now, DateTimeOffset.Now);
+
+            Assert.That(result[0].Id, Is.EqualTo(taskList[0].Id));
+            Assert.That(result[0].Title, Is.EqualTo(taskList[0].Title));
         }
 
         [Test]
         public async Task When_getting_release_data()
         {
-            var mockReleaseRepository = new Mock<IReleaseRepository>();
-            var releaseList = new List<Release>();
-            mockReleaseRepository.Setup(x => x.GetReleaseListAsync(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
+            var releaseList = new List<Release>
+            {
+                new Release
+                {
+                    Id = 1,
+                    Name = "Release1"
+                }
+            };
+
+            var mockReleaseRepository = new Mock<ReleaseRepository>();
+            mockReleaseRepository
+                .Setup(x => x.GetReleaseListAsync(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
                 .ReturnsAsync(releaseList);
 
-            var overviewHelper = new OverviewHelper(mockReleaseRepository.Object);
-            var result = await overviewHelper.GetReleaseData(new DateTimeOffset(new DateTime(2020, 10, 28), TimeSpan.Zero), new DateTimeOffset(new DateTime(2020, 10, 28), TimeSpan.Zero));
+            var tempOverviewHelper = new OverviewHelper(mockReleaseRepository.Object);
 
-            Assert.That(result, Is.EqualTo(releaseList));
+            var result = await tempOverviewHelper.GetReleaseData(DateTimeOffset.Now, DateTimeOffset.Now);
+
+            Assert.That(result.Count, Is.EqualTo(releaseList.Count));
+            Assert.That(result[0].Id, Is.EqualTo(releaseList[0].Id));
+            Assert.That(result[0].Name, Is.EqualTo(releaseList[0].Name));
         }
 
         [Test]
-        public async Task When_getting_overview_data() // TODO: Add in explicit dates
+        public void When_getting_task_item_overview_dat_and_the_task_list_is_empty()
         {
-            var overviewData = new TaskItemOverviewData();
-            var taskItemList = new List<TaskItem>
-            {
-                new TaskItem
-                {
-                    Id = 1,
-                    Title = "Task1",
-                    StartTime = DateTimeOffset.Now.Date.AddDays(-1),
-                    FinishTime = DateTimeOffset.Now.Date,
-                    Type = TaskItemType.Product,
-                    DevelopmentTeam = "Assessments Team",
-                    CreatedOn = DateTimeOffset.Now.Date.AddDays(-1-1),
-                    CreatedBy = "User1",
-                    LastChangedOn = DateTimeOffset.Now.Date,
-                    LastChangedBy = "User1",
-                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
-                    State = TaskItemState.Released,
-                    NumRevisions = 1,
-                    Release = new Release(),
-                    HistoryEvents = new List<HistoryEvent>(),
-                    LeadTimeHours = 0
-                },
-                new TaskItem
-                {
-                    Id = 2,
-                    Title = "Task2",
-                    StartTime = DateTimeOffset.Now.Date.AddDays(-2),
-                    FinishTime = DateTimeOffset.Now.Date,
-                    Type = TaskItemType.Engineering,
-                    DevelopmentTeam = "Assessments Team",
-                    CreatedOn = DateTimeOffset.Now.Date.AddDays(-2-2),
-                    CreatedBy = "User2",
-                    LastChangedOn = DateTimeOffset.Now.Date,
-                    LastChangedBy = "User2",
-                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
-                    State = TaskItemState.Released,
-                    NumRevisions = 2,
-                    Release = new Release(),
-                    HistoryEvents = new List<HistoryEvent>(),
-                    LeadTimeHours = 0
-                },
-                new TaskItem
-                {
-                    Id = 3,
-                    Title = "Task3",
-                    StartTime = DateTimeOffset.Now.Date.AddDays(-3),
-                    FinishTime = DateTimeOffset.Now.Date,
-                    Type = TaskItemType.Unanticipated,
-                    DevelopmentTeam = "Assessments Team",
-                    CreatedOn = DateTimeOffset.Now.Date.AddDays(-3-3),
-                    CreatedBy = "User3",
-                    LastChangedOn = DateTimeOffset.Now.Date,
-                    LastChangedBy = "User3",
-                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
-                    State = TaskItemState.Released,
-                    NumRevisions = 3,
-                    Release = new Release(),
-                    HistoryEvents = new List<HistoryEvent>(),
-                    LeadTimeHours = 0
-                },
-                new TaskItem
-                {
-                    Id = 4,
-                    Title = "Task4",
-                    StartTime = DateTimeOffset.Now.Date.AddDays(-4),
-                    FinishTime = DateTimeOffset.Now.Date,
-                    Type = TaskItemType.Product,
-                    DevelopmentTeam = "Assessments Team",
-                    CreatedOn = DateTimeOffset.Now.Date.AddDays(-4-4),
-                    CreatedBy = "User4",
-                    LastChangedOn = DateTimeOffset.Now.Date,
-                    LastChangedBy = "User4",
-                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
-                    State = TaskItemState.Released,
-                    NumRevisions = 4,
-                    Release = new Release(),
-                    HistoryEvents = new List<HistoryEvent>(),
-                    LeadTimeHours = 0
-                },
-                new TaskItem
-                {
-                    Id = 5,
-                    Title = "Task5",
-                    StartTime = DateTimeOffset.Now.Date.AddDays(-5),
-                    FinishTime = DateTimeOffset.Now.Date,
-                    Type = TaskItemType.Engineering,
-                    DevelopmentTeam = "Assessments Team",
-                    CreatedOn = DateTimeOffset.Now.Date.AddDays(-5-5),
-                    CreatedBy = "User5",
-                    LastChangedOn = DateTimeOffset.Now.Date,
-                    LastChangedBy = "User5",
-                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
-                    State = TaskItemState.Released,
-                    NumRevisions = 5,
-                    Release = new Release(),
-                    HistoryEvents = new List<HistoryEvent>(),
-                    LeadTimeHours = 0
-                }
-            };
+            var result = overviewHelper.PopulateOverviewData(new List<TaskItem>());
 
-
-            var overviewHelper = new OverviewHelper();
-            var result = overviewHelper.PopulateOverviewData(overviewData, taskItemList);
-
-            var expected = new TaskItemOverviewData
-            {
-                AverageLeadTime = 19.2m,
-                LongestLeadTime = 24m,
-                ShortestLeadTime = 8m,
-                TotalCards = 5
-            };
-
-            Assert.That(result.TotalCards, Is.EqualTo(expected.TotalCards));
-            Assert.That(result.AverageLeadTime, Is.EqualTo(expected.AverageLeadTime));
-            Assert.That(result.LongestLeadTime, Is.EqualTo(expected.LongestLeadTime));
-            Assert.That(result.ShortestLeadTime, Is.EqualTo(expected.ShortestLeadTime));
+            Assert.That(result.AverageLeadTime, Is.EqualTo(0));
+            Assert.That(result.ShortestLeadTime, Is.EqualTo(0));
+            Assert.That(result.LongestLeadTime, Is.EqualTo(0));
         }
 
         [Test]
-        public async Task When_getting_only_product_overview_data()
+        public void When_populating_overview_data()
         {
-            var overviewData = new TaskItemOverviewData();
-            var taskItemList = new List<TaskItem>
+            var taskList = new List<TaskItem>
             {
                 new TaskItem
                 {
-                    Id = 1,
-                    Title = "Task1",
-                    StartTime = DateTimeOffset.Now.Date.AddDays(-1),
-                    FinishTime = DateTimeOffset.Now.Date,
+                    StartTime = new DateTimeOffset(new DateTime(2021, 1, 11)),
+                    FinishTime = new DateTimeOffset(new DateTime(2021, 1, 15)),
                     Type = TaskItemType.Product,
-                    DevelopmentTeam = "Assessments Team",
-                    CreatedOn = DateTimeOffset.Now.Date.AddDays(-1-1),
-                    CreatedBy = "User1",
-                    LastChangedOn = DateTimeOffset.Now.Date,
-                    LastChangedBy = "User1",
-                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
-                    State = TaskItemState.Released,
-                    NumRevisions = 1,
-                    Release = new Release(),
-                    HistoryEvents = new List<HistoryEvent>(),
-                    LeadTimeHours = 0
-                },
-                new TaskItem
-                {
-                    Id = 2,
-                    Title = "Task2",
-                    StartTime = DateTimeOffset.Now.Date.AddDays(-2),
-                    FinishTime = DateTimeOffset.Now.Date,
-                    Type = TaskItemType.Engineering,
-                    DevelopmentTeam = "Assessments Team",
-                    CreatedOn = DateTimeOffset.Now.Date.AddDays(-2-2),
-                    CreatedBy = "User2",
-                    LastChangedOn = DateTimeOffset.Now.Date,
-                    LastChangedBy = "User2",
-                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
-                    State = TaskItemState.Released,
-                    NumRevisions = 2,
-                    Release = new Release(),
-                    HistoryEvents = new List<HistoryEvent>(),
-                    LeadTimeHours = 0
-                },
-                new TaskItem
-                {
-                    Id = 3,
-                    Title = "Task3",
-                    StartTime = DateTimeOffset.Now.Date.AddDays(-3),
-                    FinishTime = DateTimeOffset.Now.Date,
-                    Type = TaskItemType.Unanticipated,
-                    DevelopmentTeam = "Assessments Team",
-                    CreatedOn = DateTimeOffset.Now.Date.AddDays(-3-3),
-                    CreatedBy = "User3",
-                    LastChangedOn = DateTimeOffset.Now.Date,
-                    LastChangedBy = "User3",
-                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
-                    State = TaskItemState.Released,
-                    NumRevisions = 3,
-                    Release = new Release(),
-                    HistoryEvents = new List<HistoryEvent>(),
-                    LeadTimeHours = 0
-                },
-                new TaskItem
+                    DevelopmentTeam = new DevelopmentTeam
                 {
                     Id = 4,
-                    Title = "Task4",
-                    StartTime = DateTimeOffset.Now.Date.AddDays(-4),
-                    FinishTime = DateTimeOffset.Now.Date,
-                    Type = TaskItemType.Product,
-                    DevelopmentTeam = "Assessments Team",
-                    CreatedOn = DateTimeOffset.Now.Date.AddDays(-4-4),
-                    CreatedBy = "User4",
-                    LastChangedOn = DateTimeOffset.Now.Date,
-                    LastChangedBy = "User4",
-                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
-                    State = TaskItemState.Released,
-                    NumRevisions = 4,
-                    Release = new Release(),
-                    HistoryEvents = new List<HistoryEvent>(),
-                    LeadTimeHours = 0
+                    Name = "Assessments"
+                }
                 },
                 new TaskItem
                 {
-                    Id = 5,
-                    Title = "Task5",
-                    StartTime = DateTimeOffset.Now.Date.AddDays(-5),
-                    FinishTime = DateTimeOffset.Now.Date,
+                    StartTime = new DateTimeOffset(new DateTime(2021, 1, 12)),
+                    FinishTime = new DateTimeOffset(new DateTime(2021, 1, 14)),
                     Type = TaskItemType.Engineering,
-                    DevelopmentTeam = "Assessments Team",
-                    CreatedOn = DateTimeOffset.Now.Date.AddDays(-5-5),
-                    CreatedBy = "User5",
-                    LastChangedOn = DateTimeOffset.Now.Date,
-                    LastChangedBy = "User5",
-                    CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
-                    State = TaskItemState.Released,
-                    NumRevisions = 5,
-                    Release = new Release(),
-                    HistoryEvents = new List<HistoryEvent>(),
-                    LeadTimeHours = 0
+                    DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
+                },
+                new TaskItem
+                {
+                    StartTime = new DateTimeOffset(new DateTime(2021, 1, 13)),
+                    FinishTime = new DateTimeOffset(new DateTime(2021, 1, 14)),
+                    Type = TaskItemType.Unanticipated,
+                    DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
                 }
             };
 
+            var result = overviewHelper.PopulateOverviewData(taskList);
 
-            var overviewHelper = new OverviewHelper(true, false, false);
-            var result = overviewHelper.PopulateOverviewData(overviewData, taskItemList);
+            Assert.That(result.AverageLeadTime, Is.EqualTo(18.67));
+            Assert.That(result.LongestLeadTime, Is.EqualTo(32.0));
+            Assert.That(result.ShortestLeadTime, Is.EqualTo(8.0));
+            Assert.That(result.TotalCards, Is.EqualTo(3));
+        }
 
-            var expected = new TaskItemOverviewData
+        [Test]
+        public async Task When_populating_task_item_overview_data_with_specific_types()
+        {
+            var taskList = new List<TaskItem>
             {
-                AverageLeadTime = 6.4m,
-                LongestLeadTime = 24m,
-                ShortestLeadTime = 8m,
-                TotalCards = 2
+                new TaskItem
+                {
+                    StartTime = new DateTimeOffset(new DateTime(2021, 1, 11)),
+                    FinishTime = new DateTimeOffset(new DateTime(2021, 1, 15)),
+                    Type = TaskItemType.Product,
+                    DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
+                },
+                new TaskItem
+                {
+                    StartTime = new DateTimeOffset(new DateTime(2021, 1, 11)),
+                    FinishTime = new DateTimeOffset(new DateTime(2021, 1, 14)),
+                    Type = TaskItemType.Product,
+                    DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
+                },
+                new TaskItem
+                {
+                    StartTime = new DateTimeOffset(new DateTime(2021, 1, 11)),
+                    FinishTime = new DateTimeOffset(new DateTime(2021, 1, 13)),
+                    Type = TaskItemType.Product,
+                    DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
+                },
+                new TaskItem
+                {
+                    StartTime = new DateTimeOffset(new DateTime(2021, 1, 12)),
+                    FinishTime = new DateTimeOffset(new DateTime(2021, 1, 14)),
+                    Type = TaskItemType.Engineering,
+                    DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
+                },
+                new TaskItem
+                {
+                    StartTime = new DateTimeOffset(new DateTime(2021, 1, 13)),
+                    FinishTime = new DateTimeOffset(new DateTime(2021, 1, 14)),
+                    Type = TaskItemType.Unanticipated,
+                    DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
+                }
             };
 
-            Assert.That(result.TotalCards, Is.EqualTo(expected.TotalCards));
-            Assert.That(result.AverageLeadTime, Is.EqualTo(expected.AverageLeadTime));
-            Assert.That(result.LongestLeadTime, Is.EqualTo(expected.LongestLeadTime));
-            Assert.That(result.ShortestLeadTime, Is.EqualTo(expected.ShortestLeadTime));
+            var mockTaskItemRepository = new Mock<TaskItemRepository>();
+            mockTaskItemRepository
+                .Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset?>(), It.IsAny<DateTimeOffset?>()))
+                .ReturnsAsync(taskList);
+
+            var tempOverviewHelper = new OverviewHelper(mockTaskItemRepository.Object);
+
+            var result = await tempOverviewHelper.GetTaskItemOverviewDataAsync(
+                new DateTimeOffset(new DateTime(2021, 1, 11)),
+                new DateTimeOffset(new DateTime(2021, 1, 15)),
+                true, false, false, true, true);
+
+            Assert.That(result.AverageLeadTime, Is.EqualTo(24m));
+            Assert.That(result.LongestLeadTime, Is.EqualTo(32m));
+            Assert.That(result.ShortestLeadTime, Is.EqualTo(16m));
+            Assert.That(result.TotalCards, Is.EqualTo(3));
+        }
+
+        [Test]
+        public async Task When_populating_task_item_overview_data_from_a_specific_team()
+        {
+            var taskList = new List<TaskItem>
+            {
+                new TaskItem
+                {
+                    StartTime = new DateTimeOffset(new DateTime(2021, 1, 11)),
+                    FinishTime = new DateTimeOffset(new DateTime(2021, 1, 15)),
+                    Type = TaskItemType.Product,
+                    DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
+                },
+                new TaskItem
+                {
+                    StartTime = new DateTimeOffset(new DateTime(2021, 1, 11)),
+                    FinishTime = new DateTimeOffset(new DateTime(2021, 1, 14)),
+                    Type = TaskItemType.Product,
+                    DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
+                },
+                new TaskItem
+                {
+                    StartTime = new DateTimeOffset(new DateTime(2021, 1, 11)),
+                    FinishTime = new DateTimeOffset(new DateTime(2021, 1, 13)),
+                    Type = TaskItemType.Product,
+                    DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
+                },
+                new TaskItem
+                {
+                    StartTime = new DateTimeOffset(new DateTime(2021, 1, 12)),
+                    FinishTime = new DateTimeOffset(new DateTime(2021, 1, 14)),
+                    Type = TaskItemType.Engineering,
+                    DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 5,
+                    Name = "Enterprise"
+                }
+                },
+                new TaskItem
+                {
+                    StartTime = new DateTimeOffset(new DateTime(2021, 1, 13)),
+                    FinishTime = new DateTimeOffset(new DateTime(2021, 1, 14)),
+                    Type = TaskItemType.Unanticipated,
+                    DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 5,
+                    Name = "Enterprise"
+                }
+                }
+            };
+
+            var mockTaskItemRepository = new Mock<TaskItemRepository>();
+            mockTaskItemRepository
+                .Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset?>(), It.IsAny<DateTimeOffset?>()))
+                .ReturnsAsync(taskList);
+
+            var tempOverviewHelper = new OverviewHelper(mockTaskItemRepository.Object);
+
+            var result = await tempOverviewHelper.GetTaskItemOverviewDataAsync(
+                new DateTimeOffset(new DateTime(2021, 1, 11)),
+                new DateTimeOffset(new DateTime(2021, 1, 15)),
+                true, true, true, true, false);
+
+            Assert.That(result.AverageLeadTime, Is.EqualTo(24m));
+            Assert.That(result.LongestLeadTime, Is.EqualTo(32m));
+            Assert.That(result.ShortestLeadTime, Is.EqualTo(16m));
+            Assert.That(result.TotalCards, Is.EqualTo(3));
+        }
+
+        [Test]
+        public async Task When_getting_release_overview_data()
+        {
+            var releaseList = new List<Release>
+            {
+                new Release
+                {
+                    Id = 1
+                },
+                new Release
+                {
+                    Id = 2
+                }
+            };
+
+            var overviewData = new ReleaseOverviewData{
+                ChangeFailPercentage = 4.23m,
+                DeployFrequency = 5.3m,
+                MeanTimeToRestore = 4.68m,
+                RolledBackDeploys = 2,
+                SuccessfulDeploys = 43,
+                TotalDeploys = 45
+            };
+
+            var mockReleaseRepository = new Mock<ReleaseRepository>();
+            mockReleaseRepository
+                .Setup(x => x.GetReleaseListAsync(It.IsAny<DateTimeOffset>(), It.IsAny<DateTimeOffset>()))
+                .ReturnsAsync(releaseList);
+
+            var mockReleaseHelper = new Mock<ReleaseHelper>();
+            mockReleaseHelper.Setup(x => x.DevTeamForReleaseIsSelected(true, true, It.IsAny<Release>()))
+                .Returns(true);
+            mockReleaseHelper
+                .Setup(x => x.PopulateOverviewData(It.IsAny<List<Release>>(),
+                    It.IsAny<DateTimeOffset>(), true, true)).Returns(overviewData);
+
+            var tempOverviewHelper = new OverviewHelper(mockReleaseRepository.Object, mockReleaseHelper.Object);
+
+            var result = await tempOverviewHelper.GetReleaseOverviewDataAsync(new DateTimeOffset(new DateTime(2021, 1, 11)),
+                new DateTimeOffset(new DateTime(2021, 1, 11)), true, true);
+
+            Assert.That(result.ChangeFailPercentage, Is.EqualTo(overviewData.ChangeFailPercentage));
+            Assert.That(result.DeployFrequency, Is.EqualTo(overviewData.DeployFrequency));
+            Assert.That(result.MeanTimeToRestore, Is.EqualTo(overviewData.MeanTimeToRestore));
+            Assert.That(result.RolledBackDeploys, Is.EqualTo(overviewData.RolledBackDeploys));
+            Assert.That(result.SuccessfulDeploys, Is.EqualTo(overviewData.SuccessfulDeploys));
+            Assert.That(result.TotalDeploys, Is.EqualTo(overviewData.TotalDeploys));
         }
     }
 }

@@ -19,7 +19,7 @@ namespace KPIWebApp.Controllers
 
             var scatterPlotHelper = new ScatterPlotHelper();
             var result = await scatterPlotHelper
-                .GetLeadTimeScatterPlotData(startDate, finishDate, product, engineering, unanticipated, assessmentsTeam, enterpriseTeam);
+                .GetLeadTimeScatterPlotDataAsync(startDate, finishDate, product, engineering, unanticipated, assessmentsTeam, enterpriseTeam);
 
             var returning = new ScatterPlotData[result.Count];
 

@@ -6,10 +6,18 @@ using KPIWebApp.Models;
 
 namespace KPIWebApp.Helpers
 {
-    public class ReleaseHelper
+    public interface IReleaseHelper
     {
-        public ReleaseOverviewData PopulateOverviewData(ReleaseOverviewData releaseOverviewData,
-            List<Release> releaseList, DateTimeOffset finishDate, bool assessmentsTeam, bool enterpriseTeam)
+        ReleaseOverviewData PopulateOverviewData(List<Release> releaseList, DateTimeOffset finishDate, bool assessmentsTeam, bool enterpriseTeam);
+
+        List<Release> GetRolledBackReleases(List<Release> releases);
+        bool ReleaseVersionIsLater(string currentItemName, string lastItemName);
+        public bool DevTeamForReleaseIsSelected(bool assessmentsTeam, bool enterpriseTeam, Release release);
+    }
+
+    public class ReleaseHelper : IReleaseHelper
+    {
+        public virtual ReleaseOverviewData PopulateOverviewData(List<Release> releaseList, DateTimeOffset finishDate, bool assessmentsTeam, bool enterpriseTeam)
         {
             var lastReleaseByEnvironment = new Dictionary<int, Release>();
             DateTimeOffset? earliestReleaseFinishTime = null;
@@ -43,6 +51,7 @@ namespace KPIWebApp.Helpers
 
             var rolledBackReleases = GetRolledBackReleases(releaseList);
 
+            var releaseOverviewData = new ReleaseOverviewData();
             releaseOverviewData.TotalDeploys = releaseList.Count;
             releaseOverviewData.SuccessfulDeploys = releaseList.Count - rolledBackReleases.Count;
             releaseOverviewData.RolledBackDeploys = rolledBackReleases.Count;
@@ -63,7 +72,7 @@ namespace KPIWebApp.Helpers
             return releaseOverviewData;
         }
 
-        public List<Release> GetRolledBackReleases(List<Release> releases)
+        public virtual List<Release> GetRolledBackReleases(List<Release> releases)
         {
             var lastReleaseByEnvironment = new Dictionary<int, Release>();
             var rolledBackReleases = new List<Release>();
@@ -87,7 +96,7 @@ namespace KPIWebApp.Helpers
         }
 
 
-        private bool ReleaseVersionIsLater(string currentItemName, string lastItemName)
+        public virtual bool ReleaseVersionIsLater(string currentItemName, string lastItemName)
         {
             if (currentItemName == null || lastItemName == null) return false;
             if (currentItemName.Contains("TrueNorthTest-"))
@@ -106,7 +115,7 @@ namespace KPIWebApp.Helpers
             }
         }
 
-        public static bool DevTeamForReleaseIsSelected(bool assessmentsTeam, bool enterpriseTeam, Release release)
+        public virtual bool DevTeamForReleaseIsSelected(bool assessmentsTeam, bool enterpriseTeam, Release release)
         {
             if (release.ReleaseEnvironment.Id == 15 && assessmentsTeam)
             {

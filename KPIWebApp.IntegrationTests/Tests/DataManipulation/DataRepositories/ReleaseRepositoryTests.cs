@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.DataRepositories;
 using DataAccess.Objects;
@@ -12,6 +13,15 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
     {
         private readonly ReleaseRepository releaseRepository = new ReleaseRepository(new DatabaseConnection());
         private readonly ReleaseEnvironmentRepository releaseEnvironmentRepository = new ReleaseEnvironmentRepository(new DatabaseConnection());
+
+
+        [Test]
+        public async Task When_getting_releases_in_date_range()
+        {
+            var result = (await releaseRepository.GetReleaseListAsync(DateTime.Now.AddDays(-30), DateTime.Now)).ToList();
+
+            Assert.That(result.Count, Is.GreaterThan(0));
+        }
 
         [Test]
         public async Task When_getting_releases_before_date()
@@ -131,13 +141,10 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
         }
 
         [Test]
-        public async Task When_getting_release_environment_by_id()
+        public void When_trying_to_insert_a_release_that_is_already_finished()
         {
-            var releaseRepository = new ReleaseRepository(new DatabaseConnection());
-            var result = await releaseEnvironmentRepository.GetReleaseEnvironmentByIdAsync(33);
-
-            Assert.That(result.Id, Is.EqualTo(33));
-            Assert.That(result.Name, Is.EqualTo("Production"));
+            var result = releaseRepository.ReleaseIsFinishedInDatabase(1);
+            Assert.IsFalse(result);
         }
     }
 }

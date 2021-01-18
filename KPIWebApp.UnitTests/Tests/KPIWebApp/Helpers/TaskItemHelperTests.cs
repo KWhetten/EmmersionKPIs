@@ -21,11 +21,21 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 StartTime = DateTimeOffset.Now.Date.AddDays(-2),
                 FinishTime = DateTimeOffset.Now.Date,
                 Type = TaskItemType.Unanticipated,
-                DevelopmentTeam = "DevelopmentTeam1",
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                },
                 CreatedOn = DateTimeOffset.Now.Date.AddDays(-3),
-                CreatedBy = "CreatedBy1",
+                CreatedBy = new Developer{
+                    Id = 1,
+                    Name = "CreatedBy1",
+                },
                 LastChangedOn = DateTimeOffset.Now.Date,
-                LastChangedBy = "LastChangedBy1",
+                LastChangedBy = new Developer{
+                    Id = 1,
+                    Name = "LastChangedBy1",
+                },
                 CurrentBoardColumn = BoardColumn.Backlog,
                 State = TaskItemState.Backlog,
                 NumRevisions = 3,
@@ -51,11 +61,21 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 StartTime = DateTimeOffset.Now.Date.AddDays(-2),
                 FinishTime = null,
                 Type = TaskItemType.Unanticipated,
-                DevelopmentTeam = "DevelopmentTeam2",
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Enterprise"
+                },
                 CreatedOn = DateTimeOffset.Now.Date.AddDays(-3),
-                CreatedBy = "CreatedBy2",
+                CreatedBy = new Developer{
+                    Id = 1,
+                    Name = "CreatedBy2",
+                },
                 LastChangedOn = DateTimeOffset.Now.Date,
-                LastChangedBy = "LastChangedBy2",
+                LastChangedBy = new Developer{
+                    Id = 1,
+                    Name = "LastChangedBy2",
+                },
                 CurrentBoardColumn = BoardColumn.TopPriority,
                 State = TaskItemState.TopPriority,
                 NumRevisions = 3,
@@ -102,11 +122,21 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 StartTime = DateTimeOffset.Now.Date.AddDays(-2),
                 FinishTime = DateTimeOffset.Now.Date,
                 Type = TaskItemType.Unanticipated,
-                DevelopmentTeam = "DevelopmentTeam1",
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                },
                 CreatedOn = DateTimeOffset.Now.Date.AddDays(-3),
-                CreatedBy = "CreatedBy1",
+                CreatedBy = new Developer{
+                    Id = 1,
+                    Name = "CreatedBy3"
+                },
                 LastChangedOn = DateTimeOffset.Now.Date,
-                LastChangedBy = "LastChangedBy1",
+                LastChangedBy = new Developer{
+                    Id = 1,
+                    Name = "LastChangedBy3"
+                },
                 CurrentBoardColumn = BoardColumn.Backlog,
                 State = TaskItemState.Backlog,
                 NumRevisions = 3,
@@ -132,11 +162,21 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 StartTime = DateTimeOffset.Now.Date.AddDays(-2),
                 FinishTime = null,
                 Type = TaskItemType.Unanticipated,
-                DevelopmentTeam = "DevelopmentTeam2",
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Enterprise"
+                },
                 CreatedOn = DateTimeOffset.Now.Date.AddDays(-3),
-                CreatedBy = "CreatedBy2",
+                CreatedBy = new Developer{
+                    Id = 1,
+                    Name = "CreatedBy4"
+                },
                 LastChangedOn = DateTimeOffset.Now.Date,
-                LastChangedBy = "LastChangedBy2",
+                LastChangedBy = new Developer{
+                    Id = 1,
+                    Name = "LastChangedBy4"
+                },
                 CurrentBoardColumn = BoardColumn.InProcess,
                 State = TaskItemState.InProcess,
                 NumRevisions = 3,

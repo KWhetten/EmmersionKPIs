@@ -12,193 +12,237 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
 {
     public class ScatterPlotHelperTests
     {
-        [Test]
-        public async Task When_getting_lead_time_scatter_plot_data()
+        private List<TaskItem> taskItems;
+
+        [SetUp]
+        public void Setup()
         {
-            var releaseList = new List<Release>
-            {
-                new Release
-                {
-                    Id = 1,
-                    State = "Status1",
-                    ReleaseEnvironment = new ReleaseEnvironment
-                    {
-                        Id = 1,
-                        Name = "Name1"
-                    },
-                    StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-5)),
-                    FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-4)),
-                    Name = "Name1",
-                    Attempts = 1
-                },
-                new Release
-                {
-                    Id = 2,
-                    State = "Status2",
-                    ReleaseEnvironment = new ReleaseEnvironment
-                    {
-                        Id = 2,
-                        Name = "Name2"
-                    },
-                    StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-7)),
-                    FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27)),
-                    Name = "Name2",
-                    Attempts = 2
-                }
-            };
-            var engineeringTaskItem1 = new TaskItem
-            {
-                Id = 1,
-                Title = "Title1",
-                StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-10)),
-                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-5)),
-                Type = TaskItemType.Engineering,
-                DevelopmentTeam = "Team1",
-                CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-8)),
-                CreatedBy = "CreatedBy1",
-                LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
-                LastChangedBy = "ChangedBy1",
-                CurrentBoardColumn = BoardColumn.Backlog,
-                State = TaskItemState.Backlog,
-                NumRevisions = 1,
-                Release = releaseList.First()
-            };
             var productTaskItem1 = new TaskItem
             {
-                Id = 2,
-                Title = "Title2",
-                StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-5)),
-                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-4)),
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 15, 5, 30, 0), TimeSpan.Zero),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 16, 5, 30, 0), TimeSpan.Zero),
                 Type = TaskItemType.Product,
-                DevelopmentTeam = "Team2",
-                CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-1)),
-                CreatedBy = "CreatedBy2",
-                LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
-                LastChangedBy = "ChangedBy2",
-                CurrentBoardColumn = BoardColumn.TopPriority,
-                State = TaskItemState.TopPriority,
-                NumRevisions = 2,
-                Release = releaseList.Last()
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
             };
-            var unanticipatedTaskItem1 = new TaskItem
+            var productTaskItem2 = new TaskItem
             {
-                Id = 3,
-                Title = "Title3",
-                StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-6)),
-                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-3)),
-                Type = TaskItemType.Unanticipated,
-                DevelopmentTeam = "Team3",
-                CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-1)),
-                CreatedBy = "CreatedBy3",
-                LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
-                LastChangedBy = "ChangedBy3",
-                CurrentBoardColumn = BoardColumn.InProcessWorking,
-                State = TaskItemState.InProcess,
-                NumRevisions = 3,
-                Release = releaseList.Last()
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 14, 5, 30, 0), TimeSpan.Zero),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 16, 5, 30, 0), TimeSpan.Zero),
+                Type = TaskItemType.Product,
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
             };
-            var unanticipatedTaskItem2 = new TaskItem
+            var productTaskItem3 = new TaskItem
             {
-                Id = 4,
-                Title = "Title4",
-                StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-7)),
-                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-2)),
-                Type = TaskItemType.Unanticipated,
-                DevelopmentTeam = "Team4",
-                CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-1)),
-                CreatedBy = "CreatedBy4",
-                LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
-                LastChangedBy = "ChangedBy4",
-                CurrentBoardColumn = BoardColumn.ReleasedToProdThisWeek,
-                State = TaskItemState.Released,
-                NumRevisions = 4,
-                Release = releaseList.Last()
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 13, 5, 30, 0), TimeSpan.Zero),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 16, 5, 30, 0), TimeSpan.Zero),
+                Type = TaskItemType.Product,
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
+            };
+            var productTaskItem4 = new TaskItem
+            {
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 12, 5, 30, 0), TimeSpan.Zero),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 16, 5, 30, 0), TimeSpan.Zero),
+                Type = TaskItemType.Product,
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 5,
+                    Name = "Enterprise"
+                }
+            };
+            var productTaskItem5 = new TaskItem
+            {
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 9, 5, 30, 0), TimeSpan.Zero),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 16, 5, 30, 0), TimeSpan.Zero),
+                Type = TaskItemType.Product,
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 5,
+                    Name = "Enterprise"
+                }
+            };
+
+            var engineeringTaskItem1 = new TaskItem
+            {
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 9, 5, 30, 0), TimeSpan.Zero),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 16, 5, 30, 0), TimeSpan.Zero),
+                Type = TaskItemType.Engineering,
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
             };
             var engineeringTaskItem2 = new TaskItem
             {
-                Id = 5,
-                Title = "Title5",
-                StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-5)),
-                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-1)),
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 12, 5, 30, 0), TimeSpan.Zero),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 16, 5, 30, 0), TimeSpan.Zero),
                 Type = TaskItemType.Engineering,
-                DevelopmentTeam = "Team5",
-                CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddDays(-1)),
-                CreatedBy = "CreatedBy5",
-                LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
-                LastChangedBy = "ChangedBy5",
-                CurrentBoardColumn = BoardColumn.Backlog,
-                State = TaskItemState.Backlog,
-                NumRevisions = 5,
-                Release = releaseList.Last()
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
             };
-            var taskFrom2YearsAgo = new TaskItem
+            var engineeringTaskItem3 = new TaskItem
             {
-                Id = 6,
-                Title = "Title6",
-                StartTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddYears(-6)),
-                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 27).AddYears(-2)),
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 13, 5, 30, 0), TimeSpan.Zero),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 14, 5, 30, 0), TimeSpan.Zero),
                 Type = TaskItemType.Engineering,
-                DevelopmentTeam = "Team6",
-                CreatedOn = new DateTimeOffset(new DateTime(2020, 10, 27).AddYears(-2)),
-                CreatedBy = "CreatedBy6",
-                LastChangedOn = new DateTimeOffset(new DateTime(2020, 10, 27)),
-                LastChangedBy = "ChangedBy6",
-                CurrentBoardColumn = BoardColumn.TopPriority,
-                State = TaskItemState.TopPriority,
-                NumRevisions = 6,
-                Release = releaseList.Last()
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
             };
-            var taskItemList = new List<TaskItem>
+            var engineeringTaskItem4 = new TaskItem
             {
-                engineeringTaskItem1,
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 14, 5, 30, 0), TimeSpan.Zero),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 16, 5, 30, 0), TimeSpan.Zero),
+                Type = TaskItemType.Engineering,
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 5,
+                    Name = "Enterprise"
+                }
+            };
+            var engineeringTaskItem5 = new TaskItem
+            {
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 15, 5, 30, 0), TimeSpan.Zero),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 17, 5, 30, 0), TimeSpan.Zero),
+                Type = TaskItemType.Engineering,
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 5,
+                    Name = "Enterprise"
+                }
+            };
+            var unanticipatedTaskItem1 = new TaskItem
+            {
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 9, 5, 30, 0), TimeSpan.Zero),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 16, 5, 30, 0), TimeSpan.Zero),
+                Type = TaskItemType.Unanticipated,
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
+            };
+            var unanticipatedTaskItem2 = new TaskItem
+            {
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 12, 5, 30, 0), TimeSpan.Zero),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 18, 5, 30, 0), TimeSpan.Zero),
+                Type = TaskItemType.Unanticipated,
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
+            };
+            var unanticipatedTaskItem3 = new TaskItem
+            {
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 13, 5, 30, 0), TimeSpan.Zero),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 16, 5, 30, 0), TimeSpan.Zero),
+                Type = TaskItemType.Unanticipated,
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 4,
+                    Name = "Assessments"
+                }
+            };
+            var unanticipatedTaskItem4 = new TaskItem
+            {
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 14, 5, 30, 0), TimeSpan.Zero),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 15, 5, 30, 0), TimeSpan.Zero),
+                Type = TaskItemType.Unanticipated,
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 5,
+                    Name = "Enterprise"
+                }
+            };
+            var unanticipatedTaskItem5 = new TaskItem
+            {
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 15, 5, 30, 0), TimeSpan.Zero),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 16, 5, 30, 0), TimeSpan.Zero),
+                Type = TaskItemType.Unanticipated,
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 5,
+                    Name = "Enterprise"
+                }
+            };
+            var unanticipatedTaskItem6 = new TaskItem
+            {
+                StartTime = new DateTimeOffset(new DateTime(2020, 10, 1, 5, 30, 0), TimeSpan.Zero),
+                FinishTime = new DateTimeOffset(new DateTime(2020, 10, 17, 5, 30, 0), TimeSpan.Zero),
+                Type = TaskItemType.Unanticipated,
+                DevelopmentTeam = new DevelopmentTeam
+                {
+                    Id = 5,
+                    Name = "Enterprise"
+                }
+            };
+
+           taskItems = new List<TaskItem>
+            {
                 productTaskItem1,
+                productTaskItem2,
+                productTaskItem3,
+                productTaskItem4,
+                productTaskItem5,
+                engineeringTaskItem1,
+                engineeringTaskItem2,
+                engineeringTaskItem3,
+                engineeringTaskItem4,
+                engineeringTaskItem5,
                 unanticipatedTaskItem1,
                 unanticipatedTaskItem2,
-                engineeringTaskItem2,
-                taskFrom2YearsAgo
+                unanticipatedTaskItem3,
+                unanticipatedTaskItem4,
+                unanticipatedTaskItem5,
+                unanticipatedTaskItem6
             };
-
-            var mockTaskItemRepository = new Mock<ITaskItemRepository>();
-            mockTaskItemRepository.Setup(x =>
-                    x.GetTaskItemListAsync(It.IsAny<DateTimeOffset>(),
-                        It.IsAny<DateTimeOffset>()))
-                .ReturnsAsync(taskItemList);
-            mockTaskItemRepository.Setup(x => x.GetTaskItemTypes()).Returns(new []
-            {
-                TaskItemType.Product,
-                TaskItemType.Engineering,
-                TaskItemType.Unanticipated
-            });
+        }
+        [Test]
+        public async Task When_getting_scatter_plot_data()
+        {
+            var mockTaskItemRepository = new Mock<TaskItemRepository>();
+            mockTaskItemRepository
+                .Setup(x => x.GetTaskItemListAsync(It.IsAny<DateTimeOffset?>(), It.IsAny<DateTimeOffset?>()))
+                .ReturnsAsync(taskItems);
 
             var scatterPlotHelper = new ScatterPlotHelper(mockTaskItemRepository.Object);
-            var result = await scatterPlotHelper
-                .GetLeadTimeScatterPlotData(new DateTimeOffset(new DateTime(2020, 10, 12), TimeSpan.Zero),
-                    new DateTimeOffset(new DateTime(2020, 10, 24), TimeSpan.Zero),
-                    true, true, true, true, true);
 
-            Console.Write("");
+            var result = await scatterPlotHelper.GetLeadTimeScatterPlotDataAsync(new DateTimeOffset(new DateTime(2021, 1, 11)),
+                new DateTimeOffset(new DateTime(2021, 1, 16)),
+                true, true, true, true, true);
 
-            Assert.That(result[TaskItemType.Product].name, Is.EqualTo("Product"));
-            Assert.That(result[TaskItemType.Product].turboThreshold, Is.EqualTo(500000));
-            Assert.That(result[TaskItemType.Product].data.Count, Is.EqualTo(1));
-            Assert.That(result[TaskItemType.Product].data[0].x, Is.EqualTo(productTaskItem1.FinishTime));
-            Assert.That(result[TaskItemType.Product].data[0].y, Is.EqualTo(8m));
+            Console.WriteLine();
 
-            Assert.That(result[TaskItemType.Engineering].name, Is.EqualTo("Engineering"));
-            Assert.That(result[TaskItemType.Engineering].turboThreshold, Is.EqualTo(500000));
-            Assert.That(result[TaskItemType.Engineering].data.Count, Is.EqualTo(2));
-            Assert.That(result[TaskItemType.Engineering].data[0].x, Is.EqualTo(engineeringTaskItem1.FinishTime));
-            Assert.That(result[TaskItemType.Engineering].data[0].y, Is.EqualTo(32m));
-            Assert.That(result[TaskItemType.Engineering].data[1].x, Is.EqualTo(engineeringTaskItem2.FinishTime));
-            Assert.That(result[TaskItemType.Engineering].data[1].y, Is.EqualTo(16m));
+            Assert.That(result.Values.First().data[0].y, Is.EqualTo(8));
+            Assert.That(result.Values.First().data[1].y, Is.EqualTo(16));
+            Assert.That(result.Values.First().data[2].y, Is.EqualTo(24));
+            Assert.That(result.Values.First().data[3].y, Is.EqualTo(32));
+            Assert.That(result.Values.First().data[4].y, Is.EqualTo(40));
 
-            Assert.That(result[TaskItemType.Unanticipated].name, Is.EqualTo("Unanticipated"));
-            Assert.That(result[TaskItemType.Unanticipated].turboThreshold, Is.EqualTo(500000));
-            Assert.That(result[TaskItemType.Unanticipated].data.Count, Is.EqualTo(2));
-            Assert.That(result[TaskItemType.Unanticipated].data[0].x, Is.EqualTo(unanticipatedTaskItem1.FinishTime));
-            Assert.That(result[TaskItemType.Unanticipated].data[0].y, Is.EqualTo(24m));
-            Assert.That(result[TaskItemType.Unanticipated].data[1].x, Is.EqualTo(unanticipatedTaskItem2.FinishTime));
-            Assert.That(result[TaskItemType.Unanticipated].data[1].y, Is.EqualTo(32m));
+            Assert.That(result.Values.Last().data[0].y, Is.EqualTo(40));
+            Assert.That(result.Values.Last().data[1].y, Is.EqualTo(40));
+            Assert.That(result.Values.Last().data[2].y, Is.EqualTo(24));
+            Assert.That(result.Values.Last().data[3].y, Is.EqualTo(8));
+            Assert.That(result.Values.Last().data[4].y, Is.EqualTo(8));
+            Assert.That(result.Values.Last().data[5].y, Is.EqualTo(96));
         }
     }
 }

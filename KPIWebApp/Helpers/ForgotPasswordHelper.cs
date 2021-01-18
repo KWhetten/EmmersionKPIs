@@ -22,7 +22,7 @@ namespace KPIWebApp.Helpers
 
         public async Task<bool> SendEmail(string email)
         {
-            var userInfo = await userRepository.GetUserInfoByEmailAsync(email);
+            var userInfo = await userRepository.GetUserByEmailAsync(email);
             return emailHelper.SendForgotPasswordEmail(userInfo, "");
         }
     }

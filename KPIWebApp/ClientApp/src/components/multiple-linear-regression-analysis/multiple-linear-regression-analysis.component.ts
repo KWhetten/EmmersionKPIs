@@ -18,6 +18,7 @@ export class MultipleLinearRegressionAnalysisComponent {
   }
 
   submit() {
+    this.estimation = null;
     this.reloadData();
   }
 

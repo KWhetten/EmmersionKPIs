@@ -23,6 +23,7 @@ namespace KPIDataExtractor.UnitTests.TestObjects.DevOps
 
     public class JsonReleaseEnvironment
     {
+        public int id { get; set; }
         public string name { get; set; }
     }
 }

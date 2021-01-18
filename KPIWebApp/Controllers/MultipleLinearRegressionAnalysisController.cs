@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using DataAccess.DataRepositories;
 using DataAccess.Deserialize.Kanbanize;
 using DataAccess.Objects;
 using KPIWebApp.Helpers;
@@ -14,6 +15,7 @@ namespace KPIWebApp.Controllers
         public async Task<string> GetAsync(double timeSpentInBacklog, string type, string devTeam, string createdBy)
         {
             var helper = new MultipleLinearRegressionAnalysisHelper();
+            var developerRepository = new DeveloperRepository();
             var taskItemType = GetTaskItemType(type);
 
             var taskItem = new MultipleLinearRegressionTaskItem
@@ -24,10 +26,10 @@ namespace KPIWebApp.Controllers
                 TypeIsEngineering = taskItemType == TaskItemType.Engineering,
                 TypeIsUnanticipated = taskItemType == TaskItemType.Unanticipated,
 
-                DevTeamIsAssessments = devTeam == "Assessments Team",
-                DevTeamIsEnterprise = devTeam == "Enterprise Team",
+                DevTeamIsAssessments = devTeam == "Assessments",
+                DevTeamIsEnterprise = devTeam == "Enterprise",
 
-                CreatedBy = createdBy
+                CreatedBy = await developerRepository.GetDeveloperByNameAsync(createdBy)
             };
 
             return await helper.GetEstimation(taskItem);

@@ -29,6 +29,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                 definitionEnvironmentId = 1,
                 releaseEnvironment = new JsonReleaseEnvironment
                 {
+                    id = 1,
                     name = "JsonReleaseEnvironment1"
                 },
                 attempt = 3,
@@ -36,6 +37,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                 completedOn = finishTime,
                 releaseDefinition = new ReleaseDefinition
                 {
+                    id = 2,
                     name = "TrueNorthTest Release"
                 }
             };
@@ -50,6 +52,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                 definitionEnvironmentId = 2,
                 releaseEnvironment = new JsonReleaseEnvironment
                 {
+                    id = 3,
                     name = "JsonReleaseEnvironment2"
                 },
                 attempt = 5,
@@ -57,6 +60,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                 completedOn = finishTime,
                 releaseDefinition = new ReleaseDefinition
                 {
+                    id = 4,
                     name = "Assessments PC"
                 }
             };
@@ -73,8 +77,10 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
             var mockReleaseRepository = new Mock<ReleaseRepository>();
             mockReleaseRepository.Setup(x => x.ReleaseIsFinishedInDatabase(It.IsAny<int>()))
                 .Returns(false);
+            var mockReleaseEnvironmentRepository = new Mock<ReleaseEnvironmentRepository>();
+            mockReleaseEnvironmentRepository.Setup(x => x.SaveReleaseEnvironmentAsync(It.IsAny<int>(), It.IsAny<string>()));
 
-            var deserializer = new DevOpsDeserializer(mockReleaseRepository.Object);
+            var deserializer = new DevOpsDeserializer(mockReleaseRepository.Object, mockReleaseEnvironmentRepository.Object);
             var result = deserializer.DeserializeReleases(jsonReleases);
 
             Assert.That(result.Count, Is.EqualTo(2));
@@ -101,6 +107,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
 
     public class ReleaseDefinition
     {
+        public int id { get; set; }
         public string name { get; set; }
     }
 }

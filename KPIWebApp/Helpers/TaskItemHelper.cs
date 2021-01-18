@@ -7,7 +7,15 @@ using DataAccess.Objects;
 
 namespace KPIWebApp.Helpers
 {
-    public class TaskItemHelper
+    public interface ITaskItemHelper
+    {
+        Task<List<TaskItem>> GetTaskItems(DateTimeOffset startDate, DateTimeOffset endDate);
+        bool TaskItemDevTeamIsSelected(bool assessmentsTeam, bool enterpriseTeam, TaskItem item);
+        bool TaskItemTypeIsSelected(bool product, bool engineering, bool unanticipated, TaskItem item);
+        bool TaskItemTypeIsSelected(bool product, bool engineering, bool unanticipated, int typeId);
+    }
+
+    public class TaskItemHelper : ITaskItemHelper
     {
         private readonly ITaskItemRepository taskItemRepository;
 
@@ -36,8 +44,8 @@ namespace KPIWebApp.Helpers
 
         public bool TaskItemDevTeamIsSelected(bool assessmentsTeam, bool enterpriseTeam, TaskItem item)
         {
-            return (item.DevelopmentTeam == "Assessments Team" && assessmentsTeam)
-                   || (item.DevelopmentTeam == "Enterprise Team" && enterpriseTeam);
+            return (item.DevelopmentTeam.Name == "Assessments" && assessmentsTeam)
+                   || (item.DevelopmentTeam.Name == "Enterprise" && enterpriseTeam);
         }
 
         public bool TaskItemTypeIsSelected(bool product, bool engineering, bool unanticipated, TaskItem item)

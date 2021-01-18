@@ -75,7 +75,7 @@ export class InviteUserComponent implements OnInit {
       this.emailError = 'Invalid email.';
       return false;
     }
-    if (this.email.indexOf('@emmersion.ai') >= 0 || this.email == 'krwhetten@gmail.com') {
+    if (this.email.indexOf('@emmersion.ai') >= 0 || this.email == 'emmersion.kpi.test@gmail.com') {
       (document.getElementById('email-error') as HTMLElement).hidden = true;
     } else {
       (document.getElementById('email-error') as HTMLElement).hidden = false;

@@ -28,7 +28,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                             new JsonHistoryEvent
                             {
                                 historyid = 2,
-                                author = "Author2",
+                                author = "Jon",
                                 details = "from 'ColumnName' to 'Released to Prod this week'",
                                 entrydate = DateTimeOffset.Now.Date.AddDays(-3),
                                 historyevent = "Task moved",
@@ -37,7 +37,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                             new JsonHistoryEvent
                             {
                                 historyid = 1,
-                                author = "Author1",
+                                author = "Charles",
                                 details = "from 'ColumnName' to 'Top Priority'",
                                 entrydate = DateTimeOffset.Now.Date.AddDays(-5),
                                 historyevent = "Task moved",
@@ -54,7 +54,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
 
             var taskItemDictionary = new Dictionary<int, TaskItem>
             {
-                { 1, taskItem1 }
+                {1, taskItem1}
             };
 
             var historyEventJson = JToken.Parse(JsonConvert.SerializeObject(historyEventList));
@@ -65,11 +65,13 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                 .ReturnsAsync(taskItem1);
 
             var kanbanizeHistoryEventDeserializer = new KanbanizeHistoryEventDeserializer();
-            var result = await kanbanizeHistoryEventDeserializer.DeserializeHistoryEventsAsync(historyEventJson, taskItemDictionary);
+            var result =
+                await kanbanizeHistoryEventDeserializer.DeserializeHistoryEventsAsync(historyEventJson,
+                    taskItemDictionary);
 
             Assert.That(result[1].HistoryEvents.Count, Is.EqualTo(2));
             Assert.That(result[1].Id, Is.EqualTo(1));
-            Assert.That(result[1].LastChangedBy, Is.EqualTo(historyEventList[0].historydetails.item[0].author));
+            Assert.That(result[1].LastChangedBy.Name, Is.EqualTo(historyEventList[0].historydetails.item[0].author));
 
             Assert.That(result[1].HistoryEvents[0].Author,
                 Is.EqualTo(historyEventList[0].historydetails.item[1].author));
@@ -113,7 +115,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
                             new JsonHistoryEvent
                             {
                                 historyid = 1,
-                                author = "Author1",
+                                author = "Charles",
                                 entrydate = DateTimeOffset.Now.Date.AddDays(-5),
                                 historyevent = "Task moved",
                             },
@@ -152,7 +154,7 @@ namespace KPIDataExtractor.UnitTests.Tests.DataManipulation.Deserializer
         [Test]
         public async Task When_deserializing_history_events_and_the_task_item_was_not_created_in_the_backlog()
         {
-var historyEventList = new List<JsonTaskItem>
+            var historyEventList = new List<JsonTaskItem>
             {
                 new JsonTaskItem
                 {
@@ -161,11 +163,10 @@ var historyEventList = new List<JsonTaskItem>
                     {
                         item = new List<JsonHistoryEvent>
                         {
-
                             new JsonHistoryEvent
                             {
                                 historyid = 2,
-                                author = "Author2",
+                                author = "Jon",
                                 details = "from 'ColumnName' to 'Released to Prod this week'",
                                 entrydate = DateTimeOffset.Now.Date.AddDays(-3),
                                 historyevent = "Task moved",
@@ -174,7 +175,7 @@ var historyEventList = new List<JsonTaskItem>
                             new JsonHistoryEvent
                             {
                                 historyid = 1,
-                                author = "Author1",
+                                author = "Charles",
                                 details = "from 'ColumnName' to 'In Process.Working'",
                                 entrydate = DateTimeOffset.Now.Date.AddDays(-5),
                                 historyevent = "Task moved",
@@ -213,7 +214,7 @@ var historyEventList = new List<JsonTaskItem>
             Assert.That(result[1].CreatedOn, Is.EqualTo(historyEventList[0].historydetails.item[1].entrydate));
             Assert.That(result[1].HistoryEvents.Count, Is.EqualTo(2));
             Assert.That(result[1].Id, Is.EqualTo(1));
-            Assert.That(result[1].LastChangedBy, Is.EqualTo(historyEventList[0].historydetails.item[0].author));
+            Assert.That(result[1].LastChangedBy.Name, Is.EqualTo(historyEventList[0].historydetails.item[0].author));
 
             Assert.That(result[1].HistoryEvents[0].Author,
                 Is.EqualTo(historyEventList[0].historydetails.item[1].author));
@@ -240,6 +241,68 @@ var historyEventList = new List<JsonTaskItem>
                 Is.EqualTo(historyEventList[0].historydetails.item[0].taskid));
             Assert.That(result[1].HistoryEvents[1].TaskItemColumn, Is.EqualTo(BoardColumn.ReleasedToProdThisWeek));
             Assert.That(result[1].HistoryEvents[1].TaskItemState, Is.EqualTo(TaskItemState.Released));
+        }
+
+        [Test]
+        public async Task When_deserializing_history_events_and_there_is_only_one_event()
+        {
+            var historyEventList = new List<SingleEventJsonTaskItem>
+            {
+                new SingleEventJsonTaskItem
+                {
+                    taskid = 1,
+                    historydetails = new SingleEventHistoryDetails
+                    {
+                        item = new JsonHistoryEvent
+                        {
+                            historyid = 2,
+                            author = "Jon",
+                            details = "from 'ColumnName' to 'Released to Prod this week'",
+                            entrydate = DateTimeOffset.Now.Date.AddDays(-3),
+                            historyevent = "Task moved",
+                            taskid = 1
+                        }
+                    }
+                }
+            };
+            var taskItem1 = new TaskItem
+            {
+                Id = 1
+            };
+
+            var taskItemDictionary = new Dictionary<int, TaskItem>
+            {
+                {1, taskItem1}
+            };
+
+            var historyEventJson = JToken.Parse(JsonConvert.SerializeObject(historyEventList));
+
+            var mockKanbanizeTaskItemDeserializer = new Mock<KanbanizeTaskItemDeserializer>();
+            mockKanbanizeTaskItemDeserializer.Setup(x =>
+                    x.FillInTaskItemStateDetailsAsync(It.IsAny<HistoryEvent>(), It.IsAny<TaskItem>()))
+                .ReturnsAsync(taskItem1);
+
+            var kanbanizeHistoryEventDeserializer = new KanbanizeHistoryEventDeserializer();
+            var result =
+                await kanbanizeHistoryEventDeserializer.DeserializeHistoryEventsAsync(historyEventJson,
+                    taskItemDictionary);
+
+            Assert.That(result[1].HistoryEvents.Count, Is.EqualTo(1));
+            Assert.That(result[1].Id, Is.EqualTo(1));
+            Assert.That(result[1].LastChangedBy.Name, Is.EqualTo(historyEventList[0].historydetails.item.author));
+
+            Assert.That(result[1].HistoryEvents[0].Author,
+                Is.EqualTo(historyEventList[0].historydetails.item.author));
+            Assert.That(result[1].HistoryEvents[0].EventDate,
+                Is.EqualTo(historyEventList[0].historydetails.item.entrydate));
+            Assert.That(result[1].HistoryEvents[0].EventType,
+                Is.EqualTo(historyEventList[0].historydetails.item.historyevent));
+            Assert.That(result[1].HistoryEvents[0].Id,
+                Is.EqualTo(historyEventList[0].historydetails.item.historyid));
+            Assert.That(result[1].HistoryEvents[0].TaskId,
+                Is.EqualTo(historyEventList[0].historydetails.item.taskid));
+            Assert.That(result[1].HistoryEvents[0].TaskItemColumn, Is.EqualTo(BoardColumn.ReleasedToProdThisWeek));
+            Assert.That(result[1].HistoryEvents[0].TaskItemState, Is.EqualTo(TaskItemState.Released));
         }
     }
 }

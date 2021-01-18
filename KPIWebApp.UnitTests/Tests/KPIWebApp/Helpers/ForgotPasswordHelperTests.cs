@@ -14,7 +14,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
         public async Task When_forgot_password()
         {
             var mockDatabaseAccess = new Mock<IUserRepository>();
-            mockDatabaseAccess.Setup(x => x.GetUserInfoByEmailAsync(It.IsAny<string>())).ReturnsAsync(new UserInfo
+            mockDatabaseAccess.Setup(x => x.GetUserByEmailAsync(It.IsAny<string>())).ReturnsAsync(new UserInfo
             {
                 Email = "email@email.com",
                 Password = "Password1"
@@ -39,7 +39,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
                 .Returns(false);
 
             var mockDatabaseAccess = new Mock<IUserRepository>();
-            mockDatabaseAccess.Setup(x => x.GetUserInfoByEmailAsync(It.IsAny<string>())).ReturnsAsync(new UserInfo
+            mockDatabaseAccess.Setup(x => x.GetUserByEmailAsync(It.IsAny<string>())).ReturnsAsync(new UserInfo
             {
                 Email = "email@email.com",
                 Password = "Password1"
@@ -62,7 +62,7 @@ namespace KPIDataExtractor.UnitTests.Tests.KPIWebApp.Helpers
 
 
             var mockDatabaseAccess = new Mock<IUserRepository>();
-            mockDatabaseAccess.Setup(x => x.GetUserInfoByEmailAsync(It.IsAny<string>())).ThrowsAsync(new Exception());
+            mockDatabaseAccess.Setup(x => x.GetUserByEmailAsync(It.IsAny<string>())).ThrowsAsync(new Exception());
 
             var forgotPasswordHelper = new ForgotPasswordHelper(mockDatabaseAccess.Object, mockEmailManager.Object);
 

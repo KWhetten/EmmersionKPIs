@@ -6,16 +6,16 @@ namespace KPIWebApp.IntegrationTests.Tests.DataManipulation.DataRepositories
 {
     public class DeveloperRepositoryTests
     {
-        private DeveloperRepository developerRepository = new DeveloperRepository();
+        private readonly DeveloperRepository developerRepository = new DeveloperRepository();
         private const string Name = "Name1";
 
         [Test]
-        public async Task When_adding_new_developer()
+        public async Task When_inserting_new_developer()
         {
-            await developerRepository.SaveDeveloperAsync(Name);
+            await developerRepository.InsertDeveloperAsync(Name);
             var result = await developerRepository.GetDeveloperByNameAsync(Name);
 
-            Assert.That(result, Is.EqualTo(Name));
+            Assert.That(result.Name, Is.EqualTo(Name));
         }
 
         [TearDown]

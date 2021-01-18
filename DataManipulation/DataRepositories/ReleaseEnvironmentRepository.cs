@@ -28,19 +28,19 @@ namespace DataAccess.DataRepositories
 
         public async Task<ReleaseEnvironment> GetReleaseEnvironmentByIdAsync(int releaseEnvironmentId)
         {
-            var sql = $"SELECT * FROM ReleaseEnvironment WHERE Id = @releaseEnvironmentId;";
+            var sql = $"SELECT * FROM ReleaseEnvironments WHERE Id = @releaseEnvironmentId;";
             var releaseEnvironment = await databaseConnection.DbConnection
                 .QueryAsync<ReleaseEnvironment>(sql, new {releaseEnvironmentId});
             return releaseEnvironment.First();
         }
 
-        public async Task SaveReleaseEnvironmentAsync(int id, string name)
+        public virtual async Task SaveReleaseEnvironmentAsync(int id, string name)
         {
-            var sql = @"IF NOT EXISTS(SELECT * FROM ReleaseEnvironment WHERE Id = @id)
-                            INSERT INTO ReleaseEnvironment (Id, Name)
+            var sql = @"IF NOT EXISTS(SELECT * FROM ReleaseEnvironments WHERE Id = @id)
+                            INSERT INTO ReleaseEnvironments (Id, Name)
                             VALUES (@id, @name);
                         ELSE
-                            UPDATE ReleaseEnvironment SET Name = @name WHERE Id = @id";
+                            UPDATE ReleaseEnvironments SET Name = @name WHERE Id = @id";
             await databaseConnection.DbConnection.ExecuteAsync(sql, new {id, name});
         }
 
@@ -49,7 +49,7 @@ namespace DataAccess.DataRepositories
             databaseConnection.GetNewConnection();
             await using (databaseConnection.DbConnection)
             {
-                var sql = $"DELETE FROM ReleaseEnvironment WHERE Id = @releaseEnvironmentId";
+                var sql = $"DELETE FROM ReleaseEnvironments WHERE Id = @releaseEnvironmentId";
                 await databaseConnection.DbConnection.ExecuteAsync(sql, new {releaseEnvironmentId});
             }
         }

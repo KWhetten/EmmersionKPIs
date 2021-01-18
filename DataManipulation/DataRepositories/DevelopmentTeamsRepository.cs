@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using DataAccess.Objects;
 
 namespace DataAccess.DataRepositories
 {
@@ -12,7 +13,7 @@ namespace DataAccess.DataRepositories
         {
             databaseConnection = new DatabaseConnection();
         }
-        public async Task SaveTeamAsync(int id, string name)
+        public async Task InsertDevTeamAsync(int id, string name)
         {
             var sql = @"IF NOT EXISTS (SELECT * FROM DevelopmentTeams WHERE Id = @id)
                             INSERT INTO DevelopmentTeams (Id, Name)
@@ -21,11 +22,13 @@ namespace DataAccess.DataRepositories
             await databaseConnection.DbConnection.ExecuteAsync(sql, new { id, name });
         }
 
-        public async Task<DevTeam> GetTeam(int id)
+        public async Task<DevelopmentTeam> GetTeamAsync(int id)
         {
             var sql = "SELECT * FROM DevelopmentTeams WHERE Id = @id";
 
-            return (await databaseConnection.DbConnection.QueryAsync<DevTeam>(sql, new { id })).First();
+            var result = (await databaseConnection.DbConnection.QueryAsync<DevelopmentTeam>(sql, new {id})).First();
+
+            return result;
         }
 
         public async Task RemoveTeam(int id)
@@ -34,11 +37,5 @@ namespace DataAccess.DataRepositories
 
             await databaseConnection.DbConnection.ExecuteAsync(sql, new { id });
         }
-    }
-
-    public class DevTeam
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
     }
 }

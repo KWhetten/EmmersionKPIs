@@ -10,37 +10,55 @@ namespace KPIWebApp.Helpers
 {
     public class OverviewHelper
     {
-        private readonly ITaskItemRepository taskItemRepository = new TaskItemRepository();
-        private readonly IReleaseRepository releaseRepository = new ReleaseRepository();
-        private readonly ILeadTimeHelper leadTimeHelper = new LeadTimeHelper();
+        private readonly ITaskItemRepository taskItemRepository;
+        private readonly IReleaseRepository releaseRepository;
+        private readonly ILeadTimeHelper leadTimeHelper;
+        private readonly IReleaseHelper releaseHelper;
+        private readonly ITaskItemHelper taskItemHelper;
         private bool Product { get; set; } = true;
         private bool Engineering { get; set; } = true;
         private bool Unanticipated { get; set; } = true;
         private bool EnterpriseTeam { get; set; } = true;
         private bool AssessmentsTeam { get; set; } = true;
 
-        public OverviewHelper(){ }
-
+        public OverviewHelper()
+        {
+            taskItemRepository = new TaskItemRepository();
+            releaseRepository = new ReleaseRepository();
+            leadTimeHelper = new LeadTimeHelper();
+            releaseHelper = new ReleaseHelper();
+            taskItemHelper = new TaskItemHelper();
+        }
         public OverviewHelper(ITaskItemRepository taskItemRepository)
         {
             this.taskItemRepository = taskItemRepository;
+            releaseRepository = new ReleaseRepository();
+            leadTimeHelper = new LeadTimeHelper();
+            releaseHelper = new ReleaseHelper();
+            taskItemHelper = new TaskItemHelper();
         }
-
-        public OverviewHelper(bool product, bool engineering, bool unanticipated)
-        {
-            Product = product;
-            Engineering = engineering;
-            Unanticipated = unanticipated;
-        }
-
         public OverviewHelper(IReleaseRepository releaseRepository)
         {
+            taskItemRepository = new TaskItemRepository();
             this.releaseRepository = releaseRepository;
+            leadTimeHelper = new LeadTimeHelper();
+            releaseHelper = new ReleaseHelper();
+            taskItemHelper = new TaskItemHelper();
+        }
+
+        public OverviewHelper(IReleaseRepository releaseRepository, IReleaseHelper releaseHelper)
+        {
+            taskItemRepository = new TaskItemRepository();
+            this.releaseRepository = releaseRepository;
+            leadTimeHelper = new LeadTimeHelper();
+            this.releaseHelper = releaseHelper;
+            taskItemHelper = new TaskItemHelper();
         }
 
         public async Task<List<TaskItem>> GetTaskItemData(DateTimeOffset startDate, DateTimeOffset finishDate)
         {
-            return await taskItemRepository.GetTaskItemListAsync(startDate, finishDate);
+            var result = await taskItemRepository.GetTaskItemListAsync(startDate, finishDate);
+            return result;
         }
 
         public async Task<List<Release>> GetReleaseData(DateTimeOffset startDate, DateTimeOffset finishDate)
@@ -59,9 +77,7 @@ namespace KPIWebApp.Helpers
 
             var taskItemList = await GetTaskItemData(startDate, finishDate);
 
-            var overviewData = new TaskItemOverviewData();
-
-            overviewData = PopulateOverviewData(overviewData, taskItemList);
+            var overviewData = PopulateOverviewData(taskItemList);
 
             return overviewData;
         }
@@ -75,30 +91,30 @@ namespace KPIWebApp.Helpers
 
             var releaseList = await GetReleaseData(startDate, finishDate);
 
-            var selectedReleases = releaseList.Where(release => ReleaseHelper.DevTeamForReleaseIsSelected(assessmentsTeam, enterpriseTeam, release)).ToList();
+            var selectedReleases = releaseList.Where(release => releaseHelper.DevTeamForReleaseIsSelected(assessmentsTeam, enterpriseTeam, release)).ToList();
 
-            var releaseHelper = new ReleaseHelper();
             var overviewData = new ReleaseOverviewData();
 
             if (selectedReleases.Count != 0)
             {
-                overviewData = releaseHelper.PopulateOverviewData(overviewData, selectedReleases, finishDate,
+                overviewData = releaseHelper.PopulateOverviewData(selectedReleases, finishDate,
                     assessmentsTeam, enterpriseTeam);
             }
 
             return overviewData;
         }
 
-        public virtual TaskItemOverviewData PopulateOverviewData(TaskItemOverviewData taskItemOverviewData, List<TaskItem> taskItemList)
+        public virtual TaskItemOverviewData PopulateOverviewData(List<TaskItem> taskItemList)
         {
             var count = 0;
+            var taskItemOverviewData = new TaskItemOverviewData();
 
             if (taskItemList.Count == 0)
             {
+                taskItemOverviewData.ShortestLeadTime = 0;
+                taskItemOverviewData.LongestLeadTime = 0;
                 return taskItemOverviewData;
             }
-
-            var taskItemHelper = new TaskItemHelper();
 
             foreach (var item in taskItemList.Where(
                 item => taskItemHelper.TaskItemTypeIsSelected(Product, Engineering, Unanticipated, item)
@@ -128,7 +144,9 @@ namespace KPIWebApp.Helpers
             }
 
             var averageLeadTimeTaskItems = taskItemList.Where(taskItem =>
-                taskItem.StartTime != null && taskItem.FinishTime != null).ToList();
+                taskItem.StartTime != null && taskItem.FinishTime != null
+                && taskItemHelper.TaskItemTypeIsSelected(Product, Engineering, Unanticipated, taskItem)
+                && taskItemHelper.TaskItemDevTeamIsSelected(AssessmentsTeam, EnterpriseTeam, taskItem)).ToList();
 
             taskItemOverviewData.AverageLeadTime = (averageLeadTimeTaskItems.Sum(item => item.LeadTimeHours) /
                                             averageLeadTimeTaskItems.Count);

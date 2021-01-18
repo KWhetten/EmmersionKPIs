@@ -14,7 +14,7 @@ namespace KPIWebApp.Controllers
         public async Task<UserInfo> Post(LoginUserHelper.LoginData data)
         {
             var loginUserHelper = new LoginUserHelper();
-            return await loginUserHelper.LoginUser(data);
+            return await loginUserHelper.LoginUserAsync(data);
         }
     }
 }
